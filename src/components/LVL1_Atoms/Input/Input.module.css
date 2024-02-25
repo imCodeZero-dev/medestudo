@@ -1,0 +1,48 @@
+.inputField {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  /* border-radius: 8px;
+  font-size: 11px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  padding-left: 10px;
+  padding-right: 10px; */
+
+  height: 64px;
+  /* padding: 20px, 12px, 20px, 12px; */
+  border-radius: 8px;
+  gap: 5px;
+}
+
+.inputField-wrap {
+  column-gap: 10px;
+  border-radius: 8px;
+  border: 1.5px solid rgba(15, 19, 34, 0.08);
+  background: #fff;
+  box-shadow: 0px 6px 32px 0px rgba(15, 19, 34, 0.04);
+  display: flex;
+  align-items: center;
+  padding-left: 8px;
+}
+.inputField-wrap-password {
+  border-radius: 8px;
+  border: 1.5px solid rgba(15, 19, 34, 0.08);
+  background: #fff;
+  box-shadow: 0px 6px 32px 0px rgba(15, 19, 34, 0.04);
+  display: flex;
+  align-items: center;
+  padding-left: 11px;
+  padding-right: 0px;
+}
+
+.labelText {
+  /* //styleName: Text md/Regular; */
+  font-family: Inter;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0em;
+  text-align: left;
+  margin-bottom: 4px;
+}

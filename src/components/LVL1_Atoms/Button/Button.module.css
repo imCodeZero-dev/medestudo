@@ -1,0 +1,9 @@
+.primaryActive {
+  width: 100%;
+  height: 64px;
+  border-radius: 8px;
+  background: #0030dd;
+  color: white;
+  border-radius: 8px;
+  font-weight: 400;
+}

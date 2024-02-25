@@ -1,0 +1,47 @@
+.AdminLogin {
+  background-color: rgba(248, 251, 255, 1);
+  width: 100vw;
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+}
+
+.header {
+}
+.logo {
+  width: 120px;
+  height: 48px;
+  object-fit: contain;
+}
+
+.AdminLogin-main {
+  width: 400px;
+  margin: auto;
+}
+
+.h2Heading {
+  /* font-family: Poppins; */
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 36px;
+  letter-spacing: 0em;
+  display: flex;
+  column-gap: 6px;
+  align-items: center;
+  justify-content: center;
+}
+
+.form {
+  margin-top: 24px;
+}
+
+.inputDiv {
+  margin-bottom: 12px;
+}
+
+.forgotText {
+  /* font-family: Poppins; */
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 21px;
+}
