@@ -1,0 +1,37 @@
+.AdminLayout {
+  /* display: flex;
+    flex-direction: column; */
+}
+
+.AdminLayout-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.AdminLayout-header-buttons {
+  display: flex;
+  column-gap: 3px;
+}
+.logo {
+  width: 120px;
+  height: 48px;
+  object-fit: contain;
+}
+
+.AdminLayout-header-left {
+  display: flex;
+  align-items: center;
+}
+.AdminLayout-header-right {
+  display: flex;
+  column-gap: 3px;
+}
+
+.iconDiv {
+  width: 40px;
+  height: 40px;
+  padding: 10px;
+  border-radius: 6px;
+  display: flex;
+  background-color: wheat;
+}

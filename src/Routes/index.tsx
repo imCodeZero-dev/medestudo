@@ -6,6 +6,7 @@ const LoadingScreen = React.lazy(
 );
 const NotFound = React.lazy(() => import("../pages/NotFound"));
 const AdminLogin = React.lazy(() => import("../pages/AdminLogin/AdminLogin"));
+const AdminDashboard = React.lazy(() => import("../pages/Admin/AdminDashboard/AdminDashboard"));
 const App = React.lazy(() => import("../App"));
 
 
@@ -17,6 +18,7 @@ const ProjectRoutes = () => {
         <Routes>
           <Route path="/" element={<App />} />
           <Route path="/admin/login" element={<AdminLogin />} />
+          <Route path="/admin" element={<AdminDashboard />} />
 
           <Route path="*" element={<NotFound />} />
         </Routes>
