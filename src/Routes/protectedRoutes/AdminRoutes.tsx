@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import LoadingScreen from "../../pages/LoadingScreen/LoadingScreen";
 import PropTypes from "prop-types";
 import { useCookies } from "react-cookie";
-import { IAdmin, IUser } from "../../constants/DataTypes";
+import { IAdmin, IUser } from "../../utils/constants/DataTypes";
 
 interface Props {
   children: ReactNode;

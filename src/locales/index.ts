@@ -6,6 +6,7 @@ import { TITLES } from "./TITLES";
 import { TEXT } from "./TEXT";
 import { PLACEHOLDERS } from "./PLACEHOLDERS";
 import { LABELS } from "./LABELS";
+import { DROPDOWNS } from "./DROPDOWNS";
 
 type Language = "en" | "es";
 
@@ -19,8 +20,16 @@ const useLocale = () => {
   const localeText = TEXT[currentLanguage as Language];
   const localePlaceholders = PLACEHOLDERS[currentLanguage as Language];
   const localeLables = LABELS[currentLanguage as Language];
+  const localeDropdowns = DROPDOWNS[currentLanguage as Language];
 
-  return { localeButtons, localeTitles, localeText, localePlaceholders ,localeLables};
+  return {
+    localeButtons,
+    localeTitles,
+    localeText,
+    localePlaceholders,
+    localeLables,
+    localeDropdowns,
+  };
 };
 
 export default useLocale;

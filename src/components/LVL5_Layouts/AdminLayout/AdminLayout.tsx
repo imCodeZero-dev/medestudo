@@ -10,6 +10,8 @@ import notificationImg from "../../../assets/Images/dashboard/notification.png";
 import SettingIcon from "../../../assets/svgs/SettingIcon";
 import BellIcon from "../../../assets/svgs/BellIcon";
 import LanguageDropdown from "../../LVL3_Cells/LangaugeDropdown/LangaugeDropdown";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../redux/store";
 
 const AdminLayout = ({ children }: AdminLayoutProps) => {
   const navigate = useNavigate();
@@ -24,21 +26,6 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
     { label: "Decks", route: "/admin/decks" },
     { label: "Tags", route: "/admin/tags" },
   ];
-  interface Language {
-    code: string;
-    name: string;
-  }
-  const languages = [
-    { code: "en", name: "English" },
-    { code: "fr", name: "French" },
-  ];
-
-  const [currentLanguage, setCurrentLanguage] = useState(languages[0]);
-
-  const handleLanguageChange = (selectedLanguage: Language) => {
-    setCurrentLanguage(selectedLanguage);
-    // Implement logic for changing the language in your application
-  };
 
   return (
     <div className={styles["AdminLayout"]}>
@@ -63,18 +50,16 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
           </div>
         </div>
         <div className={styles["AdminLayout-header-right"]}>
-          <LanguageDropdown
-            languages={languages}
-            currentLanguage={currentLanguage.name}
-            onLanguageChange={handleLanguageChange}
-          />
+          <LanguageDropdown />
           <div className={styles["iconDiv"]}>
             <SettingIcon />
           </div>
           <div className={styles["iconDiv"]}>
             <BellIcon />
           </div>
-          <RxAvatar size={40} />
+          <div className="ml-3 cursor-pointer">
+            <RxAvatar size={40} />
+          </div>
         </div>
       </div>
       {children}

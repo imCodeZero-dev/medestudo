@@ -82,7 +82,7 @@ const AdminLogin = ({}) => {
             <Text className={styles['forgotText']}>{localeText?.TEXT_FORGOT_PASSWORD}</Text>
           </div>
 
-          <Button className="primaryActive">
+          <Button type="submit" className="primaryActive">
             {localeButtons.BUTTON_LOGIN}
           </Button>
         </form>

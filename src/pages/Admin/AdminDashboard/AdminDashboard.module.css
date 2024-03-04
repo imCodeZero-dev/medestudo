@@ -1,0 +1,43 @@
+.AdminDashboard {
+}
+
+.AdminDashboard-head {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 24px;
+}
+
+.head-right {
+  display: flex;
+  column-gap: 16px;
+  align-items: center;
+}
+
+.mainHeading {
+  font-family: Inter;
+  font-size: 30px;
+  font-weight: 600;
+  line-height: 38px;
+  letter-spacing: 0em;
+  text-align: left;
+}
+
+.mainHeading {
+  font-family: Inter;
+  font-size: 30px;
+  font-weight: 600;
+  line-height: 38px;
+  letter-spacing: 0em;
+  /* text-align: left; */
+}
+
+.greyText {
+  /* //styleName: Text md/Regular; */
+  font-family: Inter;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0em;
+  color: #475467;
+  /* text-align: left; */
+}

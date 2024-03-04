@@ -1,1 +1,14 @@
-
+.mainDiv {
+  display: flex;
+  width: 104px;
+  height: 40px;
+  padding: 10px;
+  border-radius: 6px;
+  gap: 12px;
+  align-items: center;
+  background-color: white;
+  cursor: pointer;
+  color: #4B78BB;
+  font-weight: 600;
+  font-size: 14px;
+}

@@ -1,25 +1,26 @@
 import React, { useState } from "react";
 import { Button, Menu, MenuItem, IconButton } from "@mui/material";
 import { TbWorld } from "react-icons/tb";
+import { Language, LanguageDropdownProps } from "./@types";
 // import LanguageIcon from "@mui/icons-material/Language";
+import { FaCaretDown, FaCaretUp } from "react-icons/fa";
+import styles from "./LangaugeDropdown.module.css";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../../redux/store";
+import Text from "../../LVL1_Atoms/Text/Text";
+import useLocale from "../../../locales";
+import { setLanguage } from "../../../redux/slices/languageSlice";
 
-interface Language {
-  code: string;
-  name: string;
-}
+const LanguageDropdown: React.FC<LanguageDropdownProps> = ({}) => {
+  const dispatch = useDispatch();
 
-interface LanguageDropdownProps {
-  languages: Language[];
-  currentLanguage: Language;
-  onLanguageChange: (selectedLanguage: Language) => void;
-}
+  const currentLang = useSelector(
+    (state: RootState) => state.language.currentLanguage
+  );
 
-const LanguageDropdown: React.FC<LanguageDropdownProps> = ({
-  languages,
-  currentLanguage,
-  onLanguageChange,
-}) => {
+  console.log("currentLang", currentLang);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const { localeDropdowns } = useLocale();
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -29,24 +30,38 @@ const LanguageDropdown: React.FC<LanguageDropdownProps> = ({
     setAnchorEl(null);
   };
 
-  const handleLanguageChange = (selectedLanguage: Language) => {
+  const handleLanguageChange = (selectedLanguage: string) => {
+    dispatch(setLanguage(selectedLanguage));
     handleClose();
-    onLanguageChange(selectedLanguage);
   };
 
+  const langs = [
+    { code: "en", label: localeDropdowns?.DROPDOWN_ENG },
+    { code: "es", label: localeDropdowns?.DROPDOWN_ESP },
+  ];
+
   return (
-    <div>
-      <IconButton size="small" onClick={handleClick}>
-        <TbWorld />
-      </IconButton>
+    <div className={styles["LanguageDropdown"]}>
+      <div className={styles["mainDiv"]} onClick={(e: any) => handleClick(e)}>
+        <div className="flex items-center space-x-1">
+          <TbWorld />
+          <Text className={styles["dropdownTxt"]}>
+            {currentLang === "en"
+              ? localeDropdowns.DROPDOWN_ENG
+              : localeDropdowns.DROPDOWN_ESP}
+          </Text>
+        </div>
+
+        <FaCaretDown />
+      </div>
 
       <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
-        {languages.map((language) => (
+        {langs.map((language) => (
           <MenuItem
-            key={language.code}
-            onClick={() => handleLanguageChange(language)}
+            key={language?.code}
+            onClick={() => handleLanguageChange(language?.code)}
           >
-            {language.name}
+            {language?.label}
           </MenuItem>
         ))}
       </Menu>

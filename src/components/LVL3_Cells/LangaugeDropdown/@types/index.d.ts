@@ -1,5 +1,8 @@
-import { RegisterOptions, FieldError, Control } from "react-hook-form";
+interface Language {
+  code: string;
+  name: string;
+}
 
-export type LangaugeDropdownProps = {
+export interface LanguageDropdownProps {
 
-};
+}
