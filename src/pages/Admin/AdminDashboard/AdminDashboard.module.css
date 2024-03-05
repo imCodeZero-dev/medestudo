@@ -41,3 +41,23 @@
   color: #475467;
   /* text-align: left; */
 }
+
+.AdminDashboard-cards {
+  margin: 24px 0;
+  display: grid;
+  grid-template-columns: repeat(
+    4,
+    1fr
+  ); /* 4 columns, each taking equal width */
+  column-gap: 24px;
+  row-gap: 24px;
+}
+
+.AdminDashboard-section{
+margin: 24px 0;
+}
+.AdminDashboard-section-head{
+  display: flex;
+align-items: center;
+justify-content: space-between;
+}

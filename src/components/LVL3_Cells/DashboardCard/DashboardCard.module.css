@@ -1,0 +1,51 @@
+.DashboardCard {
+  /* width: 344px; */
+  height: 183px;
+  padding: 24px;
+  border-radius: 8px;
+  border: 1px;
+  /* gap: 24px; */
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.DashboardCard-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.DashboardCard-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.value {
+  /* //styleName: Display md/Semibold; */
+  font-family: Inter;
+  font-size: 36px;
+  font-weight: 600;
+  line-height: 44px;
+  letter-spacing: -0.02em;
+  text-align: left;
+}
+
+.title {
+  font-family: Inter;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: 0em;
+  text-align: left;
+}
+
+.updatedText {
+  font-family: Inter;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: 0em;
+  text-align: left;
+}
