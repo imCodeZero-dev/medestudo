@@ -1,0 +1,23 @@
+.title {
+  font-family: Inter;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 28px;
+margin-top: 16px;
+
+}
+.basic{
+font-family: Inter;
+font-size: 14px;
+font-weight: 400;
+line-height: 20px;
+margin-top: 8px;
+
+}
+.form{
+  margin-top: 16px;
+}
+
+.inputDiv{
+  margin-top: 4px;
+}

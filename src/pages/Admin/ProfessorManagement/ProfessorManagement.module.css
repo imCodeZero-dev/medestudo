@@ -1,7 +1,7 @@
-.AdminDashboard {
+.ProfessorManagement {
 }
 
-.AdminDashboard-head {
+.ProfessorManagement-head {
   display: flex;
   justify-content: space-between;
   margin-top: 24px;
@@ -11,15 +11,6 @@
   display: flex;
   column-gap: 16px;
   align-items: center;
-}
-
-.mainHeading {
-  font-family: Inter;
-  font-size: 30px;
-  font-weight: 600;
-  line-height: 38px;
-  letter-spacing: 0em;
-  text-align: left;
 }
 
 .mainHeading {
@@ -42,21 +33,21 @@
   /* text-align: left; */
 }
 
-.AdminDashboard-cards {
+.ProfessorManagement-cards {
   margin: 24px 0;
   display: grid;
   grid-template-columns: repeat(
-    4,
+    3,
     1fr
   ); /* 4 columns, each taking equal width */
   column-gap: 24px;
   row-gap: 24px;
 }
 
-.AdminDashboard-section {
+.ProfessorManagement-section {
   margin: 24px 0;
 }
-.AdminDashboard-section-head {
+.ProfessorManagement-section-head {
   display: flex;
   align-items: center;
   justify-content: space-between;

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styles from "./AdminLayout.module.css";
 import { AdminLayoutProps } from "./types";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Button } from "../../LVL1_Atoms/Button";
 import logoImg from "../../../assets/MedEstudo-assets/MedEstudo-Final-Logos/Logo/medestudo-logo-horizontal-blue.png";
 import { RxAvatar } from "react-icons/rx";
@@ -16,6 +16,7 @@ import { RootState } from "../../../redux/store";
 const AdminLayout = ({ children }: AdminLayoutProps) => {
   const navigate = useNavigate();
   const [activeButton, setActiveButton] = useState<string>("");
+  const location = useLocation();
 
   const buttons = [
     { label: "Dashboard", route: "/admin" },
@@ -26,6 +27,17 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
     { label: "Decks", route: "/admin/decks" },
     { label: "Tags", route: "/admin/tags" },
   ];
+  const getNavItemClassName = (label: string) => {
+    // console.log("label", label);
+    let isActive;
+    if (label === "Dashboard" && location.pathname === "/admin") {
+      isActive = true;
+    } else {
+      isActive = location.pathname.includes(label.toLowerCase());
+    }
+
+    return isActive ? "primaryTab" : "secondaryTab";
+  };
 
   return (
     <div className={styles["AdminLayout"]}>
@@ -36,12 +48,10 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
             {buttons?.map((button) => (
               <Button
                 key={button.label}
-                className={
-                  activeButton === button.label ? "primaryTab" : "secondaryTab"
-                }
+                className={getNavItemClassName(button.label)}
                 onClick={() => {
                   setActiveButton(button.label);
-                  // navigate(button.route);
+                  navigate(button.route);
                 }}
               >
                 {button.label}

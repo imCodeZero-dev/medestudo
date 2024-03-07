@@ -1,6 +1,6 @@
 import { useState } from "react";
-import styles from "./AdminDashboard.module.css";
-import { AdminDashboardProps } from "./types";
+import styles from "./ProfessorManagement.module.css";
+import { ProfessorManagementProps } from "./types";
 import { useNavigate } from "react-router-dom";
 import AdminLayout from "../../../components/LVL5_Layouts/AdminLayout/AdminLayout";
 import Text from "../../../components/LVL1_Atoms/Text/Text";
@@ -14,12 +14,12 @@ import professorsImg from "../../../assets/Images/dashboard/professors.png";
 import flashcardsImg from "../../../assets/Images/dashboard/flashcards.png";
 import examsImgs from "../../../assets/Images/dashboard/exams.png";
 import CustomTable from "../../../components/LVL3_Cells/CustomTable/CustomTable";
-import { useAdminDashboard } from "./hook";
+import { useProfessorManagement } from "./hook";
 import { Chip } from "@mui/material";
 import CreateProfessorModal from "../../../components/LVL4_Organs/CreateProfessorModal/CreateProfessorModal";
 import { AdminRoutes } from "../../../Routes/protectedRoutes/AdminRoutes";
 
-const AdminDashboard = ({}: AdminDashboardProps) => {
+const ProfessorManagement = ({}: ProfessorManagementProps) => {
   const navigate = useNavigate();
   const [activeButton, setActiveButton] = useState<string>("");
   const { localeTitles, localeButtons } = useLocale();
@@ -31,25 +31,10 @@ const AdminDashboard = ({}: AdminDashboardProps) => {
     handleCloseProfessor,
     handleSubmit,
     onSubmitCreateProfessor,
-  } = useAdminDashboard();
+  } = useProfessorManagement();
   console.log("cookies", cookies);
 
   const cards = [
-    {
-      title: localeTitles?.TITLE_TOTAL_STUDENTS,
-      value: "2420",
-      img: studentsImg,
-    },
-    {
-      title: localeTitles?.TITLE_ACTIVE_STUDENTS,
-      value: "2420",
-      img: studentsImg,
-    },
-    {
-      title: localeTitles?.TITLE_DISABLED_STUDENTS,
-      value: "2420",
-      img: studentsImg,
-    },
     {
       title: localeTitles?.TITLE_TOTAL_PROFESSORS,
       value: "2420",
@@ -65,12 +50,6 @@ const AdminDashboard = ({}: AdminDashboardProps) => {
       value: "2420",
       img: professorsImg,
     },
-    {
-      title: localeTitles?.TITLE_TOTAL_FLASHCARDS,
-      value: "2420",
-      img: flashcardsImg,
-    },
-    { title: localeTitles?.TITLE_TOTAL_EXAMS, value: "2420", img: examsImgs },
   ];
 
   const headers = [
@@ -382,27 +361,28 @@ const AdminDashboard = ({}: AdminDashboardProps) => {
 
   return (
     <AdminLayout>
-      <div className={styles["AdminDashboard"]}>
-        <div className={styles["AdminDashboard-head"]}>
+      <div className={styles["ProfessorManagement"]}>
+        <div className={styles["ProfessorManagement-head"]}>
           <div className={styles["head-left"]}>
             <Text className={styles["mainHeading"]}>
-              {localeTitles?.WELCOME_BACK_ADMIN}
+              {localeTitles?.TITLE_PROFESSORS}
             </Text>
             <Text className={styles["greyText"]}>
               {localeTitles?.WELCOME_TRACK_WHATS_GOING_ON_YOUR_PLATFORM}
             </Text>
           </div>
           <div className={styles["head-right"]}>
-            <Button leftIcon={<IoMdAdd />} className="secondaryBtn">
-              {localeButtons?.BUTTON_CREATE_TAG}
-            </Button>
-            <Button leftIcon={<IoMdAdd />} className="purpleBtn">
-              {localeButtons?.BUTTON_CREATE_DECK}
+            <Button
+              leftIcon={<IoMdAdd />}
+              className="purpleBtn"
+              onClick={handleOpenProfessor}
+            >
+              {localeButtons?.BUTTON_CREATE_PROFESSOR}
             </Button>
           </div>
         </div>
 
-        <div className={styles["AdminDashboard-cards"]}>
+        <div className={styles["ProfessorManagement-cards"]}>
           {cards?.map((val, i) => (
             <DashboardCard
               key={i}
@@ -413,76 +393,18 @@ const AdminDashboard = ({}: AdminDashboardProps) => {
           ))}
         </div>
 
-        <div className={styles["AdminDashboard-section"]}>
-          <div className={styles["AdminDashboard-section-head"]}>
-            <div className="flex space-x-2 items-center">
-              <Text className={styles["sectionHeading"]}>
-                {localeTitles?.TITLE_PROFESSORS}
-              </Text>
-
-              <Chip
-                label={`Recent`}
-                color="secondary"
-                variant="outlined"
-                style={{
-                  fontWeight: 500,
-                  fontSize: "14px",
-                  fontFamily: "Inter",
-                }}
-              />
-            </div>
-
-            <Button
-              leftIcon={<IoMdAdd />}
-              onClick={handleOpenProfessor}
-              className="purpleBtn"
-            >
-              {localeButtons?.BUTTON_CREATE_NEW}
-            </Button>
-          </div>
+        <div className={styles["ProfessorManagement-section"]}>
           <CustomTable
             headers={headers}
             data={data}
             control={control}
             // pagination={true}
-            rowsPerPage={5}
-            showPagination={false}
+            rowsPerPage={10}
+            showPagination={true}
             showDeleteIcon={true}
             showEditIcon={true}
             title={"Professors"}
-            handleStatusToggle={handleStatusToggle}
-          />
-        </div>
-
-        <div className={styles["AdminDashboard-section"]}>
-          <div className={styles["AdminDashboard-section-head"]}>
-            <div className="flex space-x-2 items-center">
-              <Text className={styles["sectionHeading"]}>
-                {localeTitles?.TITLE_STUDENTS}
-              </Text>
-
-              <Chip
-                label={`Recent`}
-                color="secondary"
-                variant="outlined"
-                style={{
-                  fontWeight: 500,
-                  fontSize: "14px",
-                  fontFamily: "Inter",
-                }}
-              />
-            </div>
-          </div>
-          <CustomTable
-            headers={headers}
-            data={data}
-            control={control}
-            // pagination={true}
-            rowsPerPage={5}
-            showPagination={false}
-            showDeleteIcon={true}
-            // showEditIcon={true}
-            title={"Professors"}
+            showHeader
             handleStatusToggle={handleStatusToggle}
           />
         </div>
@@ -499,10 +421,10 @@ const AdminDashboard = ({}: AdminDashboardProps) => {
   );
 };
 
-export default function AdminDashboardServices() {
+export default function ProfessorManagementServices() {
   return (
     <AdminRoutes>
-      <AdminDashboard />
+      <ProfessorManagement />
     </AdminRoutes>
   );
 }

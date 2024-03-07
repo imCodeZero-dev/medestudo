@@ -11,14 +11,14 @@ interface Props {
 
 export const AdminRoutes = ({ children }: Props) => {
   const navigate = useNavigate();
-  const [cookies, setCookie, removeCookie] = useCookies(["user"] as any);
-  console.log("object", cookies.accessToken);
+  const [cookies, setCookie, removeCookie] = useCookies(["admin"] as any);
+  // console.log("object", cookies.accessToken);
 
-  // useEffect(() => {
-  //   if (cookies?.accessToken) {
-  //     navigate("/");
-  //   }
-  // }, [cookies, navigate]);
+  useEffect(() => {
+    if (!cookies?.admin?.token) {
+      navigate("/admin/login");
+    }
+  }, [cookies, navigate]);
 
   // If userData and accessToken are present, render the children
   return !cookies?.accessToken ? <>{children}</> : <LoadingScreen />;

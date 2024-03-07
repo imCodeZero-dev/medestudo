@@ -1,6 +1,6 @@
 import { useState } from "react";
-import styles from "./AdminDashboard.module.css";
-import { AdminDashboardProps } from "./types";
+import styles from "./StudentManagement.module.css";
+import { StudentManagementProps } from "./types";
 import { useNavigate } from "react-router-dom";
 import AdminLayout from "../../../components/LVL5_Layouts/AdminLayout/AdminLayout";
 import Text from "../../../components/LVL1_Atoms/Text/Text";
@@ -14,12 +14,12 @@ import professorsImg from "../../../assets/Images/dashboard/professors.png";
 import flashcardsImg from "../../../assets/Images/dashboard/flashcards.png";
 import examsImgs from "../../../assets/Images/dashboard/exams.png";
 import CustomTable from "../../../components/LVL3_Cells/CustomTable/CustomTable";
-import { useAdminDashboard } from "./hook";
+import { useStudentManagement } from "./hook";
 import { Chip } from "@mui/material";
 import CreateProfessorModal from "../../../components/LVL4_Organs/CreateProfessorModal/CreateProfessorModal";
 import { AdminRoutes } from "../../../Routes/protectedRoutes/AdminRoutes";
 
-const AdminDashboard = ({}: AdminDashboardProps) => {
+const StudentManagement = ({}: StudentManagementProps) => {
   const navigate = useNavigate();
   const [activeButton, setActiveButton] = useState<string>("");
   const { localeTitles, localeButtons } = useLocale();
@@ -31,7 +31,7 @@ const AdminDashboard = ({}: AdminDashboardProps) => {
     handleCloseProfessor,
     handleSubmit,
     onSubmitCreateProfessor,
-  } = useAdminDashboard();
+  } = useStudentManagement();
   console.log("cookies", cookies);
 
   const cards = [
@@ -50,37 +50,15 @@ const AdminDashboard = ({}: AdminDashboardProps) => {
       value: "2420",
       img: studentsImg,
     },
-    {
-      title: localeTitles?.TITLE_TOTAL_PROFESSORS,
-      value: "2420",
-      img: professorsImg,
-    },
-    {
-      title: localeTitles?.TITLE_ACTIVE_PROFESSORS,
-      value: "2420",
-      img: professorsImg,
-    },
-    {
-      title: localeTitles?.TITLE_DISABLED_PROFESSOR,
-      value: "2420",
-      img: professorsImg,
-    },
-    {
-      title: localeTitles?.TITLE_TOTAL_FLASHCARDS,
-      value: "2420",
-      img: flashcardsImg,
-    },
-    { title: localeTitles?.TITLE_TOTAL_EXAMS, value: "2420", img: examsImgs },
   ];
 
   const headers = [
     "ID",
     "Name",
-    "Email address",
     "Last Activity",
-    "Created On",
-    "Flashcards Created",
-    "Past Exams Created",
+    "Joined On",
+    "Joined VIA",
+    "Email address",
     "Status",
     "Action",
   ];
@@ -91,11 +69,10 @@ const AdminDashboard = ({}: AdminDashboardProps) => {
         "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
       name: "John Doe",
       status: "active",
-      email: "test@test.com",
       lastActivity: "21 Dec,2022",
-      createdOn: "21 Dec,2022",
-      flashcardsCreated: 50,
-      PastExamsCreated: 25,
+      email: "test@test.com",
+      joinedOn: "21 Dec,2022",
+      joinedVia: "Google",
     },
     {
       id: 1,
@@ -105,9 +82,8 @@ const AdminDashboard = ({}: AdminDashboardProps) => {
       status: "disable",
       email: "test@test.com",
       lastActivity: "21 Dec,2022",
-      createdOn: "21 Dec,2022",
-      flashcardsCreated: 50,
-      PastExamsCreated: 25,
+      joinedOn: "21 Dec,2022",
+      joinedVia: "Google",
     },
     {
       id: 1,
@@ -117,9 +93,8 @@ const AdminDashboard = ({}: AdminDashboardProps) => {
       status: "active",
       email: "test@test.com",
       lastActivity: "21 Dec,2022",
-      createdOn: "21 Dec,2022",
-      flashcardsCreated: 50,
-      PastExamsCreated: 25,
+      joinedOn: "21 Dec,2022",
+      joinedVia: "Google",
     },
     {
       id: 1,
@@ -129,9 +104,8 @@ const AdminDashboard = ({}: AdminDashboardProps) => {
       status: "disable",
       email: "test@test.com",
       lastActivity: "21 Dec,2022",
-      createdOn: "21 Dec,2022",
-      flashcardsCreated: 50,
-      PastExamsCreated: 25,
+      joinedOn: "21 Dec,2022",
+      joinedVia: "Google",
     },
     {
       id: 1,
@@ -141,9 +115,8 @@ const AdminDashboard = ({}: AdminDashboardProps) => {
       status: "active",
       email: "test@test.com",
       lastActivity: "21 Dec,2022",
-      createdOn: "21 Dec,2022",
-      flashcardsCreated: 50,
-      PastExamsCreated: 25,
+      joinedOn: "21 Dec,2022",
+      joinedVia: "Google",
     },
     {
       id: 1,
@@ -153,9 +126,8 @@ const AdminDashboard = ({}: AdminDashboardProps) => {
       status: "active",
       email: "test@test.com",
       lastActivity: "21 Dec,2022",
-      createdOn: "21 Dec,2022",
-      flashcardsCreated: 50,
-      PastExamsCreated: 25,
+      joinedOn: "21 Dec,2022",
+      joinedVia: "Google",
     },
     {
       id: 1,
@@ -165,9 +137,8 @@ const AdminDashboard = ({}: AdminDashboardProps) => {
       status: "active",
       email: "test@test.com",
       lastActivity: "21 Dec,2022",
-      createdOn: "21 Dec,2022",
-      flashcardsCreated: 50,
-      PastExamsCreated: 25,
+      joinedOn: "21 Dec,2022",
+      joinedVia: "Google",
     },
     {
       id: 1,
@@ -177,9 +148,8 @@ const AdminDashboard = ({}: AdminDashboardProps) => {
       status: "active",
       email: "test@test.com",
       lastActivity: "21 Dec,2022",
-      createdOn: "21 Dec,2022",
-      flashcardsCreated: 50,
-      PastExamsCreated: 25,
+      joinedOn: "21 Dec,2022",
+      joinedVia: "Google",
     },
     {
       id: 1,
@@ -189,9 +159,8 @@ const AdminDashboard = ({}: AdminDashboardProps) => {
       status: "active",
       email: "test@test.com",
       lastActivity: "21 Dec,2022",
-      createdOn: "21 Dec,2022",
-      flashcardsCreated: 50,
-      PastExamsCreated: 25,
+      joinedOn: "21 Dec,2022",
+      joinedVia: "Google",
     },
     {
       id: 1,
@@ -201,9 +170,8 @@ const AdminDashboard = ({}: AdminDashboardProps) => {
       status: "active",
       email: "test@test.com",
       lastActivity: "21 Dec,2022",
-      createdOn: "21 Dec,2022",
-      flashcardsCreated: 50,
-      PastExamsCreated: 25,
+      joinedOn: "21 Dec,2022",
+      joinedVia: "Google",
     },
     {
       id: 1,
@@ -213,9 +181,8 @@ const AdminDashboard = ({}: AdminDashboardProps) => {
       status: "active",
       email: "test@test.com",
       lastActivity: "21 Dec,2022",
-      createdOn: "21 Dec,2022",
-      flashcardsCreated: 50,
-      PastExamsCreated: 25,
+      joinedOn: "21 Dec,2022",
+      joinedVia: "Google",
     },
     {
       id: 1,
@@ -225,9 +192,8 @@ const AdminDashboard = ({}: AdminDashboardProps) => {
       status: "active",
       email: "test@test.com",
       lastActivity: "21 Dec,2022",
-      createdOn: "21 Dec,2022",
-      flashcardsCreated: 50,
-      PastExamsCreated: 25,
+      joinedOn: "21 Dec,2022",
+      joinedVia: "Google",
     },
     {
       id: 1,
@@ -237,9 +203,8 @@ const AdminDashboard = ({}: AdminDashboardProps) => {
       status: "active",
       email: "test@test.com",
       lastActivity: "21 Dec,2022",
-      createdOn: "21 Dec,2022",
-      flashcardsCreated: 50,
-      PastExamsCreated: 25,
+      joinedOn: "21 Dec,2022",
+      joinedVia: "Google",
     },
     {
       id: 1,
@@ -249,9 +214,8 @@ const AdminDashboard = ({}: AdminDashboardProps) => {
       status: "active",
       email: "test@test.com",
       lastActivity: "21 Dec,2022",
-      createdOn: "21 Dec,2022",
-      flashcardsCreated: 50,
-      PastExamsCreated: 25,
+      joinedOn: "21 Dec,2022",
+      joinedVia: "Google",
     },
     {
       id: 1,
@@ -261,9 +225,8 @@ const AdminDashboard = ({}: AdminDashboardProps) => {
       status: "active",
       email: "test@test.com",
       lastActivity: "21 Dec,2022",
-      createdOn: "21 Dec,2022",
-      flashcardsCreated: 50,
-      PastExamsCreated: 25,
+      joinedOn: "21 Dec,2022",
+      joinedVia: "Google",
     },
     {
       id: 1,
@@ -273,9 +236,8 @@ const AdminDashboard = ({}: AdminDashboardProps) => {
       status: "active",
       email: "test@test.com",
       lastActivity: "21 Dec,2022",
-      createdOn: "21 Dec,2022",
-      flashcardsCreated: 50,
-      PastExamsCreated: 25,
+      joinedOn: "21 Dec,2022",
+      joinedVia: "Google",
     },
     {
       id: 1,
@@ -285,9 +247,8 @@ const AdminDashboard = ({}: AdminDashboardProps) => {
       status: "active",
       email: "test@test.com",
       lastActivity: "21 Dec,2022",
-      createdOn: "21 Dec,2022",
-      flashcardsCreated: 50,
-      PastExamsCreated: 25,
+      joinedOn: "21 Dec,2022",
+      joinedVia: "Google",
     },
     {
       id: 1,
@@ -297,9 +258,8 @@ const AdminDashboard = ({}: AdminDashboardProps) => {
       status: "active",
       email: "test@test.com",
       lastActivity: "21 Dec,2022",
-      createdOn: "21 Dec,2022",
-      flashcardsCreated: 50,
-      PastExamsCreated: 25,
+      joinedOn: "21 Dec,2022",
+      joinedVia: "Google",
     },
     {
       id: 1,
@@ -309,9 +269,8 @@ const AdminDashboard = ({}: AdminDashboardProps) => {
       status: "active",
       email: "test@test.com",
       lastActivity: "21 Dec,2022",
-      createdOn: "21 Dec,2022",
-      flashcardsCreated: 50,
-      PastExamsCreated: 25,
+      joinedOn: "21 Dec,2022",
+      joinedVia: "Google",
     },
     {
       id: 1,
@@ -321,9 +280,8 @@ const AdminDashboard = ({}: AdminDashboardProps) => {
       status: "active",
       email: "test@test.com",
       lastActivity: "21 Dec,2022",
-      createdOn: "21 Dec,2022",
-      flashcardsCreated: 50,
-      PastExamsCreated: 25,
+      joinedOn: "21 Dec,2022",
+      joinedVia: "Google",
     },
     {
       id: 1,
@@ -333,9 +291,8 @@ const AdminDashboard = ({}: AdminDashboardProps) => {
       status: "active",
       email: "test@test.com",
       lastActivity: "21 Dec,2022",
-      createdOn: "21 Dec,2022",
-      flashcardsCreated: 50,
-      PastExamsCreated: 25,
+      joinedOn: "21 Dec,2022",
+      joinedVia: "Google",
     },
     {
       id: 1,
@@ -345,9 +302,8 @@ const AdminDashboard = ({}: AdminDashboardProps) => {
       status: "active",
       email: "test@test.com",
       lastActivity: "21 Dec,2022",
-      createdOn: "21 Dec,2022",
-      flashcardsCreated: 50,
-      PastExamsCreated: 25,
+      joinedOn: "21 Dec,2022",
+      joinedVia: "Google",
     },
     {
       id: 1,
@@ -357,9 +313,8 @@ const AdminDashboard = ({}: AdminDashboardProps) => {
       status: "active",
       email: "test@test.com",
       lastActivity: "21 Dec,2022",
-      createdOn: "21 Dec,2022",
-      flashcardsCreated: 50,
-      PastExamsCreated: 25,
+      joinedOn: "21 Dec,2022",
+      joinedVia: "Google",
     },
     {
       id: 1,
@@ -369,9 +324,8 @@ const AdminDashboard = ({}: AdminDashboardProps) => {
       status: "active",
       email: "test@test.com",
       lastActivity: "21 Dec,2022",
-      createdOn: "21 Dec,2022",
-      flashcardsCreated: 50,
-      PastExamsCreated: 25,
+      joinedOn: "21 Dec,2022",
+      joinedVia: "Google",
     },
 
     // ... additional data
@@ -382,27 +336,19 @@ const AdminDashboard = ({}: AdminDashboardProps) => {
 
   return (
     <AdminLayout>
-      <div className={styles["AdminDashboard"]}>
-        <div className={styles["AdminDashboard-head"]}>
+      <div className={styles["StudentManagement"]}>
+        <div className={styles["StudentManagement-head"]}>
           <div className={styles["head-left"]}>
             <Text className={styles["mainHeading"]}>
-              {localeTitles?.WELCOME_BACK_ADMIN}
+              {localeTitles?.TITLE_STUDENTS}
             </Text>
             <Text className={styles["greyText"]}>
               {localeTitles?.WELCOME_TRACK_WHATS_GOING_ON_YOUR_PLATFORM}
             </Text>
           </div>
-          <div className={styles["head-right"]}>
-            <Button leftIcon={<IoMdAdd />} className="secondaryBtn">
-              {localeButtons?.BUTTON_CREATE_TAG}
-            </Button>
-            <Button leftIcon={<IoMdAdd />} className="purpleBtn">
-              {localeButtons?.BUTTON_CREATE_DECK}
-            </Button>
-          </div>
         </div>
 
-        <div className={styles["AdminDashboard-cards"]}>
+        <div className={styles["StudentManagement-cards"]}>
           {cards?.map((val, i) => (
             <DashboardCard
               key={i}
@@ -413,96 +359,30 @@ const AdminDashboard = ({}: AdminDashboardProps) => {
           ))}
         </div>
 
-        <div className={styles["AdminDashboard-section"]}>
-          <div className={styles["AdminDashboard-section-head"]}>
-            <div className="flex space-x-2 items-center">
-              <Text className={styles["sectionHeading"]}>
-                {localeTitles?.TITLE_PROFESSORS}
-              </Text>
-
-              <Chip
-                label={`Recent`}
-                color="secondary"
-                variant="outlined"
-                style={{
-                  fontWeight: 500,
-                  fontSize: "14px",
-                  fontFamily: "Inter",
-                }}
-              />
-            </div>
-
-            <Button
-              leftIcon={<IoMdAdd />}
-              onClick={handleOpenProfessor}
-              className="purpleBtn"
-            >
-              {localeButtons?.BUTTON_CREATE_NEW}
-            </Button>
-          </div>
+        <div className={styles["StudentManagement-section"]}>
           <CustomTable
             headers={headers}
             data={data}
             control={control}
             // pagination={true}
-            rowsPerPage={5}
-            showPagination={false}
+            rowsPerPage={10}
+            showPagination={true}
             showDeleteIcon={true}
-            showEditIcon={true}
-            title={"Professors"}
+            showEditIcon={false}
+            title={"Students"}
+            showHeader
             handleStatusToggle={handleStatusToggle}
           />
         </div>
-
-        <div className={styles["AdminDashboard-section"]}>
-          <div className={styles["AdminDashboard-section-head"]}>
-            <div className="flex space-x-2 items-center">
-              <Text className={styles["sectionHeading"]}>
-                {localeTitles?.TITLE_STUDENTS}
-              </Text>
-
-              <Chip
-                label={`Recent`}
-                color="secondary"
-                variant="outlined"
-                style={{
-                  fontWeight: 500,
-                  fontSize: "14px",
-                  fontFamily: "Inter",
-                }}
-              />
-            </div>
-          </div>
-          <CustomTable
-            headers={headers}
-            data={data}
-            control={control}
-            // pagination={true}
-            rowsPerPage={5}
-            showPagination={false}
-            showDeleteIcon={true}
-            // showEditIcon={true}
-            title={"Professors"}
-            handleStatusToggle={handleStatusToggle}
-          />
-        </div>
-
-        <CreateProfessorModal
-          open={opneProfessorModal}
-          handleClose={handleCloseProfessor}
-          control={control}
-          handleSubmit={handleSubmit}
-          onSubmit={onSubmitCreateProfessor}
-        />
       </div>
     </AdminLayout>
   );
 };
 
-export default function AdminDashboardServices() {
+export default function StudentManagementServices() {
   return (
     <AdminRoutes>
-      <AdminDashboard />
+      <StudentManagement />
     </AdminRoutes>
   );
 }

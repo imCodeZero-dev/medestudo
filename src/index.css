@@ -60,6 +60,10 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+.css-11xur9t-MuiPaper-root-MuiTableContainer-root{
+  box-shadow: none !important;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;

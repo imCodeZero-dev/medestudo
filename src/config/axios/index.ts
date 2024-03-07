@@ -13,7 +13,7 @@ console.log("baseUrl", baseUrl);
 axios.defaults.headers.post["Content-Type"] = "application/json";
 axios.defaults.responseType = "json";
 
-const formatUrl = (url, params) => {
+const formatUrl = (url: string, params: any) => {
   if (!params) return url;
 
   const re = new RegExp("/:(.+?)(/|$)", "g");
@@ -24,7 +24,7 @@ const formatUrl = (url, params) => {
   return url.replace(re, (...p) => `/${params[p[1]]}${p[2]}`);
 };
 
-const apiRequest = async (config) => {
+const apiRequest = async (config: any) => {
   try {
     const { url, urlParams, headers, token } = config;
     config.url = formatUrl(url, urlParams);
@@ -36,7 +36,7 @@ const apiRequest = async (config) => {
 
     const response = await axios(config);
     return Promise.resolve(response);
-  } catch (err) {
+  } catch (err: any) {
     if (err?.response?.status === 401) {
       queryClient.invalidateQueries("refreshToken");
     }

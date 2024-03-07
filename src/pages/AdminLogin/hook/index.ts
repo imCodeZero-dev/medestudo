@@ -3,7 +3,6 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { adminLoginApi } from "../../../utils/api/admin/auth";
 import { useDispatch } from "react-redux";
 import { useCookies } from "react-cookie";
 import {
@@ -11,6 +10,7 @@ import {
   showSuccessToast,
 } from "../../../config/toastProvider/toastUtils";
 import { loginAdmin } from "../../../redux/slices/AdminSlice";
+import { adminLoginApi } from "../../../utils/api/admin";
 
 // import { useLocation, useNavigate } from "react-router-dom";
 
@@ -68,7 +68,7 @@ export const useAdminLogin = () => {
       showSuccessToast("Login Successfully");
 
       navigate("/admin");
-    } catch (error) {
+    } catch (error:any) {
       console.log("error", error);
       showErrorToast(error?.response?.data?.errorMessage);
       // toast.error("Login failed");

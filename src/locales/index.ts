@@ -7,6 +7,8 @@ import { TEXT } from "./TEXT";
 import { PLACEHOLDERS } from "./PLACEHOLDERS";
 import { LABELS } from "./LABELS";
 import { DROPDOWNS } from "./DROPDOWNS";
+import { SUCCESS } from "./SUCCESS";
+import { ERRORS } from "./ERRORS";
 
 type Language = "en" | "es";
 
@@ -21,6 +23,8 @@ const useLocale = () => {
   const localePlaceholders = PLACEHOLDERS[currentLanguage as Language];
   const localeLables = LABELS[currentLanguage as Language];
   const localeDropdowns = DROPDOWNS[currentLanguage as Language];
+  const localeSuccess = SUCCESS[currentLanguage as Language];
+  const localeErrors = ERRORS[currentLanguage as Language];
 
   return {
     localeButtons,
@@ -29,6 +33,8 @@ const useLocale = () => {
     localePlaceholders,
     localeLables,
     localeDropdowns,
+    localeSuccess,
+    localeErrors,
   };
 };
 

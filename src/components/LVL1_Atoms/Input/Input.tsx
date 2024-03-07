@@ -20,7 +20,7 @@ type InputProps<TFieldValues extends FieldValues = FieldValues> = Omit<
     | "inputField-wrap-password"
     | "inputField-wrap"
     | "inputField-account-wrap";
-  preDefinedClassName?: "inputField" | "inputField-date" | "inputField-account";
+  preDefinedClassName?: "inputField" | "inputField-date" | "inputField-account" |'lesserHeight';
   wrapClassName?: string;
   className?: string;
   label?: string;
@@ -64,7 +64,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         render={({ field: { onChange, value }, formState: { errors } }) => {
           return (
             <div className="flex flex-col">
-              {!!label && <Text className={styles["labelText"]}>{label}</Text>}
+              {!!label && <Text className={styles["label14"]}>{label}</Text>}
               <div
                 className={`${wrapClassName} ${styles[preDefinedWrapClassName]} `}
               >

@@ -6,9 +6,16 @@ const LoadingScreen = React.lazy(
 );
 const NotFound = React.lazy(() => import("../pages/NotFound"));
 const AdminLogin = React.lazy(() => import("../pages/AdminLogin/AdminLogin"));
-const AdminDashboard = React.lazy(() => import("../pages/Admin/AdminDashboard/AdminDashboard"));
+const AdminDashboardServices = React.lazy(
+  () => import("../pages/Admin/AdminDashboard/AdminDashboard")
+);
+const ProfessorManagementServices = React.lazy(
+  () => import("../pages/Admin/ProfessorManagement/ProfessorManagement")
+);
+const StudentManagementServices = React.lazy(
+  () => import("../pages/Admin/StudentManagement/StudentManagement")
+);
 const App = React.lazy(() => import("../App"));
-
 
 const ProjectRoutes = () => {
   // const { localeBasics } = useLocale();
@@ -18,7 +25,15 @@ const ProjectRoutes = () => {
         <Routes>
           <Route path="/" element={<App />} />
           <Route path="/admin/login" element={<AdminLogin />} />
-          <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/admin" element={<AdminDashboardServices />} />
+          <Route
+            path="/admin/professors"
+            element={<ProfessorManagementServices />}
+          />
+          <Route
+            path="/admin/students"
+            element={<StudentManagementServices />}
+          />
 
           <Route path="*" element={<NotFound />} />
         </Routes>

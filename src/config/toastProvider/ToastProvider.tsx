@@ -1,8 +1,11 @@
-import React from "react";
+import React, { Children, ReactNode } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const ToastProvider = ({ children }) => {
+type Props = {
+  children: ReactNode;
+};
+const ToastProvider = ({ children }: Props) => {
   return (
     <>
       <ToastContainer

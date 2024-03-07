@@ -19,6 +19,10 @@ export const TITLES = {
     TITLE_DECKS: "Decks",
     TITLE_TAGS: "Tags",
     TITLE_SETTINGS: "Settings",
+    TITLE_ADD_PROFESSOR: "Add Professor",
+    TITLE_EDIT_PROFESSOR: "Edit Professor",
+    TITLE_DELETE_USER: "Delete User",
+    TITLE_ARE_YOU_SURE_LOGOUT: "Are you sure you want to logout?",
   },
   es: {
     TITLE_TEST: "Este es el título de la prueba",
@@ -40,5 +44,9 @@ export const TITLES = {
     TITLE_DECKS: "Decks",
     TITLE_TAGS: "Tags",
     TITLE_SETTINGS: "Settings",
+    TITLE_ADD_PROFESSOR: "Add Professor",
+    TITLE_EDIT_PROFESSOR: "Edit Professor",
+    TITLE_DELETE_USER: "Delete User",
+    TITLE_ARE_YOU_SURE_LOGOUT: "Are you sure you want to logout?",
   },
 };

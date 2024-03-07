@@ -3,10 +3,14 @@ export const TEXT = {
     TEXT_ENTER_DETAILS: "Enter Details to continue using your account",
     TEXT_FORGOT_PASSWORD: "Forgot Password?",
     TEXT_UPDATE_TODAY: "Update today",
+    TEXT_A_NEW_PROFESSOR_WOULD_MSG:
+      "A new professor would be able to add exams and flashcards on platform.",
   },
   es: {
     TEXT_ENTER_DETAILS: "Enter Details to continue using your account",
     TEXT_FORGOT_PASSWORD: "Forgot Password?",
     TEXT_UPDATE_TODAY: "Update today",
+    TEXT_A_NEW_PROFESSOR_WOULD_MSG:
+      "A new professor would be able to add exams and flashcards on platform.",
   },
 };
