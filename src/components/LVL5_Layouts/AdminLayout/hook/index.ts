@@ -10,7 +10,7 @@ import dayjs from "dayjs";
 
 export const useAdminLayout = () => {
   // const navigate = useNavigate();
-  const { localeSuccess, localeErrors } = useLocale();
+  const {  } = useLocale();
   const [cookies, setCookie, removeCookie] = useCookies(["admin"]);
   const wipeTokens = () => {
     removeCookie("admin", {

@@ -23,7 +23,7 @@ const ProjectRoutes = () => {
     <React.Suspense fallback={<LoadingScreen />}>
       <Router>
         <Routes>
-          <Route path="/" element={<App />} />
+          <Route path="/" element={<AdminDashboardServices />} />
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin" element={<AdminDashboardServices />} />
           <Route
