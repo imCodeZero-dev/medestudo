@@ -60,8 +60,11 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-.css-11xur9t-MuiPaper-root-MuiTableContainer-root{
+.css-11xur9t-MuiPaper-root-MuiTableContainer-root {
   box-shadow: none !important;
+}
+input:focus {
+  outline: none;
 }
 
 @media (prefers-color-scheme: light) {
