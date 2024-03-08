@@ -24,6 +24,8 @@ import { Button } from "../../LVL1_Atoms/Button";
 import { FaChevronCircleLeft } from "react-icons/fa";
 import Switch from "@mui/material/Switch";
 import { styled } from "@mui/material/styles";
+import { handleImageURL } from "../../../utils/constants/constants";
+import dayjs from "dayjs";
 
 interface CustomTableProps {
   title?: string;
@@ -220,7 +222,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
                           }}
                         >
                           <img
-                            src={row.image}
+                            src={handleImageURL(row.image)}
                             alt="User Avatar"
                             style={{ width: 24, height: 24, marginRight: 8 }}
                           />
@@ -228,7 +230,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
                         </div>
                       )}
                       {header === "ID" && (
-                        <Text className="font-semibold">{row?.id}</Text>
+                        <Text className="font-semibold">{rowIndex}</Text>
                       )}
                       {header === "Status" && (
                         // <Text className="">{row?.status}</Text>
@@ -246,19 +248,23 @@ const CustomTable: React.FC<CustomTableProps> = ({
                         <Text className="">{row?.email}</Text>
                       )}
                       {header === "Last Activity" && (
-                        <Text className="">{row?.lastActivity}</Text>
+                        <Text className="">
+                          {dayjs(row?.updatedAt).format("DD MMM, YYYY")}
+                        </Text>
                       )}
                       {header === "Created On" && (
-                        <Text className="">{row?.createdOn}</Text>
+                        <Text className="">
+                          {dayjs(row?.createdAt).format("DD MMM, YYYY")}
+                        </Text>
                       )}
                       {header === "Flashcards Created" && (
                         <Text className="font-semibold">
-                          {row?.flashcardsCreated}
+                          {row?.flashcardsCreated ? row?.flashcardsCreated : 0}
                         </Text>
                       )}
                       {header === "Past Exams Created" && (
                         <Text className="font-semibold">
-                          {row?.PastExamsCreated}
+                          {row?.PastExamsCreated ? row?.PastExamsCreated : 0}
                         </Text>
                       )}
                       {header === "Joined On" && (

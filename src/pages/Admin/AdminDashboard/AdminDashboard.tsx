@@ -31,6 +31,8 @@ const AdminDashboard = ({}: AdminDashboardProps) => {
     handleCloseProfessor,
     handleSubmit,
     onSubmitCreateProfessor,
+    allProfessors,
+    onChangeProfessorStatus,
   } = useAdminDashboard();
   console.log("cookies", cookies);
 
@@ -46,23 +48,25 @@ const AdminDashboard = ({}: AdminDashboardProps) => {
       img: studentsImg,
     },
     {
-      title: localeTitles?.TITLE_DISABLED_STUDENTS,
+      title: localeTitles?.TITLE_INACTIVE_STUDENTS,
       value: "2420",
       img: studentsImg,
     },
     {
       title: localeTitles?.TITLE_TOTAL_PROFESSORS,
-      value: "2420",
+      value: allProfessors?.length,
       img: professorsImg,
     },
     {
       title: localeTitles?.TITLE_ACTIVE_PROFESSORS,
-      value: "2420",
+      value: allProfessors?.filter((obj: any) => obj.status === "active")
+        ?.length,
       img: professorsImg,
     },
     {
-      title: localeTitles?.TITLE_DISABLED_PROFESSOR,
-      value: "2420",
+      title: localeTitles?.TITLE_INACTIVE_PROFESSOR,
+      value: allProfessors?.filter((obj: any) => obj.status === "inactive")
+        ?.length,
       img: professorsImg,
     },
     {
@@ -82,7 +86,7 @@ const AdminDashboard = ({}: AdminDashboardProps) => {
     "Flashcards Created",
     "Past Exams Created",
     "Status",
-    "Action",
+    // "Action",
   ];
   const data = [
     {
@@ -376,9 +380,6 @@ const AdminDashboard = ({}: AdminDashboardProps) => {
 
     // ... additional data
   ];
-  const handleStatusToggle = (data: any) => {
-    console.log("handleStatusToggle", data);
-  };
 
   return (
     <AdminLayout>
@@ -442,7 +443,7 @@ const AdminDashboard = ({}: AdminDashboardProps) => {
           </div>
           <CustomTable
             headers={headers}
-            data={data}
+            data={allProfessors}
             control={control}
             // pagination={true}
             rowsPerPage={5}
@@ -450,7 +451,7 @@ const AdminDashboard = ({}: AdminDashboardProps) => {
             showDeleteIcon={true}
             showEditIcon={true}
             title={"Professors"}
-            handleStatusToggle={handleStatusToggle}
+            handleStatusToggle={onChangeProfessorStatus}
           />
         </div>
 
@@ -483,7 +484,7 @@ const AdminDashboard = ({}: AdminDashboardProps) => {
             showDeleteIcon={true}
             // showEditIcon={true}
             title={"Professors"}
-            handleStatusToggle={handleStatusToggle}
+            handleStatusToggle={onChangeProfessorStatus}
           />
         </div>
 

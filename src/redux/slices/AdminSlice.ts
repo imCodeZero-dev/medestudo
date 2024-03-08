@@ -15,6 +15,7 @@ const AdminSlice = createSlice({
     logoutAdmin: (state) => {
       return null;
     },
+    
   },
 });
 

@@ -31,7 +31,8 @@ const apiRequest = async (config: any) => {
     config.headers = { ...headers };
 
     if (token) {
-      config.headers["Authorization"] = `Bearer ${token}`;
+      config.headers["Authorization"] = `${token}`;
+      // config.headers["Authorization"] = `Bearer ${token}`;
     }
 
     const response = await axios(config);

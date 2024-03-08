@@ -16,7 +16,7 @@ const DashboardCard: React.FC<DashboardCardProps> = ({ title, value, img }) => {
       <div className={styles["DashboardCard-top"]}>
         <Text className={styles["title"]}>{title}</Text>
 
-        <CiMenuKebab />
+        {/* <CiMenuKebab /> */}
 
         {/* <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
         {langs.map((language) => (

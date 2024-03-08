@@ -6,10 +6,16 @@ import {
   showErrorToast,
   showSuccessToast,
 } from "../../../../config/toastProvider/toastUtils";
-import { createProfessorApi } from "../../../../utils/api/admin";
+import {
+  changeProfessorStatusApi,
+  changeStudentStatusApi,
+  createProfessorApi,
+  getAllProfessorApi,
+} from "../../../../utils/api/admin";
 import useLocale from "../../../../locales";
 import { passwordRegex } from "../../../../utils/constants/constants";
 import { useCookies } from "react-cookie";
+import { useQuery } from "react-query";
 // import { useLocation, useNavigate } from "react-router-dom";
 
 export const useAdminDashboard = () => {
@@ -56,6 +62,30 @@ export const useAdminDashboard = () => {
     setOpneProfessorModal(false);
   };
 
+  const {
+    data: { data: allProfessors = [] } = {},
+    // data: { data: { client: clientData = [] } = {} } = {},
+    isLoading: allProfessorsLoading,
+    error: errorAllProfessors,
+    refetch: refetchallProfessors,
+  } = useQuery(
+    [
+      "allProfessors",
+      {
+        cookies,
+      },
+    ],
+
+    async () => {
+      return getAllProfessorApi(cookies?.admin?.token);
+    },
+    {
+      enabled: !!cookies?.admin?.token,
+    }
+  );
+
+  console.log("allProfessors", allProfessors);
+
   const onSubmitCreateProfessor = async (data: any) => {
     const params = {
       name: data?.name,
@@ -79,6 +109,34 @@ export const useAdminDashboard = () => {
     }
   };
 
+  // const handleStatusToggle = (data: any) => {
+  //   console.log("handleStatusToggle", data);
+  // };
+
+  const onChangeProfessorStatus = async (data: any) => {
+    const params = {
+      status: data?.status === "active" ? "inactive" : "active",
+    };
+    console.log("params", params);
+    try {
+      setProfessorLoading(true);
+      let response;
+      response = await changeProfessorStatusApi(
+        params,
+        data?._id,
+        cookies?.admin?.token
+      );
+      console.log("response", response);
+      refetchallProfessors();
+      showSuccessToast(localeSuccess?.SUCCESS_PROFESSOR_STATUS_CHANGED);
+    } catch (error: any) {
+      console.log("error", error);
+      showErrorToast(error?.response?.data?.errorMessage);
+    } finally {
+      setProfessorLoading(false);
+    }
+  };
+
   return {
     control,
     errors,
@@ -88,5 +146,7 @@ export const useAdminDashboard = () => {
     handleCloseProfessor,
     onSubmitCreateProfessor,
     professorLoading,
+    onChangeProfessorStatus,
+    allProfessors,
   };
 };

@@ -11,6 +11,7 @@ import {
 } from "../../../config/toastProvider/toastUtils";
 import { loginAdmin } from "../../../redux/slices/AdminSlice";
 import { adminLoginApi } from "../../../utils/api/admin";
+import dayjs from "dayjs";
 
 // import { useLocation, useNavigate } from "react-router-dom";
 
@@ -68,7 +69,7 @@ export const useAdminLogin = () => {
       showSuccessToast("Login Successfully");
 
       navigate("/admin");
-    } catch (error:any) {
+    } catch (error: any) {
       console.log("error", error);
       showErrorToast(error?.response?.data?.errorMessage);
       // toast.error("Login failed");
