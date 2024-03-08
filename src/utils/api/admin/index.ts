@@ -21,7 +21,7 @@ export const createProfessorApi = async (data: any, token: string) => {
 };
 
 export const getAllProfessorApi = async (token: string) => {
-  console.log("getAllProfessorApi",token);
+  console.log("getAllProfessorApi", token);
   const response = await apiRequest({
     method: "Get",
     url: `/admin/professor/getAll`,
@@ -38,7 +38,7 @@ export const changeProfessorStatusApi = async (
   console.log("changeProfessorStatusApi", data, "professorId", professorId);
   const response = await apiRequest({
     method: "Put",
-    url: `/admin/updateProfessorstatus/:${professorId}`,
+    url: `/admin/updateProfessorstatus/${professorId}`,
     data,
     token,
   });
