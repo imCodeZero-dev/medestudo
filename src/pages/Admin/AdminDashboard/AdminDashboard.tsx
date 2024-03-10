@@ -1,7 +1,5 @@
-import { useState } from "react";
 import styles from "./AdminDashboard.module.css";
 import { AdminDashboardProps } from "./types";
-import { useNavigate } from "react-router-dom";
 import AdminLayout from "../../../components/LVL5_Layouts/AdminLayout/AdminLayout";
 import Text from "../../../components/LVL1_Atoms/Text/Text";
 import useLocale from "../../../locales";
@@ -20,10 +18,8 @@ import CreateProfessorModal from "../../../components/LVL4_Organs/CreateProfesso
 import { AdminRoutes } from "../../../Routes/protectedRoutes/AdminRoutes";
 
 const AdminDashboard = ({}: AdminDashboardProps) => {
-  const navigate = useNavigate();
-  const [activeButton, setActiveButton] = useState<string>("");
   const { localeTitles, localeButtons } = useLocale();
-  const [cookies, setCookie, removeCookie] = useCookies(["admin"]);
+  const [cookies] = useCookies(["admin"]);
   const {
     control,
     opneProfessorModal,

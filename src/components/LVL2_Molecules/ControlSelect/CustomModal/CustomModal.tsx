@@ -1,14 +1,5 @@
-import React, { ReactNode, useState } from "react";
-import {
-  Button,
-  Modal,
-  Box,
-  Typography,
-  Paper,
-  IconButton,
-} from "@mui/material";
-import { IoMdCloseCircleOutline } from "react-icons/io";
-import Text from "../../../LVL1_Atoms/Text/Text";
+import React, { ReactNode } from "react";
+import { Modal, Box, Paper } from "@mui/material";
 
 interface ModalProps {
   open: boolean;
@@ -21,7 +12,6 @@ interface ModalProps {
 const CustomModal: React.FC<ModalProps> = ({
   open,
   onClose,
-  title,
   children,
   width,
 }) => {

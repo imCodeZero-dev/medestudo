@@ -1,14 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { DashboardCardProps } from "./@types";
 import styles from "./DashboardCard.module.css";
-import { useDispatch, useSelector } from "react-redux";
 import Text from "../../LVL1_Atoms/Text/Text";
 import useLocale from "../../../locales";
-import { Menu, MenuItem, IconButton } from "@mui/material";
-import { CiMenuKebab } from "react-icons/ci";
 
 const DashboardCard: React.FC<DashboardCardProps> = ({ title, value, img }) => {
-  const dispatch = useDispatch();
   const { localeText } = useLocale();
 
   return (

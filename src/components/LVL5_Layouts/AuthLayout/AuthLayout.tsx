@@ -1,5 +1,3 @@
-import styles from "./MyJobsPage.module.scss";
-import { useNavigate } from "react-router-dom";
 import { AuthLayoutProps } from "./types";
 import AuthImageSlider from "../../LVL4_Organs/AuthImageSlider/AuthImageSlider";
 import img1 from "../../../assets/Images/Auth/authHero1.jpg";

@@ -11,7 +11,6 @@ import {
 } from "../../../config/toastProvider/toastUtils";
 import { loginAdmin } from "../../../redux/slices/AdminSlice";
 import { adminLoginApi } from "../../../utils/api/admin";
-import dayjs from "dayjs";
 
 // import { useLocation, useNavigate } from "react-router-dom";
 
@@ -28,7 +27,7 @@ export const useAdminLogin = () => {
   const [loadingLogin, setLoadingLogin] = useState<boolean>(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [cookies, setCookie, removeCookie] = useCookies(["admin"]);
+  const [cookies, setCookie] = useCookies(["admin"]);
 
   const {
     handleSubmit,
@@ -83,5 +82,6 @@ export const useAdminLogin = () => {
     errors,
     handleSubmit,
     onSubmit,
+    loadingLogin,
   };
 };

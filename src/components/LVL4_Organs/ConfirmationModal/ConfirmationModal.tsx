@@ -1,8 +1,7 @@
-import React, { ReactNode } from "react";
+import { ReactNode } from "react";
 import styles from "./ConfirmationModal.module.css";
 import Text from "../../LVL1_Atoms/Text/Text";
 import { Button } from "../../LVL1_Atoms/Button";
-import { Modal } from "@mui/material";
 import CustomModal from "../../LVL2_Molecules/ControlSelect/CustomModal/CustomModal";
 
 type Props = {

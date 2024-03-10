@@ -8,7 +8,6 @@ import {
 } from "../../../../config/toastProvider/toastUtils";
 import {
   changeProfessorStatusApi,
-  changeStudentStatusApi,
   createProfessorApi,
   getAllProfessorApi,
 } from "../../../../utils/api/admin";
@@ -16,12 +15,11 @@ import useLocale from "../../../../locales";
 import { passwordRegex } from "../../../../utils/constants/constants";
 import { useCookies } from "react-cookie";
 import { useQuery } from "react-query";
-// import { useLocation, useNavigate } from "react-router-dom";
 
 export const useAdminDashboard = () => {
   // const navigate = useNavigate();
-  const { localeSuccess, localeErrors } = useLocale();
-  const [cookies, setCookie, removeCookie] = useCookies(["admin"]);
+  const { localeSuccess } = useLocale();
+  const [cookies] = useCookies(["admin"]);
 
   const validationSchema = yup.object().shape({
     email: yup
@@ -65,8 +63,8 @@ export const useAdminDashboard = () => {
   const {
     data: { data: allProfessors = [] } = {},
     // data: { data: { client: clientData = [] } = {} } = {},
-    isLoading: allProfessorsLoading,
-    error: errorAllProfessors,
+    // isLoading: allProfessorsLoading,
+    // error: errorAllProfessors,
     refetch: refetchallProfessors,
   } = useQuery(
     [

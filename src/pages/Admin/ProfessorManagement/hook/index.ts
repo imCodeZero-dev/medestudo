@@ -14,8 +14,8 @@ import { useCookies } from "react-cookie";
 
 export const useProfessorManagement = () => {
   // const navigate = useNavigate();
-  const { localeSuccess, localeErrors } = useLocale();
-  const [cookies, setCookie, removeCookie] = useCookies(["admin"]);
+  const { localeSuccess } = useLocale();
+  const [cookies] = useCookies(["admin"]);
 
   const validationSchema = yup.object().shape({
     email: yup

@@ -3,7 +3,7 @@ type Props = {
   size?: string;
   onClick?: any;
 };
-function DashboardProfessorIcon({ color, size, onClick }: Props) {
+function DashboardProfessorIcon({ onClick }: Props) {
   return (
     <svg
       onClick={onClick}

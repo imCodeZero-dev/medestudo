@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import {  Menu, MenuItem, IconButton } from "@mui/material";
+import { Menu, MenuItem } from "@mui/material";
 import { TbWorld } from "react-icons/tb";
-import { Language, LanguageDropdownProps } from "./@types";
+import { LanguageDropdownProps } from "./@types";
 // import LanguageIcon from "@mui/icons-material/Language";
-import { FaCaretDown, FaCaretUp } from "react-icons/fa";
+import { FaCaretDown } from "react-icons/fa";
 import styles from "./LangaugeDropdown.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
@@ -18,7 +18,7 @@ const LanguageDropdown: React.FC<LanguageDropdownProps> = ({}) => {
     (state: RootState) => state.language.currentLanguage
   );
 
-  console.log("currentLang", currentLang);
+  // console.log("currentLang", currentLang);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const { localeDropdowns } = useLocale();
 

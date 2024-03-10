@@ -1,27 +1,16 @@
 import React, { useState } from "react";
-import { Menu, MenuItem, IconButton } from "@mui/material";
-import { TbWorld } from "react-icons/tb";
+import { Menu, MenuItem } from "@mui/material";
 import { HeaderMenuDropdownProps } from "./@types";
 // import LanguageIcon from "@mui/icons-material/Language";
-import { FaCaretDown, FaCaretUp, FaHamburger } from "react-icons/fa";
+import { FaCaretDown } from "react-icons/fa";
 import styles from "./HeaderMenuDropdown.module.css";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../../redux/store";
-import Text from "../../LVL1_Atoms/Text/Text";
-import useLocale from "../../../locales";
-import { setLanguage } from "../../../redux/slices/languageSlice";
+
 import { useNavigate } from "react-router-dom";
 import { IoMdMenu } from "react-icons/io";
 
 const HeaderMenuDropdown: React.FC<HeaderMenuDropdownProps> = ({}) => {
-  const dispatch = useDispatch();
-
-  const currentLang = useSelector(
-    (state: RootState) => state.language.currentLanguage
-  );
-
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const { localeDropdowns } = useLocale();
+  // const {  } = useLocale();
   const navigate = useNavigate();
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -47,7 +36,6 @@ const HeaderMenuDropdown: React.FC<HeaderMenuDropdownProps> = ({}) => {
       <div className={styles["mainDiv"]} onClick={(e: any) => handleClick(e)}>
         <div className="flex items-center space-x-1">
           <IoMdMenu />
-         
         </div>
 
         <FaCaretDown />

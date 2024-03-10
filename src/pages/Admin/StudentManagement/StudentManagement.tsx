@@ -1,38 +1,23 @@
-import { useState } from "react";
 import styles from "./StudentManagement.module.css";
 import { StudentManagementProps } from "./types";
-import { useNavigate } from "react-router-dom";
 import AdminLayout from "../../../components/LVL5_Layouts/AdminLayout/AdminLayout";
 import Text from "../../../components/LVL1_Atoms/Text/Text";
 import useLocale from "../../../locales";
-import { Button } from "../../../components/LVL1_Atoms/Button";
-import { IoMdAdd } from "react-icons/io";
-import { useCookies } from "react-cookie";
+
+// import { useCookies } from "react-cookie";
 import DashboardCard from "../../../components/LVL3_Cells/DashboardCard/DashboardCard";
 import studentsImg from "../../../assets/Images/dashboard/students.png";
-import professorsImg from "../../../assets/Images/dashboard/professors.png";
-import flashcardsImg from "../../../assets/Images/dashboard/flashcards.png";
-import examsImgs from "../../../assets/Images/dashboard/exams.png";
+
 import CustomTable from "../../../components/LVL3_Cells/CustomTable/CustomTable";
 import { useStudentManagement } from "./hook";
-import { Chip } from "@mui/material";
-import CreateProfessorModal from "../../../components/LVL4_Organs/CreateProfessorModal/CreateProfessorModal";
+
 import { AdminRoutes } from "../../../Routes/protectedRoutes/AdminRoutes";
 
 const StudentManagement = ({}: StudentManagementProps) => {
-  const navigate = useNavigate();
-  const [activeButton, setActiveButton] = useState<string>("");
-  const { localeTitles, localeButtons } = useLocale();
-  const [cookies, setCookie, removeCookie] = useCookies(["admin"]);
-  const {
-    control,
-    opneProfessorModal,
-    handleOpenProfessor,
-    handleCloseProfessor,
-    handleSubmit,
-    onSubmitCreateProfessor,
-  } = useStudentManagement();
-  console.log("cookies", cookies);
+  const { localeTitles } = useLocale();
+  // const [cookies] = useCookies(["admin"]);
+  const { control } = useStudentManagement();
+  // console.log("cookies", cookies);
 
   const cards = [
     {
@@ -46,7 +31,7 @@ const StudentManagement = ({}: StudentManagementProps) => {
       img: studentsImg,
     },
     {
-      title: localeTitles?.TITLE_DISABLED_STUDENTS,
+      title: localeTitles?.TITLE_STUDENTS,
       value: "2420",
       img: studentsImg,
     },

@@ -3,7 +3,7 @@ type Props = {
   size?: string;
   onClick?: any;
 };
-function LogoutIcon({ color, size, onClick }: Props) {
+function LogoutIcon({  size, onClick }: Props) {
   return (
     <svg
       onClick={onClick}

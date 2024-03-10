@@ -3,7 +3,7 @@ type Props = {
   size?: string;
   onClick?: any;
 };
-function FlashcardIcon({ color, size, onClick }: Props) {
+function FlashcardIcon({  onClick }: Props) {
   return (
     <svg
       onClick={onClick}

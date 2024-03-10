@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import type { selectProps } from "./@types";
 import styles from "./Select.module.css";
 import { Controller } from "react-hook-form";

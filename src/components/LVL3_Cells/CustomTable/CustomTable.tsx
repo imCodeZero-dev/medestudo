@@ -7,11 +7,9 @@ import {
   TableHead,
   TableRow,
   Paper,
-  TablePagination,
   Box,
   IconButton,
   Chip,
-  FormControlLabel,
 } from "@mui/material";
 import Text from "../../LVL1_Atoms/Text/Text";
 import { CiSearch } from "react-icons/ci";
@@ -21,7 +19,6 @@ import { Control } from "react-hook-form";
 import Input from "../../LVL1_Atoms/Input";
 import useLocale from "../../../locales";
 import { Button } from "../../LVL1_Atoms/Button";
-import { FaChevronCircleLeft } from "react-icons/fa";
 import Switch from "@mui/material/Switch";
 import { styled } from "@mui/material/styles";
 import { handleImageURL } from "../../../utils/constants/constants";
@@ -42,7 +39,7 @@ interface CustomTableProps {
   handleStatusToggle?: (data: any) => void;
 }
 
-const IOSSwitch = styled((props) => (
+const IOSSwitch = styled((props:any) => (
   <Switch
     checked={props.checked}
     focusVisibleClassName=".Mui-focusVisible"
@@ -115,9 +112,9 @@ const CustomTable: React.FC<CustomTableProps> = ({
   const [page, setPage] = useState(0);
   const { localePlaceholders, localeButtons } = useLocale();
 
-  const handleChangePage = (event: unknown, newPage: number) => {
-    setPage(newPage);
-  };
+  // const handleChangePage = (event: unknown, newPage: number) => {
+  //   setPage(newPage);
+  // };
 
   const handleGoToPage = (pageNumber: number) => {
     setPage(pageNumber);

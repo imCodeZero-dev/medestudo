@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import styles from "./CreateProfessorModal.module.css";
 import { CreateProfessorModalProps } from "./types";
 import CustomModal from "../../LVL2_Molecules/ControlSelect/CustomModal/CustomModal";

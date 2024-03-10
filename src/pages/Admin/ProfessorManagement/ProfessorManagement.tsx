@@ -1,29 +1,19 @@
-import { useState } from "react";
 import styles from "./ProfessorManagement.module.css";
 import { ProfessorManagementProps } from "./types";
-import { useNavigate } from "react-router-dom";
 import AdminLayout from "../../../components/LVL5_Layouts/AdminLayout/AdminLayout";
 import Text from "../../../components/LVL1_Atoms/Text/Text";
 import useLocale from "../../../locales";
 import { Button } from "../../../components/LVL1_Atoms/Button";
 import { IoMdAdd } from "react-icons/io";
-import { useCookies } from "react-cookie";
 import DashboardCard from "../../../components/LVL3_Cells/DashboardCard/DashboardCard";
-import studentsImg from "../../../assets/Images/dashboard/students.png";
 import professorsImg from "../../../assets/Images/dashboard/professors.png";
-import flashcardsImg from "../../../assets/Images/dashboard/flashcards.png";
-import examsImgs from "../../../assets/Images/dashboard/exams.png";
 import CustomTable from "../../../components/LVL3_Cells/CustomTable/CustomTable";
 import { useProfessorManagement } from "./hook";
-import { Chip } from "@mui/material";
 import CreateProfessorModal from "../../../components/LVL4_Organs/CreateProfessorModal/CreateProfessorModal";
 import { AdminRoutes } from "../../../Routes/protectedRoutes/AdminRoutes";
 
 const ProfessorManagement = ({}: ProfessorManagementProps) => {
-  const navigate = useNavigate();
-  const [activeButton, setActiveButton] = useState<string>("");
   const { localeTitles, localeButtons } = useLocale();
-  const [cookies, setCookie, removeCookie] = useCookies(["admin"]);
   const {
     control,
     opneProfessorModal,
@@ -32,7 +22,6 @@ const ProfessorManagement = ({}: ProfessorManagementProps) => {
     handleSubmit,
     onSubmitCreateProfessor,
   } = useProfessorManagement();
-  console.log("cookies", cookies);
 
   const cards = [
     {
@@ -46,7 +35,7 @@ const ProfessorManagement = ({}: ProfessorManagementProps) => {
       img: professorsImg,
     },
     {
-      title: localeTitles?.TITLE_DISABLED_PROFESSOR,
+      title: localeTitles?.TITLE_INACTIVE_PROFESSOR,
       value: "2420",
       img: professorsImg,
     },
