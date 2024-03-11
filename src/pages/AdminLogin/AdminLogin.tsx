@@ -27,7 +27,10 @@ const AdminLogin = ({}) => {
   // const navigate = useNavigate();
   const [viewPassword, setViewPassword] = useState<boolean>(false);
 
-  const { control, handleSubmit, onSubmit } = useAdminLogin();
+  const handleView = () => {
+    setViewPassword(!viewPassword);
+  };
+  const { control, handleSubmit, onSubmit, loadingLogin } = useAdminLogin();
 
   return (
     <div className={styles["AdminLogin"]}>
@@ -62,13 +65,17 @@ const AdminLogin = ({}) => {
               placeholder={localePlaceholders.PLACEHOLDER_ENTER_USERNAME}
               preDefinedClassName="inputField"
               preDefinedWrapClassName="inputField-wrap"
-              type="text"
+              type={!viewPassword ? "password" : "text"}
               prefix={<MdOutlineKey size={24} />}
               suffix={
                 !viewPassword ? (
-                  <AiFillEyeInvisible size={24} color="#8b93a1" />
+                  <AiFillEyeInvisible
+                    size={24}
+                    color="#8b93a1"
+                    onClick={handleView}
+                  />
                 ) : (
-                  <AiFillEye size={24} color="#8b93a1" />
+                  <AiFillEye size={24} color="#8b93a1" onClick={handleView} />
                 )
               }
             />{" "}
@@ -79,10 +86,16 @@ const AdminLogin = ({}) => {
               label={localeLables?.LABEL_REMEMBER_ME}
               name="remember"
             />
-            <Text className={styles['forgotText']}>{localeText?.TEXT_FORGOT_PASSWORD}</Text>
+            <Text className={styles["forgotText"]}>
+              {localeText?.TEXT_FORGOT_PASSWORD}
+            </Text>
           </div>
 
-          <Button type="submit" className="primaryActive">
+          <Button
+            type="submit"
+            className="primaryActive"
+            loading={loadingLogin}
+          >
             {localeButtons.BUTTON_LOGIN}
           </Button>
         </form>

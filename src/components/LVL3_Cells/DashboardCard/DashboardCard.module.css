@@ -26,7 +26,7 @@
 
 .value {
   /* //styleName: Display md/Semibold; */
-  font-family: Inter;
+    /* font-family: Inter; */
   font-size: 36px;
   font-weight: 600;
   line-height: 44px;
@@ -35,7 +35,7 @@
 }
 
 .title {
-  font-family: Inter;
+    /* font-family: Inter; */
   font-size: 16px;
   font-weight: 600;
   line-height: 24px;
@@ -44,7 +44,7 @@
 }
 
 .updatedText {
-  font-family: Inter;
+    /* font-family: Inter; */
   font-size: 14px;
   font-weight: 500;
   line-height: 20px;

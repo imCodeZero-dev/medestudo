@@ -12,7 +12,7 @@ import { passwordRegex } from "../../../../utils/constants/constants";
 import { useCookies } from "react-cookie";
 // import { useLocation, useNavigate } from "react-router-dom";
 
-export const useProfessorManagement = () => {
+export const useQuestionsManagement = () => {
   // const navigate = useNavigate();
   const { localeSuccess } = useLocale();
   const [cookies] = useCookies(["admin"]);

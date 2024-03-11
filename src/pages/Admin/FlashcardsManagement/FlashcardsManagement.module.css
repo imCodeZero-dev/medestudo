@@ -1,7 +1,7 @@
-.ProfessorManagement {
+.FlashcardsManagement {
 }
 
-.ProfessorManagement-head {
+.FlashcardsManagement-head {
   display: flex;
   justify-content: space-between;
   margin-top: 24px;
@@ -33,7 +33,7 @@
   /* text-align: left; */
 }
 
-.ProfessorManagement-cards {
+.FlashcardsManagement-cards {
   margin: 24px 0;
   display: grid;
   grid-template-columns: repeat(
@@ -44,10 +44,10 @@
   row-gap: 24px;
 }
 
-.ProfessorManagement-section {
+.FlashcardsManagement-section {
   margin: 24px 0;
 }
-.ProfessorManagement-section-head {
+.FlashcardsManagement-section-head {
   display: flex;
   align-items: center;
   justify-content: space-between;

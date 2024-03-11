@@ -11,6 +11,7 @@ import CustomTable from "../../../components/LVL3_Cells/CustomTable/CustomTable"
 import { useProfessorManagement } from "./hook";
 import CreateProfessorModal from "../../../components/LVL4_Organs/CreateProfessorModal/CreateProfessorModal";
 import { AdminRoutes } from "../../../Routes/protectedRoutes/AdminRoutes";
+import EditProfessorModal from "../../../components/LVL4_Organs/CreateProfessorModal/EditProfessorModal";
 
 const ProfessorManagement = ({}: ProfessorManagementProps) => {
   const { localeTitles, localeButtons } = useLocale();
@@ -21,6 +22,10 @@ const ProfessorManagement = ({}: ProfessorManagementProps) => {
     handleCloseProfessor,
     handleSubmit,
     onSubmitCreateProfessor,
+    editProfessorModal,
+    handleOpenEdit,
+    handleCloseEdit,
+    editLoading,
   } = useProfessorManagement();
 
   const cards = [
@@ -391,6 +396,7 @@ const ProfessorManagement = ({}: ProfessorManagementProps) => {
             rowsPerPage={10}
             showPagination={true}
             showDeleteIcon={true}
+            handleEdit={handleOpenEdit}
             showEditIcon={true}
             title={"Professors"}
             showHeader
@@ -401,6 +407,13 @@ const ProfessorManagement = ({}: ProfessorManagementProps) => {
         <CreateProfessorModal
           open={opneProfessorModal}
           handleClose={handleCloseProfessor}
+          control={control}
+          handleSubmit={handleSubmit}
+          onSubmit={onSubmitCreateProfessor}
+        />
+        <EditProfessorModal
+          open={editProfessorModal}
+          handleClose={handleCloseEdit}
           control={control}
           handleSubmit={handleSubmit}
           onSubmit={onSubmitCreateProfessor}
