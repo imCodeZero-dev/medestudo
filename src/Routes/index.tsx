@@ -33,9 +33,17 @@ const ProjectRoutes = () => {
         styleOverrides: {
           root: `
           @font-face {
-            src: local('Raleway'), local('Raleway-Regular'), url(${fontF}) format('ttf');
+            src:  url(${fontF}) format('ttf');
           }
         `,
+        },
+      },
+      MuiCssBaseline: {
+        styleOverrides: {
+          "@font-face": {
+            fontFamily: "Inter", // Use the same font family name as specified above
+            src: `url(${fontF}) format('ttf')`, // Update the format if needed
+          },
         },
       },
     },
