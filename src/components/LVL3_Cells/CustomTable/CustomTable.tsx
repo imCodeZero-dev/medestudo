@@ -107,7 +107,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
                   sx={{
                     textAlign: "center",
                     fontWeight: 500,
-                    // fontFamily: "Inter",
+                    fontFamily: "Inter",
                     fontSize: "12px",
                   }}
                 >
@@ -127,7 +127,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
                       style={{
                         textAlign: "center",
                         fontWeight: 400,
-                        // fontFamily: "Inter",
+                        fontFamily: "Inter",
                         fontSize: "14px",
                       }}
                     >
