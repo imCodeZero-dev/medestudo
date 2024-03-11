@@ -27,35 +27,13 @@ const App = React.lazy(() => import("../App"));
 const ProjectRoutes = () => {
   // const { localeBasics } = useLocale();
   const theme = createTheme({
-    typography: {
-      fontFamily: "Inter",
-    },
-    // palette: {
-    //   primary: { main: "#1A43C0" },
-    //   white: { main: "#ffff" },
-    //   yellow: { main: "yellow" },
-    // },
     components: {
       MuiTableCell: {
         styleOverrides: {
           root: {
-            fontFamily: "Inter", // Add !important
-            fontSize: 64,
+            fontFamily: "Inter !important",
+            // fontSize: 64,
             color: "red",
-          },
-        },
-      },
-      MuiTable: {
-        styleOverrides: {
-          root: {
-            fontFamily: "monospace",
-          },
-        },
-      },
-      MuiTableHead: {
-        styleOverrides: {
-          root: {
-            fontFamily: "Inter",
           },
         },
       },
