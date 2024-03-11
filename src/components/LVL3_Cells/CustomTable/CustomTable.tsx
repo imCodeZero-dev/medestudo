@@ -77,11 +77,12 @@ const CustomTable: React.FC<CustomTableProps> = ({
               label={`${data?.length} ${title}`}
               color="secondary"
               variant="outlined"
-              style={{
-                fontWeight: 500,
-                fontSize: "14px",
-                fontFamily: "Inter",
-              }}
+              className={styles["tableHeading"]}
+              // style={{
+              //   fontWeight: 500,
+              //   fontSize: "14px",
+              //   fontFamily: "Inter",
+              // }}
             />
           </div>
           <Input
