@@ -103,13 +103,13 @@ const CustomTable: React.FC<CustomTableProps> = ({
               {headers.map((header, index) => (
                 <TableCell
                   key={index}
-                  classes={`${styles["tableHeading"]} h-6 border-0 font-semibold`}
-                  style={{
-                    textAlign: "center",
-                    fontWeight: 500,
-                    fontFamily: "Inter",
-                    fontSize: "12px",
-                  }}
+                  className={`${styles["tableHeading"]} h-6 border-0 font-semibold`}
+                  // style={{
+                  //   textAlign: "center",
+                  //   fontWeight: 500,
+                  //   fontFamily: "Inter",
+                  //   fontSize: "12px",
+                  // }}
                 >
                   {header}
                 </TableCell>
