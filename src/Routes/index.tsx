@@ -40,6 +40,8 @@ const ProjectRoutes = () => {
         styleOverrides: {
           root: {
             fontFamily: "Inter", // Add !important
+            fontSize: 64,
+            color: "red",
           },
         },
       },
@@ -57,18 +59,11 @@ const ProjectRoutes = () => {
           },
         },
       },
-      MuiTextField: {
-        styleOverrides: {
-          root: {
-            backgroundColor: "green !important", // Add !important
-          },
-        },
-      },
     },
   });
   return (
-    <ThemeProvider theme={theme}>
-      <React.Suspense fallback={<LoadingScreen />}>
+    <React.Suspense fallback={<LoadingScreen />}>
+      <ThemeProvider theme={theme}>
         <Router>
           <Routes>
             <Route path="/" element={<AdminDashboardServices />} />
@@ -94,8 +89,8 @@ const ProjectRoutes = () => {
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Router>
-      </React.Suspense>
-    </ThemeProvider>
+      </ThemeProvider>
+    </React.Suspense>
   );
 };
 export default ProjectRoutes;
