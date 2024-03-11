@@ -103,7 +103,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
               {headers.map((header, index) => (
                 <TableCell
                   key={index}
-                  className="h-6 border-0 font-semibold"
+                  className={`${styles["tableHeading"]} h-6 border-0 font-semibold`}
                   style={{
                     textAlign: "center",
                     fontWeight: 500,
