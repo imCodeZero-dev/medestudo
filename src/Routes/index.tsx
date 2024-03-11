@@ -35,15 +35,22 @@ const ProjectRoutes = () => {
     //   white: { main: "#ffff" },
     //   yellow: { main: "yellow" },
     // },
-    // components: {
-    //   MuiTextField: {
-    //     styleOverrides: {
-    //       root: {
-    //         backgroundColor: "green !important", // Add !important
-    //       },
-    //     },
-    //   },
-    // },
+    components: {
+      MuiTableCell: {
+        styleOverrides: {
+          root: {
+            fontFamily: "Inter", // Add !important
+          },
+        },
+      },
+      MuiTextField: {
+        styleOverrides: {
+          root: {
+            backgroundColor: "green !important", // Add !important
+          },
+        },
+      },
+    },
   });
   return (
     <ThemeProvider theme={theme}>
