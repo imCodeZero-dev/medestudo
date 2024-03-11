@@ -43,6 +43,20 @@ const ProjectRoutes = () => {
           },
         },
       },
+      MuiTable: {
+        styleOverrides: {
+          root: {
+            fontFamily: "monospace",
+          },
+        },
+      },
+      MuiTableHead: {
+        styleOverrides: {
+          root: {
+            fontFamily: "Inter",
+          },
+        },
+      },
       MuiTextField: {
         styleOverrides: {
           root: {
