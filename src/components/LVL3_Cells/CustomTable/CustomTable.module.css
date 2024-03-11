@@ -7,6 +7,6 @@
 .tableHeading {
   text-align: center;
   font-weight: 500;
-  font-family: Inter !important;
+  font-family: Inter;
   font-size: 12px;
 }

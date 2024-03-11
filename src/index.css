@@ -67,12 +67,12 @@ input:focus {
   outline: none;
 }
 
-.css-1bigob2 {
+/* .css-1bigob2 {
   text-align: center !important;
   font-weight: 500 !important;
   font-family: Inter !important;
   font-size: 12px !important;
-}
+} */
 
 @media (prefers-color-scheme: light) {
   :root {
