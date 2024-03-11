@@ -80,7 +80,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
               style={{
                 fontWeight: 500,
                 fontSize: "14px",
-                fontFamily: "Inter",
+                // fontFamily: "Inter",
               }}
             />
           </div>
