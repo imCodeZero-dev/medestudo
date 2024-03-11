@@ -77,12 +77,11 @@ const CustomTable: React.FC<CustomTableProps> = ({
               label={`${data?.length} ${title}`}
               color="secondary"
               variant="outlined"
-              className={styles["tableHeading"]}
-              // style={{
-              //   fontWeight: 500,
-              //   fontSize: "14px",
-              //   fontFamily: "Inter",
-              // }}
+              style={{
+                fontWeight: 500,
+                fontSize: "14px",
+                fontFamily: "Inter",
+              }}
             />
           </div>
           <Input
@@ -104,14 +103,13 @@ const CustomTable: React.FC<CustomTableProps> = ({
               {headers.map((header, index) => (
                 <TableCell
                   key={index}
-                  // className={`${styles["tableHeading"]} h-6 border-0 font-semibold`}
-                  // sx={styles["tableHeading"]}
-                  // style={{
-                  //   textAlign: "center",
-                  //   fontWeight: 500,
-                  //   fontFamily: "Inter",
-                  //   fontSize: "12px",
-                  // }}
+                  className={`${styles["tableHeading"]} h-6 border-0 font-semibold`}
+                  sx={{
+                    textAlign: "center",
+                    fontWeight: 500,
+                    fontFamily: "Inter",
+                    fontSize: "12px",
+                  }}
                 >
                   {header}
                 </TableCell>
