@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import fontF from "../assets/Fonts/static/Inter-Regular.ttf";
 
 const LoadingScreen = React.lazy(
   () => import("../pages/LoadingScreen/LoadingScreen")
@@ -30,11 +31,11 @@ const ProjectRoutes = () => {
     components: {
       MuiTableCell: {
         styleOverrides: {
-          root: {
-            fontFamily: "Inter !important",
-            // fontSize: 64,
-            color: "red",
-          },
+          root: `
+          @font-face {
+            src: local('Raleway'), local('Raleway-Regular'), url(${fontF}) format('ttf');
+          }
+        `,
         },
       },
     },
