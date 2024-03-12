@@ -6,6 +6,7 @@ export const LABELS = {
     LABEL_NAME: "Name",
     LABEL_CONFIRM_PASSWORD: "Confirm Password",
     LABEL_PHONE: "Phone",
+    LABEL_TAG_TITLE: "Tag Title",
   },
   es: {
     LABEL_USERNAME: "Username or Email",
@@ -14,5 +15,6 @@ export const LABELS = {
     LABEL_NAME: "Name",
     LABEL_CONFIRM_PASSWORD: "Confirm Password",
     LABEL_PHONE: "Phone",
+    LABEL_TAG_TITLE: "Tag Title",
   },
 };

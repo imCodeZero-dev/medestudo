@@ -1,0 +1,63 @@
+.DecksManagement {
+}
+
+.DecksManagement-head {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 24px;
+}
+
+.head-right {
+  display: flex;
+  column-gap: 16px;
+  align-items: center;
+}
+
+.mainHeading {
+    /* font-family: Inter; */
+  font-size: 30px;
+  font-weight: 600;
+  line-height: 38px;
+  letter-spacing: 0em;
+  /* text-align: left; */
+}
+
+.greyText {
+  /* //styleName: Text md/Regular; */
+    /* font-family: Inter; */
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0em;
+  color: #475467;
+  /* text-align: left; */
+}
+
+.DecksManagement-cards {
+  margin: 24px 0;
+  display: grid;
+  grid-template-columns: repeat(
+    3,
+    1fr
+  ); /* 4 columns, each taking equal width */
+  column-gap: 24px;
+  row-gap: 24px;
+}
+
+.DecksManagement-section {
+  margin: 24px 0;
+}
+.DecksManagement-section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sectionHeading {
+    /* font-family: Inter; */
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 28px;
+  letter-spacing: 0em;
+  text-align: left;
+}

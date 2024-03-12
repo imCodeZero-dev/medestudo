@@ -225,6 +225,11 @@ const CustomTable: React.FC<CustomTableProps> = ({
                           {row?.title.substring(0, 100) + "..."}
                         </Text>
                       )}
+                      {header === "Title" && (
+                        <Text className={styles[""]}>
+                          {row?.title}
+                        </Text>
+                      )}
                     </TableCell>
                   ))}
                 </TableRow>

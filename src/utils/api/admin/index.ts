@@ -59,3 +59,15 @@ export const changeStudentStatusApi = async (
   });
   return response;
 };
+
+
+
+export const createDeckApi = async (data: any, token: string) => {
+  const response = await apiRequest({
+    method: "Post",
+    url: "/admin/createDeck",
+    data,
+    token,
+  });
+  return response;
+};

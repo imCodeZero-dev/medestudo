@@ -23,6 +23,12 @@ const FlashcardsManagementServices = React.lazy(
 const QuestionsManagementServices = React.lazy(
   () => import("../pages/Admin/QuestionsManagement/QuestionsManagement")
 );
+const DecksManagementServices = React.lazy(
+  () => import("../pages/Admin/DecksManagement/DecksManagement")
+);
+const TagsManagementServices = React.lazy(
+  () => import("../pages/Admin/TagsManagement/TagsManagement")
+);
 const App = React.lazy(() => import("../App"));
 
 const ProjectRoutes = () => {
@@ -72,6 +78,8 @@ const ProjectRoutes = () => {
               path="/admin/questions"
               element={<QuestionsManagementServices />}
             />
+            <Route path="/admin/decks" element={<DecksManagementServices />} />
+            <Route path="/admin/tags" element={<TagsManagementServices />} />
 
             <Route path="*" element={<NotFound />} />
           </Routes>
