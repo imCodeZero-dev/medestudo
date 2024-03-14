@@ -1,7 +1,7 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   showErrorToast,
   showSuccessToast,
@@ -15,6 +15,11 @@ import useLocale from "../../../../locales";
 import { passwordRegex } from "../../../../utils/constants/constants";
 import { useCookies } from "react-cookie";
 import { useQuery } from "react-query";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  useProfessorsQuery,
+  useStudentsQuery,
+} from "../../../../redux/slices/APISlice";
 
 export const useAdminDashboard = () => {
   // const navigate = useNavigate();
@@ -42,6 +47,7 @@ export const useAdminDashboard = () => {
     handleSubmit,
     control,
     formState: { errors },
+    watch,
   } = useForm({
     resolver: yupResolver(validationSchema),
     defaultValues: {
@@ -60,27 +66,23 @@ export const useAdminDashboard = () => {
     setOpneProfessorModal(false);
   };
 
-  const {
-    data: { data: allProfessors = [] } = {},
-    // data: { data: { client: clientData = [] } = {} } = {},
-    // isLoading: allProfessorsLoading,
-    // error: errorAllProfessors,
-    refetch: refetchallProfessors,
-  } = useQuery(
-    [
-      "allProfessors",
-      {
-        cookies,
-      },
-    ],
+  // const dispatch = useDispatch();
+  // const { allProfessors, loading, error } = useSelector(
+  //   (state: any) => state.professors
+  // );
 
-    async () => {
-      return getAllProfessorApi(cookies?.admin?.token);
-    },
-    {
-      enabled: !!cookies?.admin?.token,
-    }
-  );
+  const {
+    allProfessors,
+    refetchAllProfessors,
+    allProfessorsLoading,
+    errorAllProfessors,
+  } = useProfessorsQuery(cookies);
+  const {
+    allStudents,
+    refetchAllStudents,
+    allStudentsLoading,
+    errorAllStudents,
+  } = useStudentsQuery(cookies);
 
   console.log("allProfessors", allProfessors);
 
@@ -107,10 +109,6 @@ export const useAdminDashboard = () => {
     }
   };
 
-  // const handleStatusToggle = (data: any) => {
-  //   console.log("handleStatusToggle", data);
-  // };
-
   const onChangeProfessorStatus = async (data: any) => {
     const params = {
       status: data?.status === "active" ? "inactive" : "active",
@@ -125,7 +123,7 @@ export const useAdminDashboard = () => {
         cookies?.admin?.token
       );
       console.log("response", response);
-      refetchallProfessors();
+      refetchAllProfessors();
       showSuccessToast(localeSuccess?.SUCCESS_PROFESSOR_STATUS_CHANGED);
     } catch (error: any) {
       console.log("error", error);
@@ -146,5 +144,9 @@ export const useAdminDashboard = () => {
     professorLoading,
     onChangeProfessorStatus,
     allProfessors,
+    watch,
+    allStudents,
+    allProfessorsLoading,
+    allStudentsLoading,
   };
 };

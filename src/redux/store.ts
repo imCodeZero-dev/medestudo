@@ -1,10 +1,12 @@
 // src/redux/store.ts
 import { configureStore } from "@reduxjs/toolkit";
 import languageReducer from "./slices/languageSlice";
+// import professorsReducer from "./slices/ProfessorSlice";
 
 const store = configureStore({
   reducer: {
     language: languageReducer,
+    // professors: professorsReducer,
     // Add other reducers here
   },
 });

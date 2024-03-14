@@ -26,6 +26,7 @@ const FlashcardsManagement = ({}: FlashcardsManagementProps) => {
     handleOpenEdit,
     handleCloseEdit,
     editLoading,
+    watch,
   } = useFlashcardsManagement();
 
   const cards = [
@@ -276,6 +277,7 @@ const FlashcardsManagement = ({}: FlashcardsManagementProps) => {
 
         <div className={styles["FlashcardsManagement-section"]}>
           <CustomTable
+          
             headers={headers}
             data={data}
             control={control}
@@ -288,6 +290,7 @@ const FlashcardsManagement = ({}: FlashcardsManagementProps) => {
             title={localeTitles.TITLE_FLASHCARDS}
             showHeader
             handleStatusToggle={handleStatusToggle}
+            watch={watch}
           />
         </div>
       </div>

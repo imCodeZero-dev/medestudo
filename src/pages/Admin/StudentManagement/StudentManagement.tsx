@@ -16,23 +16,30 @@ import { AdminRoutes } from "../../../Routes/protectedRoutes/AdminRoutes";
 const StudentManagement = ({}: StudentManagementProps) => {
   const { localeTitles } = useLocale();
   // const [cookies] = useCookies(["admin"]);
-  const { control } = useStudentManagement();
+  const {
+    control,
+    watch,
+    allStudents,
+    allStudentsLoading,
+    onChangeStudentStatus,
+  } = useStudentManagement();
   // console.log("cookies", cookies);
 
   const cards = [
     {
       title: localeTitles?.TITLE_TOTAL_STUDENTS,
-      value: "2420",
+      value: allStudents?.length,
       img: studentsImg,
     },
     {
       title: localeTitles?.TITLE_ACTIVE_STUDENTS,
-      value: "2420",
+      value: allStudents?.filter((obj: any) => obj.status === "active")?.length,
       img: studentsImg,
     },
     {
-      title: localeTitles?.TITLE_STUDENTS,
-      value: "2420",
+      title: localeTitles?.TITLE_INACTIVE_STUDENTS,
+      value: allStudents?.filter((obj: any) => obj.status === "inactive")
+        ?.length,
       img: studentsImg,
     },
   ];
@@ -47,277 +54,6 @@ const StudentManagement = ({}: StudentManagementProps) => {
     "Status",
     "Action",
   ];
-  const data = [
-    {
-      id: 1,
-      image:
-        "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-      name: "John Doe",
-      status: "active",
-      lastActivity: "21 Dec,2022",
-      email: "test@test.com",
-      joinedOn: "21 Dec,2022",
-      joinedVia: "Google",
-    },
-    {
-      id: 1,
-      image:
-        "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-      name: "John Doe",
-      status: "disable",
-      email: "test@test.com",
-      lastActivity: "21 Dec,2022",
-      joinedOn: "21 Dec,2022",
-      joinedVia: "Google",
-    },
-    {
-      id: 1,
-      image:
-        "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-      name: "John Doe",
-      status: "active",
-      email: "test@test.com",
-      lastActivity: "21 Dec,2022",
-      joinedOn: "21 Dec,2022",
-      joinedVia: "Google",
-    },
-    {
-      id: 1,
-      image:
-        "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-      name: "John Doe",
-      status: "disable",
-      email: "test@test.com",
-      lastActivity: "21 Dec,2022",
-      joinedOn: "21 Dec,2022",
-      joinedVia: "Google",
-    },
-    {
-      id: 1,
-      image:
-        "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-      name: "John Doe",
-      status: "active",
-      email: "test@test.com",
-      lastActivity: "21 Dec,2022",
-      joinedOn: "21 Dec,2022",
-      joinedVia: "Google",
-    },
-    {
-      id: 1,
-      image:
-        "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-      name: "John Doe",
-      status: "active",
-      email: "test@test.com",
-      lastActivity: "21 Dec,2022",
-      joinedOn: "21 Dec,2022",
-      joinedVia: "Google",
-    },
-    {
-      id: 1,
-      image:
-        "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-      name: "John Doe",
-      status: "active",
-      email: "test@test.com",
-      lastActivity: "21 Dec,2022",
-      joinedOn: "21 Dec,2022",
-      joinedVia: "Google",
-    },
-    {
-      id: 1,
-      image:
-        "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-      name: "John Doe",
-      status: "active",
-      email: "test@test.com",
-      lastActivity: "21 Dec,2022",
-      joinedOn: "21 Dec,2022",
-      joinedVia: "Google",
-    },
-    {
-      id: 1,
-      image:
-        "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-      name: "John Doe",
-      status: "active",
-      email: "test@test.com",
-      lastActivity: "21 Dec,2022",
-      joinedOn: "21 Dec,2022",
-      joinedVia: "Google",
-    },
-    {
-      id: 1,
-      image:
-        "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-      name: "John Doe",
-      status: "active",
-      email: "test@test.com",
-      lastActivity: "21 Dec,2022",
-      joinedOn: "21 Dec,2022",
-      joinedVia: "Google",
-    },
-    {
-      id: 1,
-      image:
-        "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-      name: "John Doe",
-      status: "active",
-      email: "test@test.com",
-      lastActivity: "21 Dec,2022",
-      joinedOn: "21 Dec,2022",
-      joinedVia: "Google",
-    },
-    {
-      id: 1,
-      image:
-        "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-      name: "John Doe",
-      status: "active",
-      email: "test@test.com",
-      lastActivity: "21 Dec,2022",
-      joinedOn: "21 Dec,2022",
-      joinedVia: "Google",
-    },
-    {
-      id: 1,
-      image:
-        "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-      name: "John Doe",
-      status: "active",
-      email: "test@test.com",
-      lastActivity: "21 Dec,2022",
-      joinedOn: "21 Dec,2022",
-      joinedVia: "Google",
-    },
-    {
-      id: 1,
-      image:
-        "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-      name: "John Doe",
-      status: "active",
-      email: "test@test.com",
-      lastActivity: "21 Dec,2022",
-      joinedOn: "21 Dec,2022",
-      joinedVia: "Google",
-    },
-    {
-      id: 1,
-      image:
-        "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-      name: "John Doe",
-      status: "active",
-      email: "test@test.com",
-      lastActivity: "21 Dec,2022",
-      joinedOn: "21 Dec,2022",
-      joinedVia: "Google",
-    },
-    {
-      id: 1,
-      image:
-        "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-      name: "John Doe",
-      status: "active",
-      email: "test@test.com",
-      lastActivity: "21 Dec,2022",
-      joinedOn: "21 Dec,2022",
-      joinedVia: "Google",
-    },
-    {
-      id: 1,
-      image:
-        "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-      name: "John Doe",
-      status: "active",
-      email: "test@test.com",
-      lastActivity: "21 Dec,2022",
-      joinedOn: "21 Dec,2022",
-      joinedVia: "Google",
-    },
-    {
-      id: 1,
-      image:
-        "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-      name: "John Doe",
-      status: "active",
-      email: "test@test.com",
-      lastActivity: "21 Dec,2022",
-      joinedOn: "21 Dec,2022",
-      joinedVia: "Google",
-    },
-    {
-      id: 1,
-      image:
-        "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-      name: "John Doe",
-      status: "active",
-      email: "test@test.com",
-      lastActivity: "21 Dec,2022",
-      joinedOn: "21 Dec,2022",
-      joinedVia: "Google",
-    },
-    {
-      id: 1,
-      image:
-        "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-      name: "John Doe",
-      status: "active",
-      email: "test@test.com",
-      lastActivity: "21 Dec,2022",
-      joinedOn: "21 Dec,2022",
-      joinedVia: "Google",
-    },
-    {
-      id: 1,
-      image:
-        "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-      name: "John Doe",
-      status: "active",
-      email: "test@test.com",
-      lastActivity: "21 Dec,2022",
-      joinedOn: "21 Dec,2022",
-      joinedVia: "Google",
-    },
-    {
-      id: 1,
-      image:
-        "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-      name: "John Doe",
-      status: "active",
-      email: "test@test.com",
-      lastActivity: "21 Dec,2022",
-      joinedOn: "21 Dec,2022",
-      joinedVia: "Google",
-    },
-    {
-      id: 1,
-      image:
-        "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-      name: "John Doe",
-      status: "active",
-      email: "test@test.com",
-      lastActivity: "21 Dec,2022",
-      joinedOn: "21 Dec,2022",
-      joinedVia: "Google",
-    },
-    {
-      id: 1,
-      image:
-        "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-      name: "John Doe",
-      status: "active",
-      email: "test@test.com",
-      lastActivity: "21 Dec,2022",
-      joinedOn: "21 Dec,2022",
-      joinedVia: "Google",
-    },
-
-    // ... additional data
-  ];
-  const handleStatusToggle = (data: any) => {
-    console.log("handleStatusToggle", data);
-  };
 
   return (
     <AdminLayout>
@@ -346,17 +82,19 @@ const StudentManagement = ({}: StudentManagementProps) => {
 
         <div className={styles["StudentManagement-section"]}>
           <CustomTable
+            loading={allStudentsLoading}
             headers={headers}
-            data={data}
+            data={Array.isArray(allStudents) ? allStudents : []}
             control={control}
             // pagination={true}
             rowsPerPage={10}
             showPagination={true}
             showDeleteIcon={true}
             showEditIcon={false}
-            title={"Students"}
+            title={localeTitles?.TITLE_STUDENTS}
             showHeader
-            handleStatusToggle={handleStatusToggle}
+            handleStatusToggle={onChangeStudentStatus}
+            watch={watch}
           />
         </div>
       </div>

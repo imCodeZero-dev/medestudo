@@ -26,6 +26,7 @@ const QuestionsManagement = ({}: QuestionsManagementProps) => {
     handleOpenEdit,
     handleCloseEdit,
     editLoading,
+    watch,
   } = useQuestionsManagement();
 
   const cards = [
@@ -288,6 +289,7 @@ const QuestionsManagement = ({}: QuestionsManagementProps) => {
             title={localeTitles.TITLE_QUESTIONS}
             showHeader
             handleStatusToggle={handleStatusToggle}
+            watch={watch}
           />
         </div>
       </div>

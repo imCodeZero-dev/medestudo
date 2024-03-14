@@ -6,10 +6,18 @@ import {
   showErrorToast,
   showSuccessToast,
 } from "../../../../config/toastProvider/toastUtils";
-import { createProfessorApi } from "../../../../utils/api/admin";
+import {
+  changeTagStatusApi,
+  createProfessorApi,
+  createTagApi,
+  deleteTagApi,
+  editTagApi,
+  getAllTagsApi,
+} from "../../../../utils/api/admin";
 import useLocale from "../../../../locales";
 import { passwordRegex } from "../../../../utils/constants/constants";
 import { useCookies } from "react-cookie";
+import { useQuery } from "react-query";
 // import { useLocation, useNavigate } from "react-router-dom";
 
 export const useTagsManagement = () => {
@@ -18,64 +26,141 @@ export const useTagsManagement = () => {
   const [cookies] = useCookies(["admin"]);
 
   const validationSchema = yup.object().shape({
-    email: yup
-      .string()
-      .required("Email is required")
-      .email("Invalid email format"),
-    password: yup
-      .string()
-      .required("Password is required")
-      .matches(passwordRegex, "Invalid password format"),
-    phone: yup.string().required("Phone number is required"),
-    // .matches(/^\d{10}$/, "Invalid phone number format"),
-    name: yup.string().required("Name is required"),
-    confirmPassword: yup
-      .string()
-      .required("Confirm Password is required")
-      .oneOf([yup.ref("password")], "Passwords must match"),
+    title: yup.string().required("title is required"),
   });
   const {
     handleSubmit,
     control,
     formState: { errors },
+    setValue,
+    watch,
   } = useForm({
     resolver: yupResolver(validationSchema),
-    defaultValues: {
-      email: "",
-      password: "",
-      phone: "",
-      name: "",
-    },
+    defaultValues: {},
   });
-  const [opneProfessorModal, setOpneProfessorModal] = useState<boolean>(false);
-  const [professorLoading, setProfessorLoading] = useState<boolean>(false);
-  const handleOpenProfessor = () => {
-    setOpneProfessorModal(true);
+  const [tagData, setTagData] = useState<any>(null);
+  const [openCreate, setOpenCreate] = useState<boolean>(false);
+  const [deleteModal, setDeleteModal] = useState<boolean>(false);
+  const [createLoading, setCreateLoading] = useState<boolean>(false);
+  const handleOpenCreate = () => {
+    setOpenCreate(true);
   };
-  const handleCloseProfessor = () => {
-    setOpneProfessorModal(false);
+  const handleCloseCreate = () => {
+    setOpenCreate(false);
+  };
+  const handleDeleteModalOpen = (data: any) => {
+    setTagData(data);
+    setDeleteModal(true);
+  };
+  const handleDeleteModalClose = () => {
+    setDeleteModal(false);
   };
 
-  const onSubmitCreateProfessor = async (data: any) => {
-    const params = {
-      name: data?.name,
-      email: data?.email,
-      password: data?.password,
-      phone: data?.phone,
-    };
-    console.log("params", params);
+  const [editTagModal, setEditTagModal] = useState<boolean>(false);
+  const handleEditTag = (data: any) => {
+    setTagData(data);
+    setValue("title", data?.title);
+    setEditTagModal(true);
+  };
+  const handleCloseEdit = () => {
+    setEditTagModal(false);
+  };
+
+  const {
+    data: { data: { tags: allTags = [] } = {} } = {},
+    isLoading: allTagsLoading,
+    error: errorAllTags,
+    refetch: refetchAllTags,
+  } = useQuery(
+    [
+      "allTags",
+      {
+        cookies,
+      },
+    ],
+
+    async () => {
+      return getAllTagsApi(cookies?.admin?.token);
+    },
+    {
+      enabled: !!cookies?.admin?.token,
+    }
+  );
+  // console.log("cookies", cookies);
+  // console.log("allTags", allTags);
+
+  const onDeleteConfirm = async () => {
     try {
-      setProfessorLoading(true);
+      setCreateLoading(true);
       let response;
-      response = await createProfessorApi(params, cookies?.admin?.token);
+      response = await deleteTagApi(tagData?._id, cookies?.admin?.token);
       console.log("response", response);
-
-      showSuccessToast(localeSuccess?.SUCCESS_PROFESSOR_CREATED);
+      refetchAllTags();
+      showSuccessToast(localeSuccess?.SUCCESS_TAG_DELETED);
     } catch (error: any) {
       console.log("error", error);
       showErrorToast(error?.response?.data?.errorMessage);
     } finally {
-      setProfessorLoading(false);
+      setCreateLoading(false);
+      handleDeleteModalClose();
+    }
+  };
+  const onSubmitCreate = async (data: any) => {
+    console.log("params", data);
+    try {
+      setCreateLoading(true);
+      let response;
+      response = await createTagApi(data, cookies?.admin?.token);
+      console.log("response", response);
+      refetchAllTags();
+      showSuccessToast(localeSuccess?.SUCCESS_TAG_CREATED);
+    } catch (error: any) {
+      console.log("error", error);
+      showErrorToast(error?.response?.data?.errorMessage);
+    } finally {
+      setCreateLoading(false);
+      handleCloseCreate();
+    }
+  };
+
+  const onSubmitEdit = async (data: { title: string }) => {
+    try {
+      setCreateLoading(true);
+      let response;
+      response = await editTagApi(data, tagData?._id, cookies?.admin?.token);
+      console.log("response", response);
+      refetchAllTags();
+      showSuccessToast(localeSuccess?.SUCCESS_TAG_UPDATED);
+    } catch (error: any) {
+      console.log("error", error);
+      showErrorToast(error?.response?.data?.errorMessage);
+    } finally {
+      setCreateLoading(false);
+      handleCloseEdit();
+    }
+  };
+
+  const onChangeTagStatus = async (data: any) => {
+    const params = {
+      status: data?.status === "active" ? "inactive" : "active",
+    };
+    // console.log("params", params);
+    try {
+      setCreateLoading(true);
+      let response;
+      response = await changeTagStatusApi(
+        params,
+        data?._id,
+        cookies?.admin?.token
+      );
+      console.log("response", response);
+      refetchAllTags();
+      showSuccessToast(localeSuccess?.SUCCESS_TAG_STATUS_CHANGED);
+    } catch (error: any) {
+      console.log("error", error);
+      showErrorToast(error?.response?.data?.errorMessage);
+    } finally {
+      setCreateLoading(false);
     }
   };
 
@@ -83,10 +168,22 @@ export const useTagsManagement = () => {
     control,
     errors,
     handleSubmit,
-    opneProfessorModal,
-    handleOpenProfessor,
-    handleCloseProfessor,
-    onSubmitCreateProfessor,
-    professorLoading,
+    handleCloseCreate,
+    onSubmitCreate,
+    openCreate,
+    handleOpenCreate,
+    onSubmitEdit,
+    handleCloseEdit,
+    handleEditTag,
+    editTagModal,
+    allTags,
+    createLoading,
+    onChangeTagStatus,
+    deleteModal,
+    handleDeleteModalOpen,
+    handleDeleteModalClose,
+    onDeleteConfirm,
+    watch,
+    allTagsLoading
   };
 };

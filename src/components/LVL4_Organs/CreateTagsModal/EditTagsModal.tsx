@@ -8,7 +8,7 @@ import useLocale from "../../../locales";
 import Input from "../../LVL1_Atoms/Input";
 import { Button } from "../../LVL1_Atoms/Button";
 
-const CreateTagsModal = ({
+const EditTagsModal = ({
   open,
   handleClose,
   handleSubmit,
@@ -28,7 +28,7 @@ const CreateTagsModal = ({
       <CustomModal open={open} onClose={handleClose}>
         <img src={tagIcon} className="" />
 
-        <Text className={styles["title"]}>{localeTitles?.TITLE_ADD_TAGS}</Text>
+        <Text className={styles["title"]}>{localeTitles?.TITLE_EDIT_TAGS}</Text>
         <Text className={styles["basic"]}>
           {localeText?.TEXT_A_TAG_WILL_BE_USED_TO_LINK_QUESTIONS}
         </Text>
@@ -57,10 +57,10 @@ const CreateTagsModal = ({
             <Button
               type="submit"
               className="purpleBtn"
-              onClick={handleSubmit(onSubmit)}
               loading={loading}
+              onClick={handleSubmit(onSubmit)}
             >
-              {localeButtons.BUTTON_CREATE_TAG}
+              {localeButtons.BUTTON_SAVE}
             </Button>
           </div>
         </form>
@@ -69,4 +69,4 @@ const CreateTagsModal = ({
   );
 };
 
-export default CreateTagsModal;
+export default EditTagsModal;

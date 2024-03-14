@@ -38,7 +38,7 @@ const ConfirmationModal = ({
         <Text className={styles["sub-title"]}>{subTitle}</Text>
 
         <div className={styles["ConfirmationModal-buttons"]}>
-          <Button loading={loading} className={"purpleBtn"} onClick={onConfirm}>
+          <Button className={"purpleBtn"} onClick={onConfirm} loading={loading}>
             {confirmButtonText}
           </Button>
           <Button className={"secondaryBtn"} onClick={handleClose}>

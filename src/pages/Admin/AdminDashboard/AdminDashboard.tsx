@@ -16,6 +16,7 @@ import { useAdminDashboard } from "./hook";
 import { Chip } from "@mui/material";
 import CreateProfessorModal from "../../../components/LVL4_Organs/CreateProfessorModal/CreateProfessorModal";
 import { AdminRoutes } from "../../../Routes/protectedRoutes/AdminRoutes";
+import { useNavigate } from "react-router-dom";
 
 const AdminDashboard = ({}: AdminDashboardProps) => {
   const { localeTitles, localeButtons } = useLocale();
@@ -29,23 +30,36 @@ const AdminDashboard = ({}: AdminDashboardProps) => {
     onSubmitCreateProfessor,
     allProfessors,
     onChangeProfessorStatus,
+    watch,
+    allStudents,
+    allProfessorsLoading,
+    allStudentsLoading,
   } = useAdminDashboard();
   console.log("cookies", cookies);
+  const navigate = useNavigate();
+
+  const redirectToDecks = () => {
+    navigate("/admin/decks");
+  };
+  const redirectToTags = () => {
+    navigate("/admin/tags");
+  };
 
   const cards = [
     {
       title: localeTitles?.TITLE_TOTAL_STUDENTS,
-      value: "2420",
+      value: allStudents?.length,
       img: studentsImg,
     },
     {
       title: localeTitles?.TITLE_ACTIVE_STUDENTS,
-      value: "2420",
+      value: allStudents?.filter((obj: any) => obj.status === "active")?.length,
       img: studentsImg,
     },
     {
       title: localeTitles?.TITLE_INACTIVE_STUDENTS,
-      value: "2420",
+      value: allStudents?.filter((obj: any) => obj.status === "inactive")
+        ?.length,
       img: studentsImg,
     },
     {
@@ -84,298 +98,6 @@ const AdminDashboard = ({}: AdminDashboardProps) => {
     "Status",
     // "Action",
   ];
-  const data = [
-    {
-      id: 1,
-      image:
-        "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-      name: "John Doe",
-      status: "active",
-      email: "test@test.com",
-      lastActivity: "21 Dec,2022",
-      createdOn: "21 Dec,2022",
-      flashcardsCreated: 50,
-      PastExamsCreated: 25,
-    },
-    {
-      id: 1,
-      image:
-        "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-      name: "John Doe",
-      status: "disable",
-      email: "test@test.com",
-      lastActivity: "21 Dec,2022",
-      createdOn: "21 Dec,2022",
-      flashcardsCreated: 50,
-      PastExamsCreated: 25,
-    },
-    {
-      id: 1,
-      image:
-        "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-      name: "John Doe",
-      status: "active",
-      email: "test@test.com",
-      lastActivity: "21 Dec,2022",
-      createdOn: "21 Dec,2022",
-      flashcardsCreated: 50,
-      PastExamsCreated: 25,
-    },
-    {
-      id: 1,
-      image:
-        "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-      name: "John Doe",
-      status: "disable",
-      email: "test@test.com",
-      lastActivity: "21 Dec,2022",
-      createdOn: "21 Dec,2022",
-      flashcardsCreated: 50,
-      PastExamsCreated: 25,
-    },
-    {
-      id: 1,
-      image:
-        "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-      name: "John Doe",
-      status: "active",
-      email: "test@test.com",
-      lastActivity: "21 Dec,2022",
-      createdOn: "21 Dec,2022",
-      flashcardsCreated: 50,
-      PastExamsCreated: 25,
-    },
-    {
-      id: 1,
-      image:
-        "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-      name: "John Doe",
-      status: "active",
-      email: "test@test.com",
-      lastActivity: "21 Dec,2022",
-      createdOn: "21 Dec,2022",
-      flashcardsCreated: 50,
-      PastExamsCreated: 25,
-    },
-    {
-      id: 1,
-      image:
-        "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-      name: "John Doe",
-      status: "active",
-      email: "test@test.com",
-      lastActivity: "21 Dec,2022",
-      createdOn: "21 Dec,2022",
-      flashcardsCreated: 50,
-      PastExamsCreated: 25,
-    },
-    {
-      id: 1,
-      image:
-        "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-      name: "John Doe",
-      status: "active",
-      email: "test@test.com",
-      lastActivity: "21 Dec,2022",
-      createdOn: "21 Dec,2022",
-      flashcardsCreated: 50,
-      PastExamsCreated: 25,
-    },
-    {
-      id: 1,
-      image:
-        "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-      name: "John Doe",
-      status: "active",
-      email: "test@test.com",
-      lastActivity: "21 Dec,2022",
-      createdOn: "21 Dec,2022",
-      flashcardsCreated: 50,
-      PastExamsCreated: 25,
-    },
-    {
-      id: 1,
-      image:
-        "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-      name: "John Doe",
-      status: "active",
-      email: "test@test.com",
-      lastActivity: "21 Dec,2022",
-      createdOn: "21 Dec,2022",
-      flashcardsCreated: 50,
-      PastExamsCreated: 25,
-    },
-    {
-      id: 1,
-      image:
-        "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-      name: "John Doe",
-      status: "active",
-      email: "test@test.com",
-      lastActivity: "21 Dec,2022",
-      createdOn: "21 Dec,2022",
-      flashcardsCreated: 50,
-      PastExamsCreated: 25,
-    },
-    {
-      id: 1,
-      image:
-        "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-      name: "John Doe",
-      status: "active",
-      email: "test@test.com",
-      lastActivity: "21 Dec,2022",
-      createdOn: "21 Dec,2022",
-      flashcardsCreated: 50,
-      PastExamsCreated: 25,
-    },
-    {
-      id: 1,
-      image:
-        "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-      name: "John Doe",
-      status: "active",
-      email: "test@test.com",
-      lastActivity: "21 Dec,2022",
-      createdOn: "21 Dec,2022",
-      flashcardsCreated: 50,
-      PastExamsCreated: 25,
-    },
-    {
-      id: 1,
-      image:
-        "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-      name: "John Doe",
-      status: "active",
-      email: "test@test.com",
-      lastActivity: "21 Dec,2022",
-      createdOn: "21 Dec,2022",
-      flashcardsCreated: 50,
-      PastExamsCreated: 25,
-    },
-    {
-      id: 1,
-      image:
-        "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-      name: "John Doe",
-      status: "active",
-      email: "test@test.com",
-      lastActivity: "21 Dec,2022",
-      createdOn: "21 Dec,2022",
-      flashcardsCreated: 50,
-      PastExamsCreated: 25,
-    },
-    {
-      id: 1,
-      image:
-        "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-      name: "John Doe",
-      status: "active",
-      email: "test@test.com",
-      lastActivity: "21 Dec,2022",
-      createdOn: "21 Dec,2022",
-      flashcardsCreated: 50,
-      PastExamsCreated: 25,
-    },
-    {
-      id: 1,
-      image:
-        "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-      name: "John Doe",
-      status: "active",
-      email: "test@test.com",
-      lastActivity: "21 Dec,2022",
-      createdOn: "21 Dec,2022",
-      flashcardsCreated: 50,
-      PastExamsCreated: 25,
-    },
-    {
-      id: 1,
-      image:
-        "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-      name: "John Doe",
-      status: "active",
-      email: "test@test.com",
-      lastActivity: "21 Dec,2022",
-      createdOn: "21 Dec,2022",
-      flashcardsCreated: 50,
-      PastExamsCreated: 25,
-    },
-    {
-      id: 1,
-      image:
-        "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-      name: "John Doe",
-      status: "active",
-      email: "test@test.com",
-      lastActivity: "21 Dec,2022",
-      createdOn: "21 Dec,2022",
-      flashcardsCreated: 50,
-      PastExamsCreated: 25,
-    },
-    {
-      id: 1,
-      image:
-        "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-      name: "John Doe",
-      status: "active",
-      email: "test@test.com",
-      lastActivity: "21 Dec,2022",
-      createdOn: "21 Dec,2022",
-      flashcardsCreated: 50,
-      PastExamsCreated: 25,
-    },
-    {
-      id: 1,
-      image:
-        "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-      name: "John Doe",
-      status: "active",
-      email: "test@test.com",
-      lastActivity: "21 Dec,2022",
-      createdOn: "21 Dec,2022",
-      flashcardsCreated: 50,
-      PastExamsCreated: 25,
-    },
-    {
-      id: 1,
-      image:
-        "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-      name: "John Doe",
-      status: "active",
-      email: "test@test.com",
-      lastActivity: "21 Dec,2022",
-      createdOn: "21 Dec,2022",
-      flashcardsCreated: 50,
-      PastExamsCreated: 25,
-    },
-    {
-      id: 1,
-      image:
-        "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-      name: "John Doe",
-      status: "active",
-      email: "test@test.com",
-      lastActivity: "21 Dec,2022",
-      createdOn: "21 Dec,2022",
-      flashcardsCreated: 50,
-      PastExamsCreated: 25,
-    },
-    {
-      id: 1,
-      image:
-        "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-      name: "John Doe",
-      status: "active",
-      email: "test@test.com",
-      lastActivity: "21 Dec,2022",
-      createdOn: "21 Dec,2022",
-      flashcardsCreated: 50,
-      PastExamsCreated: 25,
-    },
-
-    // ... additional data
-  ];
 
   return (
     <AdminLayout>
@@ -390,10 +112,18 @@ const AdminDashboard = ({}: AdminDashboardProps) => {
             </Text>
           </div>
           <div className={styles["head-right"]}>
-            <Button leftIcon={<IoMdAdd />} className="secondaryBtn">
+            <Button
+              leftIcon={<IoMdAdd />}
+              className="secondaryBtn"
+              onClick={redirectToTags}
+            >
               {localeButtons?.BUTTON_CREATE_TAG}
             </Button>
-            <Button leftIcon={<IoMdAdd />} className="purpleBtn">
+            <Button
+              leftIcon={<IoMdAdd />}
+              className="purpleBtn"
+              onClick={redirectToDecks}
+            >
               {localeButtons?.BUTTON_CREATE_DECK}
             </Button>
           </div>
@@ -438,8 +168,9 @@ const AdminDashboard = ({}: AdminDashboardProps) => {
             </Button>
           </div>
           <CustomTable
+            loading={allProfessorsLoading}
             headers={headers}
-            data={allProfessors}
+            data={Array.isArray(allProfessors) ? allProfessors : []}
             control={control}
             // pagination={true}
             rowsPerPage={5}
@@ -448,6 +179,7 @@ const AdminDashboard = ({}: AdminDashboardProps) => {
             showEditIcon={true}
             title={"Professors"}
             handleStatusToggle={onChangeProfessorStatus}
+            watch={watch}
           />
         </div>
 
@@ -471,8 +203,9 @@ const AdminDashboard = ({}: AdminDashboardProps) => {
             </div>
           </div>
           <CustomTable
+            loading={allStudentsLoading}
             headers={headers}
-            data={data}
+            data={Array.isArray(allStudents) ? allStudents : []}
             control={control}
             // pagination={true}
             rowsPerPage={5}
@@ -481,6 +214,7 @@ const AdminDashboard = ({}: AdminDashboardProps) => {
             // showEditIcon={true}
             title={"Professors"}
             handleStatusToggle={onChangeProfessorStatus}
+            watch={watch}
           />
         </div>
 

@@ -6,10 +6,15 @@ import {
   showErrorToast,
   showSuccessToast,
 } from "../../../../config/toastProvider/toastUtils";
-import { createProfessorApi } from "../../../../utils/api/admin";
+import {
+  changeProfessorStatusApi,
+  changeStudentStatusApi,
+  createProfessorApi,
+} from "../../../../utils/api/admin";
 import useLocale from "../../../../locales";
 import { passwordRegex } from "../../../../utils/constants/constants";
 import { useCookies } from "react-cookie";
+import { useStudentsQuery } from "../../../../redux/slices/APISlice";
 // import { useLocation, useNavigate } from "react-router-dom";
 
 export const useStudentManagement = () => {
@@ -17,38 +22,24 @@ export const useStudentManagement = () => {
   const { localeSuccess } = useLocale();
   const [cookies] = useCookies(["admin"]);
 
-  const validationSchema = yup.object().shape({
-    email: yup
-      .string()
-      .required("Email is required")
-      .email("Invalid email format"),
-    password: yup
-      .string()
-      .required("Password is required")
-      .matches(passwordRegex, "Invalid password format"),
-    phone: yup.string().required("Phone number is required"),
-    // .matches(/^\d{10}$/, "Invalid phone number format"),
-    name: yup.string().required("Name is required"),
-    confirmPassword: yup
-      .string()
-      .required("Confirm Password is required")
-      .oneOf([yup.ref("password")], "Passwords must match"),
-  });
   const {
     handleSubmit,
     control,
     formState: { errors },
+    watch,
   } = useForm({
-    resolver: yupResolver(validationSchema),
-    defaultValues: {
-      email: "",
-      password: "",
-      phone: "",
-      name: "",
-    },
+    defaultValues: {},
   });
+
+  const {
+    allStudents,
+    refetchAllStudents,
+    allStudentsLoading,
+    errorAllStudents,
+  } = useStudentsQuery(cookies);
+
   const [opneProfessorModal, setOpneProfessorModal] = useState<boolean>(false);
-  const [professorLoading, setProfessorLoading] = useState<boolean>(false);
+  const [studentLoading, setStudentLoading] = useState<boolean>(false);
   const handleOpenProfessor = () => {
     setOpneProfessorModal(true);
   };
@@ -56,26 +47,27 @@ export const useStudentManagement = () => {
     setOpneProfessorModal(false);
   };
 
-  const onSubmitCreateProfessor = async (data: any) => {
+  const onChangeStudentStatus = async (data: any) => {
     const params = {
-      name: data?.name,
-      email: data?.email,
-      password: data?.password,
-      phone: data?.phone,
+      status: data?.status === "active" ? "inactive" : "active",
     };
     console.log("params", params);
     try {
-      setProfessorLoading(true);
+      setStudentLoading(true);
       let response;
-      response = await createProfessorApi(params, cookies?.admin?.token);
+      response = await changeStudentStatusApi(
+        params,
+        data?._id,
+        cookies?.admin?.token
+      );
       console.log("response", response);
-
-      showSuccessToast(localeSuccess?.SUCCESS_PROFESSOR_CREATED);
+      refetchAllStudents();
+      showSuccessToast(localeSuccess?.SUCCESS_STUDENT_STATUS_CHANGED);
     } catch (error: any) {
       console.log("error", error);
       showErrorToast(error?.response?.data?.errorMessage);
     } finally {
-      setProfessorLoading(false);
+      setStudentLoading(false);
     }
   };
 
@@ -86,7 +78,11 @@ export const useStudentManagement = () => {
     opneProfessorModal,
     handleOpenProfessor,
     handleCloseProfessor,
-    onSubmitCreateProfessor,
-    professorLoading,
+
+    watch,
+    allStudents,
+    allStudentsLoading,
+    onChangeStudentStatus,
+    studentLoading,
   };
 };

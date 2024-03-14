@@ -26,22 +26,30 @@ const ProfessorManagement = ({}: ProfessorManagementProps) => {
     handleOpenEdit,
     handleCloseEdit,
     editLoading,
+    watch,
+
+    allProfessors,
+    refetchAllProfessors,
+    onChangeProfessorStatus,
+    allProfessorsLoading
   } = useProfessorManagement();
 
   const cards = [
     {
       title: localeTitles?.TITLE_TOTAL_PROFESSORS,
-      value: "2420",
+      value: allProfessors?.length,
       img: professorsImg,
     },
     {
       title: localeTitles?.TITLE_ACTIVE_PROFESSORS,
-      value: "2420",
+      value: allProfessors?.filter((obj: any) => obj.status === "active")
+        ?.length,
       img: professorsImg,
     },
     {
       title: localeTitles?.TITLE_INACTIVE_PROFESSOR,
-      value: "2420",
+      value: allProfessors?.filter((obj: any) => obj.status === "inactive")
+        ?.length,
       img: professorsImg,
     },
   ];
@@ -57,301 +65,6 @@ const ProfessorManagement = ({}: ProfessorManagementProps) => {
     "Status",
     "Action",
   ];
-  const data = [
-    {
-      id: 1,
-      image:
-        "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-      name: "John Doe",
-      status: "active",
-      email: "test@test.com",
-      lastActivity: "21 Dec,2022",
-      createdOn: "21 Dec,2022",
-      flashcardsCreated: 50,
-      PastExamsCreated: 25,
-    },
-    {
-      id: 1,
-      image:
-        "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-      name: "John Doe",
-      status: "disable",
-      email: "test@test.com",
-      lastActivity: "21 Dec,2022",
-      createdOn: "21 Dec,2022",
-      flashcardsCreated: 50,
-      PastExamsCreated: 25,
-    },
-    {
-      id: 1,
-      image:
-        "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-      name: "John Doe",
-      status: "active",
-      email: "test@test.com",
-      lastActivity: "21 Dec,2022",
-      createdOn: "21 Dec,2022",
-      flashcardsCreated: 50,
-      PastExamsCreated: 25,
-    },
-    {
-      id: 1,
-      image:
-        "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-      name: "John Doe",
-      status: "disable",
-      email: "test@test.com",
-      lastActivity: "21 Dec,2022",
-      createdOn: "21 Dec,2022",
-      flashcardsCreated: 50,
-      PastExamsCreated: 25,
-    },
-    {
-      id: 1,
-      image:
-        "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-      name: "John Doe",
-      status: "active",
-      email: "test@test.com",
-      lastActivity: "21 Dec,2022",
-      createdOn: "21 Dec,2022",
-      flashcardsCreated: 50,
-      PastExamsCreated: 25,
-    },
-    {
-      id: 1,
-      image:
-        "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-      name: "John Doe",
-      status: "active",
-      email: "test@test.com",
-      lastActivity: "21 Dec,2022",
-      createdOn: "21 Dec,2022",
-      flashcardsCreated: 50,
-      PastExamsCreated: 25,
-    },
-    {
-      id: 1,
-      image:
-        "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-      name: "John Doe",
-      status: "active",
-      email: "test@test.com",
-      lastActivity: "21 Dec,2022",
-      createdOn: "21 Dec,2022",
-      flashcardsCreated: 50,
-      PastExamsCreated: 25,
-    },
-    {
-      id: 1,
-      image:
-        "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-      name: "John Doe",
-      status: "active",
-      email: "test@test.com",
-      lastActivity: "21 Dec,2022",
-      createdOn: "21 Dec,2022",
-      flashcardsCreated: 50,
-      PastExamsCreated: 25,
-    },
-    {
-      id: 1,
-      image:
-        "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-      name: "John Doe",
-      status: "active",
-      email: "test@test.com",
-      lastActivity: "21 Dec,2022",
-      createdOn: "21 Dec,2022",
-      flashcardsCreated: 50,
-      PastExamsCreated: 25,
-    },
-    {
-      id: 1,
-      image:
-        "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-      name: "John Doe",
-      status: "active",
-      email: "test@test.com",
-      lastActivity: "21 Dec,2022",
-      createdOn: "21 Dec,2022",
-      flashcardsCreated: 50,
-      PastExamsCreated: 25,
-    },
-    {
-      id: 1,
-      image:
-        "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-      name: "John Doe",
-      status: "active",
-      email: "test@test.com",
-      lastActivity: "21 Dec,2022",
-      createdOn: "21 Dec,2022",
-      flashcardsCreated: 50,
-      PastExamsCreated: 25,
-    },
-    {
-      id: 1,
-      image:
-        "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-      name: "John Doe",
-      status: "active",
-      email: "test@test.com",
-      lastActivity: "21 Dec,2022",
-      createdOn: "21 Dec,2022",
-      flashcardsCreated: 50,
-      PastExamsCreated: 25,
-    },
-    {
-      id: 1,
-      image:
-        "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-      name: "John Doe",
-      status: "active",
-      email: "test@test.com",
-      lastActivity: "21 Dec,2022",
-      createdOn: "21 Dec,2022",
-      flashcardsCreated: 50,
-      PastExamsCreated: 25,
-    },
-    {
-      id: 1,
-      image:
-        "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-      name: "John Doe",
-      status: "active",
-      email: "test@test.com",
-      lastActivity: "21 Dec,2022",
-      createdOn: "21 Dec,2022",
-      flashcardsCreated: 50,
-      PastExamsCreated: 25,
-    },
-    {
-      id: 1,
-      image:
-        "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-      name: "John Doe",
-      status: "active",
-      email: "test@test.com",
-      lastActivity: "21 Dec,2022",
-      createdOn: "21 Dec,2022",
-      flashcardsCreated: 50,
-      PastExamsCreated: 25,
-    },
-    {
-      id: 1,
-      image:
-        "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-      name: "John Doe",
-      status: "active",
-      email: "test@test.com",
-      lastActivity: "21 Dec,2022",
-      createdOn: "21 Dec,2022",
-      flashcardsCreated: 50,
-      PastExamsCreated: 25,
-    },
-    {
-      id: 1,
-      image:
-        "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-      name: "John Doe",
-      status: "active",
-      email: "test@test.com",
-      lastActivity: "21 Dec,2022",
-      createdOn: "21 Dec,2022",
-      flashcardsCreated: 50,
-      PastExamsCreated: 25,
-    },
-    {
-      id: 1,
-      image:
-        "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-      name: "John Doe",
-      status: "active",
-      email: "test@test.com",
-      lastActivity: "21 Dec,2022",
-      createdOn: "21 Dec,2022",
-      flashcardsCreated: 50,
-      PastExamsCreated: 25,
-    },
-    {
-      id: 1,
-      image:
-        "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-      name: "John Doe",
-      status: "active",
-      email: "test@test.com",
-      lastActivity: "21 Dec,2022",
-      createdOn: "21 Dec,2022",
-      flashcardsCreated: 50,
-      PastExamsCreated: 25,
-    },
-    {
-      id: 1,
-      image:
-        "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-      name: "John Doe",
-      status: "active",
-      email: "test@test.com",
-      lastActivity: "21 Dec,2022",
-      createdOn: "21 Dec,2022",
-      flashcardsCreated: 50,
-      PastExamsCreated: 25,
-    },
-    {
-      id: 1,
-      image:
-        "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-      name: "John Doe",
-      status: "active",
-      email: "test@test.com",
-      lastActivity: "21 Dec,2022",
-      createdOn: "21 Dec,2022",
-      flashcardsCreated: 50,
-      PastExamsCreated: 25,
-    },
-    {
-      id: 1,
-      image:
-        "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-      name: "John Doe",
-      status: "active",
-      email: "test@test.com",
-      lastActivity: "21 Dec,2022",
-      createdOn: "21 Dec,2022",
-      flashcardsCreated: 50,
-      PastExamsCreated: 25,
-    },
-    {
-      id: 1,
-      image:
-        "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-      name: "John Doe",
-      status: "active",
-      email: "test@test.com",
-      lastActivity: "21 Dec,2022",
-      createdOn: "21 Dec,2022",
-      flashcardsCreated: 50,
-      PastExamsCreated: 25,
-    },
-    {
-      id: 1,
-      image:
-        "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-      name: "John Doe",
-      status: "active",
-      email: "test@test.com",
-      lastActivity: "21 Dec,2022",
-      createdOn: "21 Dec,2022",
-      flashcardsCreated: 50,
-      PastExamsCreated: 25,
-    },
-
-    // ... additional data
-  ];
-  const handleStatusToggle = (data: any) => {
-    console.log("handleStatusToggle", data);
-  };
 
   return (
     <AdminLayout>
@@ -389,8 +102,9 @@ const ProfessorManagement = ({}: ProfessorManagementProps) => {
 
         <div className={styles["ProfessorManagement-section"]}>
           <CustomTable
+          loading={allProfessorsLoading}
             headers={headers}
-            data={data}
+            data={Array.isArray(allProfessors) ? allProfessors : []}
             control={control}
             // pagination={true}
             rowsPerPage={10}
@@ -398,9 +112,10 @@ const ProfessorManagement = ({}: ProfessorManagementProps) => {
             showDeleteIcon={true}
             handleEdit={handleOpenEdit}
             showEditIcon={true}
-            title={"Professors"}
+            title={localeTitles?.TITLE_PROFESSORS}
             showHeader
-            handleStatusToggle={handleStatusToggle}
+            handleStatusToggle={onChangeProfessorStatus}
+            watch={watch}
           />
         </div>
 

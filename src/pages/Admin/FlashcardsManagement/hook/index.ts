@@ -17,35 +17,15 @@ export const useFlashcardsManagement = () => {
   const { localeSuccess } = useLocale();
   const [cookies] = useCookies(["admin"]);
 
-  const validationSchema = yup.object().shape({
-    email: yup
-      .string()
-      .required("Email is required")
-      .email("Invalid email format"),
-    password: yup
-      .string()
-      .required("Password is required")
-      .matches(passwordRegex, "Invalid password format"),
-    phone: yup.string().required("Phone number is required"),
-    // .matches(/^\d{10}$/, "Invalid phone number format"),
-    name: yup.string().required("Name is required"),
-    confirmPassword: yup
-      .string()
-      .required("Confirm Password is required")
-      .oneOf([yup.ref("password")], "Passwords must match"),
-  });
+  const validationSchema = yup.object().shape({});
   const {
     handleSubmit,
     control,
     formState: { errors },
+    watch,
   } = useForm({
-    resolver: yupResolver(validationSchema),
-    defaultValues: {
-      email: "",
-      password: "",
-      phone: "",
-      name: "",
-    },
+    // resolver: yupResolver(validationSchema),
+    defaultValues: {},
   });
   const [opneProfessorModal, setOpneProfessorModal] = useState<boolean>(false);
   const [professorLoading, setProfessorLoading] = useState<boolean>(false);
@@ -100,7 +80,6 @@ export const useFlashcardsManagement = () => {
     //   let response;
     //   response = await createProfessorApi(params, cookies?.admin?.token);
     //   console.log("response", response);
-
     //   showSuccessToast(localeSuccess?.SUCCESS_PROFESSOR_CREATED);
     // } catch (error: any) {
     //   console.log("error", error);
@@ -123,6 +102,7 @@ export const useFlashcardsManagement = () => {
     handleOpenEdit,
     handleCloseEdit,
     editLoading,
-    onSubmitEditProfessor
+    onSubmitEditProfessor,
+    watch,
   };
 };

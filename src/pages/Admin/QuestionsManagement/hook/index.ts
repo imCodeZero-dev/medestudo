@@ -38,6 +38,7 @@ export const useQuestionsManagement = () => {
     handleSubmit,
     control,
     formState: { errors },
+    watch,
   } = useForm({
     resolver: yupResolver(validationSchema),
     defaultValues: {
@@ -100,7 +101,6 @@ export const useQuestionsManagement = () => {
     //   let response;
     //   response = await createProfessorApi(params, cookies?.admin?.token);
     //   console.log("response", response);
-
     //   showSuccessToast(localeSuccess?.SUCCESS_PROFESSOR_CREATED);
     // } catch (error: any) {
     //   console.log("error", error);
@@ -123,6 +123,7 @@ export const useQuestionsManagement = () => {
     handleOpenEdit,
     handleCloseEdit,
     editLoading,
-    onSubmitEditProfessor
+    onSubmitEditProfessor,
+    watch,
   };
 };

@@ -25,7 +25,6 @@ const CreateDeckSection = ({
     localeButtons,
   } = useLocale();
 
-
   const onAdd = (parentIndex: number, level: number) => {
     const currentDecks = getValues("decks") || [];
     const newDeck = { name: "" };

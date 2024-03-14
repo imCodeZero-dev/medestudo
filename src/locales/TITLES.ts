@@ -32,6 +32,7 @@ export const TITLES = {
     TITLE_EDIT_TAGS: "Edit Tags",
     TITLE_DELETE_USER: "Delete User",
     TITLE_ARE_YOU_SURE_LOGOUT: "Are you sure you want to logout?",
+    TITLE_ARE_YOU_SURE_DELETE: "Are you sure you want to delete?",
   },
   es: {
     TITLE_TEST: "Este es el título de la prueba",
@@ -66,5 +67,6 @@ export const TITLES = {
     TITLE_EDIT_TAGS: "Edit Tags",
     TITLE_DELETE_USER: "Delete User",
     TITLE_ARE_YOU_SURE_LOGOUT: "Are you sure you want to logout?",
+    TITLE_ARE_YOU_SURE_DELETE: "Are you sure you want to delete?",
   },
 };
