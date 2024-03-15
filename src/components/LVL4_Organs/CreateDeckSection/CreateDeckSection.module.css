@@ -1,22 +1,42 @@
-.CreateDeckSection{
+.CreateDeckSection {
   background-color: white;
   border-radius: 12px;
   padding: 24px;
 }
 
 .title {
-    /* font-family: Inter; */
+  /* font-family: Inter; */
   font-size: 18px;
   font-weight: 600;
   line-height: 28px;
-margin-top: 16px;
-
-}
-
-.form{
   margin-top: 16px;
 }
 
-.inputDiv{
+.form {
+  margin-top: 16px;
+}
+
+.inputDiv {
   margin-top: 4px;
+}
+
+.subDeckContainer {
+  width: 90%;
+  margin-left: auto;
+  margin-top: 8px;
+}
+.nestedDeckContainer {
+  width: 90%;
+  margin-left: auto;
+  margin-top: 8px;
+}
+.deepNestedDeckContainer {
+  width: 90%;
+  margin-left: auto;
+  margin-top: 8px;
+}
+.deepestNestedDeckContainer {
+  width: 90%;
+  margin-left: auto;
+  margin-top: 8px;
 }

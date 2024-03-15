@@ -1,4 +1,7 @@
 import { Switch, styled } from "@mui/material";
+import { type ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+
 
 export const IOSSwitch = styled((props: any) => (
   <Switch
@@ -55,3 +58,8 @@ export const IOSSwitch = styled((props: any) => (
     }),
   },
 }));
+
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}

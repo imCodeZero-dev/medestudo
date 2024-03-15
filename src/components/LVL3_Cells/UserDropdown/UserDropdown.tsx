@@ -5,10 +5,12 @@ import { UserDropdownProps } from "./@types";
 import styles from "./UserDropdown.module.css";
 import { useNavigate } from "react-router-dom";
 import { RxAvatar } from "react-icons/rx";
+import useLocale from "../../../locales";
 
 const UserDropdown: React.FC<UserDropdownProps> = ({ handleOpenLogout }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const navigate = useNavigate();
+  const { localeDropdowns } = useLocale();
 
   const navigation = (link: string) => {
     if (link === "/logout") {
@@ -30,8 +32,8 @@ const UserDropdown: React.FC<UserDropdownProps> = ({ handleOpenLogout }) => {
   };
 
   const menuButtons = [
-    { label: "Settings", route: "/settings" },
-    { label: "Logout", route: "/logout" },
+    { label: localeDropdowns?.DROPDOWN_PROFILE, route: "/admin/profile" },
+    { label: localeDropdowns?.DROPDOWN_LOGOUT, route: "/logout" },
   ];
 
   return (

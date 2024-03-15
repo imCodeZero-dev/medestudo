@@ -1,0 +1,11 @@
+.image {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    /* background-color: rgb(91, 103, 114); */
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+  }

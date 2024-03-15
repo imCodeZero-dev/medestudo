@@ -1,6 +1,7 @@
 export const PLACEHOLDERS = {
   en: {
     PLACEHOLDER_ENTER_USERNAME: "Enter Username",
+    PLACEHOLDER_ENTER_EMAIL: "Enter Email",
     PLACEHOLDER_ENTER_PASSWORD: "Enter Password",
     PLACEHOLDER_SEARCH: "Search",
     PLACEHOLDER_ENTER_NAME: "Enter Name...",
@@ -9,6 +10,7 @@ export const PLACEHOLDERS = {
   },
   es: {
     PLACEHOLDER_ENTER_USERNAME: "Enter Username",
+    PLACEHOLDER_ENTER_EMAIL: "Enter Email",
     PLACEHOLDER_ENTER_PASSWORD: "Enter Password",
     PLACEHOLDER_SEARCH: "Search",
     PLACEHOLDER_ENTER_NAME: "Enter Name...",

@@ -27,26 +27,86 @@ const CreateDeckSection = ({
 
   const onAdd = (parentIndex: number, level: number) => {
     const currentDecks = getValues("decks") || [];
-    const newDeck = { name: "" };
     let currentLevel = currentDecks[parentIndex];
+
+    // Navigate to the specified level in the deck hierarchy
     for (let i = 0; i < level - 1; i++) {
       currentLevel.subDecks = currentLevel.subDecks || [];
-      currentLevel.subDecks.push({ name: "" });
-      currentLevel = currentLevel.subDecks[currentLevel.subDecks.length - 1];
+      const lastSubDeck =
+        currentLevel.subDecks[currentLevel.subDecks.length - 1];
+      if (lastSubDeck && lastSubDeck.subDecks) {
+        currentLevel = lastSubDeck;
+      } else {
+        currentLevel.subDecks.push({ name: "", subDecks: [] });
+        currentLevel = currentLevel.subDecks[currentLevel.subDecks.length - 1];
+      }
     }
+
+    // Create a new sub-deck object
+    const newSubDeck = { name: "", subDecks: [] };
+
+    // Add the new sub-deck to the current level
     currentLevel.subDecks = currentLevel.subDecks || [];
-    currentLevel.subDecks.push(newDeck);
+    currentLevel.subDecks.push(newSubDeck);
+
+    // Update the form value with the modified decks
     setValue("decks", [...currentDecks]);
   };
+
+  // const onAdd = (parentIndex: number, level: number) => {
+  //   const currentDecks = getValues("decks") || [];
+  //   let currentLevel = currentDecks[parentIndex];
+
+  //   // Navigate to the specified level in the deck hierarchy
+  //   for (let i = 0; i < level - 1; i++) {
+  //     currentLevel.subDecks = currentLevel.subDecks || [];
+  //     const lastSubDeck = currentLevel.subDecks[currentLevel.subDecks.length - 1];
+  //     if (lastSubDeck && lastSubDeck.subDecks) {
+  //       currentLevel = lastSubDeck;
+  //     } else {
+  //       currentLevel.subDecks.push({ name: "", subDecks: [] });
+  //       currentLevel = currentLevel.subDecks[currentLevel.subDecks.length - 1];
+  //     }
+  //   }
+
+  //   // Create a new sub-deck object
+  //   const newSubDeck = { name: "", subDecks: [] };
+
+  //   // Add the new sub-deck to the current level
+  //   currentLevel.subDecks = currentLevel.subDecks || [];
+  //   currentLevel.subDecks.push(newSubDeck);
+
+  //   // Update the form value with the modified decks
+  //   setValue("decks", [...currentDecks]);
+  // };
+
+  // const onDelete = (parentIndex: number, level: number, index: number) => {
+  //   const currentDecks = getValues("decks") || [];
+  //   let currentLevel = currentDecks[parentIndex];
+  //   for (let i = 0; i < level - 1; i++) {
+  //     currentLevel = currentLevel.subDecks[currentLevel.subDecks.length - 1];
+  //   }
+  //   currentLevel.subDecks.splice(index, 1);
+  //   setValue("decks", [...currentDecks]);
+  // };
 
   const onDelete = (parentIndex: number, level: number, index: number) => {
     const currentDecks = getValues("decks") || [];
     let currentLevel = currentDecks[parentIndex];
+
+    // Navigate to the specified level in the deck hierarchy
     for (let i = 0; i < level - 1; i++) {
       currentLevel = currentLevel.subDecks[currentLevel.subDecks.length - 1];
     }
-    currentLevel.subDecks.splice(index, 1);
-    setValue("decks", [...currentDecks]);
+
+    // Check if the current level has sub-decks to delete
+    if (currentLevel.subDecks) {
+      // Remove the sub-deck at the specified index
+      currentLevel.subDecks.splice(index, 1);
+
+      // Update the form value with the modified decks
+      setValue("decks", [...currentDecks]);
+    }
   };
 
   return (
