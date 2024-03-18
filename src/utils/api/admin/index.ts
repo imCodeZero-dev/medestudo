@@ -129,3 +129,17 @@ export const changeTagStatusApi = async (
   });
   return response;
 };
+
+export const updateAdminProfileApi = async (
+  data: any,
+  adminId: string,
+  token: string
+) => {
+  const response = await apiRequest({
+    method: "Put",
+    url: `/admin/updateAdminProfile/${adminId}`,
+    data,
+    token,
+  });
+  return response;
+};

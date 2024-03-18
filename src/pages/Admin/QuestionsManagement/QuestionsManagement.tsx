@@ -277,6 +277,7 @@ const QuestionsManagement = ({}: QuestionsManagementProps) => {
 
         <div className={styles["QuestionsManagement-section"]}>
           <CustomTable
+          loading={false}
             headers={headers}
             data={data}
             control={control}

@@ -277,7 +277,7 @@ const FlashcardsManagement = ({}: FlashcardsManagementProps) => {
 
         <div className={styles["FlashcardsManagement-section"]}>
           <CustomTable
-          
+            loading={false}
             headers={headers}
             data={data}
             control={control}

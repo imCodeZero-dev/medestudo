@@ -27,7 +27,7 @@ const CreateDeckSection = ({
 
   const onAdd = (parentIndex: number, level: number) => {
     const currentDecks = getValues("decks") || [];
-    let currentLevel = currentDecks[parentIndex];
+    let currentLevel: any = currentDecks[parentIndex];
 
     // Navigate to the specified level in the deck hierarchy
     for (let i = 0; i < level - 1; i++) {
@@ -51,6 +51,25 @@ const CreateDeckSection = ({
 
     // Update the form value with the modified decks
     setValue("decks", [...currentDecks]);
+  };
+
+  const onDelete = (parentIndex: number, level: number, index: number) => {
+    const currentDecks = getValues("decks") || [];
+    let currentLevel: any = currentDecks;
+
+    // Navigate to the specified parent index in the deck hierarchy
+    for (let i = 0; i < parentIndex; i++) {
+      currentLevel = currentLevel[parentIndex]?.subDecks || [];
+    }
+
+    // Check if the current level has sub-decks to delete
+    if (currentLevel[parentIndex].subDecks) {
+      // Remove the sub-deck at the specified index
+      currentLevel[parentIndex].subDecks.splice(index, 1);
+
+      // Update the form value with the modified decks
+      setValue("decks", [...currentDecks]);
+    }
   };
 
   // const onAdd = (parentIndex: number, level: number) => {
@@ -89,25 +108,6 @@ const CreateDeckSection = ({
   //   currentLevel.subDecks.splice(index, 1);
   //   setValue("decks", [...currentDecks]);
   // };
-
-  const onDelete = (parentIndex: number, level: number, index: number) => {
-    const currentDecks = getValues("decks") || [];
-    let currentLevel = currentDecks[parentIndex];
-
-    // Navigate to the specified level in the deck hierarchy
-    for (let i = 0; i < level - 1; i++) {
-      currentLevel = currentLevel.subDecks[currentLevel.subDecks.length - 1];
-    }
-
-    // Check if the current level has sub-decks to delete
-    if (currentLevel.subDecks) {
-      // Remove the sub-deck at the specified index
-      currentLevel.subDecks.splice(index, 1);
-
-      // Update the form value with the modified decks
-      setValue("decks", [...currentDecks]);
-    }
-  };
 
   return (
     <div className={styles["CreateDeckSection"]}>
@@ -168,37 +168,6 @@ const CreateDeckSection = ({
                                   onDelete(parentIndex, 4, deepNestedIndex)
                                 }
                               />
-
-                              {deepNestedDeck.subDecks?.map(
-                                (
-                                  deepestNestedDeck: any,
-                                  deepestNestedIndex: number
-                                ) => (
-                                  <div
-                                    key={deepestNestedIndex}
-                                    className={
-                                      styles["deepestNestedDeckContainer"]
-                                    }
-                                  >
-                                    <InputDeck
-                                      control={control}
-                                      name={`decks[${parentIndex}].subDecks[${index}].subDecks[${nestedIndex}].subDecks[${deepNestedIndex}].subDecks[${deepestNestedIndex}].name`}
-                                      placeholder={
-                                        localePlaceholders.PLACEHOLDER_ENTER_NAME
-                                      }
-                                      onAdd={() => onAdd(parentIndex, 5)}
-                                      onDelete={() =>
-                                        onDelete(
-                                          parentIndex,
-                                          5,
-                                          deepestNestedIndex
-                                        )
-                                      }
-                                    />
-                                    {/* Continue nesting for more levels if needed */}
-                                  </div>
-                                )
-                              )}
                             </div>
                           )
                         )}

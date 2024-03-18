@@ -10,9 +10,13 @@ import {
   changeProfessorStatusApi,
   createProfessorApi,
   getAllProfessorApi,
+  updateAdminProfileApi,
 } from "../../../../utils/api/admin";
 import useLocale from "../../../../locales";
-import { passwordRegex } from "../../../../utils/constants/constants";
+import {
+  CLOUDINARY_CLOUD_NAME,
+  passwordRegex,
+} from "../../../../utils/constants/constants";
 import { useCookies } from "react-cookie";
 import { useQuery } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
@@ -31,18 +35,21 @@ export const useAdminProfile = () => {
       .string()
       .required("Email is required")
       .email("Invalid email format"),
-    password: yup
+    currentPassword: yup
       .string()
       .required("Password is required")
       .matches(passwordRegex, "Invalid password format"),
-    phone: yup.string().required("Phone number is required"),
-    // .matches(/^\d{10}$/, "Invalid phone number format"),
+    newPassword: yup
+      .string()
+      .required("Password is required")
+      .matches(passwordRegex, "Invalid password format"),
     name: yup.string().required("Name is required"),
-    image: yup.string().required("Name is required"),
+    username: yup.string().required("Username is required"),
+    image: yup.string().required("Picture is required"),
     confirmPassword: yup
       .string()
       .required("Confirm Password is required")
-      .oneOf([yup.ref("password")], "Passwords must match"),
+      .oneOf([yup.ref("newPassword")], "Passwords must match"),
   });
   const {
     handleSubmit,
@@ -50,32 +57,43 @@ export const useAdminProfile = () => {
     formState: { errors },
     watch,
   } = useForm({
-    resolver: yupResolver(validationSchema),
+    // resolver: yupResolver(validationSchema),
     defaultValues: {
+      username: "",
       email: "",
-      password: "",
-      phone: "",
+      newPassword: "",
       name: "",
       image: "",
     },
   });
   const [professorLoading, setProfessorLoading] = useState<boolean>(false);
 
-  const onSubmitCreateProfessor = async (data: any) => {
-    const params = {
-      name: data?.name,
-      email: data?.email,
-      password: data?.password,
-      phone: data?.phone,
-    };
-    console.log("params", params);
+  const onSubmitUpdateAdmin = async (data: any) => {
+    console.log("onSubmitUpdateAdmin", data);
     try {
       setProfessorLoading(true);
-      let response;
-      response = await createProfessorApi(params, cookies?.admin?.token);
+
+      let imageUrl = "";
+      if (data?.image) {
+        imageUrl = await uploadImageToCloudinary(data.image);
+      }
+
+      const params = {
+        name: data?.name,
+        email: data?.email,
+        password: data?.newPassword,
+        username: data?.username,
+        pic: imageUrl,
+      };
+
+      const response = await updateAdminProfileApi(
+        params,
+        cookies?.admin?._id,
+        cookies?.admin?.token
+      );
       console.log("response", response);
 
-      showSuccessToast(localeSuccess?.SUCCESS_PROFESSOR_CREATED);
+      showSuccessToast(localeSuccess?.SUCCESS_ADMIN_UPDATED);
     } catch (error: any) {
       console.log("error", error);
       showErrorToast(error?.response?.data?.errorMessage);
@@ -84,12 +102,34 @@ export const useAdminProfile = () => {
     }
   };
 
+  const uploadImageToCloudinary = async (image: File): Promise<string> => {
+    console.log("uploadImageToCloudinary", image);
+    const formData = new FormData();
+    formData.append("file", image);
+    formData.append("upload_preset", "hqwykwvl");
+
+    const response = await fetch(
+      `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`,
+      {
+        method: "POST",
+        body: formData,
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Failed to upload image to Cloudinary");
+    }
+
+    const data = await response.json();
+    return data.secure_url; // Return the URL of the uploaded image
+  };
+
   return {
     control,
     errors,
     handleSubmit,
 
-    onSubmitCreateProfessor,
+    onSubmitUpdateAdmin,
     professorLoading,
     watch,
   };

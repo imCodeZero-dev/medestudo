@@ -12,7 +12,7 @@ interface Props {
 export const AdminRoutes = ({ children }: Props) => {
   const navigate = useNavigate();
   const [cookies, setCookie, removeCookie] = useCookies(["admin"] as any);
-  // console.log("object", cookies.accessToken);
+  console.log("cookies", cookies);
 
   useEffect(() => {
     if (!cookies?.admin?.token) {
@@ -21,7 +21,7 @@ export const AdminRoutes = ({ children }: Props) => {
   }, [cookies, navigate]);
 
   // If userData and accessToken are present, render the children
-  return !cookies?.accessToken ? <>{children}</> : <LoadingScreen />;
+  return cookies?.admin?.token ? <>{children}</> : <LoadingScreen />;
 };
 
 AdminRoutes.propTypes = {
