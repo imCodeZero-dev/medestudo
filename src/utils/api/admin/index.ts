@@ -168,3 +168,26 @@ export const getAllDecksApi = async (token: string) => {
   });
   return response;
 };
+
+export const deleteDeckByIdApi = async (deckId: string, token: string) => {
+  const response = await apiRequest({
+    method: "Delete",
+    url: `/admin/deleteDeck/${deckId}`,
+    token,
+  });
+  return response;
+};
+
+export const updateDeckByIdApi = async (
+  deckId: string,
+  data: any,
+  token: string
+) => {
+  const response = await apiRequest({
+    method: "Put",
+    url: `/admin/updateDeck/${deckId}`,
+    data,
+    token,
+  });
+  return response;
+};

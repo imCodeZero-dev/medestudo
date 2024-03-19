@@ -14,6 +14,8 @@ import { FaAngleDown, FaAngleUp } from "react-icons/fa6";
 import { GoTrash } from "react-icons/go";
 import { RxPencil1 } from "react-icons/rx";
 import { useState } from "react";
+import ConfirmationModal from "../../../components/LVL4_Organs/ConfirmationModal";
+import AlertIcon from "../../../assets/svgs/AlertIcon";
 
 const DecksManagement = ({}: DecksManagementProps) => {
   const { localeTitles, localeButtons, localePlaceholders } = useLocale();
@@ -28,6 +30,11 @@ const DecksManagement = ({}: DecksManagementProps) => {
     getValues,
     watch,
     allDecks,
+    handleDeleteOpen,
+    handleDeleteClose,
+    deleteModal,
+    onDeleteConfirm,
+    deleteLoading,
   } = useDecksManagement();
 
   const [expandedDecks, setExpandedDecks] = useState<boolean[]>([]);
@@ -85,7 +92,10 @@ const DecksManagement = ({}: DecksManagementProps) => {
 
                     <div className="flex space-x-6">
                       <RxPencil1 className="cursor-pointer" />
-                      <GoTrash className="cursor-pointer" />
+                      <GoTrash
+                        className="cursor-pointer"
+                        onClick={() => handleDeleteOpen(deck)}
+                      />
                       {expandedDecks[parentIndex] ? (
                         <FaAngleUp
                           className="cursor-pointer"
@@ -162,6 +172,17 @@ const DecksManagement = ({}: DecksManagementProps) => {
             ))}
           </div>
         )}
+
+        <ConfirmationModal
+          open={deleteModal}
+          cancelButtonText={localeButtons?.BUTTON_CANCEL}
+          confirmButtonText={localeButtons?.BUTTON_DELETE}
+          onConfirm={onDeleteConfirm}
+          icon={<AlertIcon />}
+          title={localeTitles.TITLE_ARE_YOU_SURE_DELETE}
+          handleClose={handleDeleteClose}
+          loading={deleteLoading}
+        />
       </div>
     </AdminLayout>
   );

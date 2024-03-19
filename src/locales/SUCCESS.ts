@@ -2,6 +2,8 @@ export const SUCCESS = {
   en: {
     SUCCESS_PROFESSOR_CREATED: "Professor Created Successfully",
     SUCCESS_DECK_CREATED: "Deck Created Successfully",
+    SUCCESS_DECK_DELETED: "Deck Deleted Successfully",
+    SUCCESS_DECK_UPDATED: "Deck Updated Successfully",
     SUCCESS_TAG_CREATED: "Tag Created Successfully",
     SUCCESS_TAG_UPDATED: "Tag Updated Successfully",
     SUCCESS_TAG_DELETED: "Tag Deleted Successfully",
@@ -15,6 +17,8 @@ export const SUCCESS = {
   es: {
     SUCCESS_PROFESSOR_CREATED: "Professor Created Successfully",
     SUCCESS_DECK_CREATED: "Deck Created Successfully",
+    SUCCESS_DECK_DELETED: "Deck Deleted Successfully",
+    SUCCESS_DECK_UPDATED: "Deck Updated Successfully",
     SUCCESS_TAG_CREATED: "Tag Created Successfully",
     SUCCESS_TAG_UPDATED: "Tag Updated Successfully",
     SUCCESS_TAG_DELETED: "Tag Deleted Successfully",

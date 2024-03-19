@@ -6,7 +6,11 @@ import {
   showErrorToast,
   showSuccessToast,
 } from "../../../../config/toastProvider/toastUtils";
-import { createDeckApi, getAllDecksApi } from "../../../../utils/api/admin";
+import {
+  createDeckApi,
+  deleteDeckByIdApi,
+  getAllDecksApi,
+} from "../../../../utils/api/admin";
 import useLocale from "../../../../locales";
 import { useCookies } from "react-cookie";
 import { useQuery } from "react-query";
@@ -35,13 +39,24 @@ export const useDecksManagement = () => {
   });
   const [createSection, setcreateSection] = useState<boolean>(false);
   const [deckLoading, setDeckLoading] = useState<boolean>(false);
+  const [deckData, setDeckData] = useState<any>();
+  const [deleteLoading, setDeleteLoading] = useState<boolean>(false);
+  const [deleteModal, setdeleteModal] = useState<boolean>(false);
   const handleCreate = () => {
     setcreateSection(true);
   };
   const handleCreateCancel = () => {
     setcreateSection(false);
   };
+  const handleDeleteOpen = (data: any) => {
+    setdeleteModal(true);
+    setDeckData(data);
+  };
+  const handleDeleteClose = () => {
+    setdeleteModal(false);
+  };
 
+  // console.log("deckData", deckData);
   const {
     data: { data: { decks: allDecks = [] } = {} } = {},
     isLoading: allDecksLoading,
@@ -82,6 +97,23 @@ export const useDecksManagement = () => {
     //   setDeckLoading(false);
     // }
   };
+  const onDeleteConfirm = async () => {
+    try {
+      setDeleteLoading(true);
+      let response;
+      response = await deleteDeckByIdApi(deckData?._id, cookies?.admin?.token);
+      console.log("response", response);
+
+      showSuccessToast(localeSuccess?.SUCCESS_DECK_DELETED);
+      refetchAllDecks();
+    } catch (error: any) {
+      console.log("error", error);
+      showErrorToast(error?.response?.data?.errorMessage);
+    } finally {
+      setDeleteLoading(false);
+      handleDeleteClose();
+    }
+  };
 
   return {
     control,
@@ -97,5 +129,10 @@ export const useDecksManagement = () => {
     setValue,
     watch,
     allDecks,
+    handleDeleteOpen,
+    handleDeleteClose,
+    deleteModal,
+    onDeleteConfirm,
+    deleteLoading,
   };
 };
