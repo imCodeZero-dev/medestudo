@@ -6,9 +6,10 @@ import {
   showErrorToast,
   showSuccessToast,
 } from "../../../../config/toastProvider/toastUtils";
-import { createDeckApi } from "../../../../utils/api/admin";
+import { createDeckApi, getAllDecksApi } from "../../../../utils/api/admin";
 import useLocale from "../../../../locales";
 import { useCookies } from "react-cookie";
+import { useQuery } from "react-query";
 // import { useLocation, useNavigate } from "react-router-dom";
 
 export const useDecksManagement = () => {
@@ -41,6 +42,29 @@ export const useDecksManagement = () => {
     setcreateSection(false);
   };
 
+  const {
+    data: { data: { decks: allDecks = [] } = {} } = {},
+    isLoading: allDecksLoading,
+    error: errorAllDecks,
+    refetch: refetchAllDecks,
+  } = useQuery(
+    [
+      "allDecks",
+      {
+        cookies,
+      },
+    ],
+
+    async () => {
+      return getAllDecksApi(cookies?.admin?.token);
+    },
+    {
+      enabled: !!cookies?.admin?.token,
+    }
+  );
+
+  console.log("allDecks", allDecks);
+
   const onCreateSubmission = async (data: any) => {
     console.log("onCreateSubmission", data);
     const params = {};
@@ -72,5 +96,6 @@ export const useDecksManagement = () => {
     getValues,
     setValue,
     watch,
+    allDecks,
   };
 };

@@ -58,6 +58,7 @@ const InputDeck = React.forwardRef<HTMLInputElement, InputProps>(
             <div className={` ${styles["inputField-wrap"]} `}>
               {!!prefix && prefix}
               <input
+                defaultValue={restProps.defaultValue}
                 value={value}
                 ref={ref}
                 className={`${className} bg-transparent border-0 ${styles["inputField"]}`}

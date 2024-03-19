@@ -10,6 +10,7 @@ export const SUCCESS = {
     SUCCESS_STUDENT_STATUS_CHANGED: "Student Status Changed Successfully",
     SUCCESS_ADMIN_LOGIN: "Admin Login Successfully",
     SUCCESS_ADMIN_UPDATED: "Admin Updated Successfully",
+    SUCCESS_PASSWORD_RESET: "Password reset Successfully",
   },
   es: {
     SUCCESS_PROFESSOR_CREATED: "Professor Created Successfully",
@@ -23,5 +24,6 @@ export const SUCCESS = {
 
     SUCCESS_ADMIN_LOGIN: "Admin Login Successfully",
     SUCCESS_ADMIN_UPDATED: "Admin Updated Successfully",
+    SUCCESS_PASSWORD_RESET: "Password reset Successfully",
   },
 };

@@ -10,6 +10,7 @@ import {
   changeProfessorStatusApi,
   createProfessorApi,
   getAllProfessorApi,
+  resetAdminPasswordApi,
   updateAdminProfileApi,
 } from "../../../../utils/api/admin";
 import useLocale from "../../../../locales";
@@ -35,6 +36,11 @@ export const useAdminProfile = () => {
       .string()
       .required("Email is required")
       .email("Invalid email format"),
+    name: yup.string().required("Name is required"),
+    lastName: yup.string().required("lastName is required"),
+    image: yup.string().required("Picture is required"),
+  });
+  const passwordValidationSchema = yup.object().shape({
     currentPassword: yup
       .string()
       .required("Password is required")
@@ -43,9 +49,6 @@ export const useAdminProfile = () => {
       .string()
       .required("Password is required")
       .matches(passwordRegex, "Invalid password format"),
-    name: yup.string().required("Name is required"),
-    username: yup.string().required("Username is required"),
-    image: yup.string().required("Picture is required"),
     confirmPassword: yup
       .string()
       .required("Confirm Password is required")
@@ -57,16 +60,28 @@ export const useAdminProfile = () => {
     formState: { errors },
     watch,
   } = useForm({
-    // resolver: yupResolver(validationSchema),
+    resolver: yupResolver(validationSchema),
     defaultValues: {
-      username: "",
-      email: "",
+      lastName: cookies?.admin?.lastName,
+      email: cookies?.admin?.email,
+      // newPassword: "",
+      name: cookies?.admin?.name,
+      image: cookies?.admin?.image,
+    },
+  });
+  const {
+    handleSubmit: handleSubmitPassword,
+    control: controlPassword,
+    formState: { errors: passwordErrors },
+    watch: watchPasswordFields,
+  } = useForm({
+    resolver: yupResolver(passwordValidationSchema),
+    defaultValues: {
       newPassword: "",
-      name: "",
-      image: "",
     },
   });
   const [professorLoading, setProfessorLoading] = useState<boolean>(false);
+  const [resetLoading, setResetLoading] = useState<boolean>(false);
 
   const onSubmitUpdateAdmin = async (data: any) => {
     console.log("onSubmitUpdateAdmin", data);
@@ -81,17 +96,18 @@ export const useAdminProfile = () => {
       const params = {
         name: data?.name,
         email: data?.email,
-        password: data?.newPassword,
-        username: data?.username,
+        // password: data?.newPassword,
+        lastName: data?.lastName,
         pic: imageUrl,
       };
 
-      const response = await updateAdminProfileApi(
-        params,
-        cookies?.admin?._id,
-        cookies?.admin?.token
-      );
-      console.log("response", response);
+      // const response = await updateAdminProfileApi(
+      //   params,
+      //   cookies?.admin?._id,
+      //   cookies?.admin?.token
+      // );
+      // console.log("response", response);
+      console.log("response", imageUrl);
 
       showSuccessToast(localeSuccess?.SUCCESS_ADMIN_UPDATED);
     } catch (error: any) {
@@ -124,6 +140,32 @@ export const useAdminProfile = () => {
     return data.secure_url; // Return the URL of the uploaded image
   };
 
+  const onSubmitResetPasswordAdmin = async (data: any) => {
+    console.log("onSubmitResetPasswordAdmin", data);
+    try {
+      setResetLoading(true);
+
+      const params = {
+        currentPassword: data?.currentPassword,
+        newPassword: data?.newPassword,
+      };
+
+      const response = await resetAdminPasswordApi(
+        params,
+        cookies?.admin?._id,
+        cookies?.admin?.token
+      );
+      console.log("response", response);
+
+      showSuccessToast(localeSuccess?.SUCCESS_PASSWORD_RESET);
+    } catch (error: any) {
+      console.log("error", error);
+      showErrorToast(error?.response?.data?.errorMessage);
+    } finally {
+      setResetLoading(false);
+    }
+  };
+
   return {
     control,
     errors,
@@ -132,5 +174,10 @@ export const useAdminProfile = () => {
     onSubmitUpdateAdmin,
     professorLoading,
     watch,
+    handleSubmitPassword,
+    controlPassword,
+    passwordErrors,
+    watchPasswordFields,
+    onSubmitResetPasswordAdmin,resetLoading
   };
 };

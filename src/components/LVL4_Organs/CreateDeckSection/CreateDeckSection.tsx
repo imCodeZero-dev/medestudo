@@ -16,6 +16,7 @@ const CreateDeckSection = ({
   setValue,
   getValues,
   watch,
+  handleCreateCancel,
 }: CreateDeckSectionProps) => {
   const {
     localeTitles,
@@ -181,7 +182,11 @@ const CreateDeckSection = ({
         </div>
 
         <div className="flex justify-between mt-4">
-          <Button type="button" className="secondaryBtn" onClick={handleClose}>
+          <Button
+            type="button"
+            className="secondaryBtn"
+            onClick={handleCreateCancel}
+          >
             {localeButtons.BUTTON_CANCEL}
           </Button>
           <Button

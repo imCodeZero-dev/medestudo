@@ -135,10 +135,35 @@ export const updateAdminProfileApi = async (
   adminId: string,
   token: string
 ) => {
+  console.log("updateAdminProfileApi", data, "id", adminId);
   const response = await apiRequest({
     method: "Put",
     url: `/admin/updateAdminProfile/${adminId}`,
     data,
+    token,
+  });
+  return response;
+};
+
+export const resetAdminPasswordApi = async (
+  data: any,
+  adminId: string,
+  token: string
+) => {
+  console.log("resetAdminPasswordApi", data, "id", adminId);
+  const response = await apiRequest({
+    method: "Post",
+    url: `/admin/resetAdminPassword/${adminId}`,
+    data,
+    token,
+  });
+  return response;
+};
+
+export const getAllDecksApi = async (token: string) => {
+  const response = await apiRequest({
+    method: "Get",
+    url: `/admin/getAllDeck`,
     token,
   });
   return response;

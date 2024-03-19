@@ -32,8 +32,18 @@ const AdminProfile = ({}: AdminProfileProps) => {
     localePlaceholders,
   } = useLocale();
   const [cookies] = useCookies(["admin"]);
-  const { control, handleSubmit, watch, onSubmitUpdateAdmin } =
-    useAdminProfile();
+  const {
+    control,
+    handleSubmit,
+    watch,
+    onSubmitUpdateAdmin,
+    handleSubmitPassword,
+    controlPassword,
+    passwordErrors,
+    watchPasswordFields,
+    onSubmitResetPasswordAdmin,
+    resetLoading,
+  } = useAdminProfile();
   console.log("cookies", cookies);
   const navigate = useNavigate();
 
@@ -50,53 +60,53 @@ const AdminProfile = ({}: AdminProfileProps) => {
           {localeTitles?.TITLE_SETTINGS}
         </Text>
 
-        <form
-          onSubmit={handleSubmit(onSubmitUpdateAdmin)}
-          className={styles["form"]}
-        >
-          <div className={styles["AdminProfile-head"]}>
-            <div className={styles["head-left"]}>
-              <AvatarUploader control={control} name="image" watch={watch} />
+        <div className={styles["AdminProfile-head"]}>
+          <div className={styles["head-left"]}>
+            <AvatarUploader control={control} name="image" watch={watch} />
 
-              <div>
-                <Text className={styles["name"]}>Olivia</Text>
-                <Text className={styles["email"]}>Oliviajohn@gmail.com</Text>
-              </div>
-            </div>
-            <div className={styles["head-right"]}>
-              <Button
-                type="button"
-                leftIcon={<IoMdAdd />}
-                className="secondaryBtn"
-              >
-                {localeButtons?.BUTTON_CANCEL}
-              </Button>
-              <Button
-                type="submit"
-                leftIcon={<IoMdAdd />}
-                className="purpleBtn"
-                onClick={handleSubmit(onSubmitUpdateAdmin)}
-              >
-                {localeButtons?.BUTTON_SAVE}
-              </Button>
+            <div>
+              <Text className={styles["name"]}>{cookies?.admin?.name}</Text>
+              <Text className={styles["email"]}>{cookies?.admin?.email}</Text>
             </div>
           </div>
-
-          <div className={styles["AdminProfile-text"]}>
-            <Text className={styles["sectionHeading"]}>
-              {localeTitles?.TITLE_PERSONAL_INFO}
-            </Text>
-            <Text className={styles["greyText"]}>
-              {localeText?.TEXT_YOU_CAN_CHANGE_PASSWORD_NAME_AND_EMAIL}
-            </Text>
+          <div className={styles["head-right"]}>
+            {/* <Button
+              type="button"
+              leftIcon={<IoMdAdd />}
+              className="secondaryBtn"
+            >
+              {localeButtons?.BUTTON_CANCEL}
+            </Button> */}
+            <Button
+              type="submit"
+              leftIcon={<IoMdAdd />}
+              className="purpleBtn"
+              onClick={handleSubmit(onSubmitUpdateAdmin)}
+            >
+              {localeButtons?.BUTTON_SAVE}
+            </Button>
           </div>
+        </div>
 
-          <div className="grid grid-cols-2 space-x-6 my-6">
+        <div className={styles["AdminProfile-text"]}>
+          <Text className={styles["sectionHeading"]}>
+            {localeTitles?.TITLE_PERSONAL_INFO}
+          </Text>
+          <Text className={styles["greyText"]}>
+            {localeText?.TEXT_YOU_CAN_CHANGE_PASSWORD_NAME_AND_EMAIL}
+          </Text>
+        </div>
+
+        <div className="grid grid-cols-2 space-x-6 my-6">
+          <form
+            onSubmit={handleSubmitPassword(onSubmitResetPasswordAdmin)}
+            className={styles["form"]}
+          >
             <div className={styles["AdminProfile-section"]}>
               <div className="grid grid-cols-2 space-x-6">
                 <Input
                   label={localeLables?.LABEL_CURRENT_PASSWORD}
-                  control={control}
+                  control={controlPassword}
                   name="currentPassword"
                   placeholder={localePlaceholders.PLACEHOLDER_ENTER_PASSWORD}
                   preDefinedClassName="lesserHeight"
@@ -106,7 +116,7 @@ const AdminProfile = ({}: AdminProfileProps) => {
 
                 <Input
                   label={localeLables?.LABEL_NEW_PASSWORD}
-                  control={control}
+                  control={controlPassword}
                   name="newPassword"
                   placeholder={localePlaceholders.PLACEHOLDER_ENTER_PASSWORD}
                   preDefinedClassName="lesserHeight"
@@ -118,7 +128,7 @@ const AdminProfile = ({}: AdminProfileProps) => {
               <div className="my-4">
                 <Input
                   label={localeLables?.LABEL_CONFIRM_PASSWORD}
-                  control={control}
+                  control={controlPassword}
                   name="confirmPassword"
                   placeholder={localePlaceholders.PLACEHOLDER_ENTER_PASSWORD}
                   preDefinedClassName="lesserHeight"
@@ -126,10 +136,20 @@ const AdminProfile = ({}: AdminProfileProps) => {
                   type="text"
                 />
               </div>
-              <Button className="purpleBtn">
+              <Button
+                className="purpleBtn"
+                type="submit"
+                loading={resetLoading}
+              >
                 {localeButtons?.BUTTON_FORGOT_PASSWORD}
               </Button>
             </div>
+          </form>
+
+          <form
+            onSubmit={handleSubmit(onSubmitUpdateAdmin)}
+            className={styles["form"]}
+          >
             <div className={styles["AdminProfile-section"]}>
               <div className="grid grid-cols-2 space-x-2">
                 <Input
@@ -145,7 +165,7 @@ const AdminProfile = ({}: AdminProfileProps) => {
                 <Input
                   label={localeLables?.LABEL_LAST_NAME}
                   control={control}
-                  name="username"
+                  name="lastName"
                   placeholder={localePlaceholders.PLACEHOLDER_ENTER_NAME}
                   preDefinedClassName="lesserHeight"
                   preDefinedWrapClassName="inputField-wrap"
@@ -165,8 +185,8 @@ const AdminProfile = ({}: AdminProfileProps) => {
                 />
               </div>
             </div>
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
     </AdminLayout>
   );
