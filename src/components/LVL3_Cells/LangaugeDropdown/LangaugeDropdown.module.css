@@ -8,7 +8,55 @@
   align-items: center;
   background-color: white;
   cursor: pointer;
-  color: #4B78BB;
+  color: #4b78bb;
   font-weight: 600;
   font-size: 14px;
+}
+
+.dropDown {
+  width: 100%;
+}
+
+.label {
+  font-weight: 500;
+}
+
+.LanguageDropdown {
+  position: relative;
+}
+
+.mainDiv {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.dropDown {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 8px;
+  /* width: 200px; */
+  width: 104px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
+}
+
+.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.closed {
+  opacity: 0;
+  visibility: hidden;
 }

@@ -121,9 +121,10 @@ const CustomTable: React.FC<CustomTableProps> = ({
                   {headers.map((header, index) => (
                     <TableCell
                       key={index}
+                      // width={"8%"}
                       className={` h-6 border-0 font-semibold`}
                       sx={{
-                        textAlign: "center",
+                        // textAlign: "center",
                         fontWeight: 500,
                         fontFamily: "Inter",
                         fontSize: "12px",
@@ -142,8 +143,9 @@ const CustomTable: React.FC<CustomTableProps> = ({
                       {headers.map((header, cellIndex) => (
                         <TableCell
                           key={cellIndex}
+                          // width={"8%"}
                           style={{
-                            textAlign: "center",
+                            // textAlign: "center",
                             fontWeight: 400,
                             fontFamily: "Inter",
                             fontSize: "14px",
@@ -180,7 +182,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
                               style={{
                                 display: "flex",
                                 alignItems: "center",
-                                justifyContent: "center",
+                                // justifyContent: "center",
                               }}
                             >
                               <img

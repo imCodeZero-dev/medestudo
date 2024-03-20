@@ -9,27 +9,69 @@ import {
 import {
   changeProfessorStatusApi,
   createProfessorApi,
+  deleteProfessorApi,
+  updateProfessorApi,
 } from "../../../../utils/api/admin";
 import useLocale from "../../../../locales";
 import { useCookies } from "react-cookie";
 import { useProfessorsQuery } from "../../../../redux/slices/APISlice";
+import { passwordRegex } from "../../../../utils/constants/constants";
 // import { useLocation, useNavigate } from "react-router-dom";
 
 export const useProfessorManagement = () => {
   // const navigate = useNavigate();
-  const { localeSuccess } = useLocale();
+  const { localeSuccess, localeErrors } = useLocale();
   const [cookies] = useCookies(["admin"]);
+  const validationSchema = yup.object().shape({
+    email: yup
+      .string()
+      .required(localeErrors.ERROR_EMAIL_REQUIRED)
+      .email(localeErrors.ERROR_INVALID_EMAIL),
+    password: yup
+      .string()
+      .required(localeErrors.ERROR_PASSWORD_REQUIRED)
+      .matches(passwordRegex, localeErrors.ERROR_INVALID_PASSWORD),
+    name: yup.string().required("Name is required"),
+    confirmPassword: yup
+      .string()
+      .required("Confirm Password is required")
+      .oneOf([yup.ref("password")], "Passwords must match"),
+    phone: yup.string().required("Phone number is required"),
+  });
 
   const {
     handleSubmit,
     control,
     formState: { errors },
     watch,
+    setValue,
   } = useForm({
-    defaultValues: {},
+    resolver: yupResolver(validationSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      phone: "",
+    },
   });
+  const [deleteModal, setDeleteModal] = useState<boolean>(false);
   const [opneProfessorModal, setOpneProfessorModal] = useState<boolean>(false);
   const [professorLoading, setProfessorLoading] = useState<boolean>(false);
+  const [deleteLoading, setDeleteLoading] = useState<boolean>(false);
+
+  const [editProfessorModal, setEditProfessorModal] = useState<boolean>(false);
+  const [professorData, setProfessorData] = useState<any>();
+  const [editLoading, setEditLoading] = useState<boolean>(false);
+  const handleOpenEdit = (data: any) => {
+    setEditProfessorModal(true);
+    setProfessorData(data);
+    setValue("name", data?.name);
+    setValue("email", data?.email);
+    setValue("phone", data?.phone);
+  };
+  const handleCloseEdit = () => {
+    setEditProfessorModal(false);
+  };
+
   const handleOpenProfessor = () => {
     setOpneProfessorModal(true);
   };
@@ -37,13 +79,12 @@ export const useProfessorManagement = () => {
     setOpneProfessorModal(false);
   };
 
-  const [editProfessorModal, setEditProfessorModal] = useState<boolean>(false);
-  const [editLoading, setEditLoading] = useState<boolean>(false);
-  const handleOpenEdit = () => {
-    setEditProfessorModal(true);
+  const handleDeleteOpen = (data: any) => {
+    setDeleteModal(true);
+    setProfessorData(data);
   };
-  const handleCloseEdit = () => {
-    setEditProfessorModal(false);
+  const handleDeleteClose = () => {
+    setDeleteModal(false);
   };
 
   const {
@@ -68,33 +109,41 @@ export const useProfessorManagement = () => {
       console.log("response", response);
 
       showSuccessToast(localeSuccess?.SUCCESS_PROFESSOR_CREATED);
+      refetchAllProfessors();
     } catch (error: any) {
       console.log("error", error);
       showErrorToast(error?.response?.data?.errorMessage);
     } finally {
       setProfessorLoading(false);
+      handleCloseProfessor();
     }
   };
   const onSubmitEditProfessor = async (data: any) => {
-    // const params = {
-    //   name: data?.name,
-    //   email: data?.email,
-    //   password: data?.password,
-    //   phone: data?.phone,
-    // };
-    // console.log("params", params);
-    // try {
-    //   setProfessorLoading(true);
-    //   let response;
-    //   response = await createProfessorApi(params, cookies?.admin?.token);
-    //   console.log("response", response);
-    //   showSuccessToast(localeSuccess?.SUCCESS_PROFESSOR_CREATED);
-    // } catch (error: any) {
-    //   console.log("error", error);
-    //   showErrorToast(error?.response?.data?.errorMessage);
-    // } finally {
-    //   setProfessorLoading(false);
-    // }
+    const params = {
+      name: data?.name,
+      email: data?.email,
+      password: data?.password,
+      phone: data?.phone,
+    };
+    console.log("params", params);
+    try {
+      setEditLoading(true);
+      let response;
+      response = await updateProfessorApi(
+        params,
+        professorData?._id,
+        cookies?.admin?.token
+      );
+      console.log("response", response);
+      showSuccessToast(localeSuccess?.SUCCESS_PROFESSOR_UPDATED);
+      refetchAllProfessors();
+    } catch (error: any) {
+      console.log("error", error);
+      showErrorToast(error?.response?.data?.errorMessage);
+    } finally {
+      setEditLoading(false);
+      handleCloseEdit();
+    }
   };
 
   const onChangeProfessorStatus = async (data: any) => {
@@ -121,6 +170,26 @@ export const useProfessorManagement = () => {
     }
   };
 
+  const onDeleteConfirm = async () => {
+    try {
+      setDeleteLoading(true);
+      let response;
+      response = await deleteProfessorApi(
+        professorData?._id,
+        cookies?.admin?.token
+      );
+      console.log("response", response);
+      refetchAllProfessors();
+      showSuccessToast(localeSuccess?.SUCCESS_PROFESSOR_DELETED);
+    } catch (error: any) {
+      console.log("error", error);
+      showErrorToast(error?.response?.data?.errorMessage);
+    } finally {
+      setDeleteLoading(false);
+      handleDeleteClose();
+    }
+  };
+
   return {
     control,
     errors,
@@ -140,6 +209,12 @@ export const useProfessorManagement = () => {
     allProfessors,
     refetchAllProfessors,
     onChangeProfessorStatus,
-    allProfessorsLoading
+    allProfessorsLoading,
+
+    deleteModal,
+    handleDeleteOpen,
+    handleDeleteClose,
+    onDeleteConfirm,
+    deleteLoading,
   };
 };

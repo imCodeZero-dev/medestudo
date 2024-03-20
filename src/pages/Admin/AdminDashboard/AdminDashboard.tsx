@@ -19,7 +19,7 @@ import { AdminRoutes } from "../../../Routes/protectedRoutes/AdminRoutes";
 import { useNavigate } from "react-router-dom";
 
 const AdminDashboard = ({}: AdminDashboardProps) => {
-  const { localeTitles, localeButtons } = useLocale();
+  const { localeTitles, localeButtons, localeLables } = useLocale();
   const [cookies] = useCookies(["admin"]);
   const {
     control,
@@ -34,6 +34,7 @@ const AdminDashboard = ({}: AdminDashboardProps) => {
     allStudents,
     allProfessorsLoading,
     allStudentsLoading,
+    professorLoading,
   } = useAdminDashboard();
   console.log("cookies", cookies);
   const navigate = useNavigate();
@@ -50,41 +51,58 @@ const AdminDashboard = ({}: AdminDashboardProps) => {
       title: localeTitles?.TITLE_TOTAL_STUDENTS,
       value: allStudents?.length,
       img: studentsImg,
+      text: localeLables.LABEL_REGISTERED,
     },
     {
       title: localeTitles?.TITLE_ACTIVE_STUDENTS,
       value: allStudents?.filter((obj: any) => obj.status === "active")?.length,
       img: studentsImg,
+      text: localeLables.LABEL_OUT_OF,
+      outOf:allStudents?.length
+
     },
     {
       title: localeTitles?.TITLE_INACTIVE_STUDENTS,
       value: allStudents?.filter((obj: any) => obj.status === "inactive")
         ?.length,
       img: studentsImg,
+      text: localeLables.LABEL_OUT_OF,
+      outOf:allStudents?.length
     },
     {
       title: localeTitles?.TITLE_TOTAL_PROFESSORS,
       value: allProfessors?.length,
       img: professorsImg,
+      text: localeLables.LABEL_REGISTERED,
     },
     {
       title: localeTitles?.TITLE_ACTIVE_PROFESSORS,
       value: allProfessors?.filter((obj: any) => obj.status === "active")
         ?.length,
       img: professorsImg,
+      text: localeLables.LABEL_OUT_OF,
+      outOf:allProfessors?.length
     },
     {
       title: localeTitles?.TITLE_INACTIVE_PROFESSOR,
       value: allProfessors?.filter((obj: any) => obj.status === "inactive")
         ?.length,
       img: professorsImg,
+      text: localeLables.LABEL_OUT_OF,
+      outOf:allProfessors?.length
     },
     {
       title: localeTitles?.TITLE_TOTAL_FLASHCARDS,
       value: "2420",
       img: flashcardsImg,
+      text: localeLables.LABEL_UPLOADED,
     },
-    { title: localeTitles?.TITLE_TOTAL_EXAMS, value: "2420", img: examsImgs },
+    {
+      title: localeTitles?.TITLE_TOTAL_EXAMS,
+      value: "2420",
+      img: examsImgs,
+      text: localeLables.LABEL_UPLOADED,
+    },
   ];
 
   const headers = [
@@ -136,6 +154,8 @@ const AdminDashboard = ({}: AdminDashboardProps) => {
               title={val?.title}
               value={val?.value}
               img={val?.img}
+              text={val?.text}
+              outOf={val?.outOf}
             />
           ))}
         </div>
@@ -224,6 +244,7 @@ const AdminDashboard = ({}: AdminDashboardProps) => {
           control={control}
           handleSubmit={handleSubmit}
           onSubmit={onSubmitCreateProfessor}
+          loading={professorLoading}
         />
       </div>
     </AdminLayout>

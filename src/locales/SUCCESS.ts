@@ -1,6 +1,9 @@
 export const SUCCESS = {
   en: {
     SUCCESS_PROFESSOR_CREATED: "Professor Created Successfully",
+    SUCCESS_PROFESSOR_UPDATED: "Professor Updated Successfully",
+    SUCCESS_PROFESSOR_DELETED: "Professor Deleted Successfully",
+    SUCCESS_STUDENT_DELETED: "Student Deleted Successfully",
     SUCCESS_DECK_CREATED: "Deck Created Successfully",
     SUCCESS_DECK_DELETED: "Deck Deleted Successfully",
     SUCCESS_DECK_UPDATED: "Deck Updated Successfully",
@@ -16,6 +19,9 @@ export const SUCCESS = {
   },
   es: {
     SUCCESS_PROFESSOR_CREATED: "Professor Created Successfully",
+    SUCCESS_PROFESSOR_UPDATED: "Professor Updated Successfully",
+    SUCCESS_PROFESSOR_DELETED: "Professor Deleted Successfully",
+    SUCCESS_STUDENT_DELETED: "Student Deleted Successfully",
     SUCCESS_DECK_CREATED: "Deck Created Successfully",
     SUCCESS_DECK_DELETED: "Deck Deleted Successfully",
     SUCCESS_DECK_UPDATED: "Deck Updated Successfully",

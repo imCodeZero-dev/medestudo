@@ -18,10 +18,6 @@ import AvatarUploader from "../../../components/LVL2_Molecules/ImageUploader/Ava
 import { Cloudinary } from "@cloudinary/url-gen";
 import { AdvancedImage, responsive, placeholder } from "@cloudinary/react";
 import { useState } from "react";
-import {
-  CLOUDINARY_API_KEY,
-  CLOUDINARY_CLOUD_NAME,
-} from "../../../utils/constants/constants";
 
 const AdminProfile = ({}: AdminProfileProps) => {
   const {

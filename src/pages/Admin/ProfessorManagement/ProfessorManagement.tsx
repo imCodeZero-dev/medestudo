@@ -12,9 +12,11 @@ import { useProfessorManagement } from "./hook";
 import CreateProfessorModal from "../../../components/LVL4_Organs/CreateProfessorModal/CreateProfessorModal";
 import { AdminRoutes } from "../../../Routes/protectedRoutes/AdminRoutes";
 import EditProfessorModal from "../../../components/LVL4_Organs/CreateProfessorModal/EditProfessorModal";
+import ConfirmationModal from "../../../components/LVL4_Organs/ConfirmationModal";
+import AlertIcon from "../../../assets/svgs/AlertIcon";
 
 const ProfessorManagement = ({}: ProfessorManagementProps) => {
-  const { localeTitles, localeButtons } = useLocale();
+  const { localeTitles, localeButtons, localeLables } = useLocale();
   const {
     control,
     opneProfessorModal,
@@ -27,11 +29,19 @@ const ProfessorManagement = ({}: ProfessorManagementProps) => {
     handleCloseEdit,
     editLoading,
     watch,
+    professorLoading,
 
     allProfessors,
     refetchAllProfessors,
     onChangeProfessorStatus,
-    allProfessorsLoading
+    allProfessorsLoading,
+    onSubmitEditProfessor,
+
+    deleteModal,
+    handleDeleteOpen,
+    handleDeleteClose,
+    onDeleteConfirm,
+    deleteLoading,
   } = useProfessorManagement();
 
   const cards = [
@@ -39,18 +49,23 @@ const ProfessorManagement = ({}: ProfessorManagementProps) => {
       title: localeTitles?.TITLE_TOTAL_PROFESSORS,
       value: allProfessors?.length,
       img: professorsImg,
+      text: localeLables.LABEL_REGISTERED,
     },
     {
       title: localeTitles?.TITLE_ACTIVE_PROFESSORS,
       value: allProfessors?.filter((obj: any) => obj.status === "active")
         ?.length,
       img: professorsImg,
+      text: localeLables.LABEL_OUT_OF,
+      outOf: allProfessors?.length,
     },
     {
       title: localeTitles?.TITLE_INACTIVE_PROFESSOR,
       value: allProfessors?.filter((obj: any) => obj.status === "inactive")
         ?.length,
       img: professorsImg,
+      text: localeLables.LABEL_OUT_OF,
+      outOf: allProfessors?.length,
     },
   ];
 
@@ -96,13 +111,15 @@ const ProfessorManagement = ({}: ProfessorManagementProps) => {
               title={val?.title}
               value={val?.value}
               img={val?.img}
+              text={val?.text}
+              outOf={val?.outOf}
             />
           ))}
         </div>
 
         <div className={styles["ProfessorManagement-section"]}>
           <CustomTable
-          loading={allProfessorsLoading}
+            loading={allProfessorsLoading}
             headers={headers}
             data={Array.isArray(allProfessors) ? allProfessors : []}
             control={control}
@@ -110,8 +127,9 @@ const ProfessorManagement = ({}: ProfessorManagementProps) => {
             rowsPerPage={10}
             showPagination={true}
             showDeleteIcon={true}
-            handleEdit={handleOpenEdit}
-            showEditIcon={true}
+            // handleEdit={handleOpenEdit}
+            handleDelete={handleDeleteOpen}
+            // showEditIcon={true}
             title={localeTitles?.TITLE_PROFESSORS}
             showHeader
             handleStatusToggle={onChangeProfessorStatus}
@@ -125,13 +143,26 @@ const ProfessorManagement = ({}: ProfessorManagementProps) => {
           control={control}
           handleSubmit={handleSubmit}
           onSubmit={onSubmitCreateProfessor}
+          loading={professorLoading}
         />
         <EditProfessorModal
           open={editProfessorModal}
           handleClose={handleCloseEdit}
           control={control}
           handleSubmit={handleSubmit}
-          onSubmit={onSubmitCreateProfessor}
+          onSubmit={onSubmitEditProfessor}
+          loading={editLoading}
+        />
+
+        <ConfirmationModal
+          open={deleteModal}
+          cancelButtonText={localeButtons?.BUTTON_CANCEL}
+          confirmButtonText={localeButtons?.BUTTON_DELETE}
+          onConfirm={onDeleteConfirm}
+          icon={<AlertIcon />}
+          title={localeTitles.TITLE_ARE_YOU_SURE_DELETE}
+          handleClose={handleDeleteClose}
+          loading={deleteLoading}
         />
       </div>
     </AdminLayout>

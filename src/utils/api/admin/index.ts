@@ -20,6 +20,32 @@ export const createProfessorApi = async (data: any, token: string) => {
   return response;
 };
 
+export const updateProfessorApi = async (
+  data: any,
+  professorId: string,
+  token: string
+) => {
+  const response = await apiRequest({
+    method: "Post",
+    url: `/professor/editProfessor/${professorId}`,
+    data,
+    token,
+  });
+  return response;
+};
+
+export const deleteProfessorApi = async (
+  professorId: string,
+  token: string
+) => {
+  const response = await apiRequest({
+    method: "Delete",
+    url: `/admin/deleteProfessor/${professorId}`,
+    token,
+  });
+  return response;
+};
+
 export const getAllProfessorApi = async (token: string) => {
   console.log("getAllProfessorApi", token);
   const response = await apiRequest({
@@ -34,6 +60,15 @@ export const getAllStudentsApi = async (token: string) => {
   const response = await apiRequest({
     method: "Get",
     url: `/admin/student/getAll`,
+    token,
+  });
+  return response;
+};
+
+export const deleteStudentApi = async (studentId: string, token: string) => {
+  const response = await apiRequest({
+    method: "Delete",
+    url: `/admin/deleteStudent/${studentId}`,
     token,
   });
   return response;
@@ -71,7 +106,22 @@ export const changeStudentStatusApi = async (
 export const createDeckApi = async (data: any, token: string) => {
   const response = await apiRequest({
     method: "Post",
-    url: "/admin/createDeck",
+    url: `/admin/createDeck`,
+    data,
+    token,
+  });
+  return response;
+};
+
+export const updateDeckApi = async (
+  data: any,
+  deckId: string,
+  token: string
+) => {
+  console.log("updateDeckApi", data);
+  const response = await apiRequest({
+    method: "Put",
+    url: `/admin/updateDeck/${deckId}`,
     data,
     token,
   });

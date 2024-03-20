@@ -35,6 +35,10 @@ const DecksManagement = ({}: DecksManagementProps) => {
     deleteModal,
     onDeleteConfirm,
     deleteLoading,
+    editSection,
+    handleEdit,
+    handleEditCancel,
+    onConfirmEdit,
   } = useDecksManagement();
 
   const [expandedDecks, setExpandedDecks] = useState<boolean[]>([]);
@@ -58,7 +62,7 @@ const DecksManagement = ({}: DecksManagementProps) => {
             </Text>
           </div>
           <div className={styles["head-right"]}>
-            {!createSection && (
+            {!createSection && !editSection && (
               <Button
                 leftIcon={<IoMdAdd />}
                 className="purpleBtn"
@@ -70,7 +74,7 @@ const DecksManagement = ({}: DecksManagementProps) => {
           </div>
         </div>
 
-        {createSection ? (
+        {createSection && (
           <CreateDeckSection
             control={control}
             handleSubmit={handleSubmit}
@@ -80,7 +84,20 @@ const DecksManagement = ({}: DecksManagementProps) => {
             watch={watch}
             handleCreateCancel={handleCreateCancel}
           />
-        ) : (
+        )}
+        {editSection && (
+          <CreateDeckSection
+            control={control}
+            handleSubmit={handleSubmit}
+            onSubmit={onConfirmEdit}
+            getValues={getValues}
+            setValue={setValue}
+            watch={watch}
+            handleCreateCancel={handleEditCancel}
+          />
+        )}
+
+        {!createSection && !editSection && (
           <div className={styles["deckBody"]}>
             {allDecks?.map((deck: any, parentIndex: number) => (
               <>
@@ -91,7 +108,10 @@ const DecksManagement = ({}: DecksManagementProps) => {
                     </Text>
 
                     <div className="flex space-x-6">
-                      <RxPencil1 className="cursor-pointer" />
+                      <RxPencil1
+                        className="cursor-pointer"
+                        onClick={() => handleEdit(deck)}
+                      />
                       <GoTrash
                         className="cursor-pointer"
                         onClick={() => handleDeleteOpen(deck)}
@@ -122,7 +142,7 @@ const DecksManagement = ({}: DecksManagementProps) => {
                         : `${styles["hide"]}`
                     }
                   >
-                    {deck.subDeck?.map((subDeck: any, index: number) => (
+                    {deck?.subDeck?.map((subDeck: any, index: number) => (
                       <div key={index} className={styles["subDeckContainer"]}>
                         <InputDeck
                           control={control}
@@ -130,7 +150,7 @@ const DecksManagement = ({}: DecksManagementProps) => {
                           defaultValue={subDeck?.name}
                         />
 
-                        {subDeck.subDeck?.map(
+                        {subDeck?.subDeck?.map(
                           (nestedDeck: any, nestedIndex: number) => (
                             <div
                               key={nestedIndex}

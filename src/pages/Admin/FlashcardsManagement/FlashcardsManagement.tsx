@@ -14,7 +14,7 @@ import { AdminRoutes } from "../../../Routes/protectedRoutes/AdminRoutes";
 import EditProfessorModal from "../../../components/LVL4_Organs/CreateProfessorModal/EditProfessorModal";
 
 const FlashcardsManagement = ({}: FlashcardsManagementProps) => {
-  const { localeTitles, localeButtons } = useLocale();
+  const { localeTitles, localeButtons, localeLables } = useLocale();
   const {
     control,
     opneProfessorModal,
@@ -34,16 +34,21 @@ const FlashcardsManagement = ({}: FlashcardsManagementProps) => {
       title: localeTitles?.TITLE_TOTAL_FLASHCARDS,
       value: "2420",
       img: flashcardsImg,
+      text: localeLables.LABEL_UPLOADED,
     },
     {
       title: localeTitles?.TITLE_ACTIVE_FLASHCARDS,
       value: "2420",
       img: flashcardsImg,
+      text: localeLables.LABEL_OUT_OF,
+      outOf: '2420',
     },
     {
       title: localeTitles?.TITLE_INACTIVE_FLASHCARDS,
       value: "2420",
       img: flashcardsImg,
+      text: localeLables.LABEL_OUT_OF,
+      outOf: '2420',
     },
   ];
 
@@ -271,6 +276,8 @@ const FlashcardsManagement = ({}: FlashcardsManagementProps) => {
               title={val?.title}
               value={val?.value}
               img={val?.img}
+              text={val?.text}
+              outOf={val?.outOf}
             />
           ))}
         </div>

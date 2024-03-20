@@ -14,7 +14,7 @@ import { AdminRoutes } from "../../../Routes/protectedRoutes/AdminRoutes";
 import EditProfessorModal from "../../../components/LVL4_Organs/CreateProfessorModal/EditProfessorModal";
 
 const QuestionsManagement = ({}: QuestionsManagementProps) => {
-  const { localeTitles, localeButtons } = useLocale();
+  const { localeTitles, localeButtons, localeLables } = useLocale();
   const {
     control,
     opneProfessorModal,
@@ -34,16 +34,21 @@ const QuestionsManagement = ({}: QuestionsManagementProps) => {
       title: localeTitles?.TITLE_TOTAL_QUESTIONS,
       value: "2420",
       img: examsImgs,
+      text: localeLables.LABEL_UPLOADED,
     },
     {
       title: localeTitles?.TITLE_ACTIVE_QUESTIONS,
       value: "2420",
       img: examsImgs,
+      text: localeLables.LABEL_OUT_OF,
+      outOf: '2420',
     },
     {
       title: localeTitles?.TITLE_INACTIVE_QUESTIONS,
       value: "2420",
       img: examsImgs,
+      text: localeLables.LABEL_OUT_OF,
+      outOf: '2420',
     },
   ];
 
@@ -271,13 +276,15 @@ const QuestionsManagement = ({}: QuestionsManagementProps) => {
               title={val?.title}
               value={val?.value}
               img={val?.img}
+              text={val?.text}
+              outOf={val?.outOf}
             />
           ))}
         </div>
 
         <div className={styles["QuestionsManagement-section"]}>
           <CustomTable
-          loading={false}
+            loading={false}
             headers={headers}
             data={data}
             control={control}

@@ -12,9 +12,11 @@ import CustomTable from "../../../components/LVL3_Cells/CustomTable/CustomTable"
 import { useStudentManagement } from "./hook";
 
 import { AdminRoutes } from "../../../Routes/protectedRoutes/AdminRoutes";
+import ConfirmationModal from "../../../components/LVL4_Organs/ConfirmationModal";
+import AlertIcon from "../../../assets/svgs/AlertIcon";
 
 const StudentManagement = ({}: StudentManagementProps) => {
-  const { localeTitles } = useLocale();
+  const { localeTitles, localeLables, localeButtons } = useLocale();
   // const [cookies] = useCookies(["admin"]);
   const {
     control,
@@ -22,6 +24,12 @@ const StudentManagement = ({}: StudentManagementProps) => {
     allStudents,
     allStudentsLoading,
     onChangeStudentStatus,
+
+    onDeleteConfirm,
+    deleteLoading,
+    deleteModal,
+    handleDeleteOpen,
+    handleDeleteClose,
   } = useStudentManagement();
   // console.log("cookies", cookies);
 
@@ -30,17 +38,22 @@ const StudentManagement = ({}: StudentManagementProps) => {
       title: localeTitles?.TITLE_TOTAL_STUDENTS,
       value: allStudents?.length,
       img: studentsImg,
+      text: localeLables.LABEL_REGISTERED,
     },
     {
       title: localeTitles?.TITLE_ACTIVE_STUDENTS,
       value: allStudents?.filter((obj: any) => obj.status === "active")?.length,
       img: studentsImg,
+      text: localeLables.LABEL_OUT_OF,
+      outOf: allStudents?.length,
     },
     {
       title: localeTitles?.TITLE_INACTIVE_STUDENTS,
       value: allStudents?.filter((obj: any) => obj.status === "inactive")
         ?.length,
       img: studentsImg,
+      text: localeLables.LABEL_OUT_OF,
+      outOf: allStudents?.length,
     },
   ];
 
@@ -76,6 +89,8 @@ const StudentManagement = ({}: StudentManagementProps) => {
               title={val?.title}
               value={val?.value}
               img={val?.img}
+              text={val?.text}
+              outOf={val?.outOf}
             />
           ))}
         </div>
@@ -92,11 +107,23 @@ const StudentManagement = ({}: StudentManagementProps) => {
             showDeleteIcon={true}
             showEditIcon={false}
             title={localeTitles?.TITLE_STUDENTS}
+            handleDelete={handleDeleteOpen}
             showHeader
             handleStatusToggle={onChangeStudentStatus}
             watch={watch}
           />
         </div>
+
+        <ConfirmationModal
+          open={deleteModal}
+          cancelButtonText={localeButtons?.BUTTON_CANCEL}
+          confirmButtonText={localeButtons?.BUTTON_DELETE}
+          onConfirm={onDeleteConfirm}
+          icon={<AlertIcon />}
+          title={localeTitles.TITLE_ARE_YOU_SURE_DELETE}
+          handleClose={handleDeleteClose}
+          loading={deleteLoading}
+        />
       </div>
     </AdminLayout>
   );

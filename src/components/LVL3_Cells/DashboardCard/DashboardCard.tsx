@@ -4,7 +4,13 @@ import styles from "./DashboardCard.module.css";
 import Text from "../../LVL1_Atoms/Text/Text";
 import useLocale from "../../../locales";
 
-const DashboardCard: React.FC<DashboardCardProps> = ({ title, value, img }) => {
+const DashboardCard: React.FC<DashboardCardProps> = ({
+  title,
+  value,
+  img,
+  text,
+  outOf,
+}) => {
   const { localeText } = useLocale();
 
   return (
@@ -30,7 +36,8 @@ const DashboardCard: React.FC<DashboardCardProps> = ({ title, value, img }) => {
         <div>
           <Text className={styles["value"]}>{value}</Text>
           <Text className={styles["updatedText"]}>
-            {localeText?.TEXT_UPDATE_TODAY}
+            {/* {localeText?.TEXT_UPDATE_TODAY} */}
+            {text} {outOf && `${outOf}`}
           </Text>
         </div>
 

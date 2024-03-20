@@ -10,6 +10,8 @@ import {
   changeProfessorStatusApi,
   changeStudentStatusApi,
   createProfessorApi,
+  deleteProfessorApi,
+  deleteStudentApi,
 } from "../../../../utils/api/admin";
 import useLocale from "../../../../locales";
 import { passwordRegex } from "../../../../utils/constants/constants";
@@ -40,11 +42,23 @@ export const useStudentManagement = () => {
 
   const [opneProfessorModal, setOpneProfessorModal] = useState<boolean>(false);
   const [studentLoading, setStudentLoading] = useState<boolean>(false);
+  const [deleteLoading, setDeleteLoading] = useState<boolean>(false);
+  const [deleteModal, setDeleteModal] = useState<boolean>(false);
+  const [studentData, setStudentData] = useState<any>();
+
   const handleOpenProfessor = () => {
     setOpneProfessorModal(true);
   };
   const handleCloseProfessor = () => {
     setOpneProfessorModal(false);
+  };
+
+  const handleDeleteOpen = (data: any) => {
+    setDeleteModal(true);
+    setStudentData(data);
+  };
+  const handleDeleteClose = () => {
+    setDeleteModal(false);
   };
 
   const onChangeStudentStatus = async (data: any) => {
@@ -71,6 +85,26 @@ export const useStudentManagement = () => {
     }
   };
 
+  const onDeleteConfirm = async () => {
+    try {
+      setDeleteLoading(true);
+      let response;
+      response = await deleteStudentApi(
+        studentData?._id,
+        cookies?.admin?.token
+      );
+      console.log("response", response);
+      refetchAllStudents();
+      showSuccessToast(localeSuccess?.SUCCESS_STUDENT_DELETED);
+    } catch (error: any) {
+      console.log("error", error);
+      showErrorToast(error?.response?.data?.errorMessage);
+    } finally {
+      setDeleteLoading(false);
+      handleDeleteClose();
+    }
+  };
+
   return {
     control,
     errors,
@@ -84,5 +118,10 @@ export const useStudentManagement = () => {
     allStudentsLoading,
     onChangeStudentStatus,
     studentLoading,
+    onDeleteConfirm,
+    deleteLoading,
+    deleteModal,
+    handleDeleteOpen,
+    handleDeleteClose,
   };
 };

@@ -16,6 +16,8 @@ import {
 import useLocale from "../../../../locales";
 import {
   CLOUDINARY_CLOUD_NAME,
+  CLOUDINARY_FOLDER,
+  CLOUDINARY_UPLOAD_PRESET,
   passwordRegex,
 } from "../../../../utils/constants/constants";
 import { useCookies } from "react-cookie";
@@ -37,7 +39,7 @@ export const useAdminProfile = () => {
       .required("Email is required")
       .email("Invalid email format"),
     name: yup.string().required("Name is required"),
-    lastName: yup.string().required("lastName is required"),
+    // lastName: yup.string().required("lastName is required"),
     image: yup.string().required("Picture is required"),
   });
   const passwordValidationSchema = yup.object().shape({
@@ -54,6 +56,7 @@ export const useAdminProfile = () => {
       .required("Confirm Password is required")
       .oneOf([yup.ref("newPassword")], "Passwords must match"),
   });
+
   const {
     handleSubmit,
     control,
@@ -62,7 +65,7 @@ export const useAdminProfile = () => {
   } = useForm({
     resolver: yupResolver(validationSchema),
     defaultValues: {
-      lastName: cookies?.admin?.lastName,
+      // lastName: cookies?.admin?.lastName,
       email: cookies?.admin?.email,
       // newPassword: "",
       name: cookies?.admin?.name,
@@ -90,23 +93,23 @@ export const useAdminProfile = () => {
 
       let imageUrl = "";
       if (data?.image) {
-        imageUrl = await uploadImageToCloudinary(data.image);
+        imageUrl = await uploadImageToCloudinary(watch("image"));
       }
 
       const params = {
         name: data?.name,
         email: data?.email,
         // password: data?.newPassword,
-        lastName: data?.lastName,
+        username: data?.lastName,
         pic: imageUrl,
       };
 
-      // const response = await updateAdminProfileApi(
-      //   params,
-      //   cookies?.admin?._id,
-      //   cookies?.admin?.token
-      // );
-      // console.log("response", response);
+      const response = await updateAdminProfileApi(
+        params,
+        cookies?.admin?._id,
+        cookies?.admin?.token
+      );
+      console.log("response", response);
       console.log("response", imageUrl);
 
       showSuccessToast(localeSuccess?.SUCCESS_ADMIN_UPDATED);
@@ -122,7 +125,8 @@ export const useAdminProfile = () => {
     console.log("uploadImageToCloudinary", image);
     const formData = new FormData();
     formData.append("file", image);
-    formData.append("upload_preset", "hqwykwvl");
+    formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
+    formData.append("folder", CLOUDINARY_FOLDER);
 
     const response = await fetch(
       `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`,
@@ -178,6 +182,7 @@ export const useAdminProfile = () => {
     controlPassword,
     passwordErrors,
     watchPasswordFields,
-    onSubmitResetPasswordAdmin,resetLoading
+    onSubmitResetPasswordAdmin,
+    resetLoading,
   };
 };

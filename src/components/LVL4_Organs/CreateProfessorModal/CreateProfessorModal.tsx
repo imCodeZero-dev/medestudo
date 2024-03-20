@@ -6,6 +6,9 @@ import Text from "../../LVL1_Atoms/Text/Text";
 import useLocale from "../../../locales";
 import Input from "../../LVL1_Atoms/Input";
 import { Button } from "../../LVL1_Atoms/Button";
+import { MdOutlineKey } from "react-icons/md";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import { useState } from "react";
 
 const CreateProfessorModal = ({
   open,
@@ -13,6 +16,7 @@ const CreateProfessorModal = ({
   handleSubmit,
   onSubmit,
   control,
+  loading,
 }: CreateProfessorModalProps) => {
   const {
     localeTitles,
@@ -21,6 +25,18 @@ const CreateProfessorModal = ({
     localePlaceholders,
     localeButtons,
   } = useLocale();
+
+  const [viewPassword, setViewPassword] = useState<boolean>(false);
+  const [viewConfirmPassword, setViewConfirmPassword] =
+    useState<boolean>(false);
+
+  const handleView = () => {
+    setViewPassword(!viewPassword);
+  };
+
+  const handleViewConfirm = () => {
+    setViewConfirmPassword(!viewConfirmPassword);
+  };
   return (
     <div className={styles["CreateProfessorModal"]}>
       <CustomModal open={open} onClose={handleClose}>
@@ -47,10 +63,10 @@ const CreateProfessorModal = ({
           </div>
           <div className={styles["inputDiv"]}>
             <Input
-              label={localeLables?.LABEL_USERNAME}
+              label={localeLables?.LABEL_EMAIL}
               control={control}
               name="email"
-              placeholder={localePlaceholders.PLACEHOLDER_ENTER_USERNAME}
+              placeholder={localePlaceholders.PLACEHOLDER_ENTER_EMAIL}
               preDefinedClassName="lesserHeight"
               preDefinedWrapClassName="inputField-wrap"
               type="email"
@@ -64,7 +80,18 @@ const CreateProfessorModal = ({
               placeholder={localePlaceholders.PLACEHOLDER_ENTER_PASSWORD}
               preDefinedClassName="lesserHeight"
               preDefinedWrapClassName="inputField-wrap"
-              type="password"
+              type={!viewPassword ? "password" : "text"}
+              suffix={
+                !viewPassword ? (
+                  <AiFillEyeInvisible
+                    size={24}
+                    color="#8b93a1"
+                    onClick={handleView}
+                  />
+                ) : (
+                  <AiFillEye size={24} color="#8b93a1" onClick={handleView} />
+                )
+              }
             />
           </div>
           <div className={styles["inputDiv"]}>
@@ -75,7 +102,22 @@ const CreateProfessorModal = ({
               placeholder={localePlaceholders.PLACEHOLDER_ENTER_PASSWORD}
               preDefinedClassName="lesserHeight"
               preDefinedWrapClassName="inputField-wrap"
-              type="password"
+              type={!viewConfirmPassword ? "password" : "text"}
+              suffix={
+                !viewConfirmPassword ? (
+                  <AiFillEyeInvisible
+                    size={24}
+                    color="#8b93a1"
+                    onClick={handleViewConfirm}
+                  />
+                ) : (
+                  <AiFillEye
+                    size={24}
+                    color="#8b93a1"
+                    onClick={handleViewConfirm}
+                  />
+                )
+              }
             />
           </div>
           <div className={styles["inputDiv"]}>
@@ -101,6 +143,7 @@ const CreateProfessorModal = ({
             <Button
               type="submit"
               className="purpleBtn"
+              loading={loading}
               onClick={handleSubmit(onSubmit)}
             >
               {localeButtons.BUTTON_CREATE}
