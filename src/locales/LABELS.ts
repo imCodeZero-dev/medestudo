@@ -14,6 +14,8 @@ export const LABELS = {
     LABEL_REGISTERED: "Registered",
     LABEL_OUT_OF: "Out of",
     LABEL_UPLOADED: "Uploaded",
+    LABEL_PRIVACY_POLICY: "Privacy Policy",
+    LABEL_COPYRIGHT: "Copyrights©2024",
   },
   es: {
     LABEL_USERNAME: "Username or Email",
@@ -30,5 +32,7 @@ export const LABELS = {
     LABEL_REGISTERED: "Registered",
     LABEL_OUT_OF: "Out of",
     LABEL_UPLOADED: "Uploaded",
+    LABEL_PRIVACY_POLICY: "Privacy Policy",
+    LABEL_COPYRIGHT: "Copyrights©2024",
   },
 };

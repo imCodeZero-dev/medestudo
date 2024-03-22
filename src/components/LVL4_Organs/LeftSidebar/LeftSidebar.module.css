@@ -1,0 +1,91 @@
+.LeftSidebar {
+  width: 256px;
+  height: 100vh;
+  background-color: white;
+}
+
+.logo {
+  width: 80%;
+  display: block;
+  margin: 20px auto;
+}
+
+.navigation {
+  padding-top: 20px;
+}
+
+.tab {
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.activeTab {
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  background: #e5eafc;
+  border-radius: 8px;
+}
+
+.tabSection {
+  display: flex;
+  align-items: center;
+}
+
+.tab:hover {
+  background-color: #ddd;
+}
+
+.tab span {
+  display: block;
+  padding: 5px;
+}
+
+.submenu {
+  margin-left: 20px;
+}
+
+.submenu span {
+  display: block;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.submenu span:hover {
+  background-color: #ddd;
+}
+
+.active {
+  font-family: Poppins;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+  font-weight: 500;
+  color: #0026b1;
+}
+.inactive {
+  font-family: Poppins;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+  color: #383c41;
+}
+
+.chevron {
+  /* position: absolute;
+  right: 8px;
+  top: 40%; */
+  display: flex;
+  justify-content: flex-end;
+  margin-left: auto;
+  z-index: 44;
+}
+
+.text {
+  /* //styleName: Body Small/Regular; */
+  font-family: Poppins;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+  text-align: left;
+}

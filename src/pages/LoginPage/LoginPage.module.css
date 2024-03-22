@@ -1,0 +1,53 @@
+.login {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+}
+.login-main {
+  max-width: 400px;
+}
+
+.h2Heading {
+  /* font-family: Poppins; */
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 36px;
+  letter-spacing: 0em;
+  display: flex;
+  column-gap: 6px;
+  align-items: center;
+  justify-content: center;
+}
+
+.labelText {
+  /* font-family: Poppins; */
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+.loginBottom {
+  display: flex;
+  -moz-column-gap: 16px;
+  column-gap: 16px;
+  justify-content: flex-start;
+  width: 100%;
+  margin-left: 32px;
+}
+
+.form {
+  margin-top: 24px;
+}
+
+.inputDiv {
+  margin-bottom: 12px;
+}
+
+.forgotText {
+  /* font-family: Poppins; */
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 21px;
+}

@@ -1,0 +1,18 @@
+.chartContainer {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    margin: 16px 0;
+    max-width: 100%;
+  }
+  
+  .chartWrapper {
+    position: relative;
+  }
+  
+  .legend {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+  }
+  

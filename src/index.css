@@ -28,6 +28,7 @@ a:hover {
 
 body {
   margin: 0;
+  padding: 0;
   background: #f8fbff;
   color: #101828;
   /* display: flex;
@@ -145,5 +146,66 @@ input:focus {
   font-style: normal;
   src: url("./assets/fonts/static/Inter-Black.ttf");
   font-family: "Inter";
+  font-weight: 900;
+}
+
+@font-face {
+  font-display: fallback;
+  font-style: normal;
+  src: url("./assets/fonts/static/Poppins-ExtraLight.ttf");
+  font-family: "Poppins";
+  font-weight: 200;
+}
+@font-face {
+  font-display: fallback;
+  font-style: normal;
+  src: url("./assets/fonts/static/Poppins-Light.ttf");
+  font-family: "Poppins";
+  font-weight: 300;
+}
+
+@font-face {
+  font-display: fallback;
+  font-style: normal;
+  src: url("./assets/fonts/static/Poppins-Regular.ttf");
+  font-family: "Poppins";
+  font-weight: 400;
+}
+
+@font-face {
+  font-display: fallback;
+  font-style: normal;
+  src: url("./assets/fonts/static/Poppins-Medium.ttf");
+  font-family: "Poppins";
+  font-weight: 500;
+}
+@font-face {
+  font-display: fallback;
+  font-style: normal;
+  src: url("./assets/fonts/static/Poppins-SemiBold.ttf");
+  font-family: "Poppins";
+  font-weight: 600;
+}
+
+@font-face {
+  font-display: fallback;
+  font-style: normal;
+  src: url("./assets/fonts/static/Poppins-Bold.ttf");
+  font-family: "Poppins";
+  font-weight: 700;
+}
+
+@font-face {
+  font-display: fallback;
+  font-style: normal;
+  src: url("./assets/fonts/static/Poppins-ExtraBold.ttf");
+  font-family: "Poppins";
+  font-weight: 800;
+}
+@font-face {
+  font-display: fallback;
+  font-style: normal;
+  src: url("./assets/fonts/static/Poppins-Black.ttf");
+  font-family: "Poppins";
   font-weight: 900;
 }

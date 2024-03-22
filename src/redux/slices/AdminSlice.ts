@@ -9,13 +9,12 @@ const AdminSlice = createSlice({
   name: "admin",
   initialState: null as AdminState | null,
   reducers: {
-    loginAdmin: (state, action: PayloadAction<AdminState>) => {
+    loginAdmin: (state: any, action: PayloadAction<AdminState>) => {
       return action.payload;
     },
-    logoutAdmin: (state) => {
+    logoutAdmin: (state: any) => {
       return null;
     },
-    
   },
 });
 

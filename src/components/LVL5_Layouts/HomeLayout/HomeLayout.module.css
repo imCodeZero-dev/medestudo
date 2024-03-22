@@ -1,0 +1,49 @@
+.HomeLayout {
+  /* display: flex;
+    flex-direction: column; */
+  /* padding: 24px 32px; */
+  min-height: 100vh;
+  display: flex;
+  background-color: #f2f7ff;
+}
+
+.HomeLayout-header {
+  display: flex;
+  justify-content: space-between;
+  background-color: transparent;
+  padding: 32px;
+}
+
+.HomeLayout-header-buttons {
+  display: flex;
+  column-gap: 3px;
+}
+.logo {
+  width: 120px;
+  height: 48px;
+  object-fit: contain;
+}
+
+.HomeLayout-header-left {
+  display: flex;
+  align-items: center;
+}
+.HomeLayout-header-right {
+  display: flex;
+  column-gap: 3px;
+}
+
+.HomeLayout-main {
+  flex: 1;
+  /* padding: 32px; */
+}
+
+.iconDiv {
+  width: 40px;
+  height: 40px;
+  padding: 10px;
+  border-radius: 6px;
+  display: flex;
+  background-color: white;
+  cursor: pointer;
+}

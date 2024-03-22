@@ -32,6 +32,10 @@ const TagsManagementServices = React.lazy(
 const AdminProfileServices = React.lazy(
   () => import("../pages/Admin/AdminProfile/AdminProfile")
 );
+const LoginServices = React.lazy(() => import("../pages/LoginPage/LoginPage"));
+const ProfessorDashboardServices = React.lazy(
+  () => import("../pages/Professor/ProfessorDashboard/ProfessorDashboard")
+);
 const App = React.lazy(() => import("../App"));
 
 const ProjectRoutes = () => {
@@ -84,6 +88,9 @@ const ProjectRoutes = () => {
             <Route path="/admin/decks" element={<DecksManagementServices />} />
             <Route path="/admin/tags" element={<TagsManagementServices />} />
             <Route path="/admin/profile" element={<AdminProfileServices />} />
+
+            <Route path="/professor/login" element={<LoginServices />} />
+            <Route path="/professor" element={<ProfessorDashboardServices />} />
 
             <Route path="*" element={<NotFound />} />
           </Routes>

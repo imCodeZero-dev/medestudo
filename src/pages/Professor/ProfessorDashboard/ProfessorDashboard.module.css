@@ -1,0 +1,52 @@
+.ProfessorDashboard {
+  display: flex;
+}
+.ProfessorDashboard-main {
+  background-color: #f8fbff;
+  flex: 0 0 65%;
+  padding: 0 32px ;
+}
+
+.ProfessorDashboard-right {
+  background-color: inherit;
+  flex: 1;
+}
+
+
+
+.ProfessorDashboard-cards {
+  margin: 24px 0;
+  display: grid;
+  grid-template-columns: repeat(
+    3,
+    1fr
+  ); /* 4 columns, each taking equal width */
+  column-gap: 24px;
+  row-gap: 24px;
+}
+
+.ProfessorDashboard-section {
+  margin: 24px 0;
+}
+.ProfessorDashboard-section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sectionHeading {
+  /* font-family: Inter; */
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 28px;
+  letter-spacing: 0em;
+  text-align: left;
+}
+
+.sectionHeading {
+  font-family: Poppins;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  text-align: left;
+}

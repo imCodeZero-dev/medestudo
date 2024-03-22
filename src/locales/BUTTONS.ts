@@ -17,6 +17,9 @@ export const BUTTONS = {
     BUTTON_NEXT: "Next",
     BUTTON_CREATE: "Create",
     BUTTON_DELETE: "Delete",
+    BUTTON_HOME: "Home",
+    BUTTON_FLASHCARDS: "Flashcards",
+    BUTTON_GET_STARTED: "Get started",
     BUTTON_SAVE_CHANGES: "Save Changes",
   },
   es: {
@@ -37,6 +40,9 @@ export const BUTTONS = {
     BUTTON_NEXT: "Next",
     BUTTON_CREATE: "Create",
     BUTTON_DELETE: "Delete",
+    BUTTON_HOME: "Home",
+    BUTTON_FLASHCARDS: "Flashcards",
+    BUTTON_GET_STARTED: "Get started",
     BUTTON_SAVE_CHANGES: "Save Changes",
   },
 };

@@ -11,18 +11,11 @@ import {
 } from "../../../config/toastProvider/toastUtils";
 import { loginAdmin } from "../../../redux/slices/AdminSlice";
 import { adminLoginApi } from "../../../utils/api/admin";
+import { validationSchema } from "../../../utils/hooks/inputValidation";
 
 // import { useLocation, useNavigate } from "react-router-dom";
 
-const validationSchema = yup.object().shape({
-  email: yup.string(),
-  // .required(localeErrors.ERROR_EMAIL_REQUIRED)
-  // .email(localeErrors.ERROR_EMAIL_INVALID),
-  password: yup.string(),
-  // .required(localeErrors.ERROR_PW_REQUIRED)
-  // .matches(password_regex, localeErrors.ERROR_PW_INVALID),
-  // rememberme: yup.boolean().required(),
-});
+
 export const useAdminLogin = () => {
   const [loadingLogin, setLoadingLogin] = useState<boolean>(false);
   const navigate = useNavigate();

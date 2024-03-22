@@ -37,7 +37,7 @@ export const useDecksManagement = () => {
     reset,
   } = useForm<any>({
     resolver: yupResolver(validationSchema),
-    // defaultValues: initialDefaultValue,
+    defaultValues: initialDefaultValue,
   });
   const [createSection, setcreateSection] = useState<boolean>(false);
   const [editSection, setEditSection] = useState<boolean>(false);
