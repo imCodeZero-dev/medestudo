@@ -27,17 +27,52 @@ const CreateDeckSection = ({
   } = useLocale();
   const counter: { [key: number]: number } = {};
 
-  const onAdd = (parentIndex: number, level: number) => {
-    console.log("parentIndex", parentIndex, "level", level);
+  const onAdd = (
+    parentIndex: number,
+    level: number,
+    nestedIndex: number,
+    deepNestedDeck: number
+  ) => {
+    console.log(
+      "parentIndex",
+      parentIndex,
+      "level",
+      level,
+      nestedIndex,
+      deepNestedDeck
+    );
     const currentDecks = getValues("deck") || [];
+    console.log("currentDecks", currentDecks);
     let currentLevel: any = currentDecks[parentIndex];
+    if (currentLevel == undefined) {
+      currentLevel = currentDecks[0]?.subDeck[parentIndex];
 
+      console.log("aaaa", currentLevel);
+    }
+    if (
+      nestedIndex !== undefined &&
+      nestedIndex !== null &&
+      !isNaN(nestedIndex)
+    ) {
+      console.log("currentLevel11111", currentLevel);
+      currentLevel = currentLevel?.subDeck[nestedIndex];
+    }
+    if (
+      deepNestedDeck !== undefined &&
+      deepNestedDeck !== null &&
+      !isNaN(deepNestedDeck)
+    ) {
+      console.log("currentLevel11111", currentLevel);
+      currentLevel = currentLevel?.subDeck[deepNestedDeck];
+    }
+    console.log("currentLevel", currentLevel);
     // Traverse to the specified level in the deck hierarchy
     for (let i = 0; i < level - 1; i++) {
       currentLevel.subDeck = currentLevel.subDeck || []; // Ensure subDeck is initialized
 
       // Check if the current level has sub-decks
-      const lastSubDeck = currentLevel.subDeck[currentLevel.subDeck.length - 1];
+      const lastSubDeck = currentLevel.subDeck[parentIndex];
+      console.log("lastSubDeck", lastSubDeck);
       if (lastSubDeck && lastSubDeck.subDeck) {
         // Move to the last sub-deck
         currentLevel = lastSubDeck;
@@ -45,6 +80,8 @@ const CreateDeckSection = ({
         // If there is no sub-deck, create a new one and move to it
         currentLevel.subDeck.push({ name: "", subDeck: [] });
         currentLevel = currentLevel.subDeck[currentLevel.subDeck.length - 1];
+        setValue("deck", [...currentDecks]);
+        return;
       }
     }
 
@@ -107,7 +144,7 @@ const CreateDeckSection = ({
                     control={control}
                     name={`deck[${parentIndex}].subDeck[${index}].name`}
                     placeholder={localePlaceholders.PLACEHOLDER_ENTER_NAME}
-                    onAdd={() => onAdd(parentIndex, 2)}
+                    onAdd={() => onAdd(index, 2)}
                     onDelete={() => onDelete(parentIndex, index)}
                   />
 
@@ -123,7 +160,7 @@ const CreateDeckSection = ({
                           placeholder={
                             localePlaceholders.PLACEHOLDER_ENTER_NAME
                           }
-                          onAdd={() => onAdd(parentIndex, 3)}
+                          onAdd={() => onAdd(index, 3, nestedIndex)}
                           onDelete={() => onDelete(parentIndex, nestedIndex)}
                         />
 
@@ -139,11 +176,12 @@ const CreateDeckSection = ({
                                 placeholder={
                                   localePlaceholders.PLACEHOLDER_ENTER_NAME
                                 }
-                                onAdd={() => onAdd(parentIndex, 4)}
+                                // onAdd={() => onAdd(index, 4, nestedIndex, deepNestedDeck)}
                                 onDelete={() =>
                                   onDelete(parentIndex, deepNestedIndex)
                                 }
                               />
+                              
                             </div>
                           )
                         )}
