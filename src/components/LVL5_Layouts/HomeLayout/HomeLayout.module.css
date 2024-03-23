@@ -11,7 +11,9 @@
   display: flex;
   justify-content: space-between;
   background-color: transparent;
-  padding: 32px;
+  padding: 0 32px;
+  height: 106px;
+  align-items: center;
 }
 
 .HomeLayout-header-buttons {

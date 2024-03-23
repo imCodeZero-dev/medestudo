@@ -1,18 +1,61 @@
 .chartContainer {
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 10px;
-    margin: 16px 0;
-    max-width: 100%;
-  }
-  
-  .chartWrapper {
-    position: relative;
-  }
-  
-  .legend {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-  }
-  
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  margin: 16px 0;
+  max-width: 100%;
+  height: 304px;
+}
+
+.chartWrapper {
+  position: relative;
+  margin-bottom: 24px;
+}
+
+.legend {
+  position: absolute;
+  top: 00px;
+  right: 20px;
+}
+
+.increaseText {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  width: 114px;
+  height: 38px;
+  /* padding: 10px 0px 0px 0px; */
+  gap: 10px;
+  border-radius: 8px;
+  background: #4ac776;
+  color: white;
+  /* opacity: 0px; */
+}
+
+.buttonGroup {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.rightButtons {
+  display: flex;
+  flex-direction: row;
+  column-gap: 6px;
+}
+
+.activeBtn {
+  border: 2px solid #0026b1;
+  color: #0030dd;
+  font-family: Poppins;
+  font-size: 12px;
+  font-weight: 500;
+}
+.inactiveBtn {
+  /* border: 1px solid #0026b1; */
+  color: #0030dd;
+  font-family: Poppins;
+  font-size: 12px;
+  font-weight: 500;
+}

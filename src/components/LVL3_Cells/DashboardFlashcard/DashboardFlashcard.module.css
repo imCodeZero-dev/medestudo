@@ -1,0 +1,50 @@
+.DashboardFlashcard {
+  display: flex;
+  width: 100%;
+  border-radius: 8px;
+  background-color: white;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  margin: 16px 0;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+}
+
+.DashboardFlashcard-left {
+  display: flex;
+  align-items: center;
+}
+
+.DashboardFlashcard-right {
+  display: flex;
+  column-gap: 16px;
+  align-items: center;
+}
+
+.title {
+  font-family: Poppins;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 21px;
+  /* text-align: left; */
+}
+
+.date {
+  /* //styleName: Body Small/Medium; */
+  font-family: Poppins;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 21px;
+  margin-left: 4px;
+  color: #6f7680;
+
+  /* text-align: left; */
+}
+
+.image {
+  width: 48px;
+  height: 48px;
+  gap: 0px;
+  border-radius: 8px;
+  margin-right: 16px;
+}

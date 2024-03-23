@@ -7,6 +7,7 @@ import useLocale from "../../../locales";
 const DashboardChartCard: React.FC<DashboardChartCardProps> = ({
   title,
   value,
+  image,
 }) => {
   const { localeText } = useLocale();
 
@@ -23,6 +24,7 @@ const DashboardChartCard: React.FC<DashboardChartCardProps> = ({
           </div>
         </div>
       </div>
+      <img src={image} className="w-14 object-contain" />
     </div>
   );
 };

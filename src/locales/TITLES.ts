@@ -39,6 +39,9 @@ export const TITLES = {
     TITLE_ARE_YOU_SURE_DELETE: "Are you sure you want to delete?",
     TITLE_LOGIN_TO_YOUR_ACCOUNT: "Login to your account",
     TITLE_FLASHCARDS_AND_QUESTIONS_CREATED: "Flashcards & Questions Created",
+    TITLE_RECENT_FLASHCARDS_CREATED: "Recent Flashcards Created",
+    TITLE_RECENT_EXAMS_CREATED: "Recent Exams Created",
+    TITLE_VIEW_MORE: "View More",
   },
   es: {
     TITLE_TEST: "Este es el título de la prueba",
@@ -80,5 +83,8 @@ export const TITLES = {
     TITLE_ARE_YOU_SURE_DELETE: "Are you sure you want to delete?",
     TITLE_LOGIN_TO_YOUR_ACCOUNT: "Login to your account",
     TITLE_FLASHCARDS_AND_QUESTIONS_CREATED: "Flashcards & Questions Created",
+    TITLE_RECENT_FLASHCARDS_CREATED: "Recent Flashcards Created",
+    TITLE_RECENT_EXAMS_CREATED: "Recent Exams Created",
+    TITLE_VIEW_MORE: "View More",
   },
 };

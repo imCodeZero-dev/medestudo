@@ -11,6 +11,13 @@ import HomeLayout from "../../../components/LVL5_Layouts/HomeLayout/HomeLayout";
 import { ProfessorRoutes } from "../../../Routes/protectedRoutes/ProfessorRoutes";
 import DashboardChartCard from "../../../components/LVL3_Cells/DashboardChartCard/DashboardChartCard";
 import BarChartComponent from "../../../components/LVL4_Organs/BarChartComponent/BarChartComponent";
+import flashcard1 from "../../../assets/Images/dashboard/flashcard1.png";
+import flashcard2 from "../../../assets/Images/dashboard/flashcard2.png";
+import flashcard3 from "../../../assets/Images/dashboard/flashcard3.png";
+import DashboardFlashcard from "../../../components/LVL3_Cells/DashboardFlashcard/DashboardFlashcard";
+import DashboardExams from "../../../components/LVL3_Cells/DashboardExams/DashboardExams";
+import flashcardsImg from "../../../assets/Images/dashboard/flashcards.png";
+import examsImgs from "../../../assets/Images/dashboard/exams.png";
 
 const ProfessorDashboard = ({}: ProfessorDashboardProps) => {
   const { localeTitles, localeButtons, localeLables } = useLocale();
@@ -26,17 +33,84 @@ const ProfessorDashboard = ({}: ProfessorDashboardProps) => {
   const navigate = useNavigate();
 
   const dummyData = [
-    { name: "January", Sales: 65, Expenses: 28 },
-    { name: "February", Sales: 59, Expenses: 48 },
-    { name: "March", Sales: 80, Expenses: 40 },
-    { name: "April", Sales: 81, Expenses: 19 },
-    { name: "May", Sales: 56, Expenses: 86 },
+    { name: "Jan", Sales: 100, Expenses: 90 },
+    { name: "Feb", Sales: 120, Expenses: 95 },
+    { name: "Mar", Sales: 140, Expenses: 100 },
+    { name: "Apr", Sales: 160, Expenses: 110 },
+    { name: "May", Sales: 180, Expenses: 120 },
+    { name: "Jun", Sales: 200, Expenses: 130 },
+    { name: "Jul", Sales: 220, Expenses: 140 },
+    { name: "Aug", Sales: 240, Expenses: 150 },
+    { name: "Sep", Sales: 260, Expenses: 160 },
+    { name: "Oct", Sales: 280, Expenses: 170 },
+    { name: "Nov", Sales: 300, Expenses: 180 },
+    { name: "Dec", Sales: 320, Expenses: 190 },
+  ];
+
+  const dummyFlashCards = [
+    { image: flashcard1, title: "Orthopedic", date: "24 Dec,2023" },
+    { image: flashcard2, title: "Dermatology", date: "24 Dec,2023" },
+    { image: flashcard3, title: "ENT", date: "24 Dec,2023" },
+    { image: flashcard1, title: "Orthopedic", date: "24 Dec,2023" },
+    { image: flashcard2, title: "Dermatology", date: "24 Dec,2023" },
+    { image: flashcard3, title: "ENT", date: "24 Dec,2023" },
+    { image: flashcard1, title: "Orthopedic", date: "24 Dec,2023" },
+    { image: flashcard2, title: "Dermatology", date: "24 Dec,2023" },
+    { image: flashcard3, title: "ENT", date: "24 Dec,2023" },
+    { image: flashcard1, title: "Orthopedic", date: "24 Dec,2023" },
+    { image: flashcard2, title: "Dermatology", date: "24 Dec,2023" },
+    { image: flashcard3, title: "ENT", date: "24 Dec,2023" },
+  ];
+
+  const dummyExams = [
+    {
+      title: "Surgery Past Exam",
+      year: "2023",
+      time: "3 Hrs",
+      institute: "Xyz international",
+    },
+    {
+      title: "Surgery Past Exam",
+      year: "2023",
+      time: "3 Hrs",
+      institute: "Xyz international",
+    },
+    {
+      title: "Surgery Past Exam",
+      year: "2023",
+      time: "3 Hrs",
+      institute: "Xyz international",
+    },
+    {
+      title: "Surgery Past Exam",
+      year: "2023",
+      time: "3 Hrs",
+      institute: "Xyz international",
+    },
+    {
+      title: "Surgery Past Exam",
+      year: "2023",
+      time: "3 Hrs",
+      institute: "Xyz international",
+    },
   ];
 
   const dsahboardCards = [
-    { title: localeTitles?.TITLE_FLASHCARDS_CREATED, value: 33 },
-    { title: localeTitles?.TITLE_PASTEXAMS_CREATED, value: 5 },
-    { title: localeTitles?.TITLE_QUESTIONS_CREATED, value: 126 },
+    {
+      title: localeTitles?.TITLE_FLASHCARDS_CREATED,
+      value: 33,
+      image: flashcardsImg,
+    },
+    {
+      title: localeTitles?.TITLE_PASTEXAMS_CREATED,
+      value: 5,
+      image: examsImgs,
+    },
+    {
+      title: localeTitles?.TITLE_QUESTIONS_CREATED,
+      value: 126,
+      image: examsImgs,
+    },
   ];
 
   return (
@@ -46,7 +120,9 @@ const ProfessorDashboard = ({}: ProfessorDashboardProps) => {
           <div className={styles["ProfessorDashboard-cards"]}>
             {dsahboardCards?.map((data, i) => (
               <DashboardChartCard
+                key={i}
                 title={data?.title}
+                image={data?.image}
                 value={data?.value} // Example value representing progress
               />
             ))}
@@ -58,8 +134,39 @@ const ProfessorDashboard = ({}: ProfessorDashboardProps) => {
             </Text>
             <BarChartComponent data={dummyData} />
           </div>
+
+          <div className={styles["ProfessorDashboard-section"]}>
+            <div className="flex justify-between items-center">
+              <Text className={styles["sectionHeading"]}>
+                {localeTitles?.TITLE_RECENT_EXAMS_CREATED}
+              </Text>
+              <Text className={styles["viewMore"]}>
+                {localeTitles?.TITLE_VIEW_MORE}
+              </Text>
+            </div>
+
+            {dummyExams?.slice(0, 3)?.map((data, i) => (
+              <DashboardExams key={i} data={data} play />
+            ))}
+          </div>
         </div>
-        <div className={styles["ProfessorDashboard-right"]}></div>
+
+        <div className={styles["ProfessorDashboard-right"]}>
+          <div className={styles["right-section-main"]}>
+            <div className="flex justify-between items-center">
+              <Text className={styles["sectionHeading"]}>
+                {localeTitles?.TITLE_RECENT_FLASHCARDS_CREATED}
+              </Text>
+              <Text className={styles["viewMore"]}>
+                {localeTitles?.TITLE_VIEW_MORE}
+              </Text>
+            </div>
+
+            {dummyFlashCards?.slice(0, 8)?.map((data, i) => (
+              <DashboardFlashcard key={i} data={data} play minView />
+            ))}
+          </div>
+        </div>
       </div>
     </HomeLayout>
   );

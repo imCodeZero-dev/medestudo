@@ -23,6 +23,7 @@ import { IoMdAddCircleOutline } from "react-icons/io";
 import { IoMdClipboard } from "react-icons/io";
 import { IoSettingsOutline } from "react-icons/io5";
 import Input from "../../LVL1_Atoms/Input";
+import { BiSearch } from "react-icons/bi";
 
 const HomeLayout = ({ children }: HomeLayoutProps) => {
   const navigate = useNavigate();
@@ -83,7 +84,8 @@ const HomeLayout = ({ children }: HomeLayoutProps) => {
             <Input
               control={control}
               name="name"
-              placeholder={localePlaceholders.PLACEHOLDER_ENTER_NAME}
+              prefix={<BiSearch size={24} />}
+              placeholder={localePlaceholders.PLACEHOLDER_SEARCH}
               preDefinedClassName="lesserHeight"
               preDefinedWrapClassName="inputField-wrap"
               type="text"

@@ -49,6 +49,8 @@ const DecksManagement = ({}: DecksManagementProps) => {
     setExpandedDecks(newExpandedDecks);
   };
 
+  console.log("allDecks", allDecks);
+
   return (
     <AdminLayout>
       <div className={styles["DecksManagement"]}>
@@ -94,6 +96,7 @@ const DecksManagement = ({}: DecksManagementProps) => {
             setValue={setValue}
             watch={watch}
             handleCreateCancel={handleEditCancel}
+            editModal
           />
         )}
 
@@ -101,7 +104,7 @@ const DecksManagement = ({}: DecksManagementProps) => {
           <div className={styles["deckBody"]}>
             {allDecks?.map((deck: any, parentIndex: number) => (
               <>
-                <div key={parentIndex} className={styles["deckContainer"]}>
+                <div key={deck?.updatedAt} className={styles["deckContainer"]}>
                   <div className="flex justify-between items-center mb-2">
                     <Text className={styles["eachDeckHeading"]}>
                       Deck {parentIndex + 1}

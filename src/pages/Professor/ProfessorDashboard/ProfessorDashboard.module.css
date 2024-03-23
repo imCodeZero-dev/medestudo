@@ -1,18 +1,19 @@
 .ProfessorDashboard {
   display: flex;
+  max-height: 88vh;
+  overflow-y: auto;
 }
 .ProfessorDashboard-main {
   background-color: #f8fbff;
   flex: 0 0 65%;
-  padding: 0 32px ;
+  padding: 0 32px;
+  height: 100%;
 }
 
 .ProfessorDashboard-right {
   background-color: inherit;
   flex: 1;
 }
-
-
 
 .ProfessorDashboard-cards {
   margin: 24px 0;
@@ -26,7 +27,7 @@
 }
 
 .ProfessorDashboard-section {
-  margin: 24px 0;
+  margin: 20px 0;
 }
 .ProfessorDashboard-section-head {
   display: flex;
@@ -49,4 +50,20 @@
   font-weight: 600;
   line-height: 24px;
   text-align: left;
+}
+
+.viewMore {
+  font-family: Poppins;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 18px;
+  /* text-align: left; */
+  text-transform: uppercase;
+  border-bottom: 1px solid #383c41;
+  cursor: pointer;
+  /* text-underline-offset: #383c41; */
+}
+
+.right-section-main {
+  padding: 24px;
 }

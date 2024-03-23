@@ -8,9 +8,9 @@ import {
   Tooltip,
   Legend,
 } from "recharts";
-import { BarChartComponentProps } from "./types";
 import styles from "./BarChartComponent.module.css";
 import Text from "../../LVL1_Atoms/Text/Text";
+import { BarChartComponentProps } from "./types";
 
 const BarChartComponent: React.FC<BarChartComponentProps> = ({
   data,
@@ -18,6 +18,8 @@ const BarChartComponent: React.FC<BarChartComponentProps> = ({
 }) => {
   const chartContainerRef = useRef<HTMLDivElement>(null);
   const [containerWidth, setContainerWidth] = useState<number>(0);
+  const [chartData, setChartData] = useState(data);
+  const [activeButton, setActiveButton] = useState<string>("1Y");
 
   useEffect(() => {
     const updateContainerWidth = () => {
@@ -31,10 +33,45 @@ const BarChartComponent: React.FC<BarChartComponentProps> = ({
     window.addEventListener("resize", updateContainerWidth);
     return () => window.removeEventListener("resize", updateContainerWidth);
   }, []);
+
+  const handle6MonthsClick = () => {
+    const filteredData = data?.slice(-6);
+    setActiveButton("6M");
+
+    setChartData(filteredData);
+  };
+
+  const handle1YearClick = () => {
+    const filteredData = data?.slice(-12);
+    setActiveButton("1Y");
+    setChartData(filteredData);
+  };
+
   return (
     <div className={styles.chartContainer} ref={chartContainerRef}>
       <div className={styles.chartWrapper}>
-        <BarChart width={containerWidth} height={300} data={data}>
+        <div className={styles.buttonGroup}>
+          <Text className={styles.increaseText}>5% Increase</Text>
+          <div className={styles.rightButtons}>
+            <button
+              onClick={handle6MonthsClick}
+              className={`${styles.button} ${
+                activeButton === "6M" ? styles.activeBtn : styles.inactiveBtn
+              }`}
+            >
+              6M
+            </button>
+            <button
+              onClick={handle1YearClick}
+              className={`${styles.button} ${
+                activeButton === "1Y" ? styles.activeBtn : styles.inactiveBtn
+              }`}
+            >
+              1Y
+            </button>
+          </div>
+        </div>
+        <BarChart width={containerWidth} height={250} data={chartData}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="name" />
           <YAxis />

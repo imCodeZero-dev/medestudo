@@ -73,14 +73,14 @@ const AdminProfile = ({}: AdminProfileProps) => {
             >
               {localeButtons?.BUTTON_CANCEL}
             </Button> */}
-            <Button
+            {/* <Button
               type="submit"
               leftIcon={<IoMdAdd />}
               className="purpleBtn"
               onClick={handleSubmit(onSubmitUpdateAdmin)}
             >
               {localeButtons?.BUTTON_SAVE}
-            </Button>
+            </Button> */}
           </div>
         </div>
 
@@ -94,6 +94,55 @@ const AdminProfile = ({}: AdminProfileProps) => {
         </div>
 
         <div className="grid grid-cols-2 space-x-6 my-6">
+          <form
+            onSubmit={handleSubmit(onSubmitUpdateAdmin)}
+            className={styles["form"]}
+          >
+            <div className={styles["AdminProfile-section"]}>
+              <div className="grid grid-cols-2 space-x-2">
+                <Input
+                  label={localeLables?.LABEL_NAME}
+                  control={control}
+                  name="firstName"
+                  placeholder={localePlaceholders.PLACEHOLDER_ENTER_NAME}
+                  preDefinedClassName="lesserHeight"
+                  preDefinedWrapClassName="inputField-wrap"
+                  type="text"
+                />
+
+                <Input
+                  label={localeLables?.LABEL_LAST_NAME}
+                  control={control}
+                  name="lastName"
+                  placeholder={localePlaceholders.PLACEHOLDER_ENTER_NAME}
+                  preDefinedClassName="lesserHeight"
+                  preDefinedWrapClassName="inputField-wrap"
+                  type="text"
+                />
+              </div>
+
+              <div className="my-4">
+                <Input
+                  label={localeLables?.LABEL_EMAIL}
+                  control={control}
+                  name="email"
+                  placeholder={localePlaceholders.PLACEHOLDER_ENTER_EMAIL}
+                  preDefinedClassName="lesserHeight"
+                  preDefinedWrapClassName="inputField-wrap"
+                  type="email"
+                />
+              </div>
+              <Button
+                type="submit"
+                leftIcon={<IoMdAdd />}
+                className="purpleBtn"
+                onClick={handleSubmit(onSubmitUpdateAdmin)}
+              >
+                {localeButtons?.BUTTON_SAVE}
+              </Button>
+            </div>
+          </form>
+
           <form
             onSubmit={handleSubmitPassword(onSubmitResetPasswordAdmin)}
             className={styles["form"]}
@@ -139,47 +188,6 @@ const AdminProfile = ({}: AdminProfileProps) => {
               >
                 {localeButtons?.BUTTON_FORGOT_PASSWORD}
               </Button>
-            </div>
-          </form>
-
-          <form
-            onSubmit={handleSubmit(onSubmitUpdateAdmin)}
-            className={styles["form"]}
-          >
-            <div className={styles["AdminProfile-section"]}>
-              <div className="grid grid-cols-2 space-x-2">
-                <Input
-                  label={localeLables?.LABEL_NAME}
-                  control={control}
-                  name="name"
-                  placeholder={localePlaceholders.PLACEHOLDER_ENTER_NAME}
-                  preDefinedClassName="lesserHeight"
-                  preDefinedWrapClassName="inputField-wrap"
-                  type="text"
-                />
-
-                <Input
-                  label={localeLables?.LABEL_LAST_NAME}
-                  control={control}
-                  name="lastName"
-                  placeholder={localePlaceholders.PLACEHOLDER_ENTER_NAME}
-                  preDefinedClassName="lesserHeight"
-                  preDefinedWrapClassName="inputField-wrap"
-                  type="text"
-                />
-              </div>
-
-              <div className="my-4">
-                <Input
-                  label={localeLables?.LABEL_EMAIL}
-                  control={control}
-                  name="email"
-                  placeholder={localePlaceholders.PLACEHOLDER_ENTER_EMAIL}
-                  preDefinedClassName="lesserHeight"
-                  preDefinedWrapClassName="inputField-wrap"
-                  type="email"
-                />
-              </div>
             </div>
           </form>
         </div>

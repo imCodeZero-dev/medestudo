@@ -39,7 +39,7 @@ export const useAdminProfile = () => {
       .required("Email is required")
       .email("Invalid email format"),
     name: yup.string().required("Name is required"),
-    // lastName: yup.string().required("lastName is required"),
+    lastName: yup.string().required("lastName is required"),
     image: yup.string().required("Picture is required"),
   });
   const passwordValidationSchema = yup.object().shape({
@@ -65,7 +65,7 @@ export const useAdminProfile = () => {
   } = useForm({
     resolver: yupResolver(validationSchema),
     defaultValues: {
-      // lastName: cookies?.admin?.lastName,
+      lastName: cookies?.admin?.lastName,
       email: cookies?.admin?.email,
       // newPassword: "",
       name: cookies?.admin?.name,
@@ -97,10 +97,11 @@ export const useAdminProfile = () => {
       }
 
       const params = {
-        name: data?.name,
+        firstName: data?.firstName,
+        lastName: data?.lastName,
         email: data?.email,
         // password: data?.newPassword,
-        username: data?.lastName,
+        // username: data?.lastName,
         pic: imageUrl,
       };
 

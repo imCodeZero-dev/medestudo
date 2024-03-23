@@ -104,6 +104,7 @@ export const useDecksManagement = () => {
   };
 
   console.log("deckData", deckData);
+
   const {
     data: { data: { decks: allDecks = [] } = {} } = {},
     isLoading: allDecksLoading,
@@ -129,24 +130,28 @@ export const useDecksManagement = () => {
 
   const onCreateSubmission = async (data: any) => {
     console.log("onCreateSubmission", data);
-    const params = {
-      name: data?.deck?.[0]?.name,
-      subDeck: data?.deck?.[0]?.subDeck,
-    };
-    try {
-      setDeckLoading(true);
-      let response;
-      response = await createDeckApi(params, cookies?.admin?.token);
-      console.log("response", response);
+    if (!data?.deck?.[0]?.name) {
+      showErrorToast("Deck must be filled");
+    } else {
+      const params = {
+        name: data?.deck?.[0]?.name,
+        subDeck: data?.deck?.[0]?.subDeck,
+      };
+      try {
+        setDeckLoading(true);
+        let response;
+        response = await createDeckApi(params, cookies?.admin?.token);
+        console.log("response", response);
 
-      showSuccessToast(localeSuccess?.SUCCESS_DECK_CREATED);
-      refetchAllDecks();
-    } catch (error: any) {
-      console.log("error", error);
-      showErrorToast(error?.response?.data?.errorMessage);
-    } finally {
-      setDeckLoading(false);
-      handleCreateCancel();
+        showSuccessToast(localeSuccess?.SUCCESS_DECK_CREATED);
+        refetchAllDecks();
+      } catch (error: any) {
+        console.log("error", error);
+        showErrorToast(error?.response?.data?.errorMessage);
+      } finally {
+        setDeckLoading(false);
+        handleCreateCancel();
+      }
     }
   };
 
