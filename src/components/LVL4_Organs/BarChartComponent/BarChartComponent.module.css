@@ -37,6 +37,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 24px;
 }
 
 .rightButtons {
@@ -58,4 +59,23 @@
   font-family: Poppins;
   font-size: 12px;
   font-weight: 500;
+}
+
+.legendIndicator1 {
+  background-color: #ff900e;
+  padding: 6px;
+}
+.legendIndicator2 {
+  background-color: #0030dd;
+  padding: 6px;
+}
+
+
+.legendText{
+font-family: Poppins;
+font-size: 12px;
+font-weight: 400;
+line-height: 18px;
+/* text-align: left; */
+
 }

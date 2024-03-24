@@ -132,7 +132,7 @@ const ProfessorDashboard = ({}: ProfessorDashboardProps) => {
             <Text className={styles["sectionHeading"]}>
               {localeTitles?.TITLE_FLASHCARDS_AND_QUESTIONS_CREATED}
             </Text>
-            <BarChartComponent data={dummyData} />
+            <BarChartComponent data={dummyData} legends={[localeTitles?.TITLE_FLASHCARDS, localeTitles?.TITLE_QUESTIONS]} />
           </div>
 
           <div className={styles["ProfessorDashboard-section"]}>
