@@ -7,11 +7,10 @@
   /* gap: 24px; */
   background: #0030dd;
   display: flex;
-  flex-direction: row;
+  /* flex-direction: row; */
   justify-content: space-between;
   box-shadow: 0px 1px 2px 0px #1018280d;
   color: white;
-  
 }
 
 .DashboardChartCard-top {
@@ -22,26 +21,24 @@
 .DashboardChartCard-bottom {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  /* align-items: center; */
+  height: 90%;
 }
 
 .value {
-  /* //styleName: Display md/Semibold; */
-  /* font-family: Inter; */
-  font-size: 36px;
-  font-weight: 600;
-  line-height: 44px;
-  letter-spacing: -0.02em;
+  font-family: Poppins;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 36px;
   text-align: left;
+  
 }
 
 .title {
-  /* font-family: Inter; */
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 24px;
-  letter-spacing: 0em;
-  text-align: left;
+  font-family: Poppins;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
 }
 
 .updatedText {
@@ -51,4 +48,12 @@
   line-height: 20px;
   letter-spacing: 0em;
   text-align: left;
+}
+
+.text {
+  color: #77d598;
+  font-family: Poppins;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
 }

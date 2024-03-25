@@ -18,6 +18,24 @@ import DashboardFlashcard from "../../../components/LVL3_Cells/DashboardFlashcar
 import DashboardExams from "../../../components/LVL3_Cells/DashboardExams/DashboardExams";
 import flashcardsImg from "../../../assets/Images/dashboard/flashcards.png";
 import examsImgs from "../../../assets/Images/dashboard/exams.png";
+import { MdOutlineViewCarousel } from "react-icons/md";
+import { PiExam } from "react-icons/pi";
+import { RiQuestionAnswerLine } from "react-icons/ri";
+
+export const dummyFlashCards = [
+  { image: flashcard1, title: "Orthopedic", date: "24 Dec,2023" },
+  { image: flashcard2, title: "Dermatology", date: "24 Dec,2023" },
+  { image: flashcard3, title: "ENT", date: "24 Dec,2023" },
+  { image: flashcard1, title: "Orthopedic", date: "24 Dec,2023" },
+  { image: flashcard2, title: "Dermatology", date: "24 Dec,2023" },
+  { image: flashcard3, title: "ENT", date: "24 Dec,2023" },
+  { image: flashcard1, title: "Orthopedic", date: "24 Dec,2023" },
+  { image: flashcard2, title: "Dermatology", date: "24 Dec,2023" },
+  { image: flashcard3, title: "ENT", date: "24 Dec,2023" },
+  { image: flashcard1, title: "Orthopedic", date: "24 Dec,2023" },
+  { image: flashcard2, title: "Dermatology", date: "24 Dec,2023" },
+  { image: flashcard3, title: "ENT", date: "24 Dec,2023" },
+];
 
 const ProfessorDashboard = ({}: ProfessorDashboardProps) => {
   const { localeTitles, localeButtons, localeLables } = useLocale();
@@ -45,21 +63,6 @@ const ProfessorDashboard = ({}: ProfessorDashboardProps) => {
     { name: "Oct", Sales: 280, Expenses: 170 },
     { name: "Nov", Sales: 300, Expenses: 180 },
     { name: "Dec", Sales: 320, Expenses: 190 },
-  ];
-
-  const dummyFlashCards = [
-    { image: flashcard1, title: "Orthopedic", date: "24 Dec,2023" },
-    { image: flashcard2, title: "Dermatology", date: "24 Dec,2023" },
-    { image: flashcard3, title: "ENT", date: "24 Dec,2023" },
-    { image: flashcard1, title: "Orthopedic", date: "24 Dec,2023" },
-    { image: flashcard2, title: "Dermatology", date: "24 Dec,2023" },
-    { image: flashcard3, title: "ENT", date: "24 Dec,2023" },
-    { image: flashcard1, title: "Orthopedic", date: "24 Dec,2023" },
-    { image: flashcard2, title: "Dermatology", date: "24 Dec,2023" },
-    { image: flashcard3, title: "ENT", date: "24 Dec,2023" },
-    { image: flashcard1, title: "Orthopedic", date: "24 Dec,2023" },
-    { image: flashcard2, title: "Dermatology", date: "24 Dec,2023" },
-    { image: flashcard3, title: "ENT", date: "24 Dec,2023" },
   ];
 
   const dummyExams = [
@@ -97,19 +100,25 @@ const ProfessorDashboard = ({}: ProfessorDashboardProps) => {
 
   const dsahboardCards = [
     {
-      title: localeTitles?.TITLE_FLASHCARDS_CREATED,
+      title: localeTitles?.TITLE_TOTAL_FLASHCARDS,
       value: 33,
-      image: flashcardsImg,
+      // image: flashcardsImg,
+      icon: <MdOutlineViewCarousel size={50} color="#A2A9B3" />,
+      text: localeTitles?.TITLE_UPLOADED,
     },
     {
-      title: localeTitles?.TITLE_PASTEXAMS_CREATED,
+      title: localeTitles?.TITLE_TOTAL_PAST_EXAMS,
       value: 5,
-      image: examsImgs,
+      // image: examsImgs,
+      icon: <PiExam size={50} color="#A2A9B3" />,
+      text: localeTitles?.TITLE_UPLOADED,
     },
     {
-      title: localeTitles?.TITLE_QUESTIONS_CREATED,
+      title: localeTitles?.TITLE_TOTAL_QUESTIONS,
       value: 126,
-      image: examsImgs,
+      // image: examsImgs,
+      icon: <RiQuestionAnswerLine size={50} color="#A2A9B3" />,
+      text: localeTitles?.TITLE_UPLOADED,
     },
   ];
 
@@ -121,8 +130,9 @@ const ProfessorDashboard = ({}: ProfessorDashboardProps) => {
             {dsahboardCards?.map((data, i) => (
               <DashboardChartCard
                 key={i}
+                text={data?.text}
                 title={data?.title}
-                image={data?.image}
+                icon={data?.icon}
                 value={data?.value} // Example value representing progress
               />
             ))}
@@ -132,7 +142,13 @@ const ProfessorDashboard = ({}: ProfessorDashboardProps) => {
             <Text className={styles["sectionHeading"]}>
               {localeTitles?.TITLE_FLASHCARDS_AND_QUESTIONS_CREATED}
             </Text>
-            <BarChartComponent data={dummyData} legends={[localeTitles?.TITLE_FLASHCARDS, localeTitles?.TITLE_QUESTIONS]} />
+            <BarChartComponent
+              data={dummyData}
+              legends={[
+                localeTitles?.TITLE_FLASHCARDS,
+                localeTitles?.TITLE_QUESTIONS,
+              ]}
+            />
           </div>
 
           <div className={styles["ProfessorDashboard-section"]}>

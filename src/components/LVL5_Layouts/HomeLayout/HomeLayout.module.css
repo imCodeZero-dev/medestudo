@@ -49,3 +49,12 @@
   background-color: white;
   cursor: pointer;
 }
+
+.pathName {
+  /* //styleName: Heading6/Semibold; */
+  font-family: Poppins;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 30px;
+  text-align: left;
+}

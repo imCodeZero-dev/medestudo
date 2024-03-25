@@ -41,45 +41,56 @@ const HomeLayout = ({ children }: HomeLayoutProps) => {
   } = useHomeLayout();
   const options = [
     {
-      title: "Dashboard",
-      url: "/dashboard",
+      title: localeLables?.LABEL_DASHBOARD,
+      url: "/professor",
       image: <MdOutlineDashboard />,
     },
     {
-      title: "Flashcards",
-      url: "/flashcards",
+      title: localeLables?.LABEL_FLASHCARDS,
+      url: "/professor/flashcards",
       image: <PiNewspaperBold />,
       submenu: [
         {
-          title: "All Flashcards",
-          url: "/flashcards/all",
+          title: localeLables?.LABEL_ALL_FLASHCARDS,
+          url: "/professor/flashcards",
           image: <MdOutlineViewCarousel />,
         },
         {
-          title: "Add New",
-          url: "/flashcards/new",
+          title: localeLables?.LABEL_ADD_NEW,
+          url: "/professor/flashcards/new",
           image: <IoMdAddCircleOutline />,
         },
       ],
     },
     {
-      title: "Exams",
-      url: "/exams",
+      title: localeLables?.LABEL_EXAMS,
+      url: "/professor/exams",
       image: <IoMdClipboard />,
     },
     {
-      title: "Settings",
-      url: "/settings",
+      title: localeLables?.LABEL_SETTINGS,
+      url: "/professor/settings",
       image: <IoSettingsOutline />,
     },
   ];
+  const getName = () => {
+    if (location.pathname === "/professor") {
+      return localeLables?.LABEL_DASHBOARD;
+    } else if (location.pathname === "/professor/flashcards") {
+      return localeLables?.LABEL_FLASHCARDS;
+    } else if (location.pathname === "/professor/exams") {
+      return localeLables?.LABEL_EXAMS;
+    } else if (location.pathname === "/professor/settings") {
+      return localeLables?.LABEL_SETTINGS;
+    }
+  };
 
   return (
     <div className={styles["HomeLayout"]}>
       <LeftSidebar options={options} />
       <div className={styles["HomeLayout-main"]}>
         <div className={styles["HomeLayout-header"]}>
-          <div className={styles["HomeLayout-header-left"]}>Dashboard</div>
+          <div className={styles["pathName"]}>{getName()}</div>
           <div className={styles["HomeLayout-header-mid"]}>
             <Input
               control={control}

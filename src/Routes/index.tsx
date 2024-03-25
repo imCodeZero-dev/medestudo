@@ -36,6 +36,9 @@ const LoginServices = React.lazy(() => import("../pages/LoginPage/LoginPage"));
 const ProfessorDashboardServices = React.lazy(
   () => import("../pages/Professor/ProfessorDashboard/ProfessorDashboard")
 );
+const ProfessorFlashcardsServices = React.lazy(
+  () => import("../pages/Professor/ProfessorFlashcards/ProfessorFlashcards")
+);
 const App = React.lazy(() => import("../App"));
 
 const ProjectRoutes = () => {
@@ -91,6 +94,10 @@ const ProjectRoutes = () => {
 
             <Route path="/professor/login" element={<LoginServices />} />
             <Route path="/professor" element={<ProfessorDashboardServices />} />
+            <Route
+              path="/professor/flashcards"
+              element={<ProfessorFlashcardsServices />}
+            />
 
             <Route path="*" element={<NotFound />} />
           </Routes>

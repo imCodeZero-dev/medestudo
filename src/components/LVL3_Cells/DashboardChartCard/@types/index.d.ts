@@ -1,7 +1,8 @@
 import { ReactNode } from "react";
 
 export interface DashboardChartCardProps {
+  text: string;
   title: string;
-  image: string;
+  icon: ReactNode;
   value: string | number;
 }

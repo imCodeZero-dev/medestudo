@@ -2,16 +2,19 @@
   width: 256px;
   height: 100vh;
   background-color: white;
+  /* padding: 8px 16px ; */
 }
 
 .logo {
-  width: 80%;
-  display: block;
-  margin: 20px auto;
+  width: 116px;
+  object-fit: contain;
+  /* display: block; */
+  margin: 20px;
 }
 
 .navigation {
-  padding-top: 20px;
+  /* padding-top: 20px; */
+  padding: 20px 16px;
 }
 
 .tab {
@@ -30,6 +33,11 @@
 .tabSection {
   display: flex;
   align-items: center;
+}
+.tabSectionActive {
+  display: flex;
+  align-items: center;
+  color: #0026b1;
 }
 
 .tab:hover {

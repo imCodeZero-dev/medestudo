@@ -18,6 +18,7 @@ export const TITLES = {
     TITLE_INACTIVE_QUESTIONS: "Inactive Questions",
     TITLE_TOTAL_FLASHCARDS: "Total Flashcards",
     TITLE_TOTAL_EXAMS: "Total Exams",
+    TITLE_TOTAL_PAST_EXAMS: "Total Past Exams",
     TITLE_USER_MANAGEMENT: "User Management",
     TITLE_PROFESSORS: "Professors",
     TITLE_STUDENTS: "Students",
@@ -42,6 +43,8 @@ export const TITLES = {
     TITLE_RECENT_FLASHCARDS_CREATED: "Recent Flashcards Created",
     TITLE_RECENT_EXAMS_CREATED: "Recent Exams Created",
     TITLE_VIEW_MORE: "View More",
+    TITLE_UPLOADED: "Uploaded",
+    TITLE_CREATE_CLASS: "Create Class",
   },
   es: {
     TITLE_TEST: "Este es el título de la prueba",
@@ -62,6 +65,7 @@ export const TITLES = {
     TITLE_INACTIVE_QUESTIONS: "Inactive Questions",
     TITLE_TOTAL_FLASHCARDS: "Total Flashcards",
     TITLE_TOTAL_EXAMS: "Total Exams",
+    TITLE_TOTAL_PAST_EXAMS: "Total Past Exams",
     TITLE_USER_MANAGEMENT: "User Management",
     TITLE_PROFESSORS: "Professors",
     TITLE_STUDENTS: "Students",
@@ -86,5 +90,7 @@ export const TITLES = {
     TITLE_RECENT_FLASHCARDS_CREATED: "Recent Flashcards Created",
     TITLE_RECENT_EXAMS_CREATED: "Recent Exams Created",
     TITLE_VIEW_MORE: "View More",
+    TITLE_UPLOADED: "Uploaded",
+    TITLE_CREATE_CLASS: "Create Class",
   },
 };

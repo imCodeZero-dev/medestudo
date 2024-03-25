@@ -15,3 +15,4 @@ export const handleImageURL = (file: string) => {
   }
   return file;
 };
+

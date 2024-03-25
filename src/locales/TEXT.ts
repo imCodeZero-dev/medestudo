@@ -9,6 +9,8 @@ export const TEXT = {
       "A tag will be used to link questions.",
     TEXT_A_NEW_PROFESSOR_WOULD_MSG:
       "A new professor would be able to add exams and flashcards on platform.",
+    TEXT_A_CLASS_IS_A_SET_OF_FLASHCARDS:
+      "A Class is a set of Flashcards, grouped into Decks",
   },
   es: {
     TEXT_ENTER_DETAILS: "Enter Details to continue using your account",
@@ -20,5 +22,7 @@ export const TEXT = {
       "A tag will be used to link questions.",
     TEXT_A_NEW_PROFESSOR_WOULD_MSG:
       "A new professor would be able to add exams and flashcards on platform.",
+    TEXT_A_CLASS_IS_A_SET_OF_FLASHCARDS:
+      "A Class is a set of Flashcards, grouped into Decks",
   },
 };

@@ -1,20 +1,31 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./LeftSidebar.module.css";
 import { LeftSidebarProps, SidebarOption } from "./types";
 import logoImg from "../../../assets/MedEstudo-assets/MedEstudo-Final-Logos/Logo/medestudo-logo-horizontal-blue.png";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa6";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const LeftSidebar = ({ options }: LeftSidebarProps) => {
   const [activeTab, setActiveTab] = useState<null | string>(options[0].title);
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  const handleTabClick = (title: string) => {
+  const handleTabClick = (opt: { title: string; url: string }) => {
     console.log("handleTabClick");
-    setActiveTab(title);
+    navigate(opt?.url);
+    setActiveTab(opt?.title);
   };
+
   // const handleTabClickCancel = () => {
   //   console.log("handleTabClickCancel");
   //   setActiveTab("");
   // };
+
+  //   useEffect(() => {
+  // if(location?.pathname==='/professor'){
+  //   setActiveTab()
+  // }
+  //   },[location])
 
   return (
     <div className={styles.LeftSidebar}>
@@ -22,17 +33,27 @@ const LeftSidebar = ({ options }: LeftSidebarProps) => {
 
       <div className={styles.navigation}>
         {options.map((option: SidebarOption, index: number) => (
-          <div key={index} className={` ${
-            activeTab === option.title ? styles.activeTab : styles.tab
-          }`}>
+          <div
+            key={index}
+            className={` ${
+              location?.pathname === option?.url ? styles.activeTab : styles.tab
+              // activeTab === option.title ? styles.activeTab : styles.tab
+            }`}
+          >
             <div
-              className={styles.tabSection}
-              onClick={() => handleTabClick(option.title)}
+              className={
+                location?.pathname === option?.url
+                  ? styles.tabSectionActive
+                  : styles.tabSection
+              }
+              onClick={() => handleTabClick(option)}
             >
               {option?.image}
               <span
                 className={` ${
-                  activeTab === option.title ? styles.active : styles.inactive
+                  location?.pathname === option?.url
+                    ? styles.active
+                    : styles.inactive
                 }`}
               >
                 {option.title}
@@ -50,15 +71,20 @@ const LeftSidebar = ({ options }: LeftSidebarProps) => {
                 </div>
               )} */}
             </div>
-            {activeTab === option.title && option.submenu && (
+            {location?.pathname === option?.url && option.submenu && (
               <div className={styles.submenu}>
                 {option.submenu.map(
                   (subItem: SidebarOption, subIndex: number) => (
-                    <div className={styles.tabSection}>
+                    <div
+                      className={ location?.pathname === subItem?.url
+                        ? styles.tabSectionActive
+                        : styles.tabSection}
+                      onClick={() => handleTabClick(subItem)}
+                    >
                       {subItem?.image}{" "}
                       <span
                         className={` ${
-                          activeTab === option.title
+                          location?.pathname === subItem?.url
                             ? styles.active
                             : styles.inactive
                         }`}
