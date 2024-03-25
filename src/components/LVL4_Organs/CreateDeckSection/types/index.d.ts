@@ -10,5 +10,6 @@ export type CreateDeckSectionProps = {
   watch: any;
   getValues: any;
   editModal?: boolean;
-  handleCreateCancel:() => void
+  loading?: boolean;
+  handleCreateCancel: () => void;
 };

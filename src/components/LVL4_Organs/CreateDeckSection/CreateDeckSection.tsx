@@ -18,6 +18,7 @@ const CreateDeckSection = ({
   watch,
   handleCreateCancel,
   editModal,
+  loading,
 }: CreateDeckSectionProps) => {
   const {
     localeTitles,
@@ -299,6 +300,7 @@ const CreateDeckSection = ({
           <Button
             type="submit"
             className="purpleBtn"
+            loading={loading}
             onClick={handleSubmit(onSubmit)}
           >
             {editModal

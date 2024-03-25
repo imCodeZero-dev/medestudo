@@ -39,6 +39,8 @@ const DecksManagement = ({}: DecksManagementProps) => {
     handleEdit,
     handleEditCancel,
     onConfirmEdit,
+    deckLoading,
+    allDecksLoading,
   } = useDecksManagement();
 
   const [expandedDecks, setExpandedDecks] = useState<boolean[]>([]);
@@ -84,6 +86,7 @@ const DecksManagement = ({}: DecksManagementProps) => {
             getValues={getValues}
             setValue={setValue}
             watch={watch}
+            loading={deckLoading}
             handleCreateCancel={handleCreateCancel}
           />
         )}
@@ -95,6 +98,7 @@ const DecksManagement = ({}: DecksManagementProps) => {
             getValues={getValues}
             setValue={setValue}
             watch={watch}
+            loading={deckLoading}
             handleCreateCancel={handleEditCancel}
             editModal
           />

@@ -223,5 +223,6 @@ export const useDecksManagement = () => {
     handleEdit,
     handleEditCancel,
     onConfirmEdit,
+    allDecksLoading,
   };
 };
