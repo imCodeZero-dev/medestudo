@@ -39,6 +39,9 @@ const ProfessorDashboardServices = React.lazy(
 const ProfessorFlashcardsServices = React.lazy(
   () => import("../pages/Professor/ProfessorFlashcards/ProfessorFlashcards")
 );
+const ProfessorSettingsServices = React.lazy(
+  () => import("../pages/Professor/ProfessorSettings/ProfessorSettings")
+);
 const App = React.lazy(() => import("../App"));
 
 const ProjectRoutes = () => {
@@ -97,6 +100,10 @@ const ProjectRoutes = () => {
             <Route
               path="/professor/flashcards"
               element={<ProfessorFlashcardsServices />}
+            />
+            <Route
+              path="/professor/settings"
+              element={<ProfessorSettingsServices />}
             />
 
             <Route path="*" element={<NotFound />} />

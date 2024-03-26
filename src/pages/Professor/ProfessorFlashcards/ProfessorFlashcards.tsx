@@ -37,7 +37,6 @@ const ProfessorFlashcards = ({}: ProfessorFlashcardsProps) => {
     onSubmitCreate,
     openCreate,
     createLoading,
-    handleOpenCreate,
   } = useProfessorFlashcards();
   console.log("cookies", cookies);
   const navigate = useNavigate();

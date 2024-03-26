@@ -6,6 +6,7 @@ import AvatarImg from "../../../assets/Images/dashboard/Avatar.png";
 import styles from "./AvatarUploader.module.css";
 import { ErrorMessage } from "../../LVL1_Atoms/ErrorMessage";
 import { cn } from "../../../utils/hooks/helper";
+import { RxAvatar } from "react-icons/rx";
 
 interface AvatarUploaderProps {
   control: Control<any>;
@@ -20,21 +21,6 @@ const AvatarUploader: React.FC<AvatarUploaderProps> = ({
 }) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // const { getRootProps, getInputProps } = useDropzone({
-  //   multiple: false,
-  //   onDrop: (acceptedFiles) => {
-  //     const file = acceptedFiles[0];
-  //     if (file) {
-  //       control.setValue(name, file); // Set the value of the form control to the uploaded file
-  //     }
-  //   },
-  // });
-
-  // const handlePencilClick = () => {
-  //   if (fileInputRef.current) {
-  //     fileInputRef.current.click(); // Trigger click on file input
-  //   }
-  // };
   console.log("watchName", watch(name));
 
   return (
@@ -54,13 +40,20 @@ const AvatarUploader: React.FC<AvatarUploaderProps> = ({
               <div {...getRootProps()} className={styles["uploadCard"]}>
                 <input {...getInputProps()} />
                 <div>
-                  <div className="relative">
-                    <img
+                  <div className="relative w-44">
+                    {/* <img
                       src={
                         watch(name)
                           ? URL.createObjectURL(watch(name))
                           : AvatarImg
                       }
+                      className={`${styles["image"]}   ${
+                        isDragActive
+                          ? "bg-[#139D3A] text-white animate-pulse"
+                          : "bg-slate-100/50 dark:bg-slate-800/80 text-slate-400"
+                      }`}
+                    /> */}
+                    <RxAvatar
                       className={`${styles["image"]}   ${
                         isDragActive
                           ? "bg-[#139D3A] text-white animate-pulse"

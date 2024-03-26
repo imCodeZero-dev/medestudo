@@ -4,16 +4,27 @@ import { LeftSidebarProps, SidebarOption } from "./types";
 import logoImg from "../../../assets/MedEstudo-assets/MedEstudo-Final-Logos/Logo/medestudo-logo-horizontal-blue.png";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa6";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { openCreateModal } from "../../../redux/actions/modalActions";
 
 const LeftSidebar = ({ options }: LeftSidebarProps) => {
   const [activeTab, setActiveTab] = useState<null | string>(options[0].title);
   const navigate = useNavigate();
   const location = useLocation();
+  const dispatch = useDispatch();
+
+  const handleOpenModal = () => {
+    dispatch(openCreateModal());
+  };
 
   const handleTabClick = (opt: { title: string; url: string }) => {
-    console.log("handleTabClick");
-    navigate(opt?.url);
-    setActiveTab(opt?.title);
+    console.log("handleTabClick", opt);
+    if (opt?.url === "/professor/flashcards/new") {
+      handleOpenModal();
+    } else {
+      navigate(opt?.url);
+      setActiveTab(opt?.title);
+    }
   };
 
   // const handleTabClickCancel = () => {
@@ -76,9 +87,11 @@ const LeftSidebar = ({ options }: LeftSidebarProps) => {
                 {option.submenu.map(
                   (subItem: SidebarOption, subIndex: number) => (
                     <div
-                      className={ location?.pathname === subItem?.url
-                        ? styles.tabSectionActive
-                        : styles.tabSection}
+                      className={
+                        location?.pathname === subItem?.url
+                          ? styles.tabSectionActive
+                          : styles.tabSection
+                      }
                       onClick={() => handleTabClick(subItem)}
                     >
                       {subItem?.image}{" "}

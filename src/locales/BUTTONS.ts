@@ -23,6 +23,7 @@ export const BUTTONS = {
     BUTTON_FLASHCARDS: "Flashcards",
     BUTTON_GET_STARTED: "Get started",
     BUTTON_SAVE_CHANGES: "Save Changes",
+    BUTTON_CHANGE_IMAGE: "Change Image",
   },
   es: {
     submit: "Enviar",
@@ -48,5 +49,6 @@ export const BUTTONS = {
     BUTTON_FLASHCARDS: "Flashcards",
     BUTTON_GET_STARTED: "Get started",
     BUTTON_SAVE_CHANGES: "Save Changes",
+    BUTTON_CHANGE_IMAGE: "Change Image",
   },
 };

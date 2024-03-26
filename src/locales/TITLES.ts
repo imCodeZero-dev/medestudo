@@ -45,6 +45,8 @@ export const TITLES = {
     TITLE_VIEW_MORE: "View More",
     TITLE_UPLOADED: "Uploaded",
     TITLE_CREATE_CLASS: "Create Class",
+    TITLE_GENERAL_INFO: "General Info",
+    TITLE_PROFILE_IMAGE: "Profile Image",
   },
   es: {
     TITLE_TEST: "Este es el título de la prueba",
@@ -92,5 +94,7 @@ export const TITLES = {
     TITLE_VIEW_MORE: "View More",
     TITLE_UPLOADED: "Uploaded",
     TITLE_CREATE_CLASS: "Create Class",
+    TITLE_GENERAL_INFO: "General Info",
+    TITLE_PROFILE_IMAGE: "Profile Image",
   },
 };

@@ -14,7 +14,7 @@ import { useQuery } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
 import { closeModal } from "../../../../redux/slices/ModalSlice";
 
-export const useProfessorFlashcards = () => {
+export const useProfessorSettings = () => {
   // const navigate = useNavigate();
   const { localeSuccess } = useLocale();
   const [cookies] = useCookies(["admin"]);
@@ -51,6 +51,15 @@ export const useProfessorFlashcards = () => {
       name: "",
     },
   });
+  const {
+    handleSubmit: handleSubmitImage,
+    control: controlImage,
+    formState: { errors: errorsImg },
+    watch: watchImg,
+  } = useForm({
+    resolver: yupResolver(validationSchema),
+    defaultValues: {},
+  });
 
   const [createLoading, setCreateLoading] = useState<boolean>(false);
 
@@ -60,7 +69,7 @@ export const useProfessorFlashcards = () => {
     dispatch(closeModal());
   };
 
-  const onSubmitCreate = async (data: any) => {
+  const onSubmitGeneral = async (data: any) => {
     const params = {
       status: data?.status === "active" ? "inactive" : "active",
     };
@@ -83,6 +92,9 @@ export const useProfessorFlashcards = () => {
     //   setProfessorLoading(false);
     // }
   };
+  const onSubmitImage = async (data: any) => {
+    console.log("params", data);
+  };
 
   return {
     control,
@@ -91,9 +103,8 @@ export const useProfessorFlashcards = () => {
 
     watch,
 
-    handleCloseCreate,
-    onSubmitCreate,
-    openCreate,
-    createLoading,
+    handleSubmitImage,
+    onSubmitGeneral,
+    onSubmitImage,
   };
 };
