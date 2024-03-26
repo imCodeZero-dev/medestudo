@@ -9,6 +9,8 @@ import useLocale from "../../../locales";
 import Input from "../../LVL1_Atoms/Input";
 import { Button } from "../../LVL1_Atoms/Button";
 import AvatarUploader from "../../LVL2_Molecules/ImageUploader/AvatarUploader";
+import SelectDropDown from "../../LVL2_Molecules/ControlSelect/Select";
+import { Country, City } from "country-state-city";
 
 const ProfileInfo = ({
   control,
@@ -27,10 +29,10 @@ const ProfileInfo = ({
 
   return (
     <div className={styles.ProfileInfo}>
-      <div className="grid grid-cols-2 space-x-6 my-6">
+      <div className="grid grid-cols-3 space-x-6 my-6">
         <form
           onSubmit={handleSubmit(onSubmitGeneral)}
-          className={styles["form"]}
+          className={`${styles["form"]} col-span-2`}
         >
           <div className={styles["ProfileInfo-section-1"]}>
             <Text className={styles.heading}>
@@ -58,14 +60,13 @@ const ProfileInfo = ({
                 preDefinedWrapClassName="inputField-wrap"
                 type="email"
               />
-              <Input
-                label={localeLables?.LABEL_EMAIL}
+              <SelectDropDown
+                items={Country?.getAllCountries()}
+                name="country"
                 control={control}
-                name="email"
-                placeholder={localePlaceholders.PLACEHOLDER_ENTER_EMAIL}
-                preDefinedClassName="lesserHeight"
-                preDefinedWrapClassName="inputField-wrap"
-                type="email"
+                labelKey="name"
+                valueKey="isoCode"
+                label="Location"
               />
             </div>
             <Button

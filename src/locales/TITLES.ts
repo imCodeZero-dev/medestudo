@@ -47,6 +47,8 @@ export const TITLES = {
     TITLE_CREATE_CLASS: "Create Class",
     TITLE_GENERAL_INFO: "General Info",
     TITLE_PROFILE_IMAGE: "Profile Image",
+    TITLE_PASSWORD: "Password",
+    TITLE_EMAIL: "Email",
   },
   es: {
     TITLE_TEST: "Este es el título de la prueba",
@@ -96,5 +98,7 @@ export const TITLES = {
     TITLE_CREATE_CLASS: "Create Class",
     TITLE_GENERAL_INFO: "General Info",
     TITLE_PROFILE_IMAGE: "Profile Image",
+    TITLE_PASSWORD: "Password",
+    TITLE_EMAIL: "Email",
   },
 };

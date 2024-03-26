@@ -22,6 +22,9 @@ export const LABELS = {
     LABEL_ADD_NEW: "Add New",
     LABEL_EXAMS: "Exams",
     LABEL_SETTINGS: "Settings",
+    LABEL_PERSONAL_INFO: "Personal Info",
+    LABEL_PRIVACY: "Privacy",
+    LABEL_SECURITY: "Security",
   },
   es: {
     LABEL_USERNAME: "Username or Email",
@@ -46,5 +49,8 @@ export const LABELS = {
     LABEL_ADD_NEW: "Add New",
     LABEL_EXAMS: "Exams",
     LABEL_SETTINGS: "Settings",
+    LABEL_PERSONAL_INFO: "Personal Info",
+    LABEL_PRIVACY: "Privacy",
+    LABEL_SECURITY: "Security",
   },
 };

@@ -15,6 +15,10 @@ import DashboardFlashcard from "../../../components/LVL3_Cells/DashboardFlashcar
 import CreateClassModal from "../../../components/LVL4_Organs/CreateClassModal/CreateClassModal";
 import { dummyFlashCards } from "../ProfessorDashboard/ProfessorDashboard";
 import ProfileInfo from "../../../components/LVL4_Organs/ProfileInfo/ProfileInfo";
+import { Tab, Tabs } from "@mui/material";
+import { useState } from "react";
+import DynamicTabs from "../../../components/LVL3_Cells/Tabs/Tabs";
+import SettingsSecurity from "../../../components/LVL4_Organs/SettingsSecurity/SettingsSecurity";
 
 const ProfessorSettings = ({}: ProfessorSettingsProps) => {
   const { localeTitles, localeButtons, localeLables } = useLocale();
@@ -28,23 +32,58 @@ const ProfessorSettings = ({}: ProfessorSettingsProps) => {
     handleSubmitImage,
     onSubmitGeneral,
     onSubmitImage,
+    handleSubmitEmail,
+    handleSubmitPassword,
+    onSubmitEmail,
+    onSubmitPassword,
   } = useProfessorSettings();
   console.log("cookies", cookies);
   const navigate = useNavigate();
+  const [value, setValue] = useState(0);
+
+  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+    setValue(newValue);
+  };
 
   return (
     <HomeLayout>
       <div className={styles["ProfessorSettings"]}>
-        <ProfileInfo
-          control={control}
-          generalLoading={false}
-          handleSubmit={handleSubmit}
-          handleSubmitImage={handleSubmitImage}
-          imageLoading={false}
-          onSubmitGeneral={onSubmitGeneral}
-          onSubmitImage={onSubmitImage}
-          watch={watch}
-        />
+        <div className="px-[24px]">
+          <DynamicTabs
+            value={value}
+            onChange={handleChange}
+            tabLabels={[
+              localeLables?.LABEL_PERSONAL_INFO,
+              localeLables?.LABEL_SECURITY,
+              localeLables?.LABEL_PRIVACY,
+            ]}
+          />
+        </div>
+
+        {value === 0 && (
+          <ProfileInfo
+            control={control}
+            generalLoading={false}
+            handleSubmit={handleSubmit}
+            handleSubmitImage={handleSubmitImage}
+            imageLoading={false}
+            onSubmitGeneral={onSubmitGeneral}
+            onSubmitImage={onSubmitImage}
+            watch={watch}
+          />
+        )}
+
+        {value === 1 && (
+          <SettingsSecurity
+            control={control}
+            emailLoading={false}
+            passwordLoading={false}
+            handleSubmit={handleSubmitEmail}
+            handleSubmitPassword={handleSubmitPassword}
+            onSubmitEmail={onSubmitEmail}
+            onSubmitPassword={onSubmitPassword}
+          />
+        )}
       </div>
     </HomeLayout>
   );

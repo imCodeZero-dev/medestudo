@@ -60,6 +60,24 @@ export const useProfessorSettings = () => {
     resolver: yupResolver(validationSchema),
     defaultValues: {},
   });
+  const {
+    handleSubmit: handleSubmitEmail,
+    control: controlEmail,
+    formState: { errors: errorEmail },
+    watch: watchEmail,
+  } = useForm({
+    resolver: yupResolver(validationSchema),
+    defaultValues: {},
+  });
+  const {
+    handleSubmit: handleSubmitPassword,
+    control: controlPassword,
+    formState: { errors: errorPassword },
+    // watch: watchEmail,
+  } = useForm({
+    resolver: yupResolver(validationSchema),
+    defaultValues: {},
+  });
 
   const [createLoading, setCreateLoading] = useState<boolean>(false);
 
@@ -95,6 +113,12 @@ export const useProfessorSettings = () => {
   const onSubmitImage = async (data: any) => {
     console.log("params", data);
   };
+  const onSubmitEmail = async (data: any) => {
+    console.log("params", data);
+  };
+  const onSubmitPassword = async (data: any) => {
+    console.log("params", data);
+  };
 
   return {
     control,
@@ -106,5 +130,9 @@ export const useProfessorSettings = () => {
     handleSubmitImage,
     onSubmitGeneral,
     onSubmitImage,
+    handleSubmitEmail,
+    handleSubmitPassword,
+    onSubmitEmail,
+    onSubmitPassword,
   };
 };

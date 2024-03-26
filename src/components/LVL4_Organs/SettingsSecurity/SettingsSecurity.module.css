@@ -1,0 +1,25 @@
+.SettingsSecurity {
+  padding: 24px;
+}
+
+.SettingsSecurity-section-1 {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 24px;
+  height: 100%;
+}
+.SettingsSecurity-section-2 {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 24px;
+  height: 100%;
+}
+
+.heading {
+  /* //styleName: Body Large/Semibold; */
+  font-family: Poppins;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  /* text-align: left; */
+}
