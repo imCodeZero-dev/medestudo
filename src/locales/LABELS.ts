@@ -25,6 +25,8 @@ export const LABELS = {
     LABEL_PERSONAL_INFO: "Personal Info",
     LABEL_PRIVACY: "Privacy",
     LABEL_SECURITY: "Security",
+    LABEL_UPDATE_NOTIFICATIONS: "Update Notifications",
+    LABEL_NEW_PAPER_NOTIFICATIONS: "New Paper Notifications",
   },
   es: {
     LABEL_USERNAME: "Username or Email",
@@ -52,5 +54,7 @@ export const LABELS = {
     LABEL_PERSONAL_INFO: "Personal Info",
     LABEL_PRIVACY: "Privacy",
     LABEL_SECURITY: "Security",
+    LABEL_UPDATE_NOTIFICATIONS: "Update Notifications",
+    LABEL_NEW_PAPER_NOTIFICATIONS: "New Paper Notifications",
   },
 };

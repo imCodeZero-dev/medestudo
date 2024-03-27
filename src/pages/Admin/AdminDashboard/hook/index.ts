@@ -99,6 +99,7 @@ export const useAdminDashboard = () => {
       let response;
       response = await createProfessorApi(params, cookies?.admin?.token);
       console.log("response", response);
+      refetchAllProfessors();
 
       showSuccessToast(localeSuccess?.SUCCESS_PROFESSOR_CREATED);
     } catch (error: any) {
@@ -106,6 +107,7 @@ export const useAdminDashboard = () => {
       showErrorToast(error?.response?.data?.errorMessage);
     } finally {
       setProfessorLoading(false);
+      handleCloseProfessor();
     }
   };
 

@@ -78,6 +78,15 @@ export const useProfessorSettings = () => {
     resolver: yupResolver(validationSchema),
     defaultValues: {},
   });
+  const {
+    handleSubmit: handleSubmitPrivacy,
+    control: controlPrivacy,
+    formState: { errors: errorPrivacy },
+    // watch: watchEmail,
+  } = useForm({
+    resolver: yupResolver(validationSchema),
+    defaultValues: {},
+  });
 
   const [createLoading, setCreateLoading] = useState<boolean>(false);
 
@@ -119,6 +128,9 @@ export const useProfessorSettings = () => {
   const onSubmitPassword = async (data: any) => {
     console.log("params", data);
   };
+  const onSubmitPrivacy = async (data: any) => {
+    console.log("params", data);
+  };
 
   return {
     control,
@@ -134,5 +146,7 @@ export const useProfessorSettings = () => {
     handleSubmitPassword,
     onSubmitEmail,
     onSubmitPassword,
+    handleSubmitPrivacy,
+    onSubmitPrivacy,
   };
 };

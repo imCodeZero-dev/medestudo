@@ -19,6 +19,7 @@ import { Tab, Tabs } from "@mui/material";
 import { useState } from "react";
 import DynamicTabs from "../../../components/LVL3_Cells/Tabs/Tabs";
 import SettingsSecurity from "../../../components/LVL4_Organs/SettingsSecurity/SettingsSecurity";
+import SettingsPrivacy from "../../../components/LVL4_Organs/SettingsPrivacy/SettingsPrivacy";
 
 const ProfessorSettings = ({}: ProfessorSettingsProps) => {
   const { localeTitles, localeButtons, localeLables } = useLocale();
@@ -36,6 +37,8 @@ const ProfessorSettings = ({}: ProfessorSettingsProps) => {
     handleSubmitPassword,
     onSubmitEmail,
     onSubmitPassword,
+    handleSubmitPrivacy,
+    onSubmitPrivacy,
   } = useProfessorSettings();
   console.log("cookies", cookies);
   const navigate = useNavigate();
@@ -82,6 +85,14 @@ const ProfessorSettings = ({}: ProfessorSettingsProps) => {
             handleSubmitPassword={handleSubmitPassword}
             onSubmitEmail={onSubmitEmail}
             onSubmitPassword={onSubmitPassword}
+          />
+        )}
+        {value === 2 && (
+          <SettingsPrivacy
+            control={control}
+            loading={false}
+            handleSubmit={handleSubmitPrivacy}
+            onSubmit={onSubmitPrivacy}
           />
         )}
       </div>

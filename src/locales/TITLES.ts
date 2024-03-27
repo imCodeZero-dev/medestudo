@@ -49,6 +49,7 @@ export const TITLES = {
     TITLE_PROFILE_IMAGE: "Profile Image",
     TITLE_PASSWORD: "Password",
     TITLE_EMAIL: "Email",
+    TITLE_PRIVACY: "Privacy",
   },
   es: {
     TITLE_TEST: "Este es el título de la prueba",
@@ -100,5 +101,6 @@ export const TITLES = {
     TITLE_PROFILE_IMAGE: "Profile Image",
     TITLE_PASSWORD: "Password",
     TITLE_EMAIL: "Email",
+    TITLE_PRIVACY: "Privacy",
   },
 };

@@ -11,6 +11,11 @@ export const TEXT = {
       "A new professor would be able to add exams and flashcards on platform.",
     TEXT_A_CLASS_IS_A_SET_OF_FLASHCARDS:
       "A Class is a set of Flashcards, grouped into Decks",
+    TEXT_RECEIVE_EMAILS: "Receive emails from medestudo",
+    TEXT_RECEIVE_NOTIFICATIONS_ON_UPDATES:
+      "Receive notification on new updates",
+    TEXT_RECEIVE_NOTIFICATIONS_ON_PAPER:
+      "Receive notification on listing new paper",
   },
   es: {
     TEXT_ENTER_DETAILS: "Enter Details to continue using your account",
@@ -24,5 +29,10 @@ export const TEXT = {
       "A new professor would be able to add exams and flashcards on platform.",
     TEXT_A_CLASS_IS_A_SET_OF_FLASHCARDS:
       "A Class is a set of Flashcards, grouped into Decks",
+    TEXT_RECEIVE_EMAILS: "Receive emails from medestudo",
+    TEXT_RECEIVE_NOTIFICATIONS_ON_UPDATES:
+      "Receive notification on new updates",
+    TEXT_RECEIVE_NOTIFICATIONS_ON_PAPER:
+      "Receive notification on listing new paper",
   },
 };

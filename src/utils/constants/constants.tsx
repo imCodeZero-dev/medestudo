@@ -16,3 +16,20 @@ export const handleImageURL = (file: string) => {
   return file;
 };
 
+export const privacySettings = (localeLabel: any, localeText: any) => [
+  {
+    value: "recieveEmails",
+    text: localeText.TEXT_RECEIVE_EMAILS,
+    label: localeLabel.LABEL_EMAIL,
+  },
+  {
+    value: "recieveNotificationsOnUpdates",
+    text: localeText.TEXT_RECEIVE_NOTIFICATIONS_ON_UPDATES,
+    label: localeLabel.LABEL_UPDATE_NOTIFICATIONS,
+  },
+  {
+    value: "recieveNotificationsOnPaper",
+    text: localeText.TEXT_RECEIVE_NOTIFICATIONS_ON_PAPER,
+    label: localeLabel.LABEL_NEW_PAPER_NOTIFICATIONS,
+  },
+];

@@ -82,7 +82,7 @@ const SettingsSecurity = ({
           className={styles["form"]}
         >
           <div className={styles["SettingsSecurity-section-2"]}>
-            <div className="flex flex-col justify-between h-full items-start">
+            <div className="flex flex-col justify-between h-full  w-fullitems-start">
               <Text className={styles.heading}>{localeTitles.TITLE_EMAIL}</Text>
               <Input
                 label={localeLables?.LABEL_EMAIL}
@@ -94,13 +94,15 @@ const SettingsSecurity = ({
                 type="text"
               />
 
-              <Button
-                className="purpleBtn"
-                type="submit"
-                loading={passwordLoading}
-              >
-                {localeButtons?.BUTTON_CHANGE_IMAGE}
-              </Button>
+              <div>
+                <Button
+                  className="purpleBtn"
+                  type="submit"
+                  loading={passwordLoading}
+                >
+                  {localeButtons?.BUTTON_CHANGE_IMAGE}
+                </Button>
+              </div>
             </div>
           </div>
         </form>
