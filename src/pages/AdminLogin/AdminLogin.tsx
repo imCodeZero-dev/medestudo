@@ -65,8 +65,8 @@ const AdminLogin = ({}) => {
               placeholder={localePlaceholders.PLACEHOLDER_ENTER_USERNAME}
               preDefinedClassName="inputField"
               preDefinedWrapClassName="inputField-wrap"
-              type={!viewPassword ? "password" : "text"}
               prefix={<MdOutlineKey size={24} />}
+              type={!viewPassword ? "password" : "text"}
               suffix={
                 !viewPassword ? (
                   <AiFillEyeInvisible

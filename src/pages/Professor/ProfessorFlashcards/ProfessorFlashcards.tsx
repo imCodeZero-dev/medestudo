@@ -23,10 +23,15 @@ import { PiExam } from "react-icons/pi";
 import { RiQuestionAnswerLine } from "react-icons/ri";
 import CreateClassModal from "../../../components/LVL4_Organs/CreateClassModal/CreateClassModal";
 import { dummyFlashCards } from "../ProfessorDashboard/ProfessorDashboard";
+import { useState } from "react";
+import QuillEditor from "../../../components/LVL3_Cells/QuillEditor/QuillEditor";
+import CreateQuestions from "../../../components/LVL4_Organs/CreateQuestions/CreateQuestions";
 
 const ProfessorFlashcards = ({}: ProfessorFlashcardsProps) => {
   const { localeTitles, localeButtons, localeLables } = useLocale();
   const [cookies] = useCookies(["admin"]);
+  const [createFlashcard, setCreateFlashcard] = useState<boolean>(true);
+
   const {
     control,
 
@@ -44,12 +49,21 @@ const ProfessorFlashcards = ({}: ProfessorFlashcardsProps) => {
   return (
     <HomeLayout>
       <div className={styles["ProfessorFlashcards"]}>
-        <div className={styles["ProfessorFlashcards-main"]}>
-          {dummyFlashCards?.slice(0, 8)?.map((data, i) => (
-            <DashboardFlashcard key={i} data={data} play minView />
-          ))}
-        </div>
-
+        {createFlashcard ? (
+          <CreateQuestions
+            setCreateFlashcard={setCreateFlashcard}
+            control={control}
+            handleSubmit={handleSubmit}
+            loading={false}
+            onSubmit={onSubmitCreate}
+          />
+        ) : (
+          <div className={styles["ProfessorFlashcards-main"]}>
+            {dummyFlashCards?.slice(0, 8)?.map((data, i) => (
+              <DashboardFlashcard key={i} data={data} play minView />
+            ))}
+          </div>
+        )}
         <div className={styles["ProfessorFlashcards-right"]}>
           <div className={styles["right-section-main"]}>
             <div className="flex justify-between items-center">

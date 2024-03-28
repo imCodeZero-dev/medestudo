@@ -53,13 +53,20 @@ const AvatarUploader: React.FC<AvatarUploaderProps> = ({
                           : "bg-slate-100/50 dark:bg-slate-800/80 text-slate-400"
                       }`}
                     /> */}
-                    <RxAvatar
-                      className={`${styles["image"]}   ${
-                        isDragActive
-                          ? "bg-[#139D3A] text-white animate-pulse"
-                          : "bg-slate-100/50 dark:bg-slate-800/80 text-slate-400"
-                      }`}
-                    />
+                    {watch(name) ? (
+                      <img
+                        className={styles["image"]}
+                        src={URL.createObjectURL(watch(name))}
+                      />
+                    ) : (
+                      <RxAvatar
+                        className={`${styles["image"]}   ${
+                          isDragActive
+                            ? "bg-[#139D3A] text-white animate-pulse"
+                            : "bg-slate-100/50 dark:bg-slate-800/80 text-slate-400"
+                        }`}
+                      />
+                    )}
                     <div className="absolute top-0 right-0 z-10 cursor-pointer">
                       <FaPencil />
                     </div>

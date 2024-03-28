@@ -13,12 +13,27 @@
   width: 100%;
   height: 64px;
   border-radius: 8px;
-  background: #FF900E;
+  background: #ff900e;
   color: white;
   font-weight: 400;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.roundedYellow {
+  width: 100%;
+  height: 33px;
+  border-radius: 64px;
+  background: #ff900e;
+  color: white;
+  font-weight: 400;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-family: Poppins;
+  font-size: 14px;
+  font-weight: 500;
 }
 .primaryTab {
   /* width: 100%; */

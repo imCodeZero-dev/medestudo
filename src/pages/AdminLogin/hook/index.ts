@@ -15,7 +15,6 @@ import { validationSchema } from "../../../utils/hooks/inputValidation";
 
 // import { useLocation, useNavigate } from "react-router-dom";
 
-
 export const useAdminLogin = () => {
   const [loadingLogin, setLoadingLogin] = useState<boolean>(false);
   const navigate = useNavigate();
@@ -48,14 +47,6 @@ export const useAdminLogin = () => {
       response = await adminLoginApi(params);
       console.log("response", response);
 
-      const updatedUserData = {
-        ...response?.data,
-        updateUser: {
-          ...response?.data?.updateUser,
-          role: data?.accountHolder,
-        },
-      };
-
       dispatch(loginAdmin(response?.data));
       setCookie("admin", response?.data, { maxAge: 86400 });
       showSuccessToast("Login Successfully");
@@ -63,7 +54,7 @@ export const useAdminLogin = () => {
       navigate("/admin");
     } catch (error: any) {
       console.log("error", error);
-      showErrorToast(error?.response?.data?.errorMessage);
+      showErrorToast(error?.response?.data);
       // toast.error("Login failed");
     } finally {
       setLoadingLogin(false);

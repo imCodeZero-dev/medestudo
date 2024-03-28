@@ -38,8 +38,8 @@ export const useAdminProfile = () => {
       .string()
       .required("Email is required")
       .email("Invalid email format"),
-    name: yup.string().required("Name is required"),
-    lastName: yup.string().required("lastName is required"),
+    firstName: yup.string().required("First name is required"),
+    lastName: yup.string().required("Last name is required"),
     image: yup.string().required("Picture is required"),
   });
   const passwordValidationSchema = yup.object().shape({
@@ -68,7 +68,7 @@ export const useAdminProfile = () => {
       lastName: cookies?.admin?.lastName,
       email: cookies?.admin?.email,
       // newPassword: "",
-      name: cookies?.admin?.name,
+      firstName: cookies?.admin?.firstName,
       image: cookies?.admin?.image,
     },
   });
@@ -83,13 +83,13 @@ export const useAdminProfile = () => {
       newPassword: "",
     },
   });
-  const [professorLoading, setProfessorLoading] = useState<boolean>(false);
+  const [profileLoading, setProfileLoading] = useState<boolean>(false);
   const [resetLoading, setResetLoading] = useState<boolean>(false);
 
   const onSubmitUpdateAdmin = async (data: any) => {
     console.log("onSubmitUpdateAdmin", data);
     try {
-      setProfessorLoading(true);
+      setProfileLoading(true);
 
       let imageUrl = "";
       if (data?.image) {
@@ -118,7 +118,7 @@ export const useAdminProfile = () => {
       console.log("error", error);
       showErrorToast(error?.response?.data?.errorMessage);
     } finally {
-      setProfessorLoading(false);
+      setProfileLoading(false);
     }
   };
 
@@ -177,7 +177,7 @@ export const useAdminProfile = () => {
     handleSubmit,
 
     onSubmitUpdateAdmin,
-    professorLoading,
+    profileLoading,
     watch,
     handleSubmitPassword,
     controlPassword,

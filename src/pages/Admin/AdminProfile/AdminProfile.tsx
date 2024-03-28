@@ -18,6 +18,7 @@ import AvatarUploader from "../../../components/LVL2_Molecules/ImageUploader/Ava
 import { Cloudinary } from "@cloudinary/url-gen";
 import { AdvancedImage, responsive, placeholder } from "@cloudinary/react";
 import { useState } from "react";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
 const AdminProfile = ({}: AdminProfileProps) => {
   const {
@@ -39,8 +40,22 @@ const AdminProfile = ({}: AdminProfileProps) => {
     watchPasswordFields,
     onSubmitResetPasswordAdmin,
     resetLoading,
+    profileLoading,
   } = useAdminProfile();
   console.log("cookies", cookies);
+  const [viewPassword, setViewPassword] = useState<boolean>(false);
+  const [newPassword, setNewPassword] = useState<boolean>(false);
+  const [confirmPassword, setConfirmPassword] = useState<boolean>(false);
+
+  const handleView = () => {
+    setViewPassword(!viewPassword);
+  };
+  const handleViewNew = () => {
+    setNewPassword(!newPassword);
+  };
+  const handleViewConfirm = () => {
+    setConfirmPassword(!confirmPassword);
+  };
   const navigate = useNavigate();
 
   // const [uwConfig] = useState({
@@ -137,6 +152,7 @@ const AdminProfile = ({}: AdminProfileProps) => {
                 leftIcon={<IoMdAdd />}
                 className="purpleBtn"
                 onClick={handleSubmit(onSubmitUpdateAdmin)}
+                loading={profileLoading}
               >
                 {localeButtons?.BUTTON_SAVE}
               </Button>
@@ -156,7 +172,22 @@ const AdminProfile = ({}: AdminProfileProps) => {
                   placeholder={localePlaceholders.PLACEHOLDER_ENTER_PASSWORD}
                   preDefinedClassName="lesserHeight"
                   preDefinedWrapClassName="inputField-wrap"
-                  type="text"
+                  type={!viewPassword ? "password" : "text"}
+                  suffix={
+                    !viewPassword ? (
+                      <AiFillEyeInvisible
+                        size={24}
+                        color="#8b93a1"
+                        onClick={handleView}
+                      />
+                    ) : (
+                      <AiFillEye
+                        size={24}
+                        color="#8b93a1"
+                        onClick={handleView}
+                      />
+                    )
+                  }
                 />
 
                 <Input
@@ -166,7 +197,22 @@ const AdminProfile = ({}: AdminProfileProps) => {
                   placeholder={localePlaceholders.PLACEHOLDER_ENTER_PASSWORD}
                   preDefinedClassName="lesserHeight"
                   preDefinedWrapClassName="inputField-wrap"
-                  type="text"
+                  type={!newPassword ? "password" : "text"}
+                  suffix={
+                    !newPassword ? (
+                      <AiFillEyeInvisible
+                        size={24}
+                        color="#8b93a1"
+                        onClick={handleViewNew}
+                      />
+                    ) : (
+                      <AiFillEye
+                        size={24}
+                        color="#8b93a1"
+                        onClick={handleViewNew}
+                      />
+                    )
+                  }
                 />
               </div>
 
@@ -178,7 +224,22 @@ const AdminProfile = ({}: AdminProfileProps) => {
                   placeholder={localePlaceholders.PLACEHOLDER_ENTER_PASSWORD}
                   preDefinedClassName="lesserHeight"
                   preDefinedWrapClassName="inputField-wrap"
-                  type="text"
+                  type={!confirmPassword ? "password" : "text"}
+                  suffix={
+                    !confirmPassword ? (
+                      <AiFillEyeInvisible
+                        size={24}
+                        color="#8b93a1"
+                        onClick={handleViewConfirm}
+                      />
+                    ) : (
+                      <AiFillEye
+                        size={24}
+                        color="#8b93a1"
+                        onClick={handleViewConfirm}
+                      />
+                    )
+                  }
                 />
               </div>
               <Button

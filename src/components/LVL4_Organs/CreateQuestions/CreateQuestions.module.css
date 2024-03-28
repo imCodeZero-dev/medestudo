@@ -1,0 +1,43 @@
+.CreateQuestions {
+  margin: 32px;
+  flex: 0 0 65%;
+}
+.CreateQuestions-head {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid rgb(230, 227, 227);
+  padding: 24px 0;
+  margin-bottom: 24px;
+}
+
+.title {
+  /* //styleName: Body Small/Medium; */
+  font-family: Poppins;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 21px;
+  color: #0026b1;
+}
+.heading {
+  font-family: Poppins;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 36px;
+  color: #1d1f22;
+}
+.CreateQuestions-main {
+  background: #e5eafc;
+  padding: 24px;
+  border-radius: 12px;
+  /* width: 100%; */
+
+  /* padding: 0 32px;
+    height: 100%; */
+}
+
+.CreateQuestions-mainHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}

@@ -79,6 +79,24 @@ input:focus {
   border-bottom: 0 !important;
 }
 
+.ql-toolbar.ql-snow {
+  border: none !important; /* Remove the border */
+  font-family: Poppins, sans-serif !important; /* Set the font family to Poppins */
+  padding: 8px;
+  /* Add any additional styles you need */
+}
+
+.ql-toolbar.ql-snow + .ql-container.ql-snow {
+  border-top: 1px solid #e6e4e4 !important;
+  border-left: none;
+  border-bottom: none;
+  border-right: none;
+  min-height: 104px;
+
+  font-family: Poppins, sans-serif !important; /* Set the font family to Poppins */
+  
+}
+
 /* .css-1bigob2 {
   text-align: center !important;
   font-weight: 500 !important;
