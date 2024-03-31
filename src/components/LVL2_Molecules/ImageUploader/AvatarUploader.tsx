@@ -22,6 +22,7 @@ const AvatarUploader: React.FC<AvatarUploaderProps> = ({
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   console.log("watchName", watch(name));
+  const fieldValue = watch(name);
 
   return (
     <Controller
@@ -54,10 +55,21 @@ const AvatarUploader: React.FC<AvatarUploaderProps> = ({
                       }`}
                     /> */}
                     {watch(name) ? (
-                      <img
-                        className={styles["image"]}
-                        src={URL.createObjectURL(watch(name))}
-                      />
+                      <>
+                        {fieldValue && typeof fieldValue === "object" ? (
+                          <img
+                            className={styles["image"]}
+                            src={URL?.createObjectURL(fieldValue)}
+                            alt="Preview"
+                          />
+                        ) : fieldValue ? (
+                          <img
+                            className={styles["image"]}
+                            src={fieldValue}
+                            alt="Preview"
+                          />
+                        ) : null}
+                      </>
                     ) : (
                       <RxAvatar
                         className={`${styles["image"]}   ${

@@ -5,8 +5,11 @@ import tagIcon from "../../../assets/Images/dashboard/Tags.png";
 import useLocale from "../../../locales";
 import Input from "../../LVL1_Atoms/Input";
 import { Button } from "../../LVL1_Atoms/Button";
-import CustomModal from "../../LVL2_Molecules/ControlSelect/CustomModal/CustomModal";
+import CustomModal from "../../LVL2_Molecules/CustomModal/CustomModal";
 import Text from "../../LVL1_Atoms/Text/Text";
+import SelectDropDown from "../../LVL2_Molecules/ControlSelect/CountrySelectDropDown";
+import CustomSelect from "../../LVL2_Molecules/ControlSelect/CustomSelect";
+import CountrySelectDropDown from "../../LVL2_Molecules/ControlSelect/CountrySelectDropDown";
 
 const CreateClassModal = ({
   open,
@@ -15,6 +18,7 @@ const CreateClassModal = ({
   onSubmit,
   control,
   loading,
+  filteredDecks,
 }: CreateClassModalProps) => {
   const {
     localeTitles,
@@ -26,8 +30,6 @@ const CreateClassModal = ({
   return (
     <div className={styles["CreateClassModal"]}>
       <CustomModal open={open} onClose={handleClose}>
-        <img src={tagIcon} className="" />
-
         <Text className={styles["title"]}>
           {localeTitles?.TITLE_CREATE_CLASS}
         </Text>
@@ -37,15 +39,21 @@ const CreateClassModal = ({
 
         <form onSubmit={handleSubmit(onSubmit)} className={styles["form"]}>
           <div className={styles["inputDiv"]}>
-            <Input
-              label={localeLables?.LABEL_TAG_TITLE}
+            {/* <SelectDropDown
+              items={filteredDecks}
+              name="class"
               control={control}
-              name="title"
-              placeholder={localePlaceholders.PLACEHOLDER_ENTER_TAG}
-              preDefinedClassName="lesserHeight"
-              preDefinedWrapClassName="inputField-wrap"
-              type="text"
+              labelKey="name"
+              valueKey="isoCode"
+              label="Location"
+            /> */}
+            <CustomSelect
+              name="class"
+              control={control}
+              options={filteredDecks}
             />
+
+        
           </div>
 
           <div className="flex justify-between mt-4">

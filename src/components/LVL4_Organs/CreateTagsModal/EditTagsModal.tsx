@@ -1,6 +1,6 @@
 import styles from "./CreateTagsModal.module.css";
 import { CreateTagsModalProps } from "./types";
-import CustomModal from "../../LVL2_Molecules/ControlSelect/CustomModal/CustomModal";
+import CustomModal from "../../LVL2_Molecules/CustomModal/CustomModal";
 import addUserIcon from "../../../assets/Images/dashboard/Featured.png";
 import tagIcon from "../../../assets/Images/dashboard/Tags.png";
 import Text from "../../LVL1_Atoms/Text/Text";

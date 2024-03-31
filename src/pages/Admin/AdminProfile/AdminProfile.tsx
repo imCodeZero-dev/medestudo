@@ -76,7 +76,9 @@ const AdminProfile = ({}: AdminProfileProps) => {
             <AvatarUploader control={control} name="image" watch={watch} />
 
             <div>
-              <Text className={styles["name"]}>{cookies?.admin?.name}</Text>
+              <Text
+                className={styles["name"]}
+              >{`${cookies?.admin?.firstName} ${cookies?.admin?.lastName}`}</Text>
               <Text className={styles["email"]}>{cookies?.admin?.email}</Text>
             </div>
           </div>

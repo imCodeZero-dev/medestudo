@@ -8,7 +8,14 @@
   align-items: center;
   background-color: white;
   cursor: pointer;
-  color: #4B78BB;
+  color: #4b78bb;
   font-weight: 600;
   font-size: 14px;
+}
+
+.image {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: contain;
 }

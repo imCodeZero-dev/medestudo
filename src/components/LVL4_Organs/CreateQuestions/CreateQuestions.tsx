@@ -1,6 +1,6 @@
 import styles from "./CreateQuestions.module.css";
 import { CreateQuestionsProps } from "./types";
-import CustomModal from "../../LVL2_Molecules/ControlSelect/CustomModal/CustomModal";
+import CustomModal from "../../LVL2_Molecules/CustomModal/CustomModal";
 import addUserIcon from "../../../assets/Images/dashboard/Featured.png";
 import Text from "../../LVL1_Atoms/Text/Text";
 import useLocale from "../../../locales";

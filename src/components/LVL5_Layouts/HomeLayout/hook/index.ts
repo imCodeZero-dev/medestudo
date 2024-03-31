@@ -24,7 +24,7 @@ export const useHomeLayout = () => {
     },
   });
   const wipeTokens = () => {
-    if (!cookies) {
+    if (!cookies || !cookies.professor) {
       return;
     }
     removeCookie("professor", {

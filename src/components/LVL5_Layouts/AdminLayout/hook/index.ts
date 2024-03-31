@@ -11,7 +11,7 @@ export const useAdminLayout = () => {
   const {} = useLocale();
   const [cookies, removeCookie] = useCookies(["admin"]);
   const wipeTokens = () => {
-    if (!cookies) {
+    if (!cookies || !cookies.admin) {
       return;
     }
     removeCookie("admin", {

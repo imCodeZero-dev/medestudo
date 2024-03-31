@@ -27,11 +27,12 @@ import {
   useProfessorsQuery,
   useStudentsQuery,
 } from "../../../../redux/slices/APISlice";
+import dayjs from "dayjs";
 
 export const useAdminProfile = () => {
   // const navigate = useNavigate();
   const { localeSuccess } = useLocale();
-  const [cookies] = useCookies(["admin"]);
+  const [cookies, setCookie] = useCookies(["admin"]);
 
   const validationSchema = yup.object().shape({
     email: yup
@@ -69,7 +70,7 @@ export const useAdminProfile = () => {
       email: cookies?.admin?.email,
       // newPassword: "",
       firstName: cookies?.admin?.firstName,
-      image: cookies?.admin?.image,
+      image: cookies?.admin?.pic,
     },
   });
   const {
@@ -100,8 +101,6 @@ export const useAdminProfile = () => {
         firstName: data?.firstName,
         lastName: data?.lastName,
         email: data?.email,
-        // password: data?.newPassword,
-        // username: data?.lastName,
         pic: imageUrl,
       };
 
@@ -111,7 +110,19 @@ export const useAdminProfile = () => {
         cookies?.admin?.token
       );
       console.log("response", response);
-      console.log("response", imageUrl);
+
+      const updatedAdmin = {
+        ...cookies?.admin,
+        firstName: data?.firstName,
+        lastName: data?.lastName,
+        email: data?.email,
+        pic: imageUrl,
+      };
+      // setCookie("admin", updatedAdmin, { maxAge: 86400 });
+      setCookie("admin", updatedAdmin, {
+        path: "/",
+        expires: new Date(dayjs().add(Number(30), "day").toString()),
+      });
 
       showSuccessToast(localeSuccess?.SUCCESS_ADMIN_UPDATED);
     } catch (error: any) {

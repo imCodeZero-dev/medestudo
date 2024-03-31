@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 import styles from "./ConfirmationModal.module.css";
 import Text from "../../LVL1_Atoms/Text/Text";
 import { Button } from "../../LVL1_Atoms/Button";
-import CustomModal from "../../LVL2_Molecules/ControlSelect/CustomModal/CustomModal";
+import CustomModal from "../../LVL2_Molecules/CustomModal/CustomModal";
 
 type Props = {
   open: boolean;

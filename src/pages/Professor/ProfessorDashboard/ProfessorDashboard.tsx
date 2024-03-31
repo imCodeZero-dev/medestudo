@@ -37,6 +37,39 @@ export const dummyFlashCards = [
   { image: flashcard3, title: "ENT", date: "24 Dec,2023" },
 ];
 
+export const dummyExams = [
+  {
+    title: "Surgery Past Exam",
+    year: "2023",
+    time: "3 Hrs",
+    institute: "Xyz international",
+  },
+  {
+    title: "Surgery Past Exam",
+    year: "2023",
+    time: "3 Hrs",
+    institute: "Xyz international",
+  },
+  {
+    title: "Surgery Past Exam",
+    year: "2023",
+    time: "3 Hrs",
+    institute: "Xyz international",
+  },
+  {
+    title: "Surgery Past Exam",
+    year: "2023",
+    time: "3 Hrs",
+    institute: "Xyz international",
+  },
+  {
+    title: "Surgery Past Exam",
+    year: "2023",
+    time: "3 Hrs",
+    institute: "Xyz international",
+  },
+];
+
 const ProfessorDashboard = ({}: ProfessorDashboardProps) => {
   const { localeTitles, localeButtons, localeLables } = useLocale();
   const [cookies] = useCookies(["admin"]);
@@ -63,39 +96,6 @@ const ProfessorDashboard = ({}: ProfessorDashboardProps) => {
     { name: "Oct", Sales: 280, Expenses: 170 },
     { name: "Nov", Sales: 300, Expenses: 180 },
     { name: "Dec", Sales: 320, Expenses: 190 },
-  ];
-
-  const dummyExams = [
-    {
-      title: "Surgery Past Exam",
-      year: "2023",
-      time: "3 Hrs",
-      institute: "Xyz international",
-    },
-    {
-      title: "Surgery Past Exam",
-      year: "2023",
-      time: "3 Hrs",
-      institute: "Xyz international",
-    },
-    {
-      title: "Surgery Past Exam",
-      year: "2023",
-      time: "3 Hrs",
-      institute: "Xyz international",
-    },
-    {
-      title: "Surgery Past Exam",
-      year: "2023",
-      time: "3 Hrs",
-      institute: "Xyz international",
-    },
-    {
-      title: "Surgery Past Exam",
-      year: "2023",
-      time: "3 Hrs",
-      institute: "Xyz international",
-    },
   ];
 
   const dsahboardCards = [

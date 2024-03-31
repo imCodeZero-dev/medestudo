@@ -19,7 +19,7 @@ const LeftSidebar = ({ options }: LeftSidebarProps) => {
 
   const handleTabClick = (opt: { title: string; url: string }) => {
     console.log("handleTabClick", opt);
-    if (opt?.url === "/professor/flashcards/new") {
+    if (opt?.url === "/professor/classes/new") {
       handleOpenModal();
     } else {
       navigate(opt?.url);

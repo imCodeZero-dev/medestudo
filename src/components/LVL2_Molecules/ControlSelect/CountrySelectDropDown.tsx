@@ -9,7 +9,7 @@ import { selectProps } from "./@types";
 import Text from "../../LVL1_Atoms/Text/Text";
 import styles from "./Select.module.css";
 
-const SelectDropDown = ({
+const CountrySelectDropDown = ({
   control,
   name,
   items,
@@ -70,4 +70,4 @@ const SelectDropDown = ({
   );
 };
 
-export default SelectDropDown;
+export default CountrySelectDropDown;

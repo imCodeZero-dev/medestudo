@@ -1,3 +1,3 @@
-import ControlSelect from "./Select";
+import ControlSelect from "./CountrySelectDropDown";
 
 export default ControlSelect;

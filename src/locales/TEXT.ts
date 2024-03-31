@@ -2,6 +2,8 @@ export const TEXT = {
   en: {
     TEXT_ENTER_DETAILS: "Enter Details to continue using your account",
     TEXT_FORGOT_PASSWORD: "Forgot Password?",
+    TEXT_CREATED_BY: "Created by",
+    TEXT_EST_TIME: "Est time",
     TEXT_UPDATE_TODAY: "Update today",
     TEXT_YOU_CAN_CHANGE_PASSWORD_NAME_AND_EMAIL:
       "you can change password, name and email.",
@@ -20,6 +22,8 @@ export const TEXT = {
   es: {
     TEXT_ENTER_DETAILS: "Enter Details to continue using your account",
     TEXT_FORGOT_PASSWORD: "Forgot Password?",
+    TEXT_CREATED_BY: "Created by",
+    TEXT_EST_TIME: "Est time",
     TEXT_UPDATE_TODAY: "Update today",
     TEXT_YOU_CAN_CHANGE_PASSWORD_NAME_AND_EMAIL:
       "you can change password, name and email.",

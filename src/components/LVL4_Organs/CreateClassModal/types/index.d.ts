@@ -7,4 +7,5 @@ export type CreateClassModalProps = {
   handleSubmit: any;
   onSubmit: (data: any) => void;
   control: Control<any>;
+  filteredDecks: { name: string; _id: string }[];
 };

@@ -6,11 +6,13 @@ import styles from "./UserDropdown.module.css";
 import { useNavigate } from "react-router-dom";
 import { RxAvatar } from "react-icons/rx";
 import useLocale from "../../../locales";
+import { useCookies } from "react-cookie";
 
 const UserDropdown: React.FC<UserDropdownProps> = ({ handleOpenLogout }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const navigate = useNavigate();
   const { localeDropdowns } = useLocale();
+  const [cookies] = useCookies(["admin"]);
 
   const navigation = (link: string) => {
     if (link === "/logout") {
@@ -40,7 +42,11 @@ const UserDropdown: React.FC<UserDropdownProps> = ({ handleOpenLogout }) => {
     <div className={styles["UserDropdown"]}>
       <div className={styles[""]} onClick={(e: any) => handleClick(e)}>
         <div className="flex items-center space-x-1">
-          <RxAvatar size={40} />
+          {cookies?.admin?.pic ? (
+            <img className={styles.image} src={cookies?.admin?.pic} />
+          ) : (
+            <RxAvatar size={40} />
+          )}
         </div>
 
         {/* <FaCaretDown /> */}

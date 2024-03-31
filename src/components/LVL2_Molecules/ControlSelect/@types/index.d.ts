@@ -3,9 +3,8 @@ import { RegisterOptions, FieldError, Control } from "react-hook-form";
 export type selectProps = {
   name: string;
   control: Control<any>;
-  items: any;
-  labelKey: string;
-  valueKey: string;
+  options: any;
+
   hideLabel?: boolean;
   label?: string;
 };

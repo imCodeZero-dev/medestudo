@@ -46,18 +46,18 @@ const HomeLayout = ({ children }: HomeLayoutProps) => {
       image: <MdOutlineDashboard />,
     },
     {
-      title: localeLables?.LABEL_FLASHCARDS,
-      url: "/professor/flashcards",
+      title: localeLables?.LABEL_CLASSES,
+      url: "/professor/classes",
       image: <PiNewspaperBold />,
       submenu: [
         {
-          title: localeLables?.LABEL_ALL_FLASHCARDS,
-          url: "/professor/flashcards",
+          title: localeLables?.LABEL_ALL_CLASSES,
+          url: "/professor/classes",
           image: <MdOutlineViewCarousel />,
         },
         {
           title: localeLables?.LABEL_ADD_NEW,
-          url: "/professor/flashcards/new",
+          url: "/professor/classes/new",
           image: <IoMdAddCircleOutline />,
         },
       ],
@@ -76,8 +76,8 @@ const HomeLayout = ({ children }: HomeLayoutProps) => {
   const getName = () => {
     if (location.pathname === "/professor") {
       return localeLables?.LABEL_DASHBOARD;
-    } else if (location.pathname === "/professor/flashcards") {
-      return localeLables?.LABEL_FLASHCARDS;
+    } else if (location.pathname === "/professor/classes") {
+      return localeLables?.LABEL_CLASSES;
     } else if (location.pathname === "/professor/exams") {
       return localeLables?.LABEL_EXAMS;
     } else if (location.pathname === "/professor/settings") {

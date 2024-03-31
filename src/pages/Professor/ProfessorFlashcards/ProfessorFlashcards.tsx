@@ -30,7 +30,6 @@ import CreateQuestions from "../../../components/LVL4_Organs/CreateQuestions/Cre
 const ProfessorFlashcards = ({}: ProfessorFlashcardsProps) => {
   const { localeTitles, localeButtons, localeLables } = useLocale();
   const [cookies] = useCookies(["admin"]);
-  const [createFlashcard, setCreateFlashcard] = useState<boolean>(true);
 
   const {
     control,
@@ -42,26 +41,45 @@ const ProfessorFlashcards = ({}: ProfessorFlashcardsProps) => {
     onSubmitCreate,
     openCreate,
     createLoading,
+    allDecks,
+    filteredDecks,
+    handleSubmitFlashcard,
+    controlFlashcard,
+    allClasses,
+    getDetails,
+    viewClass,
+    viewClassDetails,
+    createFlashcard,
+    setCreateFlashcard,
   } = useProfessorFlashcards();
-  console.log("cookies", cookies);
+  console.log("allDecks", allDecks);
   const navigate = useNavigate();
 
   return (
     <HomeLayout>
       <div className={styles["ProfessorFlashcards"]}>
-        {createFlashcard ? (
-          <CreateQuestions
-            setCreateFlashcard={setCreateFlashcard}
-            control={control}
-            handleSubmit={handleSubmit}
-            loading={false}
-            onSubmit={onSubmitCreate}
-          />
-        ) : (
+        {viewClass && (
           <div className={styles["ProfessorFlashcards-main"]}>
-            {dummyFlashCards?.slice(0, 8)?.map((data, i) => (
-              <DashboardFlashcard key={i} data={data} play minView />
+            {allClasses?.slice(0, 8)?.map((data: any, i: number) => (
+              <DashboardFlashcard
+                key={i}
+                data={data}
+                play
+                getDetails={getDetails}
+              />
             ))}
+          </div>
+        )}
+
+        {createFlashcard && (
+          <div className={styles["ProfessorFlashcards-main"]}>
+            <CreateQuestions
+              setCreateFlashcard={setCreateFlashcard}
+              control={controlFlashcard}
+              handleSubmit={handleSubmitFlashcard}
+              loading={false}
+              onSubmit={onSubmitCreate}
+            />
           </div>
         )}
         <div className={styles["ProfessorFlashcards-right"]}>
@@ -88,6 +106,7 @@ const ProfessorFlashcards = ({}: ProfessorFlashcardsProps) => {
           onSubmit={onSubmitCreate}
           open={openCreate}
           loading={createLoading}
+          filteredDecks={allDecks}
         />
       </div>
     </HomeLayout>

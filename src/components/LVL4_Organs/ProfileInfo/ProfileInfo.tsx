@@ -9,8 +9,8 @@ import useLocale from "../../../locales";
 import Input from "../../LVL1_Atoms/Input";
 import { Button } from "../../LVL1_Atoms/Button";
 import AvatarUploader from "../../LVL2_Molecules/ImageUploader/AvatarUploader";
-import SelectDropDown from "../../LVL2_Molecules/ControlSelect/Select";
 import { Country, City } from "country-state-city";
+import CountrySelectDropDown from "../../LVL2_Molecules/ControlSelect/CountrySelectDropDown";
 
 const ProfileInfo = ({
   control,
@@ -60,7 +60,7 @@ const ProfileInfo = ({
                 preDefinedWrapClassName="inputField-wrap"
                 type="email"
               />
-              <SelectDropDown
+              <CountrySelectDropDown
                 items={Country?.getAllCountries()}
                 name="country"
                 control={control}
