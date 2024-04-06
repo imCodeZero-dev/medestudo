@@ -18,6 +18,7 @@ import useLocale from "../../../../locales";
 import { passwordRegex } from "../../../../utils/constants/constants";
 import { useCookies } from "react-cookie";
 import { useQuery } from "react-query";
+import { useAllTagsQuery } from "../../../../redux/slices/APISlice";
 // import { useLocation, useNavigate } from "react-router-dom";
 
 export const useTagsManagement = () => {
@@ -66,26 +67,29 @@ export const useTagsManagement = () => {
     setEditTagModal(false);
   };
 
-  const {
-    data: { data: { tags: allTags = [] } = {} } = {},
-    isLoading: allTagsLoading,
-    error: errorAllTags,
-    refetch: refetchAllTags,
-  } = useQuery(
-    [
-      "allTags",
-      {
-        cookies,
-      },
-    ],
+  // const {
+  //   data: { data: { tags: allTags = [] } = {} } = {},
+  //   isLoading: allTagsLoading,
+  //   error: errorAllTags,
+  //   refetch: refetchAllTags,
+  // } = useQuery(
+  //   [
+  //     "allTags",
+  //     {
+  //       cookies,
+  //     },
+  //   ],
 
-    async () => {
-      return getAllTagsApi(cookies?.admin?.token);
-    },
-    {
-      enabled: !!cookies?.admin?.token,
-    }
-  );
+  //   async () => {
+  //     return getAllTagsApi(cookies?.admin?.token);
+  //   },
+  //   {
+  //     enabled: !!cookies?.admin?.token,
+  //   }
+  // );
+
+  const { allTags, refetchAllTags, allTagsLoading, errorAllTags } =
+    useAllTagsQuery(cookies);
   // console.log("cookies", cookies);
   // console.log("allTags", allTags);
 
@@ -184,6 +188,6 @@ export const useTagsManagement = () => {
     handleDeleteModalClose,
     onDeleteConfirm,
     watch,
-    allTagsLoading
+    allTagsLoading,
   };
 };

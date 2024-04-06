@@ -12,13 +12,11 @@ import { passwordRegex } from "../../../../utils/constants/constants";
 import { useCookies } from "react-cookie";
 import { useQuery } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
-import { closeModal } from "../../../../redux/slices/ModalSlice";
-import {
-  changeProfessorStatusApi,
-  getAllDecksApi,
-} from "../../../../utils/api/admin";
+
 import {
   createClassApi,
+  createClassDeckApi,
+  deleteClassDeckApi,
   getAllClassesApi,
   getClassByIdApi,
 } from "../../../../utils/api/professors";
@@ -30,32 +28,28 @@ export const useDeckDetails = () => {
   const [cookies] = useCookies(["professor"]);
   const dispatch = useDispatch();
 
-  const validationSchema = yup.object().shape({
-    email: yup
-      .string()
-      .required("Email is required")
-      .email("Invalid email format"),
-    password: yup
-      .string()
-      .required("Password is required")
-      .matches(passwordRegex, "Invalid password format"),
-    phone: yup.string().required("Phone number is required"),
-    // .matches(/^\d{10}$/, "Invalid phone number format"),
-    name: yup.string().required("Name is required"),
-    confirmPassword: yup
-      .string()
-      .required("Confirm Password is required")
-      .oneOf([yup.ref("password")], "Passwords must match"),
-  });
   const {
     handleSubmit,
     control,
     formState: { errors },
     watch,
-  } = useForm({
+    setValue,
+  } = useForm<any>({
     // resolver: yupResolver(validationSchema),
     defaultValues: {},
   });
+  const watchSubDeck = watch("subDeck");
+  const watchnNestedSubDeck = watch("nestedSubDeck");
+  const deepNestedsubDeck = watch("deepNestedsubDeck");
+
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+
+  const handleClickOptions = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleCloseOptions = () => {
+    setAnchorEl(null);
+  };
 
   const [createLoading, setCreateLoading] = useState<boolean>(false);
   const location = useLocation();
@@ -64,10 +58,23 @@ export const useDeckDetails = () => {
 
   console.log("deckId", deckId);
 
-  const openCreate = useSelector((state: any) => state.modal.isOpen);
-
+  // const openCreate = useSelector((state: any) => state.modal.isOpen);
+  const [createModal, setCreateModal] = useState(false);
+  const [deleteModal, setDeleteModal] = useState(false);
+  const [deleteLoading, setDeleteLoading] = useState(false);
+  const [selectedDeckId, setSelectedDeckId] = useState<null | string>(null);
   const handleCloseCreate = () => {
-    dispatch(closeModal());
+    setCreateModal(false);
+  };
+
+  const handleDeleteClose = () => {
+    setDeleteModal(false);
+  };
+  const openDeleteModal = (id: string) => {
+    console.log("openDeleteModal", id);
+    handleCloseOptions();
+    setSelectedDeckId(id);
+    setDeleteModal(true);
   };
 
   const {
@@ -80,7 +87,7 @@ export const useDeckDetails = () => {
       "classDetails",
       {
         cookies,
-        deckId
+        deckId,
       },
     ],
 
@@ -94,23 +101,86 @@ export const useDeckDetails = () => {
   console.log("classDetails", classDetails);
 
   const onSubmitCreate = async (data: any) => {
-    const params = {
-      deckId: data?.class?.value?._id,
+    const requestData: any = {
+      name: "anxzc",
+      deckId: classDetails?.deckId?._id,
+      subDeck: {
+        name: watchSubDeck.label,
+        subDeck: [],
+      },
     };
+
+    if (watchnNestedSubDeck) {
+      requestData.subDeck.subDeck.push({
+        name: watchnNestedSubDeck.label,
+        subDeck: [],
+      });
+    }
+
+    if (deepNestedsubDeck) {
+      requestData.subDeck.subDeck[
+        requestData.subDeck.subDeck.length - 1
+      ].subDeck.push({
+        name: deepNestedsubDeck.label,
+        subDeck: [],
+      });
+    }
+
+    const lastNestedsubDeck = watch("lastNestedsubDeck");
+    if (lastNestedsubDeck) {
+      requestData.subDeck.subDeck[
+        requestData.subDeck.subDeck.length - 1
+      ].subDeck[
+        requestData.subDeck.subDeck[requestData.subDeck.subDeck.length - 1]
+          .subDeck.length - 1
+      ].subDeck.push({
+        name: lastNestedsubDeck.label,
+        // subDeck: [], // Initialize subDeck if needed
+      });
+    }
+
+    // Now you can send the requestData to your API
+    console.log("API Request Data:", requestData);
+
     console.log("onSubmitCreate", data);
-    // try {
-    //   setCreateLoading(true);
-    //   let response;
-    //   response = await createClassApi(params, cookies?.professor?.token);
-    //   console.log("response", response);
-    //   refetchAllClasses();
-    //   showSuccessToast(localeSuccess?.SUCCESS_PROFESSOR_STATUS_CHANGED);
-    // } catch (error: any) {
-    //   console.log("error", error);
-    //   showErrorToast(error?.response?.data?.errorMessage);
-    // } finally {
-    //   setCreateLoading(false);
-    // }
+    try {
+      setCreateLoading(true);
+      let response;
+      response = await createClassDeckApi(
+        requestData,
+        classDetails?._id,
+        cookies?.professor?.token
+      );
+      console.log("response", response);
+      refetchClassDetails();
+      showSuccessToast(localeSuccess?.SUCCESS_DECK_CREATED);
+    } catch (error: any) {
+      console.log("error", error);
+      showErrorToast(error?.response?.data?.errorMessage);
+    } finally {
+      setCreateLoading(false);
+      handleCloseCreate();
+    }
+  };
+
+  const onDeleteConfirm = async () => {
+    try {
+      setDeleteLoading(true);
+      let response;
+      response = await deleteClassDeckApi(
+        selectedDeckId,
+        cookies?.professor?.token
+      );
+      console.log("response", response);
+      refetchClassDetails();
+      showSuccessToast(localeSuccess?.SUCCESS_DECK_DELETED);
+    } catch (error: any) {
+      console.log("error", error);
+      showErrorToast(error?.response?.data?.errorMessage);
+    } finally {
+      setDeleteLoading(false);
+      handleDeleteClose();
+    }
   };
 
   // console.log("filteredDecks", filteredDecks);
@@ -118,14 +188,23 @@ export const useDeckDetails = () => {
     control,
     errors,
     handleSubmit,
-
+    setValue,
     watch,
 
     handleCloseCreate,
     onSubmitCreate,
-    openCreate,
     createLoading,
+    setCreateModal,
+    createModal,
 
     classDetails,
+    openDeleteModal,
+    onDeleteConfirm,
+    deleteModal,
+    handleDeleteClose,
+    deleteLoading,
+    anchorEl,
+    handleClickOptions,
+    handleCloseOptions,
   };
 };

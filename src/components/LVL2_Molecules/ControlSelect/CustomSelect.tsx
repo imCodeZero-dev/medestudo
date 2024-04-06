@@ -17,7 +17,7 @@ const CustomSelect = ({ control, name, options }: selectProps) => {
         render={({ field }) => (
           <Select
             {...field}
-            options={options.map((option: any) => ({
+            options={options?.map((option: any) => ({
               label: option.name,
               value: option,
             }))}

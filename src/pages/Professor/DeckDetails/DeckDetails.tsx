@@ -23,6 +23,10 @@ import HomeLayout from "../../../components/LVL5_Layouts/HomeLayout/HomeLayout";
 import { FaCirclePlus } from "react-icons/fa6";
 import { SiRundeck } from "react-icons/si";
 import { TbCards } from "react-icons/tb";
+import CreateDeckModal from "../../../components/LVL4_Organs/CreateDeckModal/CreateDeckModal";
+import { Menu, MenuItem } from "@mui/material";
+import ConfirmationModal from "../../../components/LVL4_Organs/ConfirmationModal";
+import AlertIcon from "../../../assets/svgs/AlertIcon";
 
 const DeckDetails = ({}: DeckDetailsProps) => {
   const { localeTitles, localeButtons, localeLables } = useLocale();
@@ -38,13 +42,32 @@ const DeckDetails = ({}: DeckDetailsProps) => {
     watch,
     handleCloseCreate,
     onSubmitCreate,
-    openCreate,
+    setCreateModal,
+    createModal,
     createLoading,
     classDetails,
+    setValue,
+    openDeleteModal,
+    deleteModal,
+    handleDeleteClose,
+    onDeleteConfirm,
+    deleteLoading,
+    anchorEl,
+    handleClickOptions,
+    handleCloseOptions,
   } = useDeckDetails();
   // console.log("allDecks", allDecks);
   const navigate = useNavigate();
   const { localeText } = useLocale();
+
+  const navigateToCreateFlashcard = (deck: any) => {
+    navigate("/professor/classes/deck/flashcard", { state: deck });
+  };
+  const navigateToViewFlashcard = (deck: any) => {
+    navigate(`/professor/classes/deck/flashcard/${deck?._id}`, {
+      state: deck,
+    });
+  };
 
   return (
     <HomeLayout>
@@ -54,26 +77,28 @@ const DeckDetails = ({}: DeckDetailsProps) => {
             <div className={styles["head-left"]}>
               <img src={classDetails?.deckId?.image} className={styles.image} />
               <div className={styles["leftDetails"]}>
-                <Text className={styles.heading}>
-                  {classDetails?.deckId?.name}
-                </Text>
-                <div className="flex space-x-3 mt-2 ">
-                  <div className="flex items-center space-x-1">
-                    <IoIosCheckmarkCircle fill="#1DB954" />
-                    <Text className={styles.createdText}>
-                      {localeText?.TEXT_CREATED_BY}{" "}
-                      {classDetails?.deckId?.createdBy}
-                    </Text>
-                  </div>
-                  <div className="flex items-center space-x-1">
-                    <IoTimeOutline fill="#2A2D31" />
-                    <Text className={styles.estTime}>
-                      {localeText?.TEXT_EST_TIME} :{" "}
-                      <span className={styles.time}>2hrs</span>
-                    </Text>
+                <div>
+                  <Text className={styles.heading}>
+                    {classDetails?.deckId?.name}
+                  </Text>
+                  <div className="flex space-x-3 ">
+                    <div className="flex items-center space-x-1">
+                      <IoIosCheckmarkCircle fill="#1DB954" />
+                      <Text className={styles.createdText}>
+                        {localeText?.TEXT_CREATED_BY}{" "}
+                        {classDetails?.deckId?.createdBy}
+                      </Text>
+                    </div>
+                    <div className="flex items-center space-x-1">
+                      <IoTimeOutline fill="#2A2D31" />
+                      <Text className={styles.estTime}>
+                        {localeText?.TEXT_EST_TIME} :{" "}
+                        <span className={styles.time}>2hrs</span>
+                      </Text>
+                    </div>
                   </div>
                 </div>
-                <Button className="secondaryBtn">
+                <Button className="primaryRounded">
                   {localeButtons.BUTTON_PREVIEW}
                 </Button>
               </div>
@@ -92,14 +117,17 @@ const DeckDetails = ({}: DeckDetailsProps) => {
             </div>
           </div>
           <div className={styles["DeckDetails-actions"]}>
-            <div className="flex items-center space-x-1 cursor-pointer">
+            <div
+              className="flex items-center space-x-1 cursor-pointer"
+              onClick={() => setCreateModal(true)}
+            >
               <FaCirclePlus size={24} fill="#FF900E" />
               <Text className={styles.addDeckText}>
                 {localeButtons.BUTTON_ADD_DECK}
               </Text>
             </div>
           </div>
-          <div className={styles["DeckDetails-decks"]}>
+          {/* <div className={styles["DeckDetails-decks"]}>
             {classDetails?.deckId?.subDeck?.map((deck: any, i: number) => (
               <div key={deck?._id} className={styles["deckBody"]}>
                 <div className={styles["deckBody-left"]}>
@@ -113,7 +141,10 @@ const DeckDetails = ({}: DeckDetailsProps) => {
                   </div>
                 </div>
                 <div className={styles["deckBody-right"]}>
-                  <div className="flex items-center space-x-1 cursor-pointer">
+                  <div
+                    className="flex items-center space-x-1 cursor-pointer"
+                    onClick={() => navigateToCreateFlashcard(deck)}
+                  >
                     <FaCirclePlus size={24} fill="#FF900E" />
                     <Text className={styles.addDeckText}>
                       {localeButtons.BUTTON_ADD_CARD}
@@ -124,18 +155,90 @@ const DeckDetails = ({}: DeckDetailsProps) => {
                     color="#2A2D31"
                     className="cursor-pointer"
                   />
-                  <IoEllipsisHorizontal
+                  <div>
+                    <IoEllipsisHorizontal
+                      size={25}
+                      color="#2A2D31"
+                      className="cursor-pointer"
+                      onClick={handleClickOptions as any}
+                    />
+                    <Menu
+                      anchorEl={anchorEl}
+                      open={Boolean(anchorEl)}
+                      onClose={handleCloseOptions}
+                      keepMounted
+                    >
+                      <MenuItem onClick={() => openDeleteModal(deck?._id)}>
+                        Delete
+                      </MenuItem>
+                    </Menu>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div> */}
+
+          <div className={styles["DeckDetails-decks"]}>
+            {classDetails?.deckId?.subDeck?.map((deck: any, i: number) => (
+              <div key={deck?._id} className={styles["deckBody"]}>
+                <div className={styles["deckBody-left"]}>
+                  <SiRundeck />
+                  <div>
+                    <Text className={styles.deckName}>{deck?.name}</Text>
+                    <div
+                      className="flex items-center space-x-1 my-2"
+                      onClick={() => navigateToViewFlashcard(deck)}
+                    >
+                      <TbCards size={20} fill="#2A2D31" />
+                      <Text className={styles.totalCardsText}>20 Cards</Text>
+                    </div>
+                  </div>
+                </div>
+                <div className={styles["deckBody-right"]}>
+                  <div
+                    className="flex items-center space-x-1 cursor-pointer"
+                    onClick={() => navigateToCreateFlashcard(deck)}
+                  >
+                    <FaCirclePlus size={24} fill="#FF900E" />
+                    <Text className={styles.addDeckText}>
+                      {localeButtons.BUTTON_ADD_CARD}
+                    </Text>
+                  </div>
+                  <BiSolidPencil
                     size={25}
                     color="#2A2D31"
                     className="cursor-pointer"
                   />
+                  {deck?._id && (
+                    <div>
+                      <IoEllipsisHorizontal
+                        size={25}
+                        color="#2A2D31"
+                        className="cursor-pointer"
+                        onClick={(event) => handleClickOptions(event as any)}
+                      />
+                      <Menu
+                        anchorEl={anchorEl}
+                        open={Boolean(anchorEl)}
+                        onClose={handleCloseOptions}
+                        keepMounted
+                      >
+                        <MenuItem onClick={() => openDeleteModal(deck?._id)}>
+                          Delete
+                        </MenuItem>
+                      </Menu>
+                    </div>
+                  )}
                 </div>
               </div>
             ))}
           </div>
 
           <div className="flex w-64 m-auto">
-            <Button className="primaryActive">
+            <Button
+              className="primaryActive"
+              onClick={() => setCreateModal(true)}
+            >
               {localeButtons.BUTTON_ADD_NEW_DECK}
             </Button>
           </div>
@@ -158,6 +261,28 @@ const DeckDetails = ({}: DeckDetailsProps) => {
           </div>
         </div>
       </div>
+      <CreateDeckModal
+        setValue={setValue}
+        watch={watch}
+        control={control}
+        handleClose={handleCloseCreate}
+        handleSubmit={handleSubmit}
+        onSubmit={onSubmitCreate}
+        open={createModal}
+        loading={createLoading}
+        filteredDecks={classDetails?.deckId}
+      />
+
+      <ConfirmationModal
+        open={deleteModal}
+        cancelButtonText={localeButtons?.BUTTON_CANCEL}
+        confirmButtonText={localeButtons?.BUTTON_DELETE}
+        onConfirm={onDeleteConfirm}
+        icon={<AlertIcon />}
+        title={localeTitles.TITLE_ARE_YOU_SURE_DELETE}
+        handleClose={handleDeleteClose}
+        loading={deleteLoading}
+      />
     </HomeLayout>
   );
 };

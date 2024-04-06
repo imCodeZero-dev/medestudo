@@ -20,6 +20,7 @@ import {
   useProfessorsQuery,
   useStudentsQuery,
 } from "../../../../redux/slices/APISlice";
+import { AdminCookies } from "../../../../utils/constants/DataTypes";
 
 export const useAdminDashboard = () => {
   // const navigate = useNavigate();
@@ -76,13 +77,13 @@ export const useAdminDashboard = () => {
     refetchAllProfessors,
     allProfessorsLoading,
     errorAllProfessors,
-  } = useProfessorsQuery(cookies);
+  } = useProfessorsQuery(cookies as AdminCookies);
   const {
     allStudents,
     refetchAllStudents,
     allStudentsLoading,
     errorAllStudents,
-  } = useStudentsQuery(cookies);
+  } = useStudentsQuery(cookies as AdminCookies);
 
   console.log("allProfessors", allProfessors);
 

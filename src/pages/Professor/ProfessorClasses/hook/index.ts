@@ -19,39 +19,23 @@ import {
 } from "../../../../utils/api/admin";
 import {
   createClassApi,
+  deleteClassApi,
+  deleteClassDeckApi,
   getAllClassesApi,
   getClassByIdApi,
 } from "../../../../utils/api/professors";
 import { useNavigate } from "react-router-dom";
 
-export const useProfessorFlashcards = () => {
+export const useProfessorClasses = () => {
   // const navigate = useNavigate();
   const { localeSuccess } = useLocale();
   const [cookies] = useCookies(["professor"]);
   const dispatch = useDispatch();
   const [viewClass, setViewClass] = useState<boolean>(true);
-  const [createFlashcard, setCreateFlashcard] = useState<boolean>(false);
   const [viewClassDetails, setViewClassDetails] = useState<boolean>(false);
   const [classId, setClassId] = useState<string>();
   const navigate = useNavigate();
 
-  const validationSchema = yup.object().shape({
-    email: yup
-      .string()
-      .required("Email is required")
-      .email("Invalid email format"),
-    password: yup
-      .string()
-      .required("Password is required")
-      .matches(passwordRegex, "Invalid password format"),
-    phone: yup.string().required("Phone number is required"),
-    // .matches(/^\d{10}$/, "Invalid phone number format"),
-    name: yup.string().required("Name is required"),
-    confirmPassword: yup
-      .string()
-      .required("Confirm Password is required")
-      .oneOf([yup.ref("password")], "Passwords must match"),
-  });
   const {
     handleSubmit,
     control,
@@ -74,9 +58,32 @@ export const useProfessorFlashcards = () => {
   const [createLoading, setCreateLoading] = useState<boolean>(false);
 
   const openCreate = useSelector((state: any) => state.modal.isOpen);
+  const [deleteModal, setDeleteModal] = useState(false);
+  const [deleteLoading, setDeleteLoading] = useState(false);
+  const [selecteClassId, setSelecteClassId] = useState<null | string>(null);
+
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+
+  const handleClickOptions = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleCloseOptions = () => {
+    setAnchorEl(null);
+  };
 
   const handleCloseCreate = () => {
     dispatch(closeModal());
+  };
+
+  const handleDeleteClose = () => {
+    setDeleteModal(false);
+  };
+
+  const openDeleteModal = (id: string) => {
+    console.log("openDeleteModal", id);
+    handleCloseOptions();
+    setSelecteClassId(id);
+    setDeleteModal(true);
   };
 
   const {
@@ -157,18 +164,34 @@ export const useProfessorFlashcards = () => {
       response = await createClassApi(params, cookies?.professor?.token);
       console.log("response", response);
       refetchAllClasses();
-      showSuccessToast(localeSuccess?.SUCCESS_PROFESSOR_STATUS_CHANGED);
+      showSuccessToast(localeSuccess?.SUCCESS_CLASS_CREATED);
     } catch (error: any) {
       console.log("error", error);
       showErrorToast(error?.response?.data?.errorMessage);
     } finally {
       setCreateLoading(false);
+      handleCloseCreate();
     }
   };
-
-  const filteredDecks = allDecks?.map(
-    ({ name, _id }: { name: string; _id: string }) => ({ name, _id })
-  );
+  const onDeleteConfirm = async () => {
+    try {
+      setDeleteLoading(true);
+      let response;
+      response = await deleteClassApi(
+        selecteClassId,
+        cookies?.professor?.token
+      );
+      console.log("response", response);
+      refetchAllClasses();
+      showSuccessToast(localeSuccess?.SUCCESS_CLASS_DELETED);
+    } catch (error: any) {
+      console.log("error", error);
+      showErrorToast(error?.response?.data?.errorMessage);
+    } finally {
+      setDeleteLoading(false);
+      handleDeleteClose();
+    }
+  };
 
   const getDetails = (data: string) => {
     // setViewClass(false);
@@ -190,14 +213,19 @@ export const useProfessorFlashcards = () => {
     openCreate,
     createLoading,
     allDecks,
-    filteredDecks,
     handleSubmitFlashcard,
     controlFlashcard,
     allClasses,
     getDetails,
     viewClass,
     viewClassDetails,
-    createFlashcard,
-    setCreateFlashcard,
+    anchorEl,
+    handleClickOptions,
+    handleCloseOptions,
+    openDeleteModal,
+    deleteLoading,
+    deleteModal,
+    handleDeleteClose,
+    onDeleteConfirm,
   };
 };

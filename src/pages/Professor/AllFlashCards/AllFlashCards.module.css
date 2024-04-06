@@ -1,9 +1,9 @@
-.DeckDetails {
+.AllFlashCards {
   display: flex;
   max-height: 88vh;
   overflow-y: auto;
 }
-.DeckDetails-main {
+.AllFlashCards-main {
   background-color: #f8fbff;
   flex: 0 0 65%;
   padding: 32px;
@@ -13,26 +13,12 @@
   justify-content: center;
 }
 
-.DeckDetails-right {
+.AllFlashCards-right {
   background-color: inherit;
   flex: 1;
 }
 
-/* .DeckDetails {
-  display: flex;
-  flex-direction: column;
-  max-height: 88vh;
-  overflow-y: auto;
-  background-color: #f8fbff;
-} */
-/* .DeckDetails-main {
-
-
-  padding: 0 32px;
-  height: 100%;
-} */
-
-.DeckDetails-head {
+.AllFlashCards-head {
   display: flex;
   justify-content: space-between;
   padding-bottom: 16px;
@@ -49,10 +35,9 @@
 .leftDetails {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 }
 
-.DeckDetails-head {
+.AllFlashCards-head {
   display: flex;
 }
 
@@ -104,7 +89,7 @@
   color: #1d1f22;
 }
 
-.DeckDetails-actions {
+.AllFlashCards-actions {
   padding-bottom: 16px;
   margin-bottom: 16px;
 

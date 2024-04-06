@@ -1,3 +1,19 @@
+.primary {
+  width: 100%;
+  height: 64px;
+  border-radius: 8px;
+
+  font-weight: 400;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #0030dd;
+  color: #0030dd;
+  font-family: Poppins;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 21px;
+}
 .primaryActive {
   width: 100%;
   height: 64px;
@@ -8,6 +24,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  font-family: Poppins;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 21px;
 }
 .yellowButton {
   width: 100%;
@@ -87,4 +107,22 @@
 }
 .disabled:hover {
   border-color: gray;
+}
+
+.primaryRounded {
+  /* width: 100%; */
+  height: 45px;
+  border-radius: 64px;
+  background: white;
+  color: #0030dd;
+  font-weight: 400;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #0030dd;
+
+  font-family: Poppins;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 21px;
 }

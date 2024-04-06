@@ -52,8 +52,6 @@ const CreateClassModal = ({
               control={control}
               options={filteredDecks}
             />
-
-        
           </div>
 
           <div className="flex justify-between mt-4">

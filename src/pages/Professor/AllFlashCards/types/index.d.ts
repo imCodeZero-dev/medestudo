@@ -1,6 +1,6 @@
 import { ReactNode } from "react"
 
-export type ProfessorFlashcardsProps={
+export type AllFlashCardsProps={
   
 
 }

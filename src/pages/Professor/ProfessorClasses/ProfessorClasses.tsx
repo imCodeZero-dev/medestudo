@@ -1,33 +1,24 @@
-import styles from "./ProfessorFlashcards.module.css";
-import { ProfessorFlashcardsProps } from "./types";
+import styles from "./ProfessorClasses.module.css";
+import { ProfessorClassesProps } from "./types";
 import Text from "../../../components/LVL1_Atoms/Text/Text";
 import useLocale from "../../../locales";
 import { Button } from "../../../components/LVL1_Atoms/Button";
 import { useCookies } from "react-cookie";
 
-import { useProfessorFlashcards } from "./hook";
+import { useProfessorClasses } from "./hook";
 import { useNavigate } from "react-router-dom";
 import HomeLayout from "../../../components/LVL5_Layouts/HomeLayout/HomeLayout";
 import { ProfessorRoutes } from "../../../Routes/protectedRoutes/ProfessorRoutes";
-import DashboardChartCard from "../../../components/LVL3_Cells/DashboardChartCard/DashboardChartCard";
-import BarChartComponent from "../../../components/LVL4_Organs/BarChartComponent/BarChartComponent";
-import flashcard1 from "../../../assets/Images/dashboard/flashcard1.png";
-import flashcard2 from "../../../assets/Images/dashboard/flashcard2.png";
-import flashcard3 from "../../../assets/Images/dashboard/flashcard3.png";
+
 import DashboardFlashcard from "../../../components/LVL3_Cells/DashboardFlashcard/DashboardFlashcard";
-import DashboardExams from "../../../components/LVL3_Cells/DashboardExams/DashboardExams";
-import flashcardsImg from "../../../assets/Images/dashboard/flashcards.png";
-import examsImgs from "../../../assets/Images/dashboard/exams.png";
-import { MdOutlineViewCarousel } from "react-icons/md";
-import { PiExam } from "react-icons/pi";
-import { RiQuestionAnswerLine } from "react-icons/ri";
+
 import CreateClassModal from "../../../components/LVL4_Organs/CreateClassModal/CreateClassModal";
 import { dummyFlashCards } from "../ProfessorDashboard/ProfessorDashboard";
 import { useState } from "react";
-import QuillEditor from "../../../components/LVL3_Cells/QuillEditor/QuillEditor";
-import CreateQuestions from "../../../components/LVL4_Organs/CreateQuestions/CreateQuestions";
+import ConfirmationModal from "../../../components/LVL4_Organs/ConfirmationModal";
+import AlertIcon from "../../../assets/svgs/AlertIcon";
 
-const ProfessorFlashcards = ({}: ProfessorFlashcardsProps) => {
+const ProfessorClasses = ({}: ProfessorClassesProps) => {
   const { localeTitles, localeButtons, localeLables } = useLocale();
   const [cookies] = useCookies(["admin"]);
 
@@ -42,37 +33,45 @@ const ProfessorFlashcards = ({}: ProfessorFlashcardsProps) => {
     openCreate,
     createLoading,
     allDecks,
-    filteredDecks,
     handleSubmitFlashcard,
     controlFlashcard,
     allClasses,
     getDetails,
     viewClass,
     viewClassDetails,
-    createFlashcard,
-    setCreateFlashcard,
-  } = useProfessorFlashcards();
+    anchorEl,
+    handleClickOptions,
+    handleCloseOptions,
+    openDeleteModal,
+    deleteLoading,
+    deleteModal,
+    handleDeleteClose,
+    onDeleteConfirm,
+  } = useProfessorClasses();
   console.log("allDecks", allDecks);
   const navigate = useNavigate();
 
   return (
     <HomeLayout>
-      <div className={styles["ProfessorFlashcards"]}>
+      <div className={styles["ProfessorClasses"]}>
         {viewClass && (
-          <div className={styles["ProfessorFlashcards-main"]}>
+          <div className={styles["ProfessorClasses-main"]}>
             {allClasses?.slice(0, 8)?.map((data: any, i: number) => (
               <DashboardFlashcard
-                key={i}
+                key={data?._id}
                 data={data}
-                play
+                // play
                 getDetails={getDetails}
+                handleClickOptions={handleClickOptions}
+                anchorEl={anchorEl}
+                handleCloseOptions={handleCloseOptions}
+                openDeleteModal={openDeleteModal}
               />
             ))}
           </div>
         )}
 
-        {createFlashcard && (
-          <div className={styles["ProfessorFlashcards-main"]}>
+        {/* <div className={styles["ProfessorClasses-main"]}>
             <CreateQuestions
               setCreateFlashcard={setCreateFlashcard}
               control={controlFlashcard}
@@ -80,9 +79,9 @@ const ProfessorFlashcards = ({}: ProfessorFlashcardsProps) => {
               loading={false}
               onSubmit={onSubmitCreate}
             />
-          </div>
-        )}
-        <div className={styles["ProfessorFlashcards-right"]}>
+          </div> */}
+
+        <div className={styles["ProfessorClasses-right"]}>
           <div className={styles["right-section-main"]}>
             <div className="flex justify-between items-center">
               <Text className={styles["sectionHeading"]}>
@@ -108,15 +107,26 @@ const ProfessorFlashcards = ({}: ProfessorFlashcardsProps) => {
           loading={createLoading}
           filteredDecks={allDecks}
         />
+
+        <ConfirmationModal
+          open={deleteModal}
+          cancelButtonText={localeButtons?.BUTTON_CANCEL}
+          confirmButtonText={localeButtons?.BUTTON_DELETE}
+          onConfirm={onDeleteConfirm}
+          icon={<AlertIcon />}
+          title={localeTitles.TITLE_ARE_YOU_SURE_DELETE}
+          handleClose={handleDeleteClose}
+          loading={deleteLoading}
+        />
       </div>
     </HomeLayout>
   );
 };
 
-export default function ProfessorFlashcardsServices() {
+export default function ProfessorClassesServices() {
   return (
     <ProfessorRoutes>
-      <ProfessorFlashcards />
+      <ProfessorClasses />
     </ProfessorRoutes>
   );
 }

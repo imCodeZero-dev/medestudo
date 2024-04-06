@@ -1,15 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css"; // Import Quill styles
 import { Controller, Control } from "react-hook-form";
 import styles from "./QuillEditor.module.css";
-
-interface RichTextEditorProps {
-  name: string;
-  borderRadius?: string | number; // Allow specifying border radius as a prop
-  placeholder: string;
-  control: Control<any>;
-}
+import { QuillEditorProps } from "./@types";
 
 const Editor = {
   toolbar: {
@@ -27,17 +21,23 @@ const Editor = {
     ],
   },
 };
+const NoToolbar = {
+  toolbar: false,
+};
 
-const RichTextEditor: React.FC<RichTextEditorProps> = ({
+const RichTextEditor: React.FC<QuillEditorProps> = ({
   name,
   control,
   placeholder,
-  borderRadius = "16px", // Set a default border radius if not provided
+  borderRadius = "16px",
+  readOnly,
+  noHeader,
+  key,
 }) => {
   return (
     <div
       className={`bg-white rounded-lg my-3`}
-      style={{ borderRadius, border: 0,outline:0 }}
+      style={{ borderRadius, border: 0, outline: 0 }}
     >
       <Controller
         name={name}
@@ -45,12 +45,14 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
         defaultValue=""
         render={({ field }) => (
           <ReactQuill
+            key={key}
+            readOnly={readOnly}
             placeholder={placeholder}
             theme="snow"
             className={styles["editor"]}
             value={field.value}
             onChange={field.onChange}
-            modules={Editor}
+            modules={noHeader ? NoToolbar : Editor}
           />
         )}
       />

@@ -11,7 +11,8 @@ import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { useState } from "react";
 import QuillEditor from "../../LVL3_Cells/QuillEditor/QuillEditor";
 import { IoCloseCircleOutline } from "react-icons/io5";
-import SearchableInput from "../../LVL1_Atoms/Input/SearchableInput";
+import SearchableInput from "../../LVL1_Atoms/Input/TagInput";
+import TagInput from "../../LVL1_Atoms/Input/TagInput";
 
 const CreateQuestions = ({
   handleSubmit,
@@ -19,6 +20,7 @@ const CreateQuestions = ({
   control,
   loading,
   setCreateFlashcard,
+  allTags,
 }: CreateQuestionsProps) => {
   const {
     localeTitles,
@@ -28,78 +30,61 @@ const CreateQuestions = ({
     localeButtons,
   } = useLocale();
 
-  const options = [
-    { value: "apple", label: "Apple" },
-    { value: "banana", label: "Banana" },
-    { value: "orange", label: "Orange" },
-    { value: "grape", label: "Grape" },
-  ];
-
+  // console.log("allTags", allTags);
   return (
     <div className={styles["CreateQuestions"]}>
-      <div className={styles["CreateQuestions-head"]}>
-        <div className={styles["headLeft"]}>
-          <Text className={styles.title}>{localeTitles.TITLE_FLASHCARD}</Text>
-          <div>
-            <Text className={styles.heading}>
-              {localeTitles.TITLE_NEW_CHAPTER}
-            </Text>
+      <form onSubmit={handleSubmit(onSubmit)} className={styles["form"]}>
+        <div className={styles["CreateQuestions-head"]}>
+          <div className={styles["headLeft"]}>
+            <Text className={styles.title}>{localeTitles.TITLE_FLASHCARD}</Text>
+            <div>
+              <Text className={styles.heading}>
+                {localeTitles.TITLE_NEW_CHAPTER}
+              </Text>
+            </div>
           </div>
-        </div>
-        <div className={styles["headRight"]}>
-          <Button
-            className="secondaryBtn"
-            onClick={() => setCreateFlashcard(false)}
-          >
-            {localeButtons?.BUTTON_CANCEL}
-          </Button>
-        </div>
-      </div>
-      <div className={styles["CreateQuestions-main"]}>
-        <div className={styles["CreateQuestions-mainHead"]}>
-          <Text>Question 1</Text>
-          <div>
+          <div className={styles["headRight"]}>
             <Button
-              className="roundedYellow"
-              leftIcon={<IoCloseCircleOutline size={16} />}
+              type="submit"
+              className="primaryTab"
+              onClick={() => setCreateFlashcard(false)}
             >
-              {localeButtons?.BUTTON_DELETE}
+              {localeButtons?.BUTTON_SAVE}
             </Button>
           </div>
         </div>
-
         <div className={styles["CreateQuestions-main"]}>
-          <QuillEditor
-            name="question"
-            control={control}
-            placeholder={localePlaceholders.PLACEHOLDER_ENTER_QUESTION_HERE}
-          />
-        </div>
-        <div className={styles["CreateQuestions-main"]}>
-          <QuillEditor
-            name="answer"
-            control={control}
-            placeholder={localePlaceholders.PLACEHOLDER_ENTER_ANSWER_HERE}
-          />
-        </div>
-        <div className={styles["inputDiv"]}>
-          <Input
-            // label={localeLables?.LABEL_NAME}
-            control={control}
-            name="tag"
-            placeholder={localePlaceholders.PLACEHOLDER_SEARCH}
-            preDefinedClassName="lesserHeight"
-            preDefinedWrapClassName="inputField-wrap"
-            type="text"
-          />
+          <div className={styles["CreateQuestions-mainHead"]}>
+            <Text>Question 1</Text>
+            <div>
+              <Button
+                className="roundedYellow"
+                leftIcon={<IoCloseCircleOutline size={16} />}
+              >
+                {localeButtons?.BUTTON_DELETE}
+              </Button>
+            </div>
+          </div>
 
-          {/* <SearchableInput
-          name="searchField"
-          options={options}
-          control={control}
-        /> */}
-        </div>
-      </div>
+          <div className={styles["CreateQuestions-section"]}>
+            <QuillEditor
+              name="question"
+              control={control}
+              placeholder={localePlaceholders.PLACEHOLDER_ENTER_QUESTION_HERE}
+            />
+          </div>
+          <div className={styles["CreateQuestions-section"]}>
+            <QuillEditor
+              name="answer"
+              control={control}
+              placeholder={localePlaceholders.PLACEHOLDER_ENTER_ANSWER_HERE}
+            />
+          </div>
+          <div className={styles["inputDiv"]}>
+            <TagInput allTags={allTags} control={control} />
+          </div>
+        </div>{" "}
+      </form>
     </div>
   );
 };

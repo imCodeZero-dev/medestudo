@@ -104,6 +104,7 @@ export const changeStudentStatusApi = async (
 };
 
 export const createDeckApi = async (data: any, token: string) => {
+  console.log("createDeckApi", data, "token", token);
   const response = await apiRequest({
     method: "Post",
     url: `/admin/createDeck`,
