@@ -25,6 +25,7 @@ import {
   getClassByIdApi,
 } from "../../../../utils/api/professors";
 import { useNavigate } from "react-router-dom";
+import { useAllClassesQuery } from "../../../../redux/slices/APISlice";
 
 export const useProfessorClasses = () => {
   // const navigate = useNavigate();
@@ -86,51 +87,32 @@ export const useProfessorClasses = () => {
     setDeleteModal(true);
   };
 
-  const {
-    data: { data: { class: classDetails = [] } = {} } = {},
-    isLoading: classDetailsLoading,
-    error: errorclassDetails,
-    refetch: refetchclassDetails,
-  } = useQuery(
-    [
-      "classDetails",
-      {
-        cookies,
-      },
-    ],
+  // const {
+  //   data: { data: { class: classDetails = [] } = {} } = {},
+  //   isLoading: classDetailsLoading,
+  //   error: errorclassDetails,
+  //   refetch: refetchclassDetails,
+  // } = useQuery(
+  //   [
+  //     "classDetails",
+  //     {
+  //       cookies,
+  //     },
+  //   ],
 
-    async () => {
-      return getClassByIdApi(classId as string, cookies?.professor?.token);
-    },
-    {
-      enabled: !!cookies?.professor?.token && !!classId,
-    }
-  );
+  //   async () => {
+  //     return getClassByIdApi(classId as string, cookies?.professor?.token);
+  //   },
+  //   {
+  //     enabled: !!cookies?.professor?.token && !!classId,
+  //   }
+  // );
 
-  console.log("classDetails", classDetails);
+  // console.log("classDetails", classDetails);
 
-  const {
-    data: { data: { class: allClasses = [] } = {} } = {},
-    isLoading: allClassesLoading,
-    error: errorAllClasses,
-    refetch: refetchAllClasses,
-  } = useQuery(
-    [
-      "allClasses",
-      {
-        cookies,
-      },
-    ],
-
-    async () => {
-      return getAllClassesApi(cookies?.professor?.token);
-    },
-    {
-      enabled: !!cookies?.professor?.token,
-    }
-  );
-
-  console.log("allClasses", allClasses);
+  const { allClasses, allClassesLoading, errorAllClasses, refetchAllClasses } =
+    useAllClassesQuery(cookies);
+  // console.log("allClasses", allClasses);
 
   const {
     data: { data: { decks: allDecks = [] } = {} } = {},
@@ -194,9 +176,6 @@ export const useProfessorClasses = () => {
   };
 
   const getDetails = (data: string) => {
-    // setViewClass(false);
-    // setViewClassDetails(true);
-    // setClassId(data);
     navigate(`/professor/classes/deck?${data}`, { state: data });
   };
 

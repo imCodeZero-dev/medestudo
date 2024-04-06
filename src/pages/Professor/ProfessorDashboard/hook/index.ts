@@ -12,12 +12,14 @@ import { passwordRegex } from "../../../../utils/constants/constants";
 import { useCookies } from "react-cookie";
 import { useQuery } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
-
+import { useAllClassesQuery } from "../../../../redux/slices/APISlice";
+import { useNavigate } from "react-router-dom";
 
 export const useProfessorDashboard = () => {
   // const navigate = useNavigate();
   const { localeSuccess } = useLocale();
   const [cookies] = useCookies(["admin"]);
+  const navigate = useNavigate();
 
   const validationSchema = yup.object().shape({
     email: yup
@@ -51,10 +53,12 @@ export const useProfessorDashboard = () => {
     },
   });
 
+  const { allClasses, allClassesLoading, errorAllClasses, refetchAllClasses } =
+    useAllClassesQuery(cookies);
 
-
-
- 
+  const getDetails = (data: string) => {
+    navigate(`/professor/classes/deck?${data}`, { state: data });
+  };
 
   const onChangeProfessorStatus = async (data: any) => {
     const params = {
@@ -84,10 +88,12 @@ export const useProfessorDashboard = () => {
     control,
     errors,
     handleSubmit,
-   
+
     onChangeProfessorStatus,
-   
+
     watch,
-   
+    allClasses,
+    allClassesLoading,
+    getDetails,
   };
 };

@@ -28,7 +28,10 @@ import {
   useParams,
   useSearchParams,
 } from "react-router-dom";
-import { useAllTagsQuery } from "../../../../redux/slices/APISlice";
+import {
+  useAllClassesQuery,
+  useAllTagsQuery,
+} from "../../../../redux/slices/APISlice";
 import { Flashcard, Tag } from "../../../../utils/constants/DataTypes";
 
 export const useAllFlashCards = () => {
@@ -82,6 +85,13 @@ export const useAllFlashCards = () => {
   };
 
   console.log("flashcardData", flashcardData);
+
+  const { allClasses, allClassesLoading, errorAllClasses, refetchAllClasses } =
+    useAllClassesQuery(cookies);
+
+  const getDetails = (data: string) => {
+    navigate(`/professor/classes/deck?${data}`, { state: data });
+  };
 
   const {
     // data: allFlashcards,
@@ -177,5 +187,8 @@ export const useAllFlashCards = () => {
     handleEditClose,
     enableEdit,
     tags,
+    allClasses,
+    allClassesLoading,
+    getDetails,
   };
 };

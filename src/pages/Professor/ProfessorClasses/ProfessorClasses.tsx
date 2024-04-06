@@ -13,10 +13,15 @@ import { ProfessorRoutes } from "../../../Routes/protectedRoutes/ProfessorRoutes
 import DashboardFlashcard from "../../../components/LVL3_Cells/DashboardFlashcard/DashboardFlashcard";
 
 import CreateClassModal from "../../../components/LVL4_Organs/CreateClassModal/CreateClassModal";
-import { dummyFlashCards } from "../ProfessorDashboard/ProfessorDashboard";
+import {
+  dummyExams,
+  dummyFlashCards,
+} from "../ProfessorDashboard/ProfessorDashboard";
 import { useState } from "react";
 import ConfirmationModal from "../../../components/LVL4_Organs/ConfirmationModal";
 import AlertIcon from "../../../assets/svgs/AlertIcon";
+import { Flashcard } from "../../../utils/constants/DataTypes";
+import DashboardExams from "../../../components/LVL3_Cells/DashboardExams/DashboardExams";
 
 const ProfessorClasses = ({}: ProfessorClassesProps) => {
   const { localeTitles, localeButtons, localeLables } = useLocale();
@@ -92,8 +97,29 @@ const ProfessorClasses = ({}: ProfessorClassesProps) => {
               </Text>
             </div>
 
-            {dummyFlashCards?.slice(0, 8)?.map((data, i) => (
-              <DashboardFlashcard key={i} data={data} play minView />
+            {allClasses?.slice(0, 4)?.map((data: Flashcard, i: number) => (
+              <DashboardFlashcard
+                key={i}
+                data={data}
+                play
+                minView
+                getDetails={getDetails}
+              />
+            ))}
+          </div>
+
+          <div className={styles["right-section-main"]}>
+            <div className="flex justify-between items-center">
+              <Text className={styles["sectionHeading"]}>
+                {localeTitles?.TITLE_RECENT_EXAMS_CREATED}
+              </Text>
+              <Text className={styles["viewMore"]}>
+                {localeTitles?.TITLE_VIEW_MORE}
+              </Text>
+            </div>
+
+            {dummyExams?.slice(0, 3)?.map((data, i) => (
+              <DashboardExams key={i} data={data} play />
             ))}
           </div>
         </div>

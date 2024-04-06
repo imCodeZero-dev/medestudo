@@ -33,7 +33,7 @@ const ViewFlashcards: React.FC<ViewFlashcardsProps> = ({
   const { localeTitles, localePlaceholders, localeButtons, localeText } =
     useLocale();
   // console.log("allTags", allTags);
-  const filteredTags = allTags?.map((item: Tag) => item.title);
+  // const filteredTags = allTags?.map((item: any) => item.title);
   const [key, setKey] = useState(0);
 
   const handleEdit = (data: any) => {
@@ -109,7 +109,8 @@ const ViewFlashcards: React.FC<ViewFlashcardsProps> = ({
             className="cursor-pointer"
           />
           <div className={styles["ViewFlashcards-body-main"]}>
-            <div className={styles["ViewFlashcards-section"]}>
+            <div className={`${styles["ViewFlashcards-section"]} border-b pb-2`}>
+              <Text className={styles.heading2}>Q</Text>
               <QuillEditor
                 key={key}
                 readOnly={!enableEdit}
@@ -120,6 +121,7 @@ const ViewFlashcards: React.FC<ViewFlashcardsProps> = ({
               />
             </div>
             <div className={styles["ViewFlashcards-section"]}>
+            <Text className={styles.heading2}>A</Text>
               <QuillEditor
                 key={key}
                 readOnly={!enableEdit}
@@ -150,7 +152,7 @@ const ViewFlashcards: React.FC<ViewFlashcardsProps> = ({
                   render={({ field }) => (
                     <Select
                       isMulti
-                      options={filteredTags?.map((tag) => ({
+                      options={allTags?.map((tag) => ({
                         value: tag,
                         label: tag,
                       }))}

@@ -21,6 +21,7 @@ const CreateQuestions = ({
   loading,
   setCreateFlashcard,
   allTags,
+  deckData,
 }: CreateQuestionsProps) => {
   const {
     localeTitles,
@@ -39,7 +40,8 @@ const CreateQuestions = ({
             <Text className={styles.title}>{localeTitles.TITLE_FLASHCARD}</Text>
             <div>
               <Text className={styles.heading}>
-                {localeTitles.TITLE_NEW_CHAPTER}
+                {deckData?.name}
+                {/* {localeTitles.TITLE_NEW_CHAPTER} */}
               </Text>
             </div>
           </div>
@@ -47,6 +49,7 @@ const CreateQuestions = ({
             <Button
               type="submit"
               className="primaryTab"
+              loading={loading}
               onClick={() => setCreateFlashcard(false)}
             >
               {localeButtons?.BUTTON_SAVE}

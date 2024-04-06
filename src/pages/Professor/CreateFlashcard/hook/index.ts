@@ -13,18 +13,13 @@ import { useCookies } from "react-cookie";
 import { useQuery } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
 import { closeModal } from "../../../../redux/slices/ModalSlice";
-import {
-  changeProfessorStatusApi,
-  getAllDecksApi,
-} from "../../../../utils/api/admin";
-import {
-  createClassApi,
-  createFlashcardApi,
-  getAllClassesApi,
-  getClassByIdApi,
-} from "../../../../utils/api/professors";
+
+import { createFlashcardApi } from "../../../../utils/api/professors";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
-import { useAllTagsQuery } from "../../../../redux/slices/APISlice";
+import {
+  useAllClassesQuery,
+  useAllTagsQuery,
+} from "../../../../redux/slices/APISlice";
 
 export const useCreateFlashcard = () => {
   // const navigate = useNavigate();
@@ -38,6 +33,7 @@ export const useCreateFlashcard = () => {
     formState: { errors },
     watch,
     setValue,
+    reset,
   } = useForm({
     // resolver: yupResolver(validationSchema),
     defaultValues: {},
@@ -50,12 +46,12 @@ export const useCreateFlashcard = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const deckId = location?.state;
+  const deckData = location?.state;
 
-  console.log("deckId", deckId);
+  // console.log("CreateDeckData", deckData);
 
   useEffect(() => {
-    if (!deckId) {
+    if (!deckData) {
       navigate(-1);
     }
   });
@@ -66,28 +62,12 @@ export const useCreateFlashcard = () => {
     setCreateModal(false);
   };
 
-  // const {
-  //   data: { data: { class: classDetails = [] } = {} } = {},
-  //   isLoading: classDetailsLoading,
-  //   error: errorClassDetails,
-  //   refetch: refetchClassDetails,
-  // } = useQuery(
-  //   [
-  //     "classDetails",
-  //     {
-  //       cookies,
-  //       deckId,
-  //     },
-  //   ],
+  const { allClasses, allClassesLoading, errorAllClasses, refetchAllClasses } =
+    useAllClassesQuery(cookies);
 
-  //   async () => {
-  //     return getClassByIdApi(deckId, cookies?.professor?.token);
-  //   },
-  //   {
-  //     enabled: !!cookies?.professor?.token && !!deckId,
-  //   }
-  // );
-  // console.log("classDetails", classDetails);
+  const getDetails = (data: string) => {
+    navigate(`/professor/classes/deck?${data}`, { state: data });
+  };
 
   const onSubmitCreate = async (data: any) => {
     try {
@@ -108,7 +88,7 @@ export const useCreateFlashcard = () => {
       setCreateLoading(true);
       const response = await createFlashcardApi(
         payload,
-        deckId?._id,
+        deckData?._id,
         cookies?.professor?.token
       );
       console.log("response", response);
@@ -119,6 +99,8 @@ export const useCreateFlashcard = () => {
       showErrorToast(error?.response?.data?.errorMessage);
     } finally {
       setCreateLoading(false);
+      reset();
+      navigate(-1);
     }
   };
 
@@ -138,5 +120,9 @@ export const useCreateFlashcard = () => {
 
     // classDetails,
     allTags,
+    deckData,
+    allClasses,
+    allClassesLoading,
+    getDetails,
   };
 };

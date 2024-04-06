@@ -21,6 +21,7 @@ import examsImgs from "../../../assets/Images/dashboard/exams.png";
 import { MdOutlineViewCarousel } from "react-icons/md";
 import { PiExam } from "react-icons/pi";
 import { RiQuestionAnswerLine } from "react-icons/ri";
+import { Class } from "../../../utils/constants/DataTypes";
 
 export const dummyFlashCards = [
   { image: flashcard1, title: "Orthopedic", date: "24 Dec,2023" },
@@ -79,6 +80,9 @@ const ProfessorDashboard = ({}: ProfessorDashboardProps) => {
     handleSubmit,
 
     watch,
+    allClasses,
+    allClassesLoading,
+    getDetails,
   } = useProfessorDashboard();
   console.log("cookies", cookies);
   const navigate = useNavigate();
@@ -178,8 +182,14 @@ const ProfessorDashboard = ({}: ProfessorDashboardProps) => {
               </Text>
             </div>
 
-            {dummyFlashCards?.slice(0, 8)?.map((data, i) => (
-              <DashboardFlashcard key={i} data={data} play minView />
+            {allClasses?.slice(0, 8)?.map((data: Class, i: number) => (
+              <DashboardFlashcard
+                key={i}
+                data={data}
+                play
+                minView
+                getDetails={getDetails}
+              />
             ))}
           </div>
         </div>

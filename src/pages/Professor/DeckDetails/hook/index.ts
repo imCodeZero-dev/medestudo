@@ -20,7 +20,8 @@ import {
   getAllClassesApi,
   getClassByIdApi,
 } from "../../../../utils/api/professors";
-import { useLocation, useSearchParams } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
+import { useAllClassesQuery } from "../../../../redux/slices/APISlice";
 
 export const useDeckDetails = () => {
   // const navigate = useNavigate();
@@ -38,6 +39,7 @@ export const useDeckDetails = () => {
     // resolver: yupResolver(validationSchema),
     defaultValues: {},
   });
+
   const watchSubDeck = watch("subDeck");
   const watchnNestedSubDeck = watch("nestedSubDeck");
   const deepNestedsubDeck = watch("deepNestedsubDeck");
@@ -59,6 +61,7 @@ export const useDeckDetails = () => {
   console.log("deckId", deckId);
 
   // const openCreate = useSelector((state: any) => state.modal.isOpen);
+  const navigate = useNavigate();
   const [createModal, setCreateModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
   const [deleteLoading, setDeleteLoading] = useState(false);
@@ -76,6 +79,9 @@ export const useDeckDetails = () => {
     setSelectedDeckId(id);
     setDeleteModal(true);
   };
+
+  const { allClasses, allClassesLoading, errorAllClasses, refetchAllClasses } =
+    useAllClassesQuery(cookies);
 
   const {
     data: { data: { class: classDetails = [] } = {} } = {},
@@ -183,6 +189,10 @@ export const useDeckDetails = () => {
     }
   };
 
+  const getDetails = (data: string) => {
+    navigate(`/professor/classes/deck?${data}`, { state: data });
+  };
+
   // console.log("filteredDecks", filteredDecks);
   return {
     control,
@@ -206,5 +216,8 @@ export const useDeckDetails = () => {
     anchorEl,
     handleClickOptions,
     handleCloseOptions,
+    allClasses,
+    allClassesLoading,
+    getDetails,
   };
 };

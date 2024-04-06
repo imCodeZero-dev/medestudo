@@ -21,6 +21,7 @@ import HomeLayout from "../../../components/LVL5_Layouts/HomeLayout/HomeLayout";
 
 import CreateDeckModal from "../../../components/LVL4_Organs/CreateDeckModal/CreateDeckModal";
 import CreateQuestions from "../../../components/LVL4_Organs/CreateQuestions/CreateQuestions";
+import { Class } from "../../../utils/constants/DataTypes";
 
 const CreateFlashcard = ({}: CreateFlashcardProps) => {
   const { localeTitles, localeButtons, localeLables } = useLocale();
@@ -42,6 +43,10 @@ const CreateFlashcard = ({}: CreateFlashcardProps) => {
     // classDetails,
     setValue,
     allTags,
+    deckData,
+    allClasses,
+    allClassesLoading,
+    getDetails,
   } = useCreateFlashcard();
   // console.log("allDecks", allDecks);
   const navigate = useNavigate();
@@ -55,9 +60,10 @@ const CreateFlashcard = ({}: CreateFlashcardProps) => {
             setCreateFlashcard={setCreateFlashcard}
             control={control}
             handleSubmit={handleSubmit}
-            loading={false}
+            loading={createLoading}
             onSubmit={onSubmitCreate}
             allTags={allTags}
+            deckData={deckData}
           />
         </div>
 
@@ -72,8 +78,14 @@ const CreateFlashcard = ({}: CreateFlashcardProps) => {
               </Text>
             </div>
 
-            {dummyFlashCards?.slice(0, 8)?.map((data, i) => (
-              <DashboardFlashcard key={i} data={data} play minView />
+            {allClasses?.slice(0, 8)?.map((data: Class, i: number) => (
+              <DashboardFlashcard
+                key={i}
+                data={data}
+                play
+                minView
+                getDetails={getDetails}
+              />
             ))}
           </div>
         </div>

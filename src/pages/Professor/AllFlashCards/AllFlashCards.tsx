@@ -15,7 +15,7 @@ import { useState } from "react";
 import HomeLayout from "../../../components/LVL5_Layouts/HomeLayout/HomeLayout";
 
 import CreateQuestions from "../../../components/LVL4_Organs/CreateQuestions/CreateQuestions";
-import { Flashcard } from "../../../utils/constants/DataTypes";
+import { Class, Flashcard } from "../../../utils/constants/DataTypes";
 import ViewFlashcards from "../../../components/LVL4_Organs/ViewFlashcards/ViewFlashcards";
 import ConfirmationModal from "../../../components/LVL4_Organs/ConfirmationModal";
 import AlertIcon from "../../../assets/svgs/AlertIcon";
@@ -44,6 +44,9 @@ const AllFlashCards = ({}: AllFlashCardsProps) => {
     handleEditClose,
     enableEdit,
     tags,
+    allClasses,
+    allClassesLoading,
+    getDetails,
   } = useAllFlashCards();
   // console.log("allDecks", allDecks);
   const navigate = useNavigate();
@@ -82,8 +85,14 @@ const AllFlashCards = ({}: AllFlashCardsProps) => {
               </Text>
             </div>
 
-            {dummyFlashCards?.slice(0, 8)?.map((data, i) => (
-              <DashboardFlashcard key={i} data={data} play minView />
+            {allClasses?.slice(0, 8)?.map((data: Class, i: number) => (
+              <DashboardFlashcard
+                key={i}
+                data={data}
+                play
+                minView
+                getDetails={getDetails}
+              />
             ))}
           </div>
         </div>

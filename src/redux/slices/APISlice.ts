@@ -6,6 +6,7 @@ import {
   getAllTagsApi,
 } from "../../utils/api/admin";
 import { AdminCookies } from "../../utils/constants/DataTypes";
+import { getAllClassesApi } from "../../utils/api/professors";
 
 export const useProfessorsQuery = (cookies: AdminCookies) => {
   const {
@@ -92,3 +93,34 @@ export const useAllTagsQuery = (cookies: any) => {
     refetchAllTags,
   };
 };
+
+export const useAllClassesQuery = (cookies: any) => {
+  const {
+    data: { data: { class: allClasses = [] } = {} } = {},
+    isLoading: allClassesLoading,
+    error: errorAllClasses,
+    refetch: refetchAllClasses,
+  } = useQuery(
+    [
+      "allClasses",
+      {
+        cookies,
+      },
+    ],
+    async () => {
+      return getAllClassesApi(cookies?.professor?.token);
+    },
+    {
+      enabled: !!cookies?.professor?.token,
+    }
+  );
+
+  return {
+    allClasses,
+    allClassesLoading,
+    errorAllClasses,
+    refetchAllClasses,
+  };
+};
+
+

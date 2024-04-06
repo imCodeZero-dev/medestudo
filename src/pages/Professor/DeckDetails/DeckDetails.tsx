@@ -27,6 +27,7 @@ import CreateDeckModal from "../../../components/LVL4_Organs/CreateDeckModal/Cre
 import { Menu, MenuItem } from "@mui/material";
 import ConfirmationModal from "../../../components/LVL4_Organs/ConfirmationModal";
 import AlertIcon from "../../../assets/svgs/AlertIcon";
+import { Class } from "../../../utils/constants/DataTypes";
 
 const DeckDetails = ({}: DeckDetailsProps) => {
   const { localeTitles, localeButtons, localeLables } = useLocale();
@@ -55,12 +56,16 @@ const DeckDetails = ({}: DeckDetailsProps) => {
     anchorEl,
     handleClickOptions,
     handleCloseOptions,
+    allClasses,
+    allClassesLoading,
+    getDetails,
   } = useDeckDetails();
   // console.log("allDecks", allDecks);
   const navigate = useNavigate();
   const { localeText } = useLocale();
 
   const navigateToCreateFlashcard = (deck: any) => {
+    // console.log("navigateToCreateFlashcard", deck);
     navigate("/professor/classes/deck/flashcard", { state: deck });
   };
   const navigateToViewFlashcard = (deck: any) => {
@@ -255,8 +260,14 @@ const DeckDetails = ({}: DeckDetailsProps) => {
               </Text>
             </div>
 
-            {dummyFlashCards?.slice(0, 8)?.map((data, i) => (
-              <DashboardFlashcard key={i} data={data} play minView />
+            {allClasses?.slice(0, 8)?.map((data: Class, i: number) => (
+              <DashboardFlashcard
+                key={i}
+                data={data}
+                play
+                minView
+                getDetails={getDetails}
+              />
             ))}
           </div>
         </div>

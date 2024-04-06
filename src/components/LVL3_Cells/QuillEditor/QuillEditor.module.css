@@ -7,3 +7,7 @@
   text-align: left;
   border-radius: 24px !important ;
 }
+
+.editorReadonly > div {
+  border: none !important;
+}

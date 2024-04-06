@@ -1,8 +1,9 @@
 import { Control } from "react-hook-form";
-import { Tag } from "../../../../utils/constants/DataTypes";
+import { Class, DeckId, Tag } from "../../../../utils/constants/DataTypes";
 
 export type CreateQuestionsProps = {
   loading: boolean;
+  deckData?: DeckId;
   handleSubmit: any;
   onSubmit: (data: any) => void;
   setCreateFlashcard: (data: boolean) => void;
