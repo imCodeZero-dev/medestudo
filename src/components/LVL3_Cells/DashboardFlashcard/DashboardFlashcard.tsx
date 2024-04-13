@@ -41,30 +41,14 @@ const DashboardFlashcard: React.FC<DashboardFlashcardProps> = ({
   openDeleteModal,
 }) => {
   // const { localeText, localeDropdowns } = useLocale();
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const { localeText } = useLocale();
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const toggleDropdown = () => {
     setIsDropdownOpen((prevState) => !prevState);
   };
 
-  // // Event listener to handle clicks outside of the dropdown menu
-  // useEffect(() => {
-  //   const handleClickOutside = (event: MouseEvent) => {
-  //     if (
-  //       dropdownRef.current &&
-  //       !dropdownRef.current.contains(event.target as Node)
-  //     ) {
-  //       handleCloseOptions(); // Close the dropdown menu
-  //     }
-  //   };
-
-  //   document.addEventListener("mousedown", handleClickOutside);
-  //   return () => {
-  //     document.removeEventListener("mousedown", handleClickOutside);
-  //   };
-  // }, [handleCloseOptions]);
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (

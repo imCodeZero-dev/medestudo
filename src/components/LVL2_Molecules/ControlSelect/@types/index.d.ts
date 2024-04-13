@@ -8,6 +8,15 @@ export type selectProps = {
   hideLabel?: boolean;
   label?: string;
 };
+export type CountrySelectProps = {
+  name: string;
+  control: Control<any>;
+  hideLabel?: boolean;
+  label?: string;
+  items: any;
+  labelKey: string;
+  valueKey: string;
+};
 
 // {
 //   value: string;

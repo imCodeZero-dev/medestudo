@@ -16,6 +16,7 @@ import { GiReturnArrow } from "react-icons/gi";
 import { Controller } from "react-hook-form";
 import Select from "react-select";
 import { Tag } from "../../../utils/constants/DataTypes";
+import Loader from "../../LVL1_Atoms/Loader";
 
 const ViewFlashcards: React.FC<ViewFlashcardsProps> = ({
   control,
@@ -33,7 +34,7 @@ const ViewFlashcards: React.FC<ViewFlashcardsProps> = ({
   const { localeTitles, localePlaceholders, localeButtons, localeText } =
     useLocale();
   // console.log("allTags", allTags);
-  // const filteredTags = allTags?.map((item: any) => item.title);
+  const filteredTags = allTags?.map((item: any) => item.title);
   const [key, setKey] = useState(0);
 
   const handleEdit = (data: any) => {
@@ -109,7 +110,9 @@ const ViewFlashcards: React.FC<ViewFlashcardsProps> = ({
             className="cursor-pointer"
           />
           <div className={styles["ViewFlashcards-body-main"]}>
-            <div className={`${styles["ViewFlashcards-section"]} border-b pb-2`}>
+            <div
+              className={`${styles["ViewFlashcards-section"]} border-b pb-2`}
+            >
               <Text className={styles.heading2}>Q</Text>
               <QuillEditor
                 key={key}
@@ -121,7 +124,7 @@ const ViewFlashcards: React.FC<ViewFlashcardsProps> = ({
               />
             </div>
             <div className={styles["ViewFlashcards-section"]}>
-            <Text className={styles.heading2}>A</Text>
+              <Text className={styles.heading2}>A</Text>
               <QuillEditor
                 key={key}
                 readOnly={!enableEdit}
@@ -131,7 +134,7 @@ const ViewFlashcards: React.FC<ViewFlashcardsProps> = ({
                 placeholder={localePlaceholders.PLACEHOLDER_ENTER_ANSWER_HERE}
               />
             </div>
-            {!enableEdit ? (
+            {/* {!enableEdit ? (
               <div className={styles["tags"]}>
                 {tags?.map((tag, i) => (
                   <div
@@ -144,7 +147,6 @@ const ViewFlashcards: React.FC<ViewFlashcardsProps> = ({
               </div>
             ) : (
               <div className={styles["inputDiv"]}>
-                {/* <TagInput allTags={allTags} control={control} /> */}
                 <Controller
                   name="tags"
                   control={control}
@@ -152,7 +154,7 @@ const ViewFlashcards: React.FC<ViewFlashcardsProps> = ({
                   render={({ field }) => (
                     <Select
                       isMulti
-                      options={allTags?.map((tag) => ({
+                      options={filteredTags?.map((tag) => ({
                         value: tag,
                         label: tag,
                       }))}
@@ -164,7 +166,7 @@ const ViewFlashcards: React.FC<ViewFlashcardsProps> = ({
                   )}
                 />
               </div>
-            )}
+            )} */}
           </div>
           <div>
             <BiSolidRightArrow

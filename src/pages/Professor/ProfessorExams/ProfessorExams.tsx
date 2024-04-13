@@ -76,7 +76,7 @@ const ProfessorExams = ({}: ProfessorExamsProps) => {
           </div>
         </div>
 
-        <CreateClassModal
+        <CreateClassModal 
           control={control}
           handleClose={handleCloseCreate}
           handleSubmit={handleSubmit}

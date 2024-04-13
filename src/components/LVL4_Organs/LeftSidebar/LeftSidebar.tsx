@@ -14,7 +14,7 @@ const LeftSidebar = ({ options }: LeftSidebarProps) => {
   const dispatch = useDispatch();
 
   const handleOpenModal = () => {
-    dispatch(openCreateModal());
+    dispatch(openCreateModal() as any);
   };
 
   const handleTabClick = (opt: { title: string; url: string }) => {

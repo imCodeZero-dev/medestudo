@@ -17,9 +17,11 @@ const Editor = {
       ["image", "blockqoute", "code-block"],
       [{ color: [] }, { background: [] }], // dropdown with defaults from theme
 
-      ["clean"], // remove formatting button
+      ["clean"],
     ],
   },
+  // Add the imageResize module here
+  // imageResize: {},
 };
 const NoToolbar = {
   toolbar: false,

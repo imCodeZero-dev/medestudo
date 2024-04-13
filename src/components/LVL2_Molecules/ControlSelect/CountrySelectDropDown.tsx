@@ -5,7 +5,7 @@ import Select from "@mui/material/Select";
 import { Controller } from "react-hook-form";
 import PropTypes from "prop-types";
 import { InputLabel } from "@mui/material";
-import { selectProps } from "./@types";
+import { CountrySelectProps, selectProps } from "./@types";
 import Text from "../../LVL1_Atoms/Text/Text";
 import styles from "./Select.module.css";
 
@@ -17,7 +17,7 @@ const CountrySelectDropDown = ({
   valueKey,
   hideLabel,
   label,
-}: selectProps) => {
+}: CountrySelectProps) => {
   return (
     <div className="flex flex-col">
       {!!label && <Text className={styles["label14"]}>{label}</Text>}

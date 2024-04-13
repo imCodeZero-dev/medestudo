@@ -92,7 +92,7 @@ export const useProfessorManagement = () => {
     refetchAllProfessors,
     allProfessorsLoading,
     errorAllProfessors,
-  } = useProfessorsQuery(cookies);
+  } = useProfessorsQuery(cookies as any);
 
   const onSubmitCreateProfessor = async (data: any) => {
     const params = {

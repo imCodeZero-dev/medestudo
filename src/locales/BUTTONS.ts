@@ -27,6 +27,7 @@ export const BUTTONS = {
     BUTTON_GET_STARTED: "Get started",
     BUTTON_SAVE_CHANGES: "Save Changes",
     BUTTON_PREVIEW: "Preview",
+    BUTTON_CHANGE_IMAGE: "Change Image",
   },
   es: {
     submit: "Enviar",
@@ -56,5 +57,6 @@ export const BUTTONS = {
     BUTTON_GET_STARTED: "Get started",
     BUTTON_SAVE_CHANGES: "Save Changes",
     BUTTON_PREVIEW: "Preview",
+    BUTTON_CHANGE_IMAGE: "Change Image",
   },
 };

@@ -38,7 +38,7 @@ export const useStudentManagement = () => {
     refetchAllStudents,
     allStudentsLoading,
     errorAllStudents,
-  } = useStudentsQuery(cookies);
+  } = useStudentsQuery(cookies as any);
 
   const [opneProfessorModal, setOpneProfessorModal] = useState<boolean>(false);
   const [studentLoading, setStudentLoading] = useState<boolean>(false);
