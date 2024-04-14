@@ -15,7 +15,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { closeModal } from "../../../../redux/slices/ModalSlice";
 
 import {
+  createFlashcardApi,
   deleteFlashcardApi,
+  editFlashcardApi,
   getAllClassesApi,
   getAllFlashcardsByIdApi,
   getClassByIdApi,
@@ -47,6 +49,7 @@ export const useAllFlashCards = () => {
     watch,
     setValue,
     getValues,
+    reset,
   } = useForm<{ question: string; answer: string; tags: string[] }>({
     // resolver: yupResolver(validationSchema),
     defaultValues: {},
@@ -57,6 +60,7 @@ export const useAllFlashCards = () => {
   const [deleteLoading, setDeleteLoading] = useState<boolean>(false);
   const [deleteModal, setdeleteModal] = useState<boolean>(false);
   const [enableEdit, setEnableEdit] = useState<boolean>(false);
+  const [editLoading, setEditLoading] = useState<boolean>(false);
   const [flashcardData, setFlashcardData] = useState<any>();
   const location = useLocation();
   const navigate = useNavigate();
@@ -134,6 +138,39 @@ export const useAllFlashCards = () => {
     }
   };
 
+  const onSubmitEdit = async (data: any) => {
+    try {
+      const tagsLabels = data?.tags?.map(
+        (tag: { value: string; label: string }) => tag.label
+      );
+      const base64Question = btoa(data.question);
+      const base64Answer = btoa(data.answer);
+
+      const payload = {
+        question: base64Question,
+        answer: base64Answer,
+        tags: tagsLabels,
+      };
+
+      setEditLoading(true);
+      const response = await editFlashcardApi(
+        payload,
+        flashcardData?._id,
+        cookies?.professor?.token
+      );
+      console.log("response", response);
+      showSuccessToast(localeSuccess?.SUCCESS_FLASH_EDIT);
+      refetchallFlashcards();
+    } catch (error: any) {
+      console.log("error", error);
+      showErrorToast(error?.response?.data?.errorMessage);
+    } finally {
+      setEditLoading(false);
+      reset();
+      navigate(-1);
+    }
+  };
+
   useEffect(() => {
     // Set initial values when component mounts or currentFlashcardIndex changes
     if (allFlashcards[currentFlashcardIndex]) {
@@ -173,5 +210,7 @@ export const useAllFlashCards = () => {
     allClasses,
     allClassesLoading,
     getDetails,
+    onSubmitEdit,
+    editLoading,allFlashcardsLoading
   };
 };

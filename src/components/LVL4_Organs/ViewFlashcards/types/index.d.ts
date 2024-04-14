@@ -1,8 +1,9 @@
-import { Control } from "react-hook-form";
+import { Control, UseFormHandleSubmit } from "react-hook-form";
 import { Flashcard, Tag } from "../../../../utils/constants/DataTypes";
 
 export type ViewFlashcardsProps = {
   loading: boolean;
+  editLoading: boolean;
   currentFlashcardIndex: number;
   // handleSubmit: any;
   // onSubmit: (data: any) => void;
@@ -17,4 +18,14 @@ export type ViewFlashcardsProps = {
   handleEditOpen: (data: any) => void;
   handleEditClose: () => void;
   enableEdit: boolean;
+
+  onSubmitEdit: (data: any) => Promise<void>;
+  handleSubmit: UseFormHandleSubmit<
+    {
+      question: string;
+      answer: string;
+      tags: string[];
+    },
+    undefined
+  >;
 };

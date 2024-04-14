@@ -91,6 +91,21 @@ export const createFlashcardApi = async (
   return response;
 };
 
+export const editFlashcardApi = async (
+  data: any,
+  flashCardId: string,
+  token: string
+) => {
+  console.log("editFlashcardApi", data);
+  const response = await apiRequest({
+    method: "Put",
+    url: `/professor/updateFlashCard/${flashCardId}`,
+    data,
+    token,
+  });
+  return response;
+};
+
 export const deleteClassDeckApi = async (
   deckId: string | null,
   token: string

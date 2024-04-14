@@ -30,6 +30,10 @@ const ViewFlashcards: React.FC<ViewFlashcardsProps> = ({
   handleEditClose,
   handleEditOpen,
   tags,
+  onSubmitEdit,
+  handleSubmit,
+  loading,
+  editLoading,
 }) => {
   const { localeTitles, localePlaceholders, localeButtons, localeText } =
     useLocale();
@@ -48,93 +52,113 @@ const ViewFlashcards: React.FC<ViewFlashcardsProps> = ({
 
   return (
     <div className={styles["ViewFlashcards"]}>
-      <div className={styles["ViewFlashcards-head"]}>
-        <div className={styles["headLeft"]}>
-          <Text className={styles.title}>{localeTitles.TITLE_FLASHCARD}</Text>
-          <div>
-            <Text className={styles.heading}>
-              {localeTitles.TITLE_NEW_CHAPTER}
-            </Text>
-          </div>
+      {loading ? (
+        <div className={"min-h-[75vh] m-auto flex justify-center "}>
+          <Loader />
         </div>
-        <div className={styles["headRight"]}>
-          <Button type="submit" className="primaryTab">
-            {localeButtons?.BUTTON_SAVE}
-          </Button>
-        </div>
-      </div>
-      <div className={styles["ViewFlashcards-main"]}>
-        <div className={styles["ViewFlashcards-mainHead"]}>
-          <div className={styles["ViewFlashcards-option"]}>
-            <TbCards size={16} fill="#2A2D31" />
-            Science
-          </div>
-          <div className={styles["ViewFlashcards-option"]}>
-            <TbCards size={16} fill="#2A2D31" />
-            {`${localeText?.TEXT_CARDS}: ${currentFlashcardIndex + 1} / ${
-              allFlashcards?.length
-            }`}
-          </div>
-          {!enableEdit ? (
-            <div
-              className={`${styles["ViewFlashcards-option"]} cursor-pointer`}
-              onClick={() => handleEdit(allFlashcards[currentFlashcardIndex])}
-            >
-              <IoPencil size={16} fill="#2A2D31" />
+      ) : (
+        <form onSubmit={handleSubmit(onSubmitEdit)} className={styles["form"]}>
+          <div className={styles["ViewFlashcards-head"]}>
+            <div className={styles["headLeft"]}>
+              <Text className={styles.title}>
+                {localeTitles.TITLE_FLASHCARD}
+              </Text>
+              <div>
+                <Text className={styles.heading}>
+                  {localeTitles.TITLE_NEW_CHAPTER}
+                </Text>
+              </div>
             </div>
-          ) : (
-            <div
-              className={`${styles["ViewFlashcards-option"]} cursor-pointer`}
-              onClick={() => handleClose()}
-            >
-              <GiReturnArrow size={16} fill="#2A2D31" />
+            <div className={styles["headRight"]}>
+              {enableEdit && (
+                <Button
+                  type="submit"
+                  className="primaryTab"
+                  loading={editLoading}
+                >
+                  {localeButtons?.BUTTON_SAVE}
+                </Button>
+              )}
             </div>
-          )}
-          <div
-            className={`${styles["ViewFlashcards-option"]} cursor-pointer`}
-            onClick={() =>
-              handleDeleteOpen(allFlashcards[currentFlashcardIndex])
-            }
-          >
-            <FaRegTrashAlt size={16} fill="#CC5200" />
           </div>
-        </div>
+          <div className={styles["ViewFlashcards-main"]}>
+            <div className={styles["ViewFlashcards-mainHead"]}>
+              <div className={styles["ViewFlashcards-option"]}>
+                <TbCards size={16} fill="#2A2D31" />
+                Science
+              </div>
+              <div className={styles["ViewFlashcards-option"]}>
+                <TbCards size={16} fill="#2A2D31" />
+                {`${localeText?.TEXT_CARDS}: ${currentFlashcardIndex + 1} / ${
+                  allFlashcards?.length
+                }`}
+              </div>
+              {!enableEdit ? (
+                <div
+                  className={`${styles["ViewFlashcards-option"]} cursor-pointer`}
+                  onClick={() =>
+                    handleEdit(allFlashcards[currentFlashcardIndex])
+                  }
+                >
+                  <IoPencil size={16} fill="#2A2D31" />
+                </div>
+              ) : (
+                <div
+                  className={`${styles["ViewFlashcards-option"]} cursor-pointer`}
+                  onClick={() => handleClose()}
+                >
+                  <GiReturnArrow size={16} fill="#2A2D31" />
+                </div>
+              )}
+              <div
+                className={`${styles["ViewFlashcards-option"]} cursor-pointer`}
+                onClick={() =>
+                  handleDeleteOpen(allFlashcards[currentFlashcardIndex])
+                }
+              >
+                <FaRegTrashAlt size={16} fill="#CC5200" />
+              </div>
+            </div>
 
-        <div className={styles["ViewFlashcards-body"]}>
-          <BiSolidLeftArrow
-            onClick={
-              currentFlashcardIndex >= 1 && (handlePreviousFlashcard as any)
-            }
-            size={42}
-            fill={currentFlashcardIndex >= 1 ? "#3359E4" : "gray"}
-            className="cursor-pointer"
-          />
-          <div className={styles["ViewFlashcards-body-main"]}>
-            <div
-              className={`${styles["ViewFlashcards-section"]} border-b pb-2`}
-            >
-              <Text className={styles.heading2}>Q</Text>
-              <QuillEditor
-                key={key}
-                readOnly={!enableEdit}
-                noHeader={!enableEdit}
-                name="question"
-                control={control}
-                placeholder={localePlaceholders.PLACEHOLDER_ENTER_QUESTION_HERE}
+            <div className={styles["ViewFlashcards-body"]}>
+              <BiSolidLeftArrow
+                onClick={
+                  currentFlashcardIndex >= 1 && (handlePreviousFlashcard as any)
+                }
+                size={42}
+                fill={currentFlashcardIndex >= 1 ? "#3359E4" : "gray"}
+                className="cursor-pointer"
               />
-            </div>
-            <div className={styles["ViewFlashcards-section"]}>
-              <Text className={styles.heading2}>A</Text>
-              <QuillEditor
-                key={key}
-                readOnly={!enableEdit}
-                noHeader={!enableEdit}
-                name="answer"
-                control={control}
-                placeholder={localePlaceholders.PLACEHOLDER_ENTER_ANSWER_HERE}
-              />
-            </div>
-            {/* {!enableEdit ? (
+              <div className={styles["ViewFlashcards-body-main"]}>
+                <div
+                  className={`${styles["ViewFlashcards-section"]} border-b pb-2`}
+                >
+                  <Text className={styles.heading2}>Q</Text>
+                  <QuillEditor
+                    key={key}
+                    readOnly={!enableEdit}
+                    noHeader={!enableEdit}
+                    name="question"
+                    control={control}
+                    placeholder={
+                      localePlaceholders.PLACEHOLDER_ENTER_QUESTION_HERE
+                    }
+                  />
+                </div>
+                <div className={styles["ViewFlashcards-section"]}>
+                  <Text className={styles.heading2}>A</Text>
+                  <QuillEditor
+                    key={key}
+                    readOnly={!enableEdit}
+                    noHeader={!enableEdit}
+                    name="answer"
+                    control={control}
+                    placeholder={
+                      localePlaceholders.PLACEHOLDER_ENTER_ANSWER_HERE
+                    }
+                  />
+                </div>
+                {/* {!enableEdit ? (
               <div className={styles["tags"]}>
                 {tags?.map((tag, i) => (
                   <div
@@ -167,24 +191,26 @@ const ViewFlashcards: React.FC<ViewFlashcardsProps> = ({
                 />
               </div>
             )} */}
+              </div>
+              <div>
+                <BiSolidRightArrow
+                  onClick={
+                    currentFlashcardIndex !== allFlashcards?.length - 1 &&
+                    (handleNextFlashcard as any)
+                  }
+                  size={42}
+                  fill={
+                    currentFlashcardIndex !== allFlashcards?.length - 1
+                      ? "#3359E4"
+                      : "gray"
+                  }
+                  className="cursor-pointer"
+                />
+              </div>
+            </div>
           </div>
-          <div>
-            <BiSolidRightArrow
-              onClick={
-                currentFlashcardIndex !== allFlashcards?.length - 1 &&
-                (handleNextFlashcard as any)
-              }
-              size={42}
-              fill={
-                currentFlashcardIndex !== allFlashcards?.length - 1
-                  ? "#3359E4"
-                  : "gray"
-              }
-              className="cursor-pointer"
-            />
-          </div>
-        </div>
-      </div>
+        </form>
+      )}
     </div>
   );
 };

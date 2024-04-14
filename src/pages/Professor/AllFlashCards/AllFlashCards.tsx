@@ -45,8 +45,11 @@ const AllFlashCards = ({}: AllFlashCardsProps) => {
     enableEdit,
     tags,
     allClasses,
-    allClassesLoading,
     getDetails,
+    onSubmitEdit,
+    handleSubmit,
+    editLoading,
+    allFlashcardsLoading,
   } = useAllFlashCards();
   // console.log("allDecks", allDecks);
   const navigate = useNavigate();
@@ -63,13 +66,16 @@ const AllFlashCards = ({}: AllFlashCardsProps) => {
             control={control}
             allTags={allTags}
             tags={tags}
-            loading={false}
             handleNextFlashcard={handleNextFlashcard}
             handlePreviousFlashcard={handlePreviousFlashcard}
             handleDeleteOpen={handleDeleteOpen}
             handleEditOpen={handleEditOpen}
             handleEditClose={handleEditClose}
             enableEdit={enableEdit}
+            handleSubmit={handleSubmit}
+            onSubmitEdit={onSubmitEdit}
+            loading={allFlashcardsLoading}
+            editLoading={editLoading}
           />
         </div>
         {/* ))} */}
