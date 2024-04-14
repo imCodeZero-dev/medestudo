@@ -207,16 +207,16 @@ const DeckDetails = ({}: DeckDetailsProps) => {
                       {classDecks?.map(
                         (deck: DecksWithCardCount, i: number) => (
                           <div key={deck?._id} className={styles["deckBody"]}>
-                            <div className={styles["deckBody-left"]}>
+                            <div
+                              className={styles["deckBody-left"]}
+                              onClick={() => navigateToViewFlashcard(deck)}
+                            >
                               <SiRundeck />
                               <div>
                                 <Text className={styles.deckName}>
                                   {deck?.subdeck?.name}
                                 </Text>
-                                <div
-                                  className="flex items-center space-x-1 my-2"
-                                  onClick={() => navigateToViewFlashcard(deck)}
-                                >
+                                <div className="flex items-center space-x-1 my-2">
                                   <TbCards size={20} fill="#2A2D31" />
                                   <Text className={styles.totalCardsText}>
                                     {` ${deck?.cardCount} Cards`}
@@ -289,7 +289,10 @@ const DeckDetails = ({}: DeckDetailsProps) => {
               <Text className={styles["sectionHeading"]}>
                 {localeTitles?.TITLE_RECENT_FLASHCARDS_CREATED}
               </Text>
-              <Text className={styles["viewMore"]}>
+              <Text
+                className={styles["viewMore"]}
+                onClick={() => navigate("/professor/classes")}
+              >
                 {localeTitles?.TITLE_VIEW_MORE}
               </Text>
             </div>

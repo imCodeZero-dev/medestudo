@@ -167,7 +167,7 @@ export const useAllFlashCards = () => {
     } finally {
       setEditLoading(false);
       reset();
-      navigate(-1);
+      // navigate(-1);
     }
   };
 
@@ -180,12 +180,24 @@ export const useAllFlashCards = () => {
         const decodedAnswer = atob(answer);
         setValue("question", decodedQuestion);
         setValue("answer", decodedAnswer);
-        setValue("tags", tags);
+        if (tags && tags.length > 0) {
+          const filteredTags = tags?.map((item: Tag) => ({
+            title: item,
+            value: item,
+            label: item,
+          }));
+          setValue("tags", filteredTags);
+        } else {
+          setValue("tags", []);
+        }
       } catch (error) {
         console.error("Error decoding base64 string:", error);
       }
     }
   }, [currentFlashcardIndex, allFlashcards, setValue]);
+
+  // console.log("allTags", allTags, "watchTags", tags);
+
   return {
     control,
     errors,
@@ -211,6 +223,7 @@ export const useAllFlashCards = () => {
     allClassesLoading,
     getDetails,
     onSubmitEdit,
-    editLoading,allFlashcardsLoading
+    editLoading,
+    allFlashcardsLoading,
   };
 };

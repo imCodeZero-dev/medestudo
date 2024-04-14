@@ -65,7 +65,10 @@ const ProfessorExams = ({}: ProfessorExamsProps) => {
               <Text className={styles["sectionHeading"]}>
                 {localeTitles?.TITLE_RECENT_FLASHCARDS_CREATED}
               </Text>
-              <Text className={styles["viewMore"]}>
+              <Text
+                className={styles["viewMore"]}
+                onClick={() => navigate("/professor/classes")}
+              >
                 {localeTitles?.TITLE_VIEW_MORE}
               </Text>
             </div>
@@ -76,7 +79,7 @@ const ProfessorExams = ({}: ProfessorExamsProps) => {
           </div>
         </div>
 
-        <CreateClassModal 
+        <CreateClassModal
           control={control}
           handleClose={handleCloseCreate}
           handleSubmit={handleSubmit}

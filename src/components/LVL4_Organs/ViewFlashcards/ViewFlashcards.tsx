@@ -49,7 +49,7 @@ const ViewFlashcards: React.FC<ViewFlashcardsProps> = ({
     handleEditClose();
     setKey((prevKey) => prevKey + 1);
   };
-
+  // console.log("filteredTags", filteredTags);
   return (
     <div className={styles["ViewFlashcards"]}>
       {loading ? (
@@ -158,39 +158,39 @@ const ViewFlashcards: React.FC<ViewFlashcardsProps> = ({
                     }
                   />
                 </div>
-                {/* {!enableEdit ? (
-              <div className={styles["tags"]}>
-                {tags?.map((tag, i) => (
-                  <div
-                    className="flex w-auto bg-slate-200 p-3 rounded-lg"
-                    key={i}
-                  >
-                    <Text className={styles.tag}>{tag}</Text>
+                {!enableEdit ? (
+                  <div className={styles["tags"]}>
+                    {tags?.map((tag: any, i) => (
+                      <div
+                        className="flex w-auto bg-slate-200 p-3 rounded-lg"
+                        key={i}
+                      >
+                        <Text className={styles.tag}>{tag?.label}</Text>
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
-            ) : (
-              <div className={styles["inputDiv"]}>
-                <Controller
-                  name="tags"
-                  control={control}
-                  defaultValue={[]}
-                  render={({ field }) => (
-                    <Select
-                      isMulti
-                      options={filteredTags?.map((tag) => ({
-                        value: tag,
-                        label: tag,
-                      }))}
-                      value={field.value}
-                      onChange={(selectedTags: any) =>
-                        field.onChange(selectedTags)
-                      }
+                ) : (
+                  <div className={styles["inputDiv"]}>
+                    <Controller
+                      name="tags"
+                      control={control}
+                      // defaultValue={[]}
+                      render={({ field }) => (
+                        <Select
+                          isMulti
+                          options={filteredTags?.map((tag) => ({
+                            value: tag,
+                            label: tag,
+                          }))}
+                          value={field?.value}
+                          onChange={(selectedTags: any) =>
+                            field.onChange(selectedTags)
+                          }
+                        />
+                      )}
                     />
-                  )}
-                />
-              </div>
-            )} */}
+                  </div>
+                )}
               </div>
               <div>
                 <BiSolidRightArrow
