@@ -18,6 +18,7 @@ import { createFlashcardApi } from "../../../../utils/api/professors";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import {
   useAllClassesQuery,
+  useAllFlashcardsQuery,
   useAllTagsQuery,
 } from "../../../../redux/slices/APISlice";
 
@@ -39,16 +40,22 @@ export const useCreateFlashcard = () => {
     defaultValues: {},
   });
 
-  const { allTags, refetchAllTags, allTagsLoading, errorAllTags } =
-    useAllTagsQuery(cookies);
-
   const [createLoading, setCreateLoading] = useState<boolean>(false);
   const location = useLocation();
   const navigate = useNavigate();
-
   const deckData = location?.state;
 
-  // console.log("CreateDeckData", deckData);
+  const { allTags, refetchAllTags, allTagsLoading, errorAllTags } =
+    useAllTagsQuery(cookies);
+
+  const {
+    allFlashcards,
+    allFlashcardsLoading,
+    errorallFlashcards,
+    refetchallFlashcards,
+  } = useAllFlashcardsQuery(cookies, deckData?.deckId?._id as string);
+
+  console.log("CreateDeckData", deckData);
 
   useEffect(() => {
     if (!deckData) {
@@ -94,6 +101,7 @@ export const useCreateFlashcard = () => {
       console.log("response", response);
       // refetchClassDetails();
       showSuccessToast(localeSuccess?.SUCCESS_FLASH_CREATED);
+      refetchallFlashcards();
     } catch (error: any) {
       console.log("error", error);
       showErrorToast(error?.response?.data?.errorMessage);

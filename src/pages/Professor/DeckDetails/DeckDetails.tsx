@@ -27,7 +27,7 @@ import CreateDeckModal from "../../../components/LVL4_Organs/CreateDeckModal/Cre
 import { Menu, MenuItem } from "@mui/material";
 import ConfirmationModal from "../../../components/LVL4_Organs/ConfirmationModal";
 import AlertIcon from "../../../assets/svgs/AlertIcon";
-import { Class } from "../../../utils/constants/DataTypes";
+import { Class, DecksWithCardCount } from "../../../utils/constants/DataTypes";
 import Loader from "../../../components/LVL1_Atoms/Loader";
 
 const DeckDetails = ({}: DeckDetailsProps) => {
@@ -58,6 +58,9 @@ const DeckDetails = ({}: DeckDetailsProps) => {
     allClasses,
     allClassesLoading,
     getDetails,
+    specificDecks,
+    classDecks,
+    classDecksLoading,
   } = useDeckDetails();
   // console.log("allDecks", allDecks);
   const navigate = useNavigate();
@@ -191,69 +194,83 @@ const DeckDetails = ({}: DeckDetailsProps) => {
               </div>
             ))}
           </div> */}
-
-              <div className={styles["DeckDetails-decks"]}>
-                {classDetails?.deckId?.subDeck?.map((deck: any, i: number) => (
-                  <div key={deck?._id} className={styles["deckBody"]}>
-                    <div className={styles["deckBody-left"]}>
-                      <SiRundeck />
-                      <div>
-                        <Text className={styles.deckName}>{deck?.name}</Text>
-                        <div
-                          className="flex items-center space-x-1 my-2"
-                          onClick={() => navigateToViewFlashcard(deck)}
-                        >
-                          <TbCards size={20} fill="#2A2D31" />
-                          <Text className={styles.totalCardsText}>
-                            20 Cards
-                          </Text>
-                        </div>
-                      </div>
-                    </div>
-                    <div className={styles["deckBody-right"]}>
-                      <div
-                        className="flex items-center space-x-1 cursor-pointer"
-                        onClick={() => navigateToCreateFlashcard(deck)}
-                      >
-                        <FaCirclePlus size={24} fill="#FF900E" />
-                        <Text className={styles.addDeckText}>
-                          {localeButtons.BUTTON_ADD_CARD}
-                        </Text>
-                      </div>
-                      <BiSolidPencil
-                        size={25}
-                        color="#2A2D31"
-                        className="cursor-pointer"
-                      />
-                      {deck?._id && (
-                        <div>
-                          <IoEllipsisHorizontal
-                            size={25}
-                            color="#2A2D31"
-                            className="cursor-pointer"
-                            onClick={(event) =>
-                              handleClickOptions(event as any)
-                            }
-                          />
-                          <Menu
-                            anchorEl={anchorEl}
-                            open={Boolean(anchorEl)}
-                            onClose={handleCloseOptions}
-                            keepMounted
-                          >
-                            <MenuItem
-                              onClick={() => openDeleteModal(deck?._id)}
-                            >
-                              Delete
-                            </MenuItem>
-                          </Menu>
-                        </div>
+              {classDecksLoading ? (
+                <div className="py-8">
+                  <Loader />
+                </div>
+              ) : (
+                <div className={styles["DeckDetails-decks"]}>
+                  {classDecks?.length < 1 ? (
+                    <Text>No Deck Created</Text>
+                  ) : (
+                    <>
+                      {classDecks?.map(
+                        (deck: DecksWithCardCount, i: number) => (
+                          <div key={deck?._id} className={styles["deckBody"]}>
+                            <div className={styles["deckBody-left"]}>
+                              <SiRundeck />
+                              <div>
+                                <Text className={styles.deckName}>
+                                  {deck?.subdeck?.name}
+                                </Text>
+                                <div
+                                  className="flex items-center space-x-1 my-2"
+                                  onClick={() => navigateToViewFlashcard(deck)}
+                                >
+                                  <TbCards size={20} fill="#2A2D31" />
+                                  <Text className={styles.totalCardsText}>
+                                    {` ${deck?.cardCount} Cards`}
+                                  </Text>
+                                </div>
+                              </div>
+                            </div>
+                            <div className={styles["deckBody-right"]}>
+                              <div
+                                className="flex items-center space-x-1 cursor-pointer"
+                                onClick={() => navigateToCreateFlashcard(deck)}
+                              >
+                                <FaCirclePlus size={24} fill="#FF900E" />
+                                <Text className={styles.addDeckText}>
+                                  {localeButtons.BUTTON_ADD_CARD}
+                                </Text>
+                              </div>
+                              <BiSolidPencil
+                                size={25}
+                                color="#2A2D31"
+                                className="cursor-pointer"
+                              />
+                              {deck?._id && (
+                                <div>
+                                  <IoEllipsisHorizontal
+                                    size={25}
+                                    color="#2A2D31"
+                                    className="cursor-pointer"
+                                    onClick={(event) =>
+                                      handleClickOptions(event as any)
+                                    }
+                                  />
+                                  <Menu
+                                    anchorEl={anchorEl}
+                                    open={Boolean(anchorEl)}
+                                    onClose={handleCloseOptions}
+                                    keepMounted
+                                  >
+                                    <MenuItem
+                                      onClick={() => openDeleteModal(deck?._id)}
+                                    >
+                                      Delete
+                                    </MenuItem>
+                                  </Menu>
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        )
                       )}
-                    </div>
-                  </div>
-                ))}
-              </div>
-
+                    </>
+                  )}
+                </div>
+              )}
               <div className="flex w-64 m-auto">
                 <Button
                   className="primaryActive"
@@ -298,7 +315,7 @@ const DeckDetails = ({}: DeckDetailsProps) => {
         onSubmit={onSubmitCreate}
         open={createModal}
         loading={createLoading}
-        filteredDecks={classDetails?.deckId}
+        filteredDecks={specificDecks?.[0]}
       />
 
       <ConfirmationModal

@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-import ReactQuill from "react-quill";
+import ReactQuill, { Quill } from "react-quill";
 import "react-quill/dist/quill.snow.css"; // Import Quill styles
 import { Controller, Control } from "react-hook-form";
 import styles from "./QuillEditor.module.css";
 import { QuillEditorProps } from "./@types";
+
+// Quill.register("modules/imageResize", ImageResize);
 
 const Editor = {
   toolbar: {
@@ -16,9 +18,21 @@ const Editor = {
       [{ align: [] }],
       ["image", "blockqoute", "code-block"],
       [{ color: [] }, { background: [] }], // dropdown with defaults from theme
-
+      [
+        { list: "ordered" },
+        { list: "bullet" },
+        { indent: "-1" },
+        { indent: "+1" },
+      ],
       ["clean"],
     ],
+    clipboard: {
+      matchVisual: true,
+    },
+    imageResize: {
+      parchment: Quill.import("parchment"),
+      modules: ["Resize", "DisplaySize"],
+    },
   },
   // Add the imageResize module here
   // imageResize: {},

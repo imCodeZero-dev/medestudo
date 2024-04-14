@@ -15,8 +15,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { closeModal } from "../../../../redux/slices/ModalSlice";
 
 import {
-  createClassApi,
-  createFlashcardApi,
   deleteFlashcardApi,
   getAllClassesApi,
   getAllFlashcardsByIdApi,
@@ -30,6 +28,7 @@ import {
 } from "react-router-dom";
 import {
   useAllClassesQuery,
+  useAllFlashcardsQuery,
   useAllTagsQuery,
 } from "../../../../redux/slices/APISlice";
 import { Flashcard, Tag } from "../../../../utils/constants/DataTypes";
@@ -89,33 +88,17 @@ export const useAllFlashCards = () => {
   const { allClasses, allClassesLoading, errorAllClasses, refetchAllClasses } =
     useAllClassesQuery(cookies);
 
+  const {
+    allFlashcards,
+    allFlashcardsLoading,
+    errorallFlashcards,
+    refetchallFlashcards,
+  } = useAllFlashcardsQuery(cookies, deckId as string);
+
   const getDetails = (data: string) => {
     navigate(`/professor/classes/deck?${data}`, { state: data });
   };
 
-  const {
-    // data: allFlashcards,
-    data: { data: { cards: allFlashcards = [] } = {} } = {},
-    isLoading: allFlashcardsLoading,
-    error: errorallFlashcards,
-    refetch: refetchallFlashcards,
-  } = useQuery(
-    [
-      "allFlashcards",
-      {
-        cookies,
-        deckId,
-      },
-    ],
-
-    async () => {
-      return getAllFlashcardsByIdApi(deckId, cookies?.professor?.token);
-    },
-    {
-      // enabled: !!cookies?.professor?.token,
-      enabled: !!cookies?.professor?.token && !!deckId,
-    }
-  );
   console.log("allFlashcards", allFlashcards);
 
   const handleNextFlashcard = () => {

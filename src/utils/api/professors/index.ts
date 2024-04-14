@@ -51,6 +51,16 @@ export const getClassByIdApi = async (classId: string, token: string) => {
   return response;
 };
 
+export const getClassDecksApi = async (classId: string, token: string) => {
+  // console.log("professorLoginApi", data);
+  const response = await apiRequest({
+    method: "Get",
+    url: `/professor/getAllDeck/${classId}`,
+    token,
+  });
+  return response;
+};
+
 export const createClassDeckApi = async (
   data: any,
   classId: string,

@@ -25,7 +25,10 @@ import {
   getClassByIdApi,
 } from "../../../../utils/api/professors";
 import { useNavigate } from "react-router-dom";
-import { useAllClassesQuery } from "../../../../redux/slices/APISlice";
+import {
+  useAllClassesQuery,
+  useAllDecksQuery,
+} from "../../../../redux/slices/APISlice";
 
 export const useProfessorClasses = () => {
   // const navigate = useNavigate();
@@ -112,28 +115,10 @@ export const useProfessorClasses = () => {
 
   const { allClasses, allClassesLoading, errorAllClasses, refetchAllClasses } =
     useAllClassesQuery(cookies);
+
+  const { allDecks, allDecksLoading, errorAllDecks, refetchAllDecks } =
+    useAllDecksQuery(cookies);
   // console.log("allClasses", allClasses);
-
-  const {
-    data: { data: { decks: allDecks = [] } = {} } = {},
-    isLoading: allDecksLoading,
-    error: errorAllDecks,
-    refetch: refetchAllDecks,
-  } = useQuery(
-    [
-      "allDecks",
-      {
-        cookies,
-      },
-    ],
-
-    async () => {
-      return getAllDecksApi(cookies?.professor?.token);
-    },
-    {
-      enabled: !!cookies?.professor?.token,
-    }
-  );
 
   const onSubmitCreate = async (data: any) => {
     const params = {

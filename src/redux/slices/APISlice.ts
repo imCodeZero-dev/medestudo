@@ -1,12 +1,16 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { useQuery } from "react-query";
 import {
+  getAllDecksApi,
   getAllProfessorApi,
   getAllStudentsApi,
   getAllTagsApi,
 } from "../../utils/api/admin";
 import { AdminCookies } from "../../utils/constants/DataTypes";
-import { getAllClassesApi } from "../../utils/api/professors";
+import {
+  getAllClassesApi,
+  getAllFlashcardsByIdApi,
+} from "../../utils/api/professors";
 
 export const useProfessorsQuery = (cookies: AdminCookies) => {
   const {
@@ -123,4 +127,61 @@ export const useAllClassesQuery = (cookies: any) => {
   };
 };
 
+export const useAllDecksQuery = (cookies: any) => {
+  const {
+    data: { data: { decks: allDecks = [] } = {} } = {},
+    isLoading: allDecksLoading,
+    error: errorAllDecks,
+    refetch: refetchAllDecks,
+  } = useQuery(
+    [
+      "allDecks",
+      {
+        cookies,
+      },
+    ],
+    async () => {
+      return getAllDecksApi(cookies?.professor?.token);
+    },
+    {
+      enabled: !!cookies?.professor?.token,
+    }
+  );
 
+  return {
+    allDecks,
+    allDecksLoading,
+    errorAllDecks,
+    refetchAllDecks,
+  };
+};
+
+export const useAllFlashcardsQuery = (cookies: any, deckId: string) => {
+  const {
+    data: { data: { cards: allFlashcards = [] } = {} } = {},
+    isLoading: allFlashcardsLoading,
+    error: errorallFlashcards,
+    refetch: refetchallFlashcards,
+  } = useQuery(
+    [
+      "allFlashcards",
+      {
+        cookies,
+        deckId,
+      },
+    ],
+    async () => {
+      return getAllFlashcardsByIdApi(deckId, cookies?.professor?.token);
+    },
+    {
+      enabled: !!cookies?.professor?.token && !!deckId,
+    }
+  );
+
+  return {
+    allFlashcards,
+    allFlashcardsLoading,
+    errorallFlashcards,
+    refetchallFlashcards,
+  };
+};

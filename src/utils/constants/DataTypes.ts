@@ -55,3 +55,27 @@ export interface SubDeck {
   subDeck: any;
   _id: string;
 }
+
+export interface Root {
+  decksWithCardCounts: DecksWithCardCount[];
+}
+
+export interface DecksWithCardCount {
+  _id: string;
+  subdeck: SubdeckClass;
+  classId: string;
+  deckId: DeckIdClass;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+  cardCount: number;
+}
+
+export interface SubdeckClass {
+  name: string;
+  _id: string;
+}
+
+export interface DeckIdClass {
+  _id: string;
+}

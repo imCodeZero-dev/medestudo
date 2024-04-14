@@ -19,9 +19,14 @@ import {
   deleteClassDeckApi,
   getAllClassesApi,
   getClassByIdApi,
+  getClassDecksApi,
 } from "../../../../utils/api/professors";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
-import { useAllClassesQuery } from "../../../../redux/slices/APISlice";
+import {
+  useAllClassesQuery,
+  useAllDecksQuery,
+} from "../../../../redux/slices/APISlice";
+import { DeckId } from "../../../../utils/constants/DataTypes";
 
 export const useDeckDetails = () => {
   // const navigate = useNavigate();
@@ -58,11 +63,12 @@ export const useDeckDetails = () => {
 
   const deckId = location?.state;
 
-  console.log("deckId", deckId);
+  // console.log("deckId", deckId);
 
   // const openCreate = useSelector((state: any) => state.modal.isOpen);
   const navigate = useNavigate();
   const [createModal, setCreateModal] = useState(false);
+  const [specificDecks, setSpecificDecks] = useState();
   const [deleteModal, setDeleteModal] = useState(false);
   const [deleteLoading, setDeleteLoading] = useState(false);
   const [selectedDeckId, setSelectedDeckId] = useState<null | string>(null);
@@ -82,6 +88,11 @@ export const useDeckDetails = () => {
 
   const { allClasses, allClassesLoading, errorAllClasses, refetchAllClasses } =
     useAllClassesQuery(cookies);
+
+  const { allDecks, allDecksLoading, errorAllDecks, refetchAllDecks } =
+    useAllDecksQuery(cookies);
+
+  // console.log("allDecks in deckDetails", allDecks);
 
   const {
     data: { data: { class: classDetails = [] } = {} } = {},
@@ -104,13 +115,36 @@ export const useDeckDetails = () => {
       enabled: !!cookies?.professor?.token && !!deckId,
     }
   );
-  console.log("classDetails", classDetails);
+
+  const {
+    data: { data: { decksWithCardCounts: classDecks = [] } = {} } = {},
+    isLoading: classDecksLoading,
+    error: errorclassDecks,
+    refetch: refetchclassDecks,
+  } = useQuery(
+    [
+      "classDecks",
+      {
+        cookies,
+        classDetails,
+      },
+    ],
+
+    async () => {
+      return getClassDecksApi(classDetails?._id, cookies?.professor?.token);
+    },
+    {
+      enabled: !!cookies?.professor?.token && !!classDetails,
+    }
+  );
+  console.log("classDecks", classDecks);
+  // console.log("classDetails", classDetails);
 
   const onSubmitCreate = async (data: any) => {
     const requestData: any = {
-      name: "anxzc",
+      // name: "anxzc",
       deckId: classDetails?.deckId?._id,
-      subDeck: {
+      subdeck: {
         name: watchSubDeck.label,
         subDeck: [],
       },
@@ -193,7 +227,15 @@ export const useDeckDetails = () => {
     navigate(`/professor/classes/deck?${data}`, { state: data });
   };
 
-  // console.log("filteredDecks", filteredDecks);
+  useEffect(() => {
+    if (allDecks?.length > 0) {
+      const currentClass = allDecks?.filter(
+        (deck: DeckId) => deck?._id === classDetails?.deckId?._id
+      );
+      setSpecificDecks(currentClass);
+    }
+  }, [classDetails, allDecks]);
+
   return {
     control,
     errors,
@@ -219,5 +261,8 @@ export const useDeckDetails = () => {
     allClasses,
     allClassesLoading,
     getDetails,
+    specificDecks,
+    classDecks,
+    classDecksLoading,
   };
 };
