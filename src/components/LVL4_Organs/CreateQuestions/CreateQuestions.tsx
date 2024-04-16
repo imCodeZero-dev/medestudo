@@ -73,14 +73,12 @@ const CreateQuestions = ({
             <QuillEditor
               name="question"
               control={control}
-              setValue={setValue}
               placeholder={localePlaceholders.PLACEHOLDER_ENTER_QUESTION_HERE}
 
             />
           </div>
           <div className={styles["CreateQuestions-section"]}>
             <QuillEditor
-                          setValue={setValue}
 
               name="answer"
               control={control}
