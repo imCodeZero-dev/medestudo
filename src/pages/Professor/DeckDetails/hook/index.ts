@@ -141,6 +141,7 @@ export const useDeckDetails = () => {
   // console.log("classDetails", classDetails);
 
   const onSubmitCreate = async (data: any) => {
+    console.log("onSubmitCreate", data);
     const requestData: any = {
       // name: "anxzc",
       deckId: classDetails?.deckId?._id,
@@ -151,15 +152,15 @@ export const useDeckDetails = () => {
     };
 
     if (watchnNestedSubDeck) {
-      requestData.subDeck.subDeck.push({
+      requestData.subdeck.subDeck.push({
         name: watchnNestedSubDeck.label,
         subDeck: [],
       });
     }
 
     if (deepNestedsubDeck) {
-      requestData.subDeck.subDeck[
-        requestData.subDeck.subDeck.length - 1
+      requestData.subdeck.subDeck[
+        requestData.subdeck.subDeck.length - 1
       ].subDeck.push({
         name: deepNestedsubDeck.label,
         subDeck: [],
@@ -168,10 +169,10 @@ export const useDeckDetails = () => {
 
     const lastNestedsubDeck = watch("lastNestedsubDeck");
     if (lastNestedsubDeck) {
-      requestData.subDeck.subDeck[
-        requestData.subDeck.subDeck.length - 1
+      requestData.subdeck.subDeck[
+        requestData.subdeck.subDeck.length - 1
       ].subDeck[
-        requestData.subDeck.subDeck[requestData.subDeck.subDeck.length - 1]
+        requestData.subdeck.subDeck[requestData.subdeck.subDeck.length - 1]
           .subDeck.length - 1
       ].subDeck.push({
         name: lastNestedsubDeck.label,
@@ -193,6 +194,7 @@ export const useDeckDetails = () => {
       );
       console.log("response", response);
       refetchClassDetails();
+      refetchclassDecks();
       showSuccessToast(localeSuccess?.SUCCESS_DECK_CREATED);
     } catch (error: any) {
       console.log("error", error);
@@ -213,6 +215,7 @@ export const useDeckDetails = () => {
       );
       console.log("response", response);
       refetchClassDetails();
+      refetchclassDecks();
       showSuccessToast(localeSuccess?.SUCCESS_DECK_DELETED);
     } catch (error: any) {
       console.log("error", error);
