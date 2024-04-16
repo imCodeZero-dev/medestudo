@@ -9,4 +9,5 @@ export type CreateQuestionsProps = {
   setCreateFlashcard: (data: boolean) => void;
   control: Control<any>;
   allTags: Tag[];
+  setValue:any
 };

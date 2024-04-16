@@ -59,6 +59,7 @@ const CreateFlashcard = ({}: CreateFlashcardProps) => {
           <CreateQuestions
             setCreateFlashcard={setCreateFlashcard}
             control={control}
+            setValue={setValue}
             handleSubmit={handleSubmit}
             loading={createLoading}
             onSubmit={onSubmitCreate}

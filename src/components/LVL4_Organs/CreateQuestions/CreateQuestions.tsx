@@ -21,7 +21,7 @@ const CreateQuestions = ({
   loading,
   setCreateFlashcard,
   allTags,
-  deckData,
+  deckData,setValue
 }: CreateQuestionsProps) => {
   const {
     localeTitles,
@@ -73,11 +73,15 @@ const CreateQuestions = ({
             <QuillEditor
               name="question"
               control={control}
+              setValue={setValue}
               placeholder={localePlaceholders.PLACEHOLDER_ENTER_QUESTION_HERE}
+
             />
           </div>
           <div className={styles["CreateQuestions-section"]}>
             <QuillEditor
+                          setValue={setValue}
+
               name="answer"
               control={control}
               placeholder={localePlaceholders.PLACEHOLDER_ENTER_ANSWER_HERE}
