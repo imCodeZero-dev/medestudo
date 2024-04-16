@@ -6,5 +6,4 @@ export interface QuillEditorProps {
   readOnly?: boolean;
   noHeader?: boolean;
   key?: number;
-  setValue:any
 }
