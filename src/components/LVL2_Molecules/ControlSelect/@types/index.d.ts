@@ -7,6 +7,8 @@ export type selectProps = {
 
   hideLabel?: boolean;
   label?: string;
+  placeholder?: string;
+  defaultValue?: string;
 };
 export type CountrySelectProps = {
   name: string;

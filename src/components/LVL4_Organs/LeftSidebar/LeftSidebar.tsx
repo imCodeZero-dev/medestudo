@@ -5,7 +5,11 @@ import logoImg from "../../../assets/MedEstudo-assets/MedEstudo-Final-Logos/Logo
 import { FaAngleDown, FaAngleUp } from "react-icons/fa6";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { openCreateModal } from "../../../redux/actions/modalActions";
+import {
+  openCreateModalClass,
+  openCreateModalExam,
+} from "../../../redux/actions/modalActions";
+// import { openCreateModal } from "../../../redux/actions/modalActions";
 
 const LeftSidebar = ({ options }: LeftSidebarProps) => {
   const [activeTab, setActiveTab] = useState<null | string>(options[0].title);
@@ -14,14 +18,21 @@ const LeftSidebar = ({ options }: LeftSidebarProps) => {
   const dispatch = useDispatch();
 
   const handleOpenModal = () => {
-    dispatch(openCreateModal() as any);
+    dispatch(openCreateModalClass() as any);
+  };
+  const handleCreateExamModal = () => {
+    dispatch(openCreateModalExam() as any);
   };
 
   const handleTabClick = (opt: { title: string; url: string }) => {
     console.log("handleTabClick", opt);
     if (opt?.url === "/professor/classes/new") {
       handleOpenModal();
-    } else {
+    } 
+   else if(opt?.url === "/professor/exams/new"){
+    handleCreateExamModal()
+   } 
+    else {
       navigate(opt?.url);
       setActiveTab(opt?.title);
     }

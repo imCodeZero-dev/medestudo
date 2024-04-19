@@ -9,10 +9,13 @@ import { IoIosPlayCircle } from "react-icons/io";
 import dayjs from "dayjs";
 import { Menu, MenuItem } from "@mui/material";
 import { Flashcard } from "../../../utils/constants/DataTypes";
+import { TiDeleteOutline } from "react-icons/ti";
+import { useDropdown } from "../../../utils/hooks/helper";
+import { examCardData } from "../DashboardExams/@types";
 
-const DropdownMenu: React.FC<{
+export const DropdownMenu: React.FC<{
   openDeleteModal: ((data: string) => void) | undefined;
-  data: Flashcard;
+  data: Flashcard | examCardData;
 }> = ({ openDeleteModal, data }) => {
   const { localeDropdowns } = useLocale();
 
@@ -22,9 +25,13 @@ const DropdownMenu: React.FC<{
 
   return (
     <div className={styles.dropdownMenu}>
-      <button onClick={handleDeleteClick}>
-        {localeDropdowns.DROPDOWN_DELETE}
-      </button>
+      <div
+        onClick={handleDeleteClick}
+        className="flex p-3 space-x-2 items-center"
+      >
+        <TiDeleteOutline color="red" />{" "}
+        <Text>{localeDropdowns.DROPDOWN_DELETE}</Text>
+      </div>
       {/* Add more dropdown items as needed */}
     </div>
   );
@@ -35,35 +42,11 @@ const DashboardFlashcard: React.FC<DashboardFlashcardProps> = ({
   play,
   minView,
   getDetails,
-  handleClickOptions,
-  anchorEl,
-  handleCloseOptions,
   openDeleteModal,
 }) => {
   // const { localeText, localeDropdowns } = useLocale();
   const { localeText } = useLocale();
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
-
-  const toggleDropdown = () => {
-    setIsDropdownOpen((prevState) => !prevState);
-  };
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
-        setIsDropdownOpen(false); // Close the dropdown menu
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
+  const { isDropdownOpen, toggleDropdown, dropdownRef } = useDropdown();
 
   return (
     <div className={styles["DashboardFlashcard"]}>

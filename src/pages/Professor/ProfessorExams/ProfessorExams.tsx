@@ -21,6 +21,11 @@ import {
 import { useState } from "react";
 import CreateQuestions from "../../../components/LVL4_Organs/CreateQuestions/CreateQuestions";
 import DashboardExams from "../../../components/LVL3_Cells/DashboardExams/DashboardExams";
+import CreateExamModal from "../../../components/LVL4_Organs/CreateExamModal/CreateExamModal";
+import { examCardData } from "../../../components/LVL3_Cells/DashboardExams/@types";
+import ConfirmationModal from "../../../components/LVL4_Organs/ConfirmationModal";
+import AlertIcon from "../../../assets/svgs/AlertIcon";
+import EditExamModal from "../../../components/LVL4_Organs/CreateExamModal/EditExamModal";
 
 const ProfessorExams = ({}: ProfessorExamsProps) => {
   const { localeTitles, localeButtons, localeLables } = useLocale();
@@ -29,14 +34,25 @@ const ProfessorExams = ({}: ProfessorExamsProps) => {
 
   const {
     control,
-
     handleSubmit,
-
     watch,
     handleCloseCreate,
     onSubmitCreate,
     openCreate,
     createLoading,
+    allDecks,
+    allExams,
+    onDeleteConfirm,
+    errors,
+    getDetails,
+    openDeleteModal,
+    deleteModal,
+    handleDeleteClose,
+    deleteLoading,
+    handleEditClose,
+    openEditModal,
+    editModal,
+    onSubmitEdit,
   } = useProfessorExams();
   console.log("cookies", cookies);
   const navigate = useNavigate();
@@ -54,8 +70,14 @@ const ProfessorExams = ({}: ProfessorExamsProps) => {
           />
         ) : ( */}
         <div className={styles["ProfessorExams-main"]}>
-          {dummyExams?.slice(0, 8)?.map((data, i) => (
-            <DashboardExams key={i} data={data} play />
+          {allExams?.map((data: examCardData, i: number) => (
+            <DashboardExams
+              key={i}
+              data={data}
+              getDetails={getDetails}
+              openDeleteModal={openDeleteModal}
+              openEditModal={openEditModal}
+            />
           ))}
         </div>
         {/* )} */}
@@ -79,13 +101,39 @@ const ProfessorExams = ({}: ProfessorExamsProps) => {
           </div>
         </div>
 
-        <CreateClassModal
+        <CreateExamModal
+          errors={errors}
           control={control}
           handleClose={handleCloseCreate}
           handleSubmit={handleSubmit}
           onSubmit={onSubmitCreate}
           open={openCreate}
           loading={createLoading}
+          filteredDecks={allDecks}
+          watch={watch}
+        />
+
+        <EditExamModal
+          errors={errors}
+          control={control}
+          handleClose={handleEditClose}
+          handleSubmit={handleSubmit}
+          onSubmit={onSubmitEdit}
+          open={editModal}
+          loading={createLoading}
+          filteredDecks={allDecks}
+          watch={watch}
+        />
+
+        <ConfirmationModal
+          open={deleteModal}
+          cancelButtonText={localeButtons?.BUTTON_CANCEL}
+          confirmButtonText={localeButtons?.BUTTON_DELETE}
+          onConfirm={onDeleteConfirm}
+          icon={<AlertIcon />}
+          title={localeTitles.TITLE_ARE_YOU_SURE_DELETE}
+          handleClose={handleDeleteClose}
+          loading={deleteLoading}
         />
       </div>
     </HomeLayout>

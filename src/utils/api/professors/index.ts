@@ -1,4 +1,5 @@
 import apiRequest from "../../../config/axios";
+import { examForm } from "../../constants/DataTypes";
 
 export const professorLoginApi = async (data: any) => {
   // console.log("professorLoginApi", data);
@@ -145,15 +146,54 @@ export const getAllFlashcardsByIdApi = async (
   return response;
 };
 
-// export const deleteClassApi = async (
-//   classId: string | null,
-//   token: string
-// ) => {
-//   console.log("deleteClassApi", classId);
-//   const response = await apiRequest({
-//     method: "Delete",
-//     url: `/professor/deleteClassById/${classId}`,
-//     token,
-//   });
-//   return response;
-// };
+export const createExamApi = async (data: examForm, token: string) => {
+  // console.log("professorLoginApi", data);
+  const response = await apiRequest({
+    method: "Post",
+    url: `/professor/createExam`,
+    data,
+    token,
+  });
+  return response;
+};
+
+export const deleteExamApi = async (examId: string, token: string) => {
+  const response = await apiRequest({
+    method: "Delete",
+    url: `/professor/deleteExam/${examId}`,
+    token,
+  });
+  return response;
+};
+
+export const editExamApi = async (
+  data: examForm,
+  examId: string,
+  token: string
+) => {
+  const response = await apiRequest({
+    method: "Put",
+    url: `/professor/updateExam/${examId}`,
+    data,
+    token,
+  });
+  return response;
+};
+
+export const getExamByIdApi = async (examId: string, token: string) => {
+  const response = await apiRequest({
+    method: "Get",
+    url: `/professor/getExam/${examId}`,
+    token,
+  });
+  return response;
+};
+
+export const getAllExamsApi = async (token: string) => {
+  const response = await apiRequest({
+    method: "Get",
+    url: `/professor/getAllExams`,
+    token,
+  });
+  return response;
+};

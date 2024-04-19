@@ -12,7 +12,7 @@ import { passwordRegex } from "../../../../utils/constants/constants";
 import { useCookies } from "react-cookie";
 import { useQuery } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
-import { closeModal } from "../../../../redux/slices/ModalSlice";
+import { closeModal } from "../../../../redux/slices/CreateClassModalSlice";
 import {
   changeProfessorStatusApi,
   getAllDecksApi,
@@ -61,19 +61,10 @@ export const useProfessorClasses = () => {
 
   const [createLoading, setCreateLoading] = useState<boolean>(false);
 
-  const openCreate = useSelector((state: any) => state.modal.isOpen);
+  const openCreate = useSelector((state: any) => state.modalCreateClass.isOpen);
   const [deleteModal, setDeleteModal] = useState(false);
   const [deleteLoading, setDeleteLoading] = useState(false);
   const [selecteClassId, setSelecteClassId] = useState<null | string>(null);
-
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-
-  const handleClickOptions = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleCloseOptions = () => {
-    setAnchorEl(null);
-  };
 
   const handleCloseCreate = () => {
     dispatch(closeModal());
@@ -85,33 +76,9 @@ export const useProfessorClasses = () => {
 
   const openDeleteModal = (id: string) => {
     console.log("openDeleteModal", id);
-    handleCloseOptions();
     setSelecteClassId(id);
     setDeleteModal(true);
   };
-
-  // const {
-  //   data: { data: { class: classDetails = [] } = {} } = {},
-  //   isLoading: classDetailsLoading,
-  //   error: errorclassDetails,
-  //   refetch: refetchclassDetails,
-  // } = useQuery(
-  //   [
-  //     "classDetails",
-  //     {
-  //       cookies,
-  //     },
-  //   ],
-
-  //   async () => {
-  //     return getClassByIdApi(classId as string, cookies?.professor?.token);
-  //   },
-  //   {
-  //     enabled: !!cookies?.professor?.token && !!classId,
-  //   }
-  // );
-
-  // console.log("classDetails", classDetails);
 
   const { allClasses, allClassesLoading, errorAllClasses, refetchAllClasses } =
     useAllClassesQuery(cookies);
@@ -169,23 +136,15 @@ export const useProfessorClasses = () => {
     control,
     errors,
     handleSubmit,
-
     watch,
-
     handleCloseCreate,
     onSubmitCreate,
     openCreate,
     createLoading,
     allDecks,
-    handleSubmitFlashcard,
-    controlFlashcard,
     allClasses,
     getDetails,
     viewClass,
-    viewClassDetails,
-    anchorEl,
-    handleClickOptions,
-    handleCloseOptions,
     openDeleteModal,
     deleteLoading,
     deleteModal,

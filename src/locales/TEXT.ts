@@ -10,12 +10,15 @@ export const TEXT = {
       "you can change password, name and email.",
     TEXT_A_TAG_WILL_BE_USED_TO_LINK_QUESTIONS:
       "A tag will be used to link questions.",
+    TEXT_THE_INSTITUTE_WILL_BE_USED_IN_QUESTIONS:
+      "The institute will be used in questions.",
     TEXT_A_NEW_PROFESSOR_WOULD_MSG:
       "A new professor would be able to add exams and flashcards on platform.",
     TEXT_A_DECK_IS_A_SUBSET_MSG:
       "A Deck is a subset of Flashcards in a Class, similar to chapters in a book",
     TEXT_A_CLASS_IS_A_SET_OF_FLASHCARDS:
       "A Class is a set of Flashcards, grouped into Decks",
+    TEXT_ENTER_EXAM_INFO_TO_CREATE: "Enter exam info to create new exam.",
     TEXT_RECEIVE_EMAILS: "Receive emails from medestudo",
     TEXT_RECEIVE_NOTIFICATIONS_ON_UPDATES:
       "Receive notification on new updates",
@@ -33,12 +36,15 @@ export const TEXT = {
       "you can change password, name and email.",
     TEXT_A_TAG_WILL_BE_USED_TO_LINK_QUESTIONS:
       "A tag will be used to link questions.",
+    TEXT_THE_INSTITUTE_WILL_BE_USED_IN_QUESTIONS:
+      "The institute will be used in questions.",
     TEXT_A_NEW_PROFESSOR_WOULD_MSG:
       "A new professor would be able to add exams and flashcards on platform.",
     TEXT_A_DECK_IS_A_SUBSET_MSG:
       "A Deck is a subset of Flashcards in a Class, similar to chapters in a book",
     TEXT_A_CLASS_IS_A_SET_OF_FLASHCARDS:
       "A Class is a set of Flashcards, grouped into Decks",
+    TEXT_ENTER_EXAM_INFO_TO_CREATE: "Enter exam info to create new exam.",
     TEXT_RECEIVE_EMAILS: "Receive emails from medestudo",
     TEXT_RECEIVE_NOTIFICATIONS_ON_UPDATES:
       "Receive notification on new updates",

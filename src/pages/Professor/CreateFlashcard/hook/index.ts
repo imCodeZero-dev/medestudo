@@ -12,7 +12,7 @@ import { passwordRegex } from "../../../../utils/constants/constants";
 import { useCookies } from "react-cookie";
 import { useQuery } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
-import { closeModal } from "../../../../redux/slices/ModalSlice";
+import { closeModal } from "../../../../redux/slices/CreateClassModalSlice";
 
 import { createFlashcardApi } from "../../../../utils/api/professors";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";

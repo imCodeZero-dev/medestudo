@@ -9,6 +9,7 @@ import {
 import { AdminCookies } from "../../utils/constants/DataTypes";
 import {
   getAllClassesApi,
+  getAllExamsApi,
   getAllFlashcardsByIdApi,
 } from "../../utils/api/professors";
 
@@ -153,6 +154,36 @@ export const useAllDecksQuery = (cookies: any) => {
     allDecksLoading,
     errorAllDecks,
     refetchAllDecks,
+  };
+};
+
+export const useAllExamsQuery = (cookies: any) => {
+  const {
+    data: { data: allExams = [] } = {},
+    // data: { data: { decks: allExams = [] } = {} } = {},
+    isLoading: allExamsLoading,
+    error: errorAllExams,
+    refetch: refetchAllExams,
+  } = useQuery(
+    [
+      "allExams",
+      {
+        cookies,
+      },
+    ],
+    async () => {
+      return getAllExamsApi(cookies?.professor?.token);
+    },
+    {
+      enabled: !!cookies?.professor?.token,
+    }
+  );
+
+  return {
+    allExams,
+    allExamsLoading,
+    errorAllExams,
+    refetchAllExams,
   };
 };
 

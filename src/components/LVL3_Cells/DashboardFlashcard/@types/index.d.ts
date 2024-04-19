@@ -6,10 +6,7 @@ export interface DashboardFlashcardProps {
   play?: boolean;
   minView?: boolean;
   getDetails?: (data: string) => void;
-  handleClickOptions?: (event: React.MouseEvent<HTMLButtonElement>) => void;
-  handleCloseOptions?: () => void;
   openDeleteModal?: (data: string) => void;
-  anchorEl?: any;
 }
 
 interface cardData {

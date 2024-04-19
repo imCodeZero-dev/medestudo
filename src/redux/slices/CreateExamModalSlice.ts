@@ -5,17 +5,17 @@ const initialState = {
 };
 
 const modalSlice = createSlice({
-  name: "modal",
+  name: "createExammodal",
   initialState,
   reducers: {
-    openModal: (state) => {
+    openModal2: (state) => {
       state.isOpen = true;
     },
-    closeModal: (state) => {
+    closeModal2: (state) => {
       state.isOpen = false;
     },
   },
 });
 
-export const { openModal, closeModal } = modalSlice.actions;
+export const { openModal2, closeModal2 } = modalSlice.actions;
 export default modalSlice.reducer;

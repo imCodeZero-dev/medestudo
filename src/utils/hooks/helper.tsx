@@ -1,7 +1,7 @@
 import { Switch, styled } from "@mui/material";
 import { type ClassValue, clsx } from "clsx";
+import { useEffect, useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
-
 
 export const IOSSwitch = styled((props: any) => (
   <Switch
@@ -59,7 +59,35 @@ export const IOSSwitch = styled((props: any) => (
   },
 }));
 
-
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
+
+export const useDropdown = () => {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  const toggleDropdown = () => {
+    console.log("buttonPressed");
+
+    setIsDropdownOpen((prevState) => !prevState);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsDropdownOpen(false); // Close the dropdown menu
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  return { isDropdownOpen, toggleDropdown, dropdownRef };
+};

@@ -33,3 +33,12 @@ export const privacySettings = (localeLabel: any, localeText: any) => [
     label: localeLabel.LABEL_NEW_PAPER_NOTIFICATIONS,
   },
 ];
+
+const currentYear = new Date().getFullYear();
+const years = [];
+
+for (let year = currentYear; year >= 1970; year--) {
+  years.push({ name: year.toString(), _id: year.toString() });
+}
+
+export const totalYears = years;

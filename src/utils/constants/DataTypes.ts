@@ -79,3 +79,8 @@ export interface SubdeckClass {
 export interface DeckIdClass {
   _id: string;
 }
+export interface examForm {
+  title: string;
+  institute: string;
+  year: string;
+}

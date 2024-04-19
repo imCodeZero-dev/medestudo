@@ -18,9 +18,11 @@
   line-height: 24px;
   color: #6f7680;
 }
-
 .form {
   margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
 }
 
 .inputDiv {

@@ -20,7 +20,11 @@ type InputProps<TFieldValues extends FieldValues = FieldValues> = Omit<
     | "inputField-wrap-password"
     | "inputField-wrap"
     | "inputField-account-wrap";
-  preDefinedClassName?: "inputField" | "inputField-date" | "inputField-account" |'lesserHeight';
+  preDefinedClassName?:
+    | "inputField"
+    | "inputField-date"
+    | "inputField-account"
+    | "lesserHeight";
   wrapClassName?: string;
   className?: string;
   label?: string;
@@ -91,7 +95,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
                   </div>
                 )}
               </div>
-              {(errors?.[name]?.message + "" !== "undefined" || customError) &&
+              {/* {(errors?.[name]?.message + "" !== "undefined" || customError) &&
                 (
                   (errors?.[name]?.message != "undefined" &&
                     errors?.[name]?.message + "") ||
@@ -103,7 +107,14 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
                       customError ? customError : `${errors?.[name]?.message}`
                     }
                   />
-                )}
+                )} */}
+              {errors && (
+                <ErrorMessage
+                  errors={
+                    customError ? customError : `${errors?.[name]?.message}`
+                  }
+                />
+              )}
             </div>
           );
         }}

@@ -12,76 +12,161 @@ import { passwordRegex } from "../../../../utils/constants/constants";
 import { useCookies } from "react-cookie";
 import { useQuery } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
-import { closeModal } from "../../../../redux/slices/ModalSlice";
+import { closeModal2 } from "../../../../redux/slices/CreateExamModalSlice";
+import {
+  useAllDecksQuery,
+  useAllExamsQuery,
+} from "../../../../redux/slices/APISlice";
+import {
+  createClassApi,
+  createExamApi,
+  deleteExamApi,
+  editExamApi,
+} from "../../../../utils/api/professors";
+import { examForm } from "../../../../utils/constants/DataTypes";
+import { useNavigate } from "react-router-dom";
+import { examCardData } from "../../../../components/LVL3_Cells/DashboardExams/@types";
 
 export const useProfessorExams = () => {
   // const navigate = useNavigate();
   const { localeSuccess } = useLocale();
-  const [cookies] = useCookies(["admin"]);
+  const [cookies] = useCookies(["professor"]);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const validationSchema = yup.object().shape({
-    email: yup
-      .string()
-      .required("Email is required")
-      .email("Invalid email format"),
-    password: yup
-      .string()
-      .required("Password is required")
-      .matches(passwordRegex, "Invalid password format"),
-    phone: yup.string().required("Phone number is required"),
-    // .matches(/^\d{10}$/, "Invalid phone number format"),
-    name: yup.string().required("Name is required"),
-    confirmPassword: yup
-      .string()
-      .required("Confirm Password is required")
-      .oneOf([yup.ref("password")], "Passwords must match"),
+    title: yup.string().required("title is required"),
   });
   const {
     handleSubmit,
     control,
     formState: { errors },
     watch,
-  } = useForm({
+    reset,
+    setValue,
+  } = useForm<any>({
     resolver: yupResolver(validationSchema),
     defaultValues: {
-      email: "",
-      password: "",
-      phone: "",
-      name: "",
+      title: "",
+      // institute: "",
+      // year: "",
     },
   });
 
-  const [createLoading, setCreateLoading] = useState<boolean>(false);
+  // console.log("watchInst", watchInst);
 
-  const openCreate = useSelector((state: any) => state.modal.isOpen);
+  const { allDecks, allDecksLoading, errorAllDecks, refetchAllDecks } =
+    useAllDecksQuery(cookies);
+
+  const { allExams, allExamsLoading, errorAllExams, refetchAllExams } =
+    useAllExamsQuery(cookies);
+
+  const [createLoading, setCreateLoading] = useState<boolean>(false);
+  const [deleteLoading, setDeleteLoading] = useState<boolean>(false);
+  const [selecteExamId, setSelecteExamId] = useState<null | string>(null);
+  const [deleteModal, setDeleteModal] = useState(false);
+  const [editModal, setEditModal] = useState(false);
+
+  const openCreate = useSelector((state: any) => state.modalCreateExam.isOpen);
 
   const handleCloseCreate = () => {
-    dispatch(closeModal());
+    dispatch(closeModal2());
+  };
+  const handleDeleteClose = () => {
+    setDeleteModal(false);
+  };
+
+  const openDeleteModal = (id: string) => {
+    setSelecteExamId(id);
+    setDeleteModal(true);
+  };
+  const openEditModal = (data: examCardData) => {
+    setSelecteExamId(data?._id);
+    setEditModal(true);
+    setValue("title", data?.title);
+    setValue("institute", data?.institute);
+    setValue("year", data?.year);
+  };
+
+  const handleEditClose = () => {
+    setEditModal(false);
+  };
+
+  const onSubmitEdit = async (data: any) => {
+    console.log("onSubmitEdit", data);
+    const params = {
+      title: data?.title,
+      institute: data?.institute?.label,
+      year: data?.year?.label,
+    };
+    try {
+      setCreateLoading(true);
+      let response;
+      response = await editExamApi(
+        params,
+        selecteExamId as string,
+        cookies?.professor?.token
+      );
+      console.log("response", response);
+      refetchAllExams();
+      reset();
+      showSuccessToast(localeSuccess?.SUCCESS_EXAM_UPDATED);
+    } catch (error: any) {
+      console.log("error", error);
+      showErrorToast(error?.response?.data?.errorMessage);
+    } finally {
+      setCreateLoading(false);
+      handleEditClose();
+    }
   };
 
   const onSubmitCreate = async (data: any) => {
+    console.log("onSubmitCreate", data);
     const params = {
-      status: data?.status === "active" ? "inactive" : "active",
+      title: data?.title,
+      institute: data?.institute?.label,
+      year: data?.year?.label,
     };
-    console.log("params", params);
-    // try {
-    //   setProfessorLoading(true);
-    //   let response;
-    //   response = await changeProfessorStatusApi(
-    //     params,
-    //     data?._id,
-    //     cookies?.admin?.token
-    //   );
-    //   console.log("response", response);
-    //   refetchAllProfessors();
-    //   showSuccessToast(localeSuccess?.SUCCESS_PROFESSOR_STATUS_CHANGED);
-    // } catch (error: any) {
-    //   console.log("error", error);
-    //   showErrorToast(error?.response?.data?.errorMessage);
-    // } finally {
-    //   setProfessorLoading(false);
-    // }
+    try {
+      setCreateLoading(true);
+      let response;
+      response = await createExamApi(params, cookies?.professor?.token);
+      console.log("response", response);
+      refetchAllExams();
+      reset();
+      showSuccessToast(localeSuccess?.SUCCESS_EXAM_CREATED);
+    } catch (error: any) {
+      console.log("error", error);
+      showErrorToast(error?.response?.data?.errorMessage);
+    } finally {
+      setCreateLoading(false);
+      handleCloseCreate();
+    }
+  };
+
+  const onDeleteConfirm = async () => {
+    try {
+      setDeleteLoading(true);
+      let response;
+      response = await deleteExamApi(
+        selecteExamId as string,
+        cookies?.professor?.token
+      );
+      console.log("response", response);
+      refetchAllExams();
+      showSuccessToast(localeSuccess?.SUCCESS_EXAM_DELETED);
+      setSelecteExamId(null);
+    } catch (error: any) {
+      console.log("error", error);
+      showErrorToast(error?.response?.data?.errorMessage);
+    } finally {
+      setDeleteLoading(false);
+      handleDeleteClose();
+    }
+  };
+
+  const getDetails = (data: string) => {
+    navigate(`/professor/classes/deck?${data}`, { state: data });
   };
 
   return {
@@ -95,5 +180,17 @@ export const useProfessorExams = () => {
     onSubmitCreate,
     openCreate,
     createLoading,
+    allDecks,
+    onDeleteConfirm,
+    allExams,
+    deleteLoading,
+    getDetails,
+    openDeleteModal,
+    deleteModal,
+    handleDeleteClose,
+    handleEditClose,
+    openEditModal,
+    editModal,
+    onSubmitEdit,
   };
 };

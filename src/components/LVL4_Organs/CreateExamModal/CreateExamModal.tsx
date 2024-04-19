@@ -1,5 +1,5 @@
-import styles from "./CreateClassModal.module.css";
-import { CreateClassModalProps } from "./types";
+import styles from "./CreateExamModal.module.css";
+import { EditExamModalProps } from "./types";
 import addUserIcon from "../../../assets/Images/dashboard/Featured.png";
 import tagIcon from "../../../assets/Images/dashboard/Tags.png";
 import useLocale from "../../../locales";
@@ -9,9 +9,9 @@ import CustomModal from "../../LVL2_Molecules/CustomModal/CustomModal";
 import Text from "../../LVL1_Atoms/Text/Text";
 import SelectDropDown from "../../LVL2_Molecules/ControlSelect/CountrySelectDropDown";
 import CustomSelect from "../../LVL2_Molecules/ControlSelect/CustomSelect";
-import CountrySelectDropDown from "../../LVL2_Molecules/ControlSelect/CountrySelectDropDown";
+import { totalYears } from "../../../utils/constants/constants";
 
-const CreateClassModal = ({
+const CreateExamModal = ({
   open,
   handleClose,
   handleSubmit,
@@ -19,7 +19,9 @@ const CreateClassModal = ({
   control,
   loading,
   filteredDecks,
-}: CreateClassModalProps) => {
+  errors,
+  watch,
+}: EditExamModalProps) => {
   const {
     localeTitles,
     localeText,
@@ -28,31 +30,42 @@ const CreateClassModal = ({
     localeButtons,
   } = useLocale();
   return (
-    <div className={styles["CreateClassModal"]}>
+    <div className={styles[""]}>
       <CustomModal open={open} onClose={handleClose}>
         <div className={styles["modal-head"]}>
           <Text className={styles["title"]}>
-            {localeTitles?.TITLE_CREATE_CLASS}
+            {localeTitles?.TITLE_CREATE_PAST_EXAM}
           </Text>
           <Text className={styles["basic"]}>
-            {localeText?.TEXT_A_CLASS_IS_A_SET_OF_FLASHCARDS}
+            {localeText?.TEXT_ENTER_EXAM_INFO_TO_CREATE}
           </Text>
         </div>
+
         <form onSubmit={handleSubmit(onSubmit)} className={styles["form"]}>
           <div className={styles["inputDiv"]}>
-            {/* <SelectDropDown
-              items={filteredDecks}
-              name="class"
+            <Input
               control={control}
-              labelKey="name"
-              valueKey="isoCode"
-              label="Location"
-            /> */}
+              name="title"
+              placeholder={localePlaceholders.PLACEHOLDER_ENTER_EXAM_TITLE}
+              preDefinedClassName="lesserHeight"
+              preDefinedWrapClassName="inputField-wrap"
+              type="text"
+            />
+          </div>
+          <div className={styles["inputDiv"]}>
             <CustomSelect
-              placeholder="Select Deck"
-              name="class"
+              placeholder="Select Institute"
+              name="institute"
               control={control}
               options={filteredDecks}
+            />
+          </div>
+          <div className={styles["inputDiv"]}>
+            <CustomSelect
+              name="year"
+              control={control}
+              options={totalYears}
+              placeholder="Select Year"
             />
           </div>
 
@@ -61,12 +74,15 @@ const CreateClassModal = ({
               {localeButtons.BUTTON_CANCEL}
             </Button>
             <Button
+              disabled={
+                !(watch("institute") && watch("year") && watch("title"))
+              }
               type="submit"
               className="primaryActive"
               onClick={handleSubmit(onSubmit)}
               loading={loading}
             >
-              {localeButtons.BUTTON_CONTINUE}
+              {localeButtons.BUTTON_CREATE}
             </Button>
           </div>
         </form>
@@ -75,4 +91,4 @@ const CreateClassModal = ({
   );
 };
 
-export default CreateClassModal;
+export default CreateExamModal;

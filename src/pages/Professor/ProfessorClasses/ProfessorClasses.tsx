@@ -38,22 +38,17 @@ const ProfessorClasses = ({}: ProfessorClassesProps) => {
     openCreate,
     createLoading,
     allDecks,
-    handleSubmitFlashcard,
-    controlFlashcard,
+
     allClasses,
     getDetails,
     viewClass,
-    viewClassDetails,
-    anchorEl,
-    handleClickOptions,
-    handleCloseOptions,
     openDeleteModal,
     deleteLoading,
     deleteModal,
     handleDeleteClose,
     onDeleteConfirm,
   } = useProfessorClasses();
-  console.log("allDecks", allDecks);
+  // console.log("allDecks", allDecks);
   const navigate = useNavigate();
 
   return (
@@ -67,9 +62,6 @@ const ProfessorClasses = ({}: ProfessorClassesProps) => {
                 data={data}
                 // play
                 getDetails={getDetails}
-                handleClickOptions={handleClickOptions}
-                anchorEl={anchorEl}
-                handleCloseOptions={handleCloseOptions}
                 openDeleteModal={openDeleteModal}
               />
             ))}

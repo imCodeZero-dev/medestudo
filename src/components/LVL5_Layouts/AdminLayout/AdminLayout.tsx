@@ -33,6 +33,7 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
     { label: "Questions", route: "/admin/questions" },
     { label: "Decks", route: "/admin/decks" },
     { label: "Tags", route: "/admin/tags" },
+    { label: "Institute", route: "/admin/institute" },
   ];
   const getNavItemClassName = (label: string) => {
     // console.log("label", label);

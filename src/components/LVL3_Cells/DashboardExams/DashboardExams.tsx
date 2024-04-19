@@ -11,13 +11,26 @@ import { FaRegClock } from "react-icons/fa";
 import { FaRegCalendar } from "react-icons/fa";
 
 import { IoIosPlayCircle } from "react-icons/io";
+import { DropdownMenu } from "../DashboardFlashcard/DashboardFlashcard";
+import { useDropdown } from "../../../utils/hooks/helper";
 
-const DashboardExams: React.FC<DashboardExamsProps> = ({ data, play }) => {
+const DashboardExams: React.FC<DashboardExamsProps> = ({
+  data,
+  play,
+  getDetails,
+  openDeleteModal,
+  openEditModal,
+}) => {
   const { localeText } = useLocale();
+  const { isDropdownOpen, toggleDropdown, dropdownRef } = useDropdown();
+  console.log("isDropdownOpen", isDropdownOpen);
 
   return (
     <div className={styles["DashboardExams"]}>
-      <div className={styles["DashboardExams-left"]}>
+      <div
+        className={styles["DashboardExams-left"]}
+        onClick={() => getDetails && getDetails(data?._id)}
+      >
         <div className={styles["icon"]}>
           <MdMenuBook color="#0030DD" size={24} />
         </div>
@@ -39,8 +52,13 @@ const DashboardExams: React.FC<DashboardExamsProps> = ({ data, play }) => {
           </div>
         </div>
       </div>
-      <div className={styles["DashboardExams-right"]}>
-        <BiSolidPencil size={25} color="#2A2D31" className="cursor-pointer" />
+      <div className={styles["DashboardExams-right"]} ref={dropdownRef}>
+        <BiSolidPencil
+          size={25}
+          color="#2A2D31"
+          className="cursor-pointer"
+          onClick={() => openEditModal && openEditModal(data)}
+        />
         {play ? (
           <IoIosPlayCircle
             size={32}
@@ -48,11 +66,17 @@ const DashboardExams: React.FC<DashboardExamsProps> = ({ data, play }) => {
             className="cursor-pointer"
           />
         ) : (
-          <IoEllipsisHorizontal
-            size={25}
-            color="#2A2D31"
-            className="cursor-pointer"
-          />
+          <>
+            <IoEllipsisHorizontal
+              size={25}
+              color="#2A2D31"
+              className="cursor-pointer"
+              onClick={toggleDropdown}
+            />
+            {isDropdownOpen && (
+              <DropdownMenu openDeleteModal={openDeleteModal} data={data} />
+            )}
+          </>
         )}
       </div>
     </div>

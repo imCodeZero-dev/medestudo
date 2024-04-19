@@ -66,6 +66,18 @@ const HomeLayout = ({ children }: HomeLayoutProps) => {
       title: localeLables?.LABEL_EXAMS,
       url: "/professor/exams",
       image: <IoMdClipboard />,
+      submenu: [
+        {
+          title: localeLables?.LABEL_ALL_EXAMS,
+          url: "/professor/exams",
+          image: <MdOutlineViewCarousel />,
+        },
+        {
+          title: localeLables?.LABEL_CREATE_NEW,
+          url: "/professor/exams/new",
+          image: <IoMdAddCircleOutline />,
+        },
+      ],
     },
     {
       title: localeLables?.LABEL_SETTINGS,
