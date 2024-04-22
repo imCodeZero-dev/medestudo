@@ -25,7 +25,7 @@ import { IoSettingsOutline } from "react-icons/io5";
 import Input from "../../LVL1_Atoms/Input";
 import { BiSearch } from "react-icons/bi";
 
-const HomeLayout = ({ children }: HomeLayoutProps) => {
+const HomeLayout = ({ children, createButton }: HomeLayoutProps) => {
   const navigate = useNavigate();
   // const [activeButton, setActiveButton] = useState<string>("");
   const location = useLocation();
@@ -102,7 +102,10 @@ const HomeLayout = ({ children }: HomeLayoutProps) => {
       <LeftSidebar options={options} />
       <div className={styles["HomeLayout-main"]}>
         <div className={styles["HomeLayout-header"]}>
-          <div className={styles["pathName"]}>{getName()}</div>
+          <div className="flex items-center space-x-3">
+            <div className={styles["pathName"]}>{getName()}</div>
+            <div>{createButton && createButton}</div>
+          </div>
           <div className={styles["HomeLayout-header-mid"]}>
             <Input
               control={control}

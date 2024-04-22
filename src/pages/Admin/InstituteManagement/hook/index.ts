@@ -7,18 +7,15 @@ import {
   showSuccessToast,
 } from "../../../../config/toastProvider/toastUtils";
 import {
-  changeTagStatusApi,
-  createProfessorApi,
-  createTagApi,
-  deleteTagApi,
-  editTagApi,
-  getAllTagsApi,
+  changeInstituteStatusApi,
+  createInstituteApi,
+  deleteInstituteApi,
+  editInstituteTitleApi,
 } from "../../../../utils/api/admin";
 import useLocale from "../../../../locales";
-import { passwordRegex } from "../../../../utils/constants/constants";
 import { useCookies } from "react-cookie";
 import { useQuery } from "react-query";
-import { useAllTagsQuery } from "../../../../redux/slices/APISlice";
+import { useAllInstituteQuery } from "../../../../redux/slices/APISlice";
 // import { useLocation, useNavigate } from "react-router-dom";
 
 export const useInstituteManagement = () => {
@@ -39,7 +36,7 @@ export const useInstituteManagement = () => {
     resolver: yupResolver(validationSchema),
     defaultValues: {},
   });
-  const [tagData, setTagData] = useState<any>(null);
+  const [instituteData, setInstituteData] = useState<any>(null);
   const [openCreate, setOpenCreate] = useState<boolean>(false);
   const [deleteModal, setDeleteModal] = useState<boolean>(false);
   const [createLoading, setCreateLoading] = useState<boolean>(false);
@@ -50,57 +47,43 @@ export const useInstituteManagement = () => {
     setOpenCreate(false);
   };
   const handleDeleteModalOpen = (data: any) => {
-    setTagData(data);
+    setInstituteData(data);
     setDeleteModal(true);
   };
   const handleDeleteModalClose = () => {
     setDeleteModal(false);
   };
 
-  const [editTagModal, setEditTagModal] = useState<boolean>(false);
-  const handleEditTag = (data: any) => {
-    setTagData(data);
+  const [editInstituteModal, setEditInstituteModal] = useState<boolean>(false);
+  const handleEditInstitute = (data: any) => {
+    setInstituteData(data);
     setValue("title", data?.title);
-    setEditTagModal(true);
+    setEditInstituteModal(true);
   };
   const handleCloseEdit = () => {
-    setEditTagModal(false);
+    setEditInstituteModal(false);
   };
 
-  // const {
-  //   data: { data: { tags: allTags = [] } = {} } = {},
-  //   isLoading: allTagsLoading,
-  //   error: errorAllTags,
-  //   refetch: refetchAllTags,
-  // } = useQuery(
-  //   [
-  //     "allTags",
-  //     {
-  //       cookies,
-  //     },
-  //   ],
-
-  //   async () => {
-  //     return getAllTagsApi(cookies?.admin?.token);
-  //   },
-  //   {
-  //     enabled: !!cookies?.admin?.token,
-  //   }
-  // );
-
-  const { allTags, refetchAllTags, allTagsLoading, errorAllTags } =
-    useAllTagsQuery(cookies);
+  const {
+    allInstitute,
+    allInstituteLoading,
+    errorAllInstitute,
+    refetchAllInstitute,
+  } = useAllInstituteQuery(cookies);
   // console.log("cookies", cookies);
-  // console.log("allTags", allTags);
+  // console.log("allInstitute", allInstitute);
 
   const onDeleteConfirm = async () => {
     try {
       setCreateLoading(true);
       let response;
-      response = await deleteTagApi(tagData?._id, cookies?.admin?.token);
+      response = await deleteInstituteApi(
+        instituteData?._id,
+        cookies?.admin?.token
+      );
       console.log("response", response);
-      refetchAllTags();
-      showSuccessToast(localeSuccess?.SUCCESS_TAG_DELETED);
+      refetchAllInstitute();
+      showSuccessToast(localeSuccess?.SUCCESS_INSTITUTE_DELETED);
     } catch (error: any) {
       console.log("error", error);
       showErrorToast(error?.response?.data?.errorMessage);
@@ -114,10 +97,10 @@ export const useInstituteManagement = () => {
     try {
       setCreateLoading(true);
       let response;
-      response = await createTagApi(data, cookies?.admin?.token);
+      response = await createInstituteApi(data, cookies?.admin?.token);
       console.log("response", response);
-      refetchAllTags();
-      showSuccessToast(localeSuccess?.SUCCESS_TAG_CREATED);
+      refetchAllInstitute();
+      showSuccessToast(localeSuccess?.SUCCESS_INSTITUTE_CREATED);
     } catch (error: any) {
       console.log("error", error);
       showErrorToast(error?.response?.data?.errorMessage);
@@ -131,10 +114,14 @@ export const useInstituteManagement = () => {
     try {
       setCreateLoading(true);
       let response;
-      response = await editTagApi(data, tagData?._id, cookies?.admin?.token);
+      response = await editInstituteTitleApi(
+        data,
+        instituteData?._id,
+        cookies?.admin?.token
+      );
       console.log("response", response);
-      refetchAllTags();
-      showSuccessToast(localeSuccess?.SUCCESS_TAG_UPDATED);
+      refetchAllInstitute();
+      showSuccessToast(localeSuccess?.SUCCESS_INSTITUTE_UPDATED);
     } catch (error: any) {
       console.log("error", error);
       showErrorToast(error?.response?.data?.errorMessage);
@@ -144,7 +131,7 @@ export const useInstituteManagement = () => {
     }
   };
 
-  const onChangeTagStatus = async (data: any) => {
+  const onChangeInstituteStatus = async (data: any) => {
     const params = {
       status: data?.status === "active" ? "inactive" : "active",
     };
@@ -152,14 +139,14 @@ export const useInstituteManagement = () => {
     try {
       setCreateLoading(true);
       let response;
-      response = await changeTagStatusApi(
+      response = await changeInstituteStatusApi(
         params,
         data?._id,
         cookies?.admin?.token
       );
       console.log("response", response);
-      refetchAllTags();
-      showSuccessToast(localeSuccess?.SUCCESS_TAG_STATUS_CHANGED);
+      refetchAllInstitute();
+      showSuccessToast(localeSuccess?.SUCCESS_INSTITUTE_STATUS_CHANGED);
     } catch (error: any) {
       console.log("error", error);
       showErrorToast(error?.response?.data?.errorMessage);
@@ -178,16 +165,16 @@ export const useInstituteManagement = () => {
     handleOpenCreate,
     onSubmitEdit,
     handleCloseEdit,
-    handleEditTag,
-    editTagModal,
-    allTags,
+    handleEditInstitute,
+    editInstituteModal,
+    allInstitute,
     createLoading,
-    onChangeTagStatus,
+    onChangeInstituteStatus,
     deleteModal,
     handleDeleteModalOpen,
     handleDeleteModalClose,
     onDeleteConfirm,
     watch,
-    allTagsLoading,
+    allInstituteLoading,
   };
 };

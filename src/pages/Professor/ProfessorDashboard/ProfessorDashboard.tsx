@@ -71,6 +71,61 @@ export const dummyExams = [
   },
 ];
 
+export const dummyQuestions = [
+  {
+    title: "Surgery Past Exam",
+    _id: "123",
+  },
+  {
+    title: "Surgery Past Exam",
+    _id: "123",
+  },
+  {
+    title: "Surgery Past Exam",
+    _id: "123",
+  },
+  {
+    title: "Surgery Past Exam",
+    _id: "123",
+  },
+  {
+    title: "Surgery Past Exam",
+    _id: "123",
+  },
+  {
+    title: "Surgery Past Exam",
+    _id: "123",
+  },
+  {
+    title: "Surgery Past Exam",
+    _id: "123",
+  },
+  {
+    title: "Surgery Past Exam",
+    _id: "123",
+  },
+  {
+    title: "Surgery Past Exam",
+    _id: "123",
+  },
+  {
+    title: "Surgery Past Exam",
+    _id: "123",
+  },
+  {
+    title: "Surgery Past Exam",
+    _id: "123",
+  },
+  {
+    title: "Surgery Past Exam",
+    _id: "123",
+  },
+  {
+    title: "Surgery Past Exam",
+    _id: "123",
+  },
+];
+
 const ProfessorDashboard = ({}: ProfessorDashboardProps) => {
   const { localeTitles, localeButtons, localeLables } = useLocale();
   const [cookies] = useCookies(["admin"]);

@@ -26,24 +26,25 @@ const InstituteManagement = ({}: InstituteManagementProps) => {
   // const [cookies] = useCookies(["admin"]);
   const {
     control,
-    handleCloseCreate,
+    errors,
     handleSubmit,
+    handleCloseCreate,
     onSubmitCreate,
     openCreate,
     handleOpenCreate,
     onSubmitEdit,
     handleCloseEdit,
-    handleEditTag,
-    editTagModal,
-    allTags,
+    handleEditInstitute,
+    editInstituteModal,
+    allInstitute,
     createLoading,
-    onChangeTagStatus,
+    onChangeInstituteStatus,
     deleteModal,
     handleDeleteModalOpen,
     handleDeleteModalClose,
     onDeleteConfirm,
     watch,
-    allTagsLoading,
+    allInstituteLoading,
   } = useInstituteManagement();
   // console.log("cookies", cookies);
 
@@ -74,18 +75,18 @@ const InstituteManagement = ({}: InstituteManagementProps) => {
 
         <div className={styles["InstituteManagement-section"]}>
           <CustomTable
-            loading={allTagsLoading}
+            loading={allInstituteLoading}
             headers={headers}
-            data={Array.isArray(allTags) ? allTags : []}
+            data={Array.isArray(allInstitute) ? allInstitute : []}
             control={control}
             rowsPerPage={10}
             showPagination={true}
             showDeleteIcon={true}
             showEditIcon={true}
-            handleEdit={handleEditTag}
+            handleEdit={handleEditInstitute}
             title={localeTitles?.TITLE_INSTITUTES}
             showHeader
-            handleStatusToggle={onChangeTagStatus}
+            handleStatusToggle={onChangeInstituteStatus}
             handleDelete={handleDeleteModalOpen}
             watch={watch}
           />
@@ -105,7 +106,7 @@ const InstituteManagement = ({}: InstituteManagementProps) => {
           handleClose={handleCloseEdit}
           handleSubmit={handleSubmit}
           onSubmit={onSubmitEdit}
-          open={editTagModal}
+          open={editInstituteModal}
           loading={createLoading}
         />
 

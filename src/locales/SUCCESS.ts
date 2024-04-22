@@ -24,6 +24,11 @@ export const SUCCESS = {
     SUCCESS_ADMIN_LOGIN: "Admin Login Successfully",
     SUCCESS_ADMIN_UPDATED: "Admin Updated Successfully",
     SUCCESS_PASSWORD_RESET: "Password reset Successfully",
+
+    SUCCESS_INSTITUTE_CREATED: "Institute Created Successfully",
+    SUCCESS_INSTITUTE_UPDATED: "Institute Updated Successfully",
+    SUCCESS_INSTITUTE_DELETED: "Institute Deleted Successfully",
+    SUCCESS_INSTITUTE_STATUS_CHANGED: "Institute Status Changed Successfully",
   },
   es: {
     SUCCESS_PROFESSOR_CREATED: "Professor Created Successfully",
@@ -51,5 +56,10 @@ export const SUCCESS = {
     SUCCESS_ADMIN_LOGIN: "Admin Login Successfully",
     SUCCESS_ADMIN_UPDATED: "Admin Updated Successfully",
     SUCCESS_PASSWORD_RESET: "Password reset Successfully",
+
+    SUCCESS_INSTITUTE_CREATED: "Institute Created Successfully",
+    SUCCESS_INSTITUTE_UPDATED: "Institute Updated Successfully",
+    SUCCESS_INSTITUTE_DELETED: "Institute Deleted Successfully",
+    SUCCESS_INSTITUTE_STATUS_CHANGED: "Institute Status Changed Successfully",
   },
 };

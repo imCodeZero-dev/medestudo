@@ -1,6 +1,8 @@
 .ProfessorExams {
   display: flex;
   max-height: 88vh;
+  min-height: 88vh;
+
   overflow-y: auto;
 }
 .ProfessorExams-main {
@@ -15,12 +17,9 @@
   flex: 1;
 }
 
-
-
 .ProfessorExams-section {
   margin: 20px 0;
 }
-
 
 .sectionHeading {
   /* font-family: Inter; */
@@ -30,8 +29,6 @@
   letter-spacing: 0em;
   text-align: left;
 }
-
-
 
 .viewMore {
   font-family: Poppins;
@@ -47,4 +44,29 @@
 
 .right-section-main {
   padding: 24px;
+}
+
+.headerText {
+  font-family: Poppins;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  text-align: left;
+  color: #1d1f22;
+}
+
+.ProfessorExams-main-head {
+  margin-top: 16px;
+  border-bottom: 1.5px solid #e8e9ec;
+  padding-bottom: 20px;
+  margin-bottom: 24px;
+}
+
+.label {
+  font-family: Poppins;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  text-align: left;
+  color: #1d1f22;
 }

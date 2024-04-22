@@ -166,7 +166,8 @@ export const useProfessorExams = () => {
   };
 
   const getDetails = (data: string) => {
-    navigate(`/professor/classes/deck?${data}`, { state: data });
+    console.log("getDetails", data);
+    navigate(`/professor/exams/exam?${data}`, { state: data });
   };
 
   return {

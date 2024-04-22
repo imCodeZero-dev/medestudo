@@ -242,3 +242,63 @@ export const updateDeckByIdApi = async (
   });
   return response;
 };
+
+export const createInstituteApi = async (data: any, token: string) => {
+  const response = await apiRequest({
+    method: "Post",
+    url: `/admin/createInstitute`,
+    data,
+    token,
+  });
+  return response;
+};
+
+export const getAllInstituteApi = async (token: string) => {
+  // console.log("getAllProfessorApi", token);
+  const response = await apiRequest({
+    method: "Get",
+    url: `/admin/getAllInstitutes`,
+    token,
+  });
+  return response;
+};
+
+export const editInstituteTitleApi = async (
+  data: any,
+  instituteId: string,
+  token: string
+) => {
+  const response = await apiRequest({
+    method: "Patch",
+    url: `/admin/editInstitute/${instituteId}`,
+    data,
+    token,
+  });
+  return response;
+};
+
+export const deleteInstituteApi = async (
+  instituteId: string,
+  token: string
+) => {
+  const response = await apiRequest({
+    method: "Delete",
+    url: `/admin/deleteInstitute/${instituteId}`,
+    token,
+  });
+  return response;
+};
+
+export const changeInstituteStatusApi = async (
+  data: any,
+  instituteId: string,
+  token: string
+) => {
+  const response = await apiRequest({
+    method: "Patch",
+    url: `/admin/statusInstitute/${instituteId}`,
+    data,
+    token,
+  });
+  return response;
+};

@@ -29,6 +29,22 @@
   font-weight: 500;
   line-height: 21px;
 }
+.primaryActive-lessHeight {
+  /* width: 100%; */
+  height: 42px;
+  border-radius: 8px;
+  background: #0030dd;
+  color: white;
+  font-weight: 400;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Poppins;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 21px;
+}
+
 .yellowButton {
   width: 100%;
   height: 64px;
@@ -40,6 +56,31 @@
   justify-content: center;
   align-items: center;
 }
+
+.yellowButton-lessHeight {
+  /* width: 100%; */
+  height: 42px;
+  border-radius: 8px;
+  background: #ff900e;
+  color: white;
+  font-weight: 400;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.orangeButton {
+  /* width: 100%; */
+  height: 42px;
+  border-radius: 8px;
+  background: #cc5200;
+  color: white;
+  font-weight: 400;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .roundedYellow {
   width: 100%;
   height: 33px;

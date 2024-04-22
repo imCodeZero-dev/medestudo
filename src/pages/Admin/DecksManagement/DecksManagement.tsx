@@ -140,6 +140,7 @@ const DecksManagement = ({}: DecksManagementProps) => {
                     control={control}
                     name={deck?.name}
                     defaultValue={deck?.name}
+                    readOnly
                   />
 
                   <div
@@ -155,6 +156,7 @@ const DecksManagement = ({}: DecksManagementProps) => {
                           control={control}
                           name={subDeck?.name}
                           defaultValue={subDeck?.name}
+                          readOnly
                         />
 
                         {subDeck?.subDeck?.map(
@@ -167,6 +169,7 @@ const DecksManagement = ({}: DecksManagementProps) => {
                                 control={control}
                                 name={nestedDeck?.name}
                                 defaultValue={nestedDeck?.name}
+                                readOnly
                               />
 
                               {nestedDeck.subDeck?.map(
@@ -184,6 +187,7 @@ const DecksManagement = ({}: DecksManagementProps) => {
                                       control={control}
                                       name={deepNestedDeck?.name}
                                       defaultValue={deepNestedDeck?.name}
+                                      readOnly
                                     />
                                   </div>
                                 )

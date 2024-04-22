@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import ReactQuill, { Quill } from "react-quill";
-import "react-quill/dist/quill.snow.css"; 
+import "react-quill/dist/quill.snow.css";
 import { Controller, Control } from "react-hook-form";
 import styles from "./QuillEditor.module.css";
 import { QuillEditorProps } from "./@types";
@@ -38,7 +38,7 @@ const NoToolbar = {
   toolbar: false,
 };
 
-const RichTextEditor: React.FC<QuillEditorProps> = ({
+const QuillEditor: React.FC<QuillEditorProps> = ({
   name,
   control,
   placeholder,
@@ -73,7 +73,7 @@ const RichTextEditor: React.FC<QuillEditorProps> = ({
   );
 };
 
-export default RichTextEditor;
+export default QuillEditor;
 
 // import React, { useState } from "react";
 // import ReactQuill, { Quill } from "react-quill";

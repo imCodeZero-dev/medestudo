@@ -1,4 +1,4 @@
-.DashboardExams {
+.QuestionBar {
   display: flex;
   width: 100%;
   border-radius: 8px;
@@ -6,22 +6,23 @@
   justify-content: space-between;
   align-items: center;
   padding: 16px;
-  margin: 12px 0;
+  margin: 8px 0;
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+  height: 68px;
 }
 
-.DashboardExams-left {
+.QuestionBar-left {
   display: flex;
+
   align-items: center;
   flex: 1;
-  cursor: pointer;
 }
 
-.DashboardExams-left-main {
+.QuestionBar-left-main {
   display: flex;
   flex-direction: column;
 }
-.DashboardExams-right {
+.QuestionBar-right {
   display: flex;
   column-gap: 16px;
   align-items: center;
@@ -30,38 +31,30 @@
 
 .title {
   font-family: Poppins;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 21px;
-  /* text-align: left; */
-}
-
-.detailText {
-  font-family: Poppins;
-  font-size: 11px;
-  font-weight: 400;
-  line-height: 16.5px;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  text-align: left;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 200px;
 }
 
 .icon {
-  width: 48px;
-  height: 48px;
+  width: 44px;
+  height: 44px;
   gap: 0px;
   border-radius: 8px;
   margin-right: 16px;
-  background: #f3f4f5;
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.details {
-  display: flex;
-  column-gap: 6px;
-}
-
-.details-section {
-  display: flex;
-  align-items: center;
-  column-gap: 4px;
+  background-color: #ffa63e;
+  color: white;
+  font-family: Poppins;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  text-align: left;
 }

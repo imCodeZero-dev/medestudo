@@ -249,7 +249,7 @@ const AdminProfile = ({}: AdminProfileProps) => {
                 type="submit"
                 loading={resetLoading}
               >
-                {localeButtons?.BUTTON_FORGOT_PASSWORD}
+                {localeButtons?.BUTTON_RESET_PASSWORD}
               </Button>
             </div>
           </form>

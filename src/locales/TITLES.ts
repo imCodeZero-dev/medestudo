@@ -59,6 +59,10 @@ export const TITLES = {
     TITLE_PASSWORD: "Password",
     TITLE_EMAIL: "Email",
     TITLE_PRIVACY: "Privacy",
+    TITLE_ENTER_ANS_AND_SELECT_THE_RIGHT_ANS:
+      "Enter Answers & Select the right answer",
+    TITLE_SOLUTION_FOR_THE_QUESTION: "Enter Answers & Select the right answer",
+    TITLE_FILTERED_EXAMS_ARE_LISTED_BELOW: "Filtered exams are listed below",
   },
   es: {
     TITLE_TEST: "Este es el título de la prueba",
@@ -120,5 +124,9 @@ export const TITLES = {
     TITLE_PASSWORD: "Password",
     TITLE_EMAIL: "Email",
     TITLE_PRIVACY: "Privacy",
+    TITLE_ENTER_ANS_AND_SELECT_THE_RIGHT_ANS:
+      "Enter Answers & Select the right answer",
+    TITLE_SOLUTION_FOR_THE_QUESTION: "Solution for the question",
+    TITLE_FILTERED_EXAMS_ARE_LISTED_BELOW: "Filtered exams are listed below",
   },
 };

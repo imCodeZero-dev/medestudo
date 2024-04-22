@@ -7,6 +7,9 @@ import { useNavigate } from "react-router-dom";
 import { RxAvatar } from "react-icons/rx";
 import useLocale from "../../../locales";
 import { useCookies } from "react-cookie";
+import SettingIcon from "../../../assets/svgs/SettingIcon";
+import { CiLogout } from "react-icons/ci";
+import Text from "../../LVL1_Atoms/Text/Text";
 
 const UserDropdown: React.FC<UserDropdownProps> = ({ handleOpenLogout }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -34,8 +37,16 @@ const UserDropdown: React.FC<UserDropdownProps> = ({ handleOpenLogout }) => {
   };
 
   const menuButtons = [
-    { label: localeDropdowns?.DROPDOWN_PROFILE, route: "/admin/profile" },
-    { label: localeDropdowns?.DROPDOWN_LOGOUT, route: "/logout" },
+    {
+      label: localeDropdowns?.DROPDOWN_PROFILE,
+      route: "/admin/profile",
+      icon: <SettingIcon />,
+    },
+    {
+      label: localeDropdowns?.DROPDOWN_LOGOUT,
+      route: "/logout",
+      icon: <CiLogout size={20} />,
+    },
   ];
 
   return (
@@ -54,8 +65,13 @@ const UserDropdown: React.FC<UserDropdownProps> = ({ handleOpenLogout }) => {
 
       <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
         {menuButtons.map((button, i) => (
-          <MenuItem key={i} onClick={() => navigation(button.route)}>
-            {button?.label}
+          <MenuItem
+            key={i}
+            onClick={() => navigation(button.route)}
+            className="flex space-x-3"
+          >
+            {button?.icon}
+            <Text className={styles.label}>{button?.label}</Text>
           </MenuItem>
         ))}
       </Menu>

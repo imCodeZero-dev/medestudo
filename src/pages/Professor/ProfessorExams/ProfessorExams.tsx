@@ -26,9 +26,16 @@ import { examCardData } from "../../../components/LVL3_Cells/DashboardExams/@typ
 import ConfirmationModal from "../../../components/LVL4_Organs/ConfirmationModal";
 import AlertIcon from "../../../assets/svgs/AlertIcon";
 import EditExamModal from "../../../components/LVL4_Organs/CreateExamModal/EditExamModal";
+import Input from "../../../components/LVL1_Atoms/Input";
+import { BiSearch } from "react-icons/bi";
+import CustomSelect from "../../../components/LVL2_Molecules/ControlSelect/CustomSelect";
+import { totalYears } from "../../../utils/constants/constants";
+import { useDispatch } from "react-redux";
+import { openCreateModalExam } from "../../../redux/actions/modalActions";
 
 const ProfessorExams = ({}: ProfessorExamsProps) => {
-  const { localeTitles, localeButtons, localeLables } = useLocale();
+  const { localeTitles, localeButtons, localeLables, localePlaceholders } =
+    useLocale();
   const [cookies] = useCookies(["admin"]);
   const [createFlashcard, setCreateFlashcard] = useState<boolean>(true);
 
@@ -55,21 +62,51 @@ const ProfessorExams = ({}: ProfessorExamsProps) => {
     onSubmitEdit,
   } = useProfessorExams();
   console.log("cookies", cookies);
+  const dispatch = useDispatch();
+
   const navigate = useNavigate();
+  const handleCreateExamModal = () => {
+    dispatch(openCreateModalExam() as any);
+  };
 
   return (
-    <HomeLayout>
+    <HomeLayout
+      createButton={
+        <Button
+          className="primaryActive-lessHeight"
+          onClick={handleCreateExamModal}
+        >
+          + {localeButtons.BUTTON_CREATE_NEW}
+        </Button>
+      }
+    >
       <div className={styles["ProfessorExams"]}>
-        {/* {createFlashcard ? (
-          <CreateQuestions
-            setCreateFlashcard={setCreateFlashcard}
-            control={control}
-            handleSubmit={handleSubmit}
-            loading={false}
-            onSubmit={onSubmitCreate}
-          />
-        ) : ( */}
         <div className={styles["ProfessorExams-main"]}>
+          <div className={styles["ProfessorExams-main-head"]}>
+            <Text className={styles["headerText"]}>
+              {localeTitles?.TITLE_FILTERED_EXAMS_ARE_LISTED_BELOW}
+            </Text>
+
+            <div className="flex justify-between items-center mt-6">
+              <div className={styles["HomeLayout-header-mid"]}>
+                <Input
+                  control={control}
+                  name="name"
+                  prefix={<BiSearch size={24} />}
+                  placeholder={localePlaceholders.PLACEHOLDER_SEARCH_TAGS}
+                  preDefinedClassName="lesserHeight"
+                  preDefinedWrapClassName="inputField-wrap"
+                  type="text"
+                />
+              </div>
+
+              <div>
+                <Button className="orangeButton">
+                  {localeButtons?.BUTTON_CLEAR_FILTERS}
+                </Button>
+              </div>
+            </div>
+          </div>
           {allExams?.map((data: examCardData, i: number) => (
             <DashboardExams
               key={i}
@@ -83,21 +120,26 @@ const ProfessorExams = ({}: ProfessorExamsProps) => {
         {/* )} */}
         <div className={styles["ProfessorExams-right"]}>
           <div className={styles["right-section-main"]}>
-            <div className="flex justify-between items-center">
-              <Text className={styles["sectionHeading"]}>
-                {localeTitles?.TITLE_RECENT_FLASHCARDS_CREATED}
-              </Text>
-              <Text
-                className={styles["viewMore"]}
-                onClick={() => navigate("/professor/classes")}
-              >
-                {localeTitles?.TITLE_VIEW_MORE}
-              </Text>
+            <div className="flex flex-col justify-between space-y-3">
+              <Text className={styles.label}> {localeLables.LABEL_YEAR}</Text>
+              <CustomSelect
+                name="year"
+                control={control}
+                options={totalYears}
+                placeholder="Select Year"
+              />
             </div>
-
-            {dummyFlashCards?.slice(0, 8)?.map((data, i) => (
-              <DashboardFlashcard key={i} data={data} play minView />
-            ))}
+            <div className="flex flex-col justify-between  space-y-3 mt-6">
+              <Text className={styles.label}>
+                {localeLables.LABEL_INSTITUTE}
+              </Text>
+              <CustomSelect
+                name="year"
+                control={control}
+                options={totalYears}
+                placeholder="Select Year"
+              />
+            </div>
           </div>
         </div>
 

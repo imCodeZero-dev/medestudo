@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { useQuery } from "react-query";
 import {
   getAllDecksApi,
+  getAllInstituteApi,
   getAllProfessorApi,
   getAllStudentsApi,
   getAllTagsApi,
@@ -214,5 +215,34 @@ export const useAllFlashcardsQuery = (cookies: any, deckId: string) => {
     allFlashcardsLoading,
     errorallFlashcards,
     refetchallFlashcards,
+  };
+};
+
+export const useAllInstituteQuery = (cookies: any) => {
+  const {
+    data: { data: { tags: allInstitute = [] } = {} } = {},
+    isLoading: allInstituteLoading,
+    error: errorAllInstitute,
+    refetch: refetchAllInstitute,
+  } = useQuery(
+    [
+      "allInstitute",
+      {
+        cookies,
+      },
+    ],
+    async () => {
+      return getAllInstituteApi(cookies?.admin?.token);
+    },
+    {
+      // enabled: !!cookies?.admin?.token,
+    }
+  );
+
+  return {
+    allInstitute,
+    allInstituteLoading,
+    errorAllInstitute,
+    refetchAllInstitute,
   };
 };

@@ -57,6 +57,12 @@ const CreateFlashcardServices = React.lazy(
 const AllFlashCardsServices = React.lazy(
   () => import("../pages/Professor/AllFlashCards/AllFlashCards")
 );
+const ExamsDetailsServices = React.lazy(
+  () => import("../pages/Professor/ExamsDetails/ExamsDetails")
+);
+const CreateExamQuestionServices = React.lazy(
+  () => import("../pages/Professor/CreateQuestion/CreateExamQuestion")
+);
 const App = React.lazy(() => import("../App"));
 
 const ProjectRoutes = () => {
@@ -139,6 +145,14 @@ const ProjectRoutes = () => {
             <Route
               path="/professor/exams"
               element={<ProfessorExamsServices />}
+            />
+            <Route
+              path="/professor/exams/exam"
+              element={<ExamsDetailsServices />}
+            />
+            <Route
+              path="/professor/exams/exam/question"
+              element={<CreateExamQuestionServices />}
             />
 
             <Route path="*" element={<NotFound />} />
