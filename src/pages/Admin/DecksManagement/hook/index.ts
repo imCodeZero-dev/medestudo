@@ -81,6 +81,16 @@ export const useDecksManagement = () => {
                   `deck[0].subDeck[${index}].subDeck[${nestedIndex}].subDeck[${deepNestedIndex}].name`,
                   deepNestedSubDeck.name
                 );
+                if (deepNestedSubDeck.subDeck) {
+                  deepNestedSubDeck.subDeck.forEach(
+                    (lastDeck: any, lastDeckIndex: number) => {
+                      setValue(
+                        `deck[0].subDeck[${index}].subDeck[${nestedIndex}].subDeck[${deepNestedIndex}].subDeck[${lastDeckIndex}].name`,
+                        lastDeck.name
+                      );
+                    }
+                  );
+                }
               }
             );
           }
