@@ -3,6 +3,7 @@ export const TEXT = {
     TEXT_ENTER_DETAILS: "Enter Details to continue using your account",
     TEXT_FORGOT_PASSWORD: "Forgot Password?",
     TEXT_CREATED_BY: "Created by",
+    TEXT_UPLOAD_IMAGE: "Upload Image",
     TEXT_CARDS: "Cards",
     TEXT_EST_TIME: "Est time",
     TEXT_UPDATE_TODAY: "Update today",
@@ -24,11 +25,21 @@ export const TEXT = {
       "Receive notification on new updates",
     TEXT_RECEIVE_NOTIFICATIONS_ON_PAPER:
       "Receive notification on listing new paper",
+    TEXT_ENTER_YOUR_EMAIL_FORGOT:
+      "Enter your email below where you will receive code for password reset.",
+    TEXT_ENTER_CODE_YOU_RECEIVED: "Enter code you received",
+    TEXT_PLEASE_CREATE_YOUR_NEW_PASSWORD:
+      "Please create your new password to continue.",
+    TEXT_YOU_HAVE_SET_A_NEW_PASSWORD:
+      "You have set a new password for your account Click on login to continue.",
+    TEXT_THE_CODE_YOU_ENTERED_IS_INVALID: "The code you entered is invalid.",
+    TEXT_RESEND_CODE: "Resend Code",
   },
   es: {
     TEXT_ENTER_DETAILS: "Enter Details to continue using your account",
     TEXT_FORGOT_PASSWORD: "Forgot Password?",
     TEXT_CREATED_BY: "Created by",
+    TEXT_UPLOAD_IMAGE: "Upload Image",
     TEXT_CARDS: "Cards",
     TEXT_EST_TIME: "Est time",
     TEXT_UPDATE_TODAY: "Update today",
@@ -50,5 +61,14 @@ export const TEXT = {
       "Receive notification on new updates",
     TEXT_RECEIVE_NOTIFICATIONS_ON_PAPER:
       "Receive notification on listing new paper",
+    TEXT_ENTER_YOUR_EMAIL_FORGOT:
+      "Enter your email below where you will receive code for password reset.",
+    TEXT_ENTER_CODE_YOU_RECEIVED: "Enter code you received",
+    TEXT_PLEASE_CREATE_YOUR_NEW_PASSWORD:
+      "Please create your new password to continue.",
+    TEXT_YOU_HAVE_SET_A_NEW_PASSWORD:
+      "You have set a new password for your account Click on login to continue.",
+    TEXT_THE_CODE_YOU_ENTERED_IS_INVALID: "The code you entered is invalid.",
+    TEXT_RESEND_CODE: "Resend Code",
   },
 };

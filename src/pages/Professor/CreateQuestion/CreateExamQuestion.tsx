@@ -4,30 +4,16 @@ import Text from "../../../components/LVL1_Atoms/Text/Text";
 import useLocale from "../../../locales";
 import { Button } from "../../../components/LVL1_Atoms/Button";
 import { useCookies } from "react-cookie";
-
 import { useCreateExamQuestion } from "./hook";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ProfessorRoutes } from "../../../Routes/protectedRoutes/ProfessorRoutes";
-
-import { useState } from "react";
-
+import { useEffect, useState } from "react";
 import HomeLayout from "../../../components/LVL5_Layouts/HomeLayout/HomeLayout";
-
-import ConfirmationModal from "../../../components/LVL4_Organs/ConfirmationModal";
-import AlertIcon from "../../../assets/svgs/AlertIcon";
-import { Class, DecksWithCardCount } from "../../../utils/constants/DataTypes";
 import Loader from "../../../components/LVL1_Atoms/Loader";
-import DashboardExams from "../../../components/LVL3_Cells/DashboardExams/DashboardExams";
-import { dummyQuestions } from "../ProfessorDashboard/ProfessorDashboard";
-import QuestionBar from "../../../components/LVL3_Cells/QuestionBar/QuestionBar";
-import { BsBuildings } from "react-icons/bs";
-import { FaRegCalendar, FaRegClock } from "react-icons/fa6";
-import { GoQuestion } from "react-icons/go";
-import { BiSolidPencil } from "react-icons/bi";
-import EditExamModal from "../../../components/LVL4_Organs/CreateExamModal/EditExamModal";
-import { totalYears } from "../../../utils/constants/constants";
 import TagInput from "../../../components/LVL1_Atoms/Input/TagInput";
 import QuillEditor from "../../../components/LVL3_Cells/QuillEditor/QuillEditor";
+import { Controller } from "react-hook-form";
+import ImageDropzone from "../../../components/LVL2_Molecules/ImageUploader/ImageDropzone";
 
 const CreateExamQuestion = ({}: CreateExamQuestionProps) => {
   const { localeTitles, localeButtons, localeLables } = useLocale();
@@ -41,34 +27,32 @@ const CreateExamQuestion = ({}: CreateExamQuestionProps) => {
     watch,
     onSubmitCreate,
     setValue,
-    openDeleteModal,
-    deleteModal,
-    handleDeleteClose,
-    onDeleteConfirm,
-    deleteLoading,
     getDetails,
     examsDetailsLoading,
     examsDetails,
     openDeleteExamModal,
-    handleDeleteExamClose,
-    onExamDeleteConfirm,
-    deleteExamModal,
-    editModal,
-    openEditModal,
-    handleEditClose,
-    onSubmitEditExam,
-    editExamLoading,
     errors,
     allTags,
   } = useCreateExamQuestion();
   // console.log("allDecks", allDecks);
   const navigate = useNavigate();
   const { localeText, localePlaceholders } = useLocale();
-
+  const [answers, setAnswers] = useState([
+    { isCorrect: true, text: "", reason: "", image: null },
+    { isCorrect: false, text: "", reason: "", image: null },
+    { isCorrect: false, text: "", reason: "", image: null },
+    { isCorrect: false, text: "", reason: "", image: null },
+    { isCorrect: false, text: "", reason: "", image: null },
+  ]);
   const examDetails = location?.state;
 
-  console.log("examDetails", examDetails);
-
+  const handleIsCorrectChange = (index: number) => {
+    answers.forEach((answer, i) => {
+      if (i !== index) {
+        setValue(`answers[${i}].isCorrect`, false);
+      }
+    });
+  };
   return (
     <HomeLayout>
       <div className={styles["CreateExamQuestion"]}>
@@ -78,7 +62,10 @@ const CreateExamQuestion = ({}: CreateExamQuestionProps) => {
               <Loader />
             </div>
           ) : (
-            <>
+            <form
+              onSubmit={handleSubmit(onSubmitCreate)}
+              className={styles["form"]}
+            >
               <div className={styles["CreateExamQuestion-main-inner"]}>
                 <div className={styles["main-inner-left"]}>
                   <div className={"flex space-x-2 items-center mb-2"}>
@@ -92,7 +79,7 @@ const CreateExamQuestion = ({}: CreateExamQuestionProps) => {
                   >
                     {localeButtons?.BUTTON_DELETE}
                   </Button>
-                  <Button className="primaryActive-lessHeight">
+                  <Button className="primaryActive-lessHeight" type="submit">
                     {localeButtons?.BUTTON_SAVE}
                   </Button>
                 </div>
@@ -120,13 +107,91 @@ const CreateExamQuestion = ({}: CreateExamQuestionProps) => {
                   <Text className={styles.subHeading}>
                     {localeTitles.TITLE_SOLUTION_FOR_THE_QUESTION}
                   </Text>
+                  <div className={styles["ansDiv"]}>
+                    {answers.map((answer, index) => (
+                      <div className={styles.ansAndReason} key={index}>
+                        <div className={styles["ansAndReason-ans"]}>
+                          <Controller
+                            name={`answers[${index}].isCorrect`}
+                            control={control}
+                            defaultValue={false}
+                            render={({ field }) => (
+                              <input
+                                type="checkbox"
+                                id={`checkbox_${index}`}
+                                checked={field.value}
+                                onChange={(e) => {
+                                  field.onChange(e.target.checked);
+                                  if (e.target.checked) {
+                                    handleIsCorrectChange(index);
+                                  }
+                                }}
+                              />
+                            )}
+                          />
+                          <Controller
+                            name={`answers[${index}].text`}
+                            control={control}
+                            defaultValue=""
+                            render={({ field }) => (
+                              <input
+                                className={styles.inputField}
+                                type="text"
+                                placeholder="Enter answer"
+                                {...field}
+                              />
+                            )}
+                          />
+                        </div>
+                        <div className={styles["ansAndReason-reason"]}>
+                          <Controller
+                            name={`answers[${index}].reason`}
+                            control={control}
+                            defaultValue=""
+                            render={({ field }) => (
+                              <textarea
+                                className={styles.inputField}
+                                placeholder="Enter reason"
+                                {...field}
+                              />
+                            )}
+                          />
+                        </div>
+                        <div className={styles["ansAndReason-img"]}>
+                          {/* <Controller
+                            name={`answers[${index}].image`}
+                            control={control}
+                            defaultValue={null}
+                            render={({ field }) => (
+                              <input
+                                type="file"
+                                onChange={(e) => field.onChange(e.target.files)}
+                              />
+                            )}
+                          /> */}
+                          <Controller
+                            name={`answers[${index}].image`}
+                            control={control}
+                            defaultValue={null}
+                            render={({ field }) => (
+                              <ImageDropzone
+                                setValue={setValue}
+                                control={control}
+                                name={`answers[${index}].image`}
+                              />
+                            )}
+                          />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
                 <div className={styles["CreateExamQuestions-section"]}>
                   <Text className={styles.subHeading}>
                     {localeTitles.TITLE_SOLUTION_FOR_THE_QUESTION}
                   </Text>
                   <QuillEditor
-                    name="answer"
+                    name="solution"
                     control={control}
                     placeholder={
                       localePlaceholders.PLACEHOLDER_ENTER_DETAILED_SOLUTION_HERE
@@ -135,11 +200,14 @@ const CreateExamQuestion = ({}: CreateExamQuestionProps) => {
                 </div>
               </div>
               <div className="w-48 mx-auto">
-                <Button className="primaryActive">
+                <Button
+                  className="primaryActive"
+                  onSubmit={handleSubmit(onSubmitCreate)}
+                >
                   {localeButtons?.BUTTON_ADD_QUESTION}
                 </Button>
               </div>
-            </>
+            </form>
           )}
         </div>
       </div>

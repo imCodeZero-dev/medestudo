@@ -109,3 +109,53 @@
 .inputDiv {
   flex: 1;
 }
+
+.ansDiv {
+  margin: 24px 0;
+  display: grid;
+  grid-template-columns: repeat(
+    2,
+    1fr
+  ); /* 4 columns, each taking equal width */
+  column-gap: 24px;
+  row-gap: 24px;
+}
+
+.ansAndReason {
+  background-color: white;
+  border-radius: 12px;
+  padding:24px 16px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+}
+
+.ansAndReason-ans {
+  border: 1px solid #dcdfe2;
+  border-radius: 6px;
+  padding: 8px;
+  display: flex;
+  column-gap: 12px;
+}
+
+.ansAndReason-reason {
+  border: 1px solid #dcdfe2;
+  border-radius: 6px;
+  padding: 8px;
+}
+
+.ansAndReason-img {
+  border: 1px solid #dcdfe2;
+  border-radius: 6px;
+  padding: 8px;
+  width: 40%;
+  max-width: 168px;
+  max-height: 64px;
+}
+
+.inputField {
+  width: 100%;
+}
+.textArea {
+  width: 100%;
+}

@@ -16,12 +16,6 @@ import { loginProfessor } from "../../../redux/slices/ProfessorSlice";
 // import { useLocation, useNavigate } from "react-router-dom";
 
 export const useLoginPage = () => {
-  const [loadingLogin, setLoadingLogin] = useState<boolean>(false);
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const [cookies, setCookie] = useCookies(["professor"]);
-  // const navigate = useNavigate();
-
   const {
     handleSubmit,
     control,
@@ -34,6 +28,47 @@ export const useLoginPage = () => {
       // rememberme: false,
     },
   });
+  const [forgotModal, setForgotModal] = useState<boolean>(false);
+  const [forgotLoading, setForgotLoading] = useState<boolean>(false);
+  const [loadingLogin, setLoadingLogin] = useState<boolean>(false);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [cookies, setCookie] = useCookies(["professor"]);
+  // const navigate = useNavigate();
+
+  const handleForgotClose = () => {
+    setForgotModal(false);
+  };
+
+  const openForgotModal = () => {
+    setForgotModal(true);
+  };
+
+  const onSubmitForgotEmail = async (data: any) => {
+    console.log("loginForm", data);
+    // const params = {
+    //   email: data?.email,
+    //   password: data?.password,
+    // };
+
+    // try {
+    //   setForgotLoading(true);
+    //   let response;
+    //   response = await professorLoginApi(params);
+    //   console.log("response", response);
+
+    //   dispatch(loginProfessor(response?.data));
+    //   setCookie("professor", response?.data, { maxAge: 86400 });
+    //   showSuccessToast("Login Successfully");
+
+    //   navigate("/professor");
+    // } catch (error: any) {
+    //   console.log("error", error);
+    //   showErrorToast(error?.response?.data?.errorMessage);
+    // } finally {
+    //   setForgotLoading(false);
+    // }
+  };
 
   const onSubmit = async (data: any) => {
     console.log("loginForm", data);
@@ -69,5 +104,11 @@ export const useLoginPage = () => {
     onSubmit,
     googleLoginBtn,
     loadingLogin,
+
+    forgotLoading,
+    forgotModal,
+    handleForgotClose,
+    onSubmitForgotEmail,
+    openForgotModal,
   };
 };

@@ -31,6 +31,15 @@ export const useCreateExamQuestion = () => {
   const [cookies] = useCookies(["professor"]);
   const dispatch = useDispatch();
 
+  type FormData = {
+    answers: {
+      isCorrect: boolean;
+      text: string;
+      reason: string;
+      image: File | null;
+    }[];
+  };
+
   const {
     handleSubmit,
     control,
@@ -40,9 +49,16 @@ export const useCreateExamQuestion = () => {
     reset,
   } = useForm<any>({
     // resolver: yupResolver(validationSchema),
-    defaultValues: {},
+    defaultValues: {
+      answers: [
+        { id: "group0", isCorrect: false, text: "", reason: "", image: null },
+        { id: "group0", isCorrect: false, text: "", reason: "", image: null },
+        { id: "group0", isCorrect: false, text: "", reason: "", image: null },
+        { id: "group0", isCorrect: false, text: "", reason: "", image: null },
+        { id: "group4", isCorrect: false, text: "", reason: "", image: null },
+      ],
+    },
   });
-
   const [createLoading, setCreateLoading] = useState<boolean>(false);
   const [editExamLoading, setEditExamLoading] = useState<boolean>(false);
   const location = useLocation();

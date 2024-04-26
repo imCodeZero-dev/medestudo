@@ -36,6 +36,9 @@ export const BUTTONS = {
     BUTTON_CHANGE_IMAGE: "Change Image",
     BUTTON_CLEAR_FILTERS: "Clear Filters",
     BUTTON_ADD_QUESTION: "Add Question",
+    BUTTON_SEND_CODE: "Send Code",
+    BUTTON_FINISH: "Finish",
+    BUTTON_CONTINUE_TO_LOGIN: "Continue to login",
   },
   es: {
     submit: "Enviar",
@@ -74,5 +77,8 @@ export const BUTTONS = {
     BUTTON_CHANGE_IMAGE: "Change Image",
     BUTTON_CLEAR_FILTERS: "Clear Filters",
     BUTTON_ADD_QUESTION: "Add Question",
+    BUTTON_SEND_CODE: "Send Code",
+    BUTTON_FINISH: "Finish",
+    BUTTON_CONTINUE_TO_LOGIN: "Continue to login",
   },
 };

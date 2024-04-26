@@ -60,6 +60,7 @@ const ProfessorExams = ({}: ProfessorExamsProps) => {
     openEditModal,
     editModal,
     onSubmitEdit,
+    updatedInstitutes,
   } = useProfessorExams();
   console.log("cookies", cookies);
   const dispatch = useDispatch();
@@ -134,10 +135,10 @@ const ProfessorExams = ({}: ProfessorExamsProps) => {
                 {localeLables.LABEL_INSTITUTE}
               </Text>
               <CustomSelect
-                name="year"
+                name="institute"
                 control={control}
-                options={totalYears}
-                placeholder="Select Year"
+                options={updatedInstitutes}
+                placeholder="Select Institute"
               />
             </div>
           </div>
@@ -151,7 +152,7 @@ const ProfessorExams = ({}: ProfessorExamsProps) => {
           onSubmit={onSubmitCreate}
           open={openCreate}
           loading={createLoading}
-          filteredDecks={allDecks}
+          filteredDecks={updatedInstitutes}
           watch={watch}
         />
 
@@ -163,7 +164,7 @@ const ProfessorExams = ({}: ProfessorExamsProps) => {
           onSubmit={onSubmitEdit}
           open={editModal}
           loading={createLoading}
-          filteredDecks={allDecks}
+          filteredDecks={updatedInstitutes}
           watch={watch}
         />
 

@@ -59,6 +59,9 @@ export const TITLES = {
     TITLE_PASSWORD: "Password",
     TITLE_EMAIL: "Email",
     TITLE_PRIVACY: "Privacy",
+    TITLE_PASSWORD_RESET_CODE: "Password Reset Code",
+    TITLE_FORGOT_PASSWORD: "Forgot Password?",
+    TITLE_PASSWORD_CHANGED: "Password Changed!",
     TITLE_ENTER_ANS_AND_SELECT_THE_RIGHT_ANS:
       "Enter Answers & Select the right answer",
     TITLE_SOLUTION_FOR_THE_QUESTION: "Enter Answers & Select the right answer",
@@ -124,6 +127,9 @@ export const TITLES = {
     TITLE_PASSWORD: "Password",
     TITLE_EMAIL: "Email",
     TITLE_PRIVACY: "Privacy",
+    TITLE_PASSWORD_RESET_CODE: "Password Reset Code",
+    TITLE_FORGOT_PASSWORD: "Forgot Password?",
+    TITLE_PASSWORD_CHANGED: "Password Changed!",
     TITLE_ENTER_ANS_AND_SELECT_THE_RIGHT_ANS:
       "Enter Answers & Select the right answer",
     TITLE_SOLUTION_FOR_THE_QUESTION: "Solution for the question",

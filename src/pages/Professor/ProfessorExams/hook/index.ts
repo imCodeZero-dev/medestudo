@@ -16,6 +16,7 @@ import { closeModal2 } from "../../../../redux/slices/CreateExamModalSlice";
 import {
   useAllDecksQuery,
   useAllExamsQuery,
+  useAllInstituteQuery,
 } from "../../../../redux/slices/APISlice";
 import {
   createClassApi,
@@ -58,6 +59,15 @@ export const useProfessorExams = () => {
   const { allDecks, allDecksLoading, errorAllDecks, refetchAllDecks } =
     useAllDecksQuery(cookies);
 
+  const {
+    allInstitute,
+    allInstituteLoading,
+    errorAllInstitute,
+    refetchAllInstitute,
+  } = useAllInstituteQuery(cookies);
+
+  console.log("allInstitute", allInstitute);
+
   const { allExams, allExamsLoading, errorAllExams, refetchAllExams } =
     useAllExamsQuery(cookies);
 
@@ -66,6 +76,7 @@ export const useProfessorExams = () => {
   const [selecteExamId, setSelecteExamId] = useState<null | string>(null);
   const [deleteModal, setDeleteModal] = useState(false);
   const [editModal, setEditModal] = useState(false);
+  const [updatedInstitutes, setUpdatedInstitutes] = useState<any[]>([]);
 
   const openCreate = useSelector((state: any) => state.modalCreateExam.isOpen);
 
@@ -170,6 +181,17 @@ export const useProfessorExams = () => {
     navigate(`/professor/exams/exam?${data}`, { state: data });
   };
 
+  useEffect(() => {
+    if (allInstitute) {
+      const updatedInstitutes = allInstitute.map((institute: any) => ({
+        ...institute,
+        name: institute.title,
+        title: undefined,
+      }));
+      setUpdatedInstitutes(updatedInstitutes);
+    }
+  }, [allInstitute]);
+
   return {
     control,
     errors,
@@ -193,5 +215,6 @@ export const useProfessorExams = () => {
     openEditModal,
     editModal,
     onSubmitEdit,
+    updatedInstitutes,
   };
 };

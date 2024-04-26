@@ -213,7 +213,7 @@ export const useExamsDetails = () => {
   };
 
   const getDetails = (data: string) => {
-    navigate(`/professor/classes/deck?${data}`, { state: data });
+    // navigate(`/professor/classes/deck?${data}`, { state: data });
   };
 
   return {

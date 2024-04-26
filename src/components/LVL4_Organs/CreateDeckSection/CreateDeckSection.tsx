@@ -208,7 +208,8 @@ const CreateDeckSection = ({
                   {subDeck.subDeck?.map(
                     (nestedDeck: any, nestedIndex: number) => (
                       <div
-                        key={nestedIndex}
+                        // key={nestedIndex}
+                        key={parentIndex + "-" + nestedIndex}
                         className={styles["nestedDeckContainer"]}
                       >
                         <InputDeck
@@ -226,7 +227,14 @@ const CreateDeckSection = ({
                         {nestedDeck.subDeck?.map(
                           (deepNestedDeck: any, deepNestedIndex: number) => (
                             <div
-                              key={deepNestedIndex}
+                              // key={deepNestedIndex}
+                              key={
+                                parentIndex +
+                                "-" +
+                                nestedIndex +
+                                "-" +
+                                deepNestedIndex
+                              }
                               className={styles["deepNestedDeckContainer"]}
                             >
                               <InputDeck
@@ -236,7 +244,7 @@ const CreateDeckSection = ({
                                   localePlaceholders.PLACEHOLDER_ENTER_NAME
                                 }
                                 onAdd={() =>
-                                  onAdd(index, 4, nestedIndex, deepNestedDeck)
+                                  onAdd(index, 4, nestedIndex, deepNestedIndex)
                                 }
                                 onDelete={() =>
                                   onDelete(
@@ -253,14 +261,24 @@ const CreateDeckSection = ({
                                   lastNestedIndex: number
                                 ) => (
                                   <div
-                                    key={lastNestedIndex}
+                                    // key={lastNestedIndex}
+                                    key={
+                                      parentIndex +
+                                      "-" +
+                                      nestedIndex +
+                                      "-" +
+                                      deepNestedIndex +
+                                      "-" +
+                                      lastNestedIndex
+                                    }
                                     className={
                                       styles["deepNestedDeckContainer"]
                                     }
                                   >
                                     <InputDeck
                                       control={control}
-                                      name={`deck[${parentIndex}].subDeck[${index}].subDeck[${nestedIndex}].subDeck[${deepNestedIndex}].subDeck[${lastNestedDeck}].name`}
+                                      // name={`deck[${parentIndex}].subDeck[${index}].subDeck[${nestedIndex}].subDeck[${deepNestedIndex}].subDeck[${0}].name`}
+                                      name={`deck[${parentIndex}].subDeck[${index}].subDeck[${nestedIndex}].subDeck[${deepNestedIndex}].subDeck[${lastNestedIndex}].name`}
                                       placeholder={
                                         localePlaceholders.PLACEHOLDER_ENTER_NAME
                                       }

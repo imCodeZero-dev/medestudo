@@ -12,6 +12,7 @@ import useLocale from "../../locales";
 import { useLoginPage } from "./hook";
 import { useState } from "react";
 import { GoogleLogin } from "@react-oauth/google";
+import ForgotPasswordModal from "../../components/LVL4_Organs/ForgotPasswordModal/ForgotPasswordModal";
 
 // import { useNavigate } from "react-router-dom";
 // import { useLoginPage } from "./hook";
@@ -25,8 +26,18 @@ const LoginPage = (props: any) => {
     localePlaceholders,
     localeText,
   } = useLocale();
-  const { control, handleSubmit, onSubmit, googleLoginBtn, loadingLogin } =
-    useLoginPage();
+  const {
+    control,
+    handleSubmit,
+    onSubmit,
+    googleLoginBtn,
+    loadingLogin,
+    forgotLoading,
+    forgotModal,
+    handleForgotClose,
+    onSubmitForgotEmail,
+    openForgotModal,
+  } = useLoginPage();
   const [viewPassword, setViewPassword] = useState<boolean>(false);
 
   const handleView = () => {
@@ -78,7 +89,7 @@ const LoginPage = (props: any) => {
               label={localeLables?.LABEL_PASSWORD}
               control={control}
               name="password"
-              placeholder={localePlaceholders.PLACEHOLDER_ENTER_USERNAME}
+              placeholder={localePlaceholders.PLACEHOLDER_ENTER_PASSWORD}
               preDefinedClassName="inputField"
               preDefinedWrapClassName="inputField-wrap"
               type={!viewPassword ? "password" : "text"}
@@ -102,7 +113,7 @@ const LoginPage = (props: any) => {
               label={localeLables?.LABEL_REMEMBER_ME}
               name="remember"
             />
-            <Text className={styles["forgotText"]}>
+            <Text className={styles["forgotText"]} onClick={openForgotModal}>
               {localeText?.TEXT_FORGOT_PASSWORD}
             </Text>
           </div>
@@ -124,6 +135,16 @@ const LoginPage = (props: any) => {
           {localeLables?.LABEL_COPYRIGHT}
         </Text>
       </div>
+
+      <ForgotPasswordModal
+        control={control}
+        handleClose={handleForgotClose}
+        handleSubmit={handleSubmit}
+        onSubmit={onSubmitForgotEmail}
+        open={forgotModal}
+        loading={forgotLoading}
+        // watch={watch}
+      />
     </div>
   );
 };

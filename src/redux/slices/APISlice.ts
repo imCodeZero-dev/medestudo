@@ -232,7 +232,7 @@ export const useAllInstituteQuery = (cookies: any) => {
       },
     ],
     async () => {
-      return getAllInstituteApi(cookies?.admin?.token);
+      return getAllInstituteApi();
     },
     {
       // enabled: !!cookies?.admin?.token,

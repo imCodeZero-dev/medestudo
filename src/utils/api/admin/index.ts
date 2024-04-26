@@ -253,12 +253,12 @@ export const createInstituteApi = async (data: any, token: string) => {
   return response;
 };
 
-export const getAllInstituteApi = async (token: string) => {
+export const getAllInstituteApi = async () => {
   // console.log("getAllProfessorApi", token);
   const response = await apiRequest({
     method: "Get",
     url: `/admin/getAllInstitutes`,
-    token,
+    // token,
   });
   return response;
 };
