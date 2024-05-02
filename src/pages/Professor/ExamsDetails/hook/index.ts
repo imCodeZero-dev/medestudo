@@ -17,9 +17,13 @@ import {
   deleteExamApi,
   editExamApi,
   getExamByIdApi,
+  getExamQuestionsApi,
 } from "../../../../utils/api/professors";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
-import { useAllExamsQuery } from "../../../../redux/slices/APISlice";
+import {
+  useAllExamsQuery,
+  useExamQuestionsQuery,
+} from "../../../../redux/slices/APISlice";
 import { examCardData } from "../../../../components/LVL3_Cells/DashboardExams/@types";
 
 export const useExamsDetails = () => {
@@ -114,7 +118,37 @@ export const useExamsDetails = () => {
     }
   );
 
-  console.log("examsDetails", examsDetails);
+  const {
+    examQuestions,
+    errorexamQuestions,
+    examQuestionsLoading,
+    refetchexamQuestions,
+  } = useExamQuestionsQuery(cookies, examId);
+
+  // const {
+  //   data: { data: examQuestions = {} } = {},
+  //   isLoading: examQuestionsLoading,
+  //   error: errorexamQuestions,
+  //   refetch: refetchexamQuestions,
+  // } = useQuery(
+  //   [
+  //     "examQuestions",
+  //     {
+  //       cookies,
+  //       examId,
+  //     },
+  //   ],
+
+  //   async () => {
+  //     return getExamQuestionsApi(examId, cookies?.professor?.token);
+  //   },
+  //   {
+  //     enabled: !!cookies?.professor?.token && !!examId,
+  //   }
+  // );
+
+  // console.log("examsDetails", examsDetails);
+  // console.log("examQuestions", examQuestions);
 
   const onSubmitCreate = async (data: any) => {
     console.log("onSubmitCreate", data);
@@ -213,7 +247,7 @@ export const useExamsDetails = () => {
   };
 
   const getDetails = (data: string) => {
-    // navigate(`/professor/classes/deck?${data}`, { state: data });
+    navigate(`/professor/exams/exam/${examId}`, { state: data });
   };
 
   return {
@@ -244,5 +278,6 @@ export const useExamsDetails = () => {
     handleEditClose,
     onSubmitEditExam,
     editExamLoading,
+    examQuestions,
   };
 };

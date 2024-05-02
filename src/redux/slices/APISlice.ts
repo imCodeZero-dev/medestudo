@@ -12,7 +12,9 @@ import {
   getAllClassesApi,
   getAllExamsApi,
   getAllFlashcardsByIdApi,
+  getExamQuestionsApi,
 } from "../../utils/api/professors";
+import { getAllSubjectsApi } from "../../utils/api/all";
 
 export const useProfessorsQuery = (cookies: AdminCookies) => {
   const {
@@ -244,5 +246,65 @@ export const useAllInstituteQuery = (cookies: any) => {
     allInstituteLoading,
     errorAllInstitute,
     refetchAllInstitute,
+  };
+};
+
+export const useAllSubjectsQuery = (cookies: any) => {
+  const {
+    data: { data: { names: allSubjects = [] } = {} } = {},
+    isLoading: allSubjectsLoading,
+    error: errorAllSubjects,
+    refetch: refetchAllSubjects,
+  } = useQuery(
+    [
+      "allSubjects",
+      {
+        cookies,
+      },
+    ],
+    async () => {
+      return getAllSubjectsApi();
+    },
+    {
+      // enabled: !!cookies?.admin?.token,
+    }
+  );
+
+  return {
+    allSubjects,
+    allSubjectsLoading,
+    errorAllSubjects,
+    refetchAllSubjects,
+  };
+};
+
+export const useExamQuestionsQuery = (cookies: any, examId: string) => {
+  console.log("useExamQuestionsQuery", cookies, "examId", examId);
+  const {
+    data: { data: examQuestions = {} } = {},
+    isLoading: examQuestionsLoading,
+    error: errorexamQuestions,
+    refetch: refetchexamQuestions,
+  } = useQuery(
+    [
+      "allSubjects",
+      {
+        cookies,
+        examId,
+      },
+    ],
+    async () => {
+      return getExamQuestionsApi(examId, cookies?.professor?.token);
+    },
+    {
+      enabled: !!cookies?.professor?.token && !!examId,
+    }
+  );
+
+  return {
+    examQuestions,
+    examQuestionsLoading,
+    errorexamQuestions,
+    refetchexamQuestions,
   };
 };

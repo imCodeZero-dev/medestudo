@@ -2,6 +2,11 @@ import { Switch, styled } from "@mui/material";
 import { type ClassValue, clsx } from "clsx";
 import { useEffect, useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
+import {
+  CLOUDINARY_CLOUD_NAME,
+  CLOUDINARY_FOLDER,
+  CLOUDINARY_UPLOAD_PRESET,
+} from "../constants/constants";
 
 export const IOSSwitch = styled((props: any) => (
   <Switch
@@ -90,4 +95,27 @@ export const useDropdown = () => {
   }, []);
 
   return { isDropdownOpen, toggleDropdown, dropdownRef };
+};
+
+export const uploadImageToCloudinary = async (image: File): Promise<string> => {
+  console.log("uploadImageToCloudinary", image);
+  const formData = new FormData();
+  formData.append("file", image);
+  formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
+  formData.append("folder", CLOUDINARY_FOLDER);
+
+  const response = await fetch(
+    `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`,
+    {
+      method: "POST",
+      body: formData,
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error("Failed to upload image to Cloudinary");
+  }
+
+  const data = await response.json();
+  return data.secure_url; // Return the URL of the uploaded image
 };

@@ -10,7 +10,7 @@ export interface QuestionBarProps {
 }
 
 interface examCardData {
-  title: string;
+  question: string;
   institute: string;
   time?: string;
   year: string;

@@ -17,9 +17,14 @@ const ForgotPasswordModal = ({
   open,
   handleClose,
   handleSubmit,
-  onSubmit,
+  onSubmitEmail,
+  onSubmitOTP,
+  onSubmitPassword,
   control,
   loading,
+  forgotSteps,
+  resendOtp,
+  validOtp,
 }: ForgotPasswordModalProps) => {
   const success = false;
   const {
@@ -43,23 +48,59 @@ const ForgotPasswordModal = ({
               <IoCheckmarkSharp size={40} color="white" />
             </div>
           )}
+          {forgotSteps?.email && (
+            <StepEmailForgot
+              control={control}
+              handleSubmit={handleSubmit}
+              loading={loading}
+              onSubmit={onSubmitEmail}
+              handleClose={handleClose}
+            />
+          )}
+          {forgotSteps?.otp && (
+            <StepOTPForgot
+              control={control}
+              handleSubmit={handleSubmit}
+              loading={loading}
+              onSubmit={onSubmitOTP}
+              resendOtp={resendOtp}
+              validOtp={validOtp}
+              handleClose={handleClose}
+            />
+          )}
+          {forgotSteps?.password && (
+            <StepNewPasswordForgot
+              control={control}
+              handleSubmit={handleSubmit}
+              loading={loading}
+              onSubmit={onSubmitPassword}
+              handleClose={handleClose}
+            />
+          )}
+          {forgotSteps?.success && (
+            <StepSuccessForgot handleClose={handleClose} />
+          )}
 
-          {/* <StepEmailForgot
-            control={control}
-            handleSubmit={handleSubmit}
-            loading={loading}
-            onSubmit={onSubmit}
-            handleClose={handleClose}
-          /> */}
+          {/* {forgotSteps?.otp ? (
+            <StepEmailForgot
+              control={control}
+              handleSubmit={handleSubmit}
+              loading={loading}
+              onSubmit={onSubmit}
+              handleClose={handleClose}
+            />
+          ): (
+            <StepNewPasswordForgot
+              control={control}
+              handleSubmit={handleSubmit}
+              loading={loading}
+              onSubmit={onSubmit}
+              handleClose={handleClose}
+            />
+            
+          )} */}
 
-          <StepOTPForgot
-            control={control}
-            handleSubmit={handleSubmit}
-            loading={loading}
-            onSubmit={onSubmit}
-            handleClose={handleClose}
-          />
-          {/* <StepNewPasswordForgot
+          {/* <StepOTPForgot
             control={control}
             handleSubmit={handleSubmit}
             loading={loading}

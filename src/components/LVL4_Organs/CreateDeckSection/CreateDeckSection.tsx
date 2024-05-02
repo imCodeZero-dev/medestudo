@@ -27,19 +27,20 @@ const CreateDeckSection = ({
     localePlaceholders,
     localeButtons,
   } = useLocale();
-  const counter: { [key: number]: number } = {};
 
   const onAdd = (
-    parentIndex: number,
+    currentIndex: number,
     level: number,
     nestedIndex?: number,
     deepNestedDeck?: number
   ) => {
+    debugger;
     const currentDecks = getValues("deck") || [];
     console.log("currentDecks", currentDecks);
-    let currentLevel: any = currentDecks[parentIndex];
+    let currentLevel: any = currentDecks[currentIndex];
+    console.log("currentLevel", currentLevel);
     if (currentLevel == undefined) {
-      currentLevel = currentDecks[0]?.subDeck[parentIndex];
+      currentLevel = currentDecks[0]?.subDeck[currentIndex];
     }
     if (
       nestedIndex !== undefined &&
@@ -60,7 +61,7 @@ const CreateDeckSection = ({
       currentLevel.subDeck = currentLevel.subDeck || [];
 
       // Check if the current level has sub-decks
-      const lastSubDeck = currentLevel.subDeck[parentIndex];
+      const lastSubDeck = currentLevel.subDeck[currentIndex];
       if (lastSubDeck && lastSubDeck.subDeck) {
         // Move to the last sub-deck
         currentLevel = lastSubDeck;
@@ -218,7 +219,7 @@ const CreateDeckSection = ({
                           placeholder={
                             localePlaceholders.PLACEHOLDER_ENTER_NAME
                           }
-                          onAdd={() => onAdd(index, 3, nestedIndex)}
+                          onAdd={() => onAdd(nestedIndex, 3, nestedIndex)}
                           onDelete={() =>
                             onDelete(parentIndex, index, nestedIndex)
                           } // Delete nestedIndex

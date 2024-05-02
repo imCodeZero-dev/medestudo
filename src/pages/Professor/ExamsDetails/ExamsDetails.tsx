@@ -57,6 +57,7 @@ const ExamsDetails = ({}: ExamsDetailsProps) => {
     onSubmitEditExam,
     editExamLoading,
     errors,
+    examQuestions,
   } = useExamsDetails();
   // console.log("allDecks", allDecks);
   const navigate = useNavigate();
@@ -141,16 +142,17 @@ const ExamsDetails = ({}: ExamsDetailsProps) => {
                 </div>
               </div>
               <div className={styles["ExamsDetails-main-questions"]}>
-                {dummyQuestions?.map((data: any, i: number) => (
-                  <QuestionBar
-                    key={i}
-                    index={i}
-                    data={data}
-                    getDetails={getDetails}
-                    openDeleteModal={openDeleteModal}
-                    // openEditModal={openEditModal}
-                  />
-                ))}
+                {Array.isArray(examQuestions) &&
+                  examQuestions?.map((data: any, i: number) => (
+                    <QuestionBar
+                      key={i}
+                      index={i}
+                      data={data}
+                      getDetails={getDetails}
+                      openDeleteModal={openDeleteModal}
+                      // openEditModal={openEditModal}
+                    />
+                  ))}
               </div>
               <Button
                 className="primary"

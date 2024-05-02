@@ -29,6 +29,9 @@ export const SUCCESS = {
     SUCCESS_INSTITUTE_UPDATED: "Institute Updated Successfully",
     SUCCESS_INSTITUTE_DELETED: "Institute Deleted Successfully",
     SUCCESS_INSTITUTE_STATUS_CHANGED: "Institute Status Changed Successfully",
+    SUCCESS_OTP_SENT_CHANGED: "OTP Sent Successfully",
+    SUCCESS_VALID_OTP: "Valid OTP",
+    SUCCESS_INVALID_OTP: "Invalid OTP",
   },
   es: {
     SUCCESS_PROFESSOR_CREATED: "Professor Created Successfully",
@@ -61,5 +64,8 @@ export const SUCCESS = {
     SUCCESS_INSTITUTE_UPDATED: "Institute Updated Successfully",
     SUCCESS_INSTITUTE_DELETED: "Institute Deleted Successfully",
     SUCCESS_INSTITUTE_STATUS_CHANGED: "Institute Status Changed Successfully",
+    SUCCESS_OTP_SENT_CHANGED: "OTP Sent Successfully",
+    SUCCESS_VALID_OTP: "Valid OTP",
+    SUCCESS_INVALID_OTP: "Invalid OTP",
   },
 };

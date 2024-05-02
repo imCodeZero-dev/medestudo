@@ -18,6 +18,8 @@ const StepOTPForgot = ({
   onSubmit,
   control,
   loading,
+  resendOtp,
+  validOtp,
 }: StepEmailProps) => {
   const {
     localeTitles,
@@ -80,13 +82,15 @@ const StepOTPForgot = ({
             ))}
           </div>
 
-          <Text className={styles["invalidText"]}>
-            {localeText.TEXT_THE_CODE_YOU_ENTERED_IS_INVALID}
-          </Text>
+          {!validOtp && (
+            <Text className={styles["invalidText"]}>
+              {localeText.TEXT_THE_CODE_YOU_ENTERED_IS_INVALID}
+            </Text>
+          )}
 
           <div className="flex items-center space-x-2 justify-center pb-3">
             <GrPowerReset size={16} color="#0030DD" />
-            <Text className={styles["linkText"]}>
+            <Text className={styles["linkText"]} onClick={resendOtp}>
               {localeText.TEXT_RESEND_CODE}
             </Text>
           </div>

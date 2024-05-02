@@ -197,3 +197,27 @@ export const getAllExamsApi = async (token: string) => {
   });
   return response;
 };
+
+export const createQuestionApi = async (
+  data: any,
+  examId: string,
+  token: string
+) => {
+  console.log("createQuestionApi", data, "examId", examId);
+  const response = await apiRequest({
+    method: "Post",
+    url: `/professor/createQns/${examId}`,
+    token,
+    data,
+  });
+  return response;
+};
+
+export const getExamQuestionsApi = async (examId: string, token: string) => {
+  const response = await apiRequest({
+    method: "Get",
+    url: `/professor/getAllQns/${examId}`,
+    token,
+  });
+  return response;
+};

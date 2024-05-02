@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import {
   createClassDeckApi,
+  createQuestionApi,
   deleteExamApi,
   editExamApi,
   getExamByIdApi,
@@ -21,14 +22,22 @@ import {
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import {
   useAllExamsQuery,
+  useAllSubjectsQuery,
   useAllTagsQuery,
 } from "../../../../redux/slices/APISlice";
 import { examCardData } from "../../../../components/LVL3_Cells/DashboardExams/@types";
+import { Tag } from "../../../../utils/constants/DataTypes";
+import { uploadImageToCloudinary } from "../../../../utils/hooks/helper";
 
+interface Subject {
+  id: number;
+  title: string;
+}
 export const useCreateExamQuestion = () => {
   // const navigate = useNavigate();
   const { localeSuccess } = useLocale();
   const [cookies] = useCookies(["professor"]);
+  const [modifiedSubjects, setModifiedSubjects] = useState<Tag[]>();
   const dispatch = useDispatch();
 
   type FormData = {
@@ -41,6 +50,24 @@ export const useCreateExamQuestion = () => {
   };
 
   const {
+    allSubjects,
+    allSubjectsLoading,
+    errorAllSubjects,
+    refetchAllSubjects,
+  } = useAllSubjectsQuery(cookies);
+
+  useEffect(() => {
+    if (allSubjects) {
+      const transformedArray = allSubjects.map((item: string) => {
+        return { _id: item, title: item };
+      });
+      setModifiedSubjects(transformedArray);
+    }
+  }, [allSubjects]);
+
+  console.log("allSubjects", allSubjects);
+
+  const {
     handleSubmit,
     control,
     formState: { errors },
@@ -51,11 +78,11 @@ export const useCreateExamQuestion = () => {
     // resolver: yupResolver(validationSchema),
     defaultValues: {
       answers: [
-        { id: "group0", isCorrect: false, text: "", reason: "", image: null },
-        { id: "group0", isCorrect: false, text: "", reason: "", image: null },
-        { id: "group0", isCorrect: false, text: "", reason: "", image: null },
-        { id: "group0", isCorrect: false, text: "", reason: "", image: null },
-        { id: "group4", isCorrect: false, text: "", reason: "", image: null },
+        { id: "1", isCorrect: false, text: "", reason: "", image: null },
+        { id: "2", isCorrect: false, text: "", reason: "", image: null },
+        { id: "3", isCorrect: false, text: "", reason: "", image: null },
+        { id: "4", isCorrect: false, text: "", reason: "", image: null },
+        { id: "5", isCorrect: false, text: "", reason: "", image: null },
       ],
     },
   });
@@ -64,6 +91,8 @@ export const useCreateExamQuestion = () => {
   const location = useLocation();
 
   const examId = location?.state;
+
+  console.log("examId", examId);
 
   const navigate = useNavigate();
   const [createModal, setCreateModal] = useState(false);
@@ -112,6 +141,8 @@ export const useCreateExamQuestion = () => {
   const { allTags, refetchAllTags, allTagsLoading, errorAllTags } =
     useAllTagsQuery(cookies);
 
+  console.log("allTags", allTags);
+
   const {
     // data: examsDetails,
     data: { data: examsDetails = {} } = {},
@@ -140,26 +171,124 @@ export const useCreateExamQuestion = () => {
   const onSubmitCreate = async (data: any) => {
     console.log("onSubmitCreate", data);
 
-    // try {
-    //   setCreateLoading(true);
-    //   let response;
-    //   response = await createClassDeckApi(
-    //     requestData,
-    //     classDetails?._id,
-    //     cookies?.professor?.token
-    //   );
-    //   console.log("response", response);
-    //   refetchClassDetails();
-    //   refetchclassDecks();
-    //   showSuccessToast(localeSuccess?.SUCCESS_DECK_CREATED);
-    // } catch (error: any) {
-    //   console.log("error", error);
-    //   showErrorToast(error?.response?.data?.errorMessage);
-    // } finally {
-    //   setCreateLoading(false);
-    //   handleCloseCreate();
-    // }
+    try {
+      setCreateLoading(true);
+
+      // Filter out answers with image files
+      const answersWithImages = data?.answers.filter(
+        (answer: any) => answer.image
+      );
+
+      // Upload images to Cloudinary
+      const uploadedAnswers = await Promise.all(
+        answersWithImages.map(async (answer: any) => {
+          // Upload image to Cloudinary
+          const imageUrl = await uploadImageToCloudinary(answer.image);
+
+          // Return the image URL along with the answer ID
+          return {
+            id: answer.id,
+            image: imageUrl,
+          };
+          // return {
+          //   ...answer,
+          //   image: imageUrl,
+          // };
+        })
+      );
+
+      // Combine uploaded images with the original answers
+      const updatedAnswers = data?.answers.map((answer: any) => {
+        const uploadedAnswer = uploadedAnswers.find(
+          (uploadedAnswer: any) => uploadedAnswer.id === answer.id
+        );
+        return uploadedAnswer
+          ? { ...answer, image: uploadedAnswer.image }
+          : answer;
+      });
+
+      // Extract tags and subjects
+      const tags = data?.tags?.map((tag: any) => tag.label);
+      const subjects = data?.subjects?.map((tag: any) => tag.label);
+
+      // Encode question and solution to base64
+      const base64Question = btoa(data.question);
+      const base64Solution = btoa(data.solution);
+
+      // Prepare parameters for createQuestionApi
+      const params = {
+        subjects,
+        tags,
+        question: data.question,
+        answers: updatedAnswers,
+        detailedSolution: base64Solution,
+      };
+
+      // Call createQuestionApi
+      const response = await createQuestionApi(
+        params,
+        examId?._id,
+        cookies?.professor?.token
+      );
+      console.log("response", response);
+
+      showSuccessToast(localeSuccess?.SUCCESS_DECK_CREATED);
+      navigate(-1);
+    } catch (error: any) {
+      console.log("error", error);
+      showErrorToast(error?.response?.data?.errorMessage);
+    } finally {
+      setCreateLoading(false);
+      handleCloseCreate();
+    }
   };
+
+  // const onSubmitCreate = async (data: any) => {
+  //   console.log("onSubmitCreate", data);
+  //   const base64Question = btoa(data.question);
+  //   const base64Solution = btoa(data.solution);
+  //   const tags = data?.tags?.map((tag: any) => tag.label);
+  //   const subjects = data?.subjects?.map((tag: any) => tag.label);
+
+  //   try {
+  //     setCreateLoading(true);
+  //     const uploadedAnswers = await Promise.all(
+  //       data?.answers.map(async (answer: any) => {
+  //         // Upload image to Cloudinary
+  //         const imageUrl = await uploadImageToCloudinary(answer.image);
+
+  //         // Replace the image file with the Cloudinary URL
+  //         return {
+  //           ...answer,
+  //           imageUrl: imageUrl,
+  //         };
+  //       })
+  //     );
+  //     const params = {
+  //       subjects,
+  //       tags,
+  //       question: base64Question,
+  //       answers: uploadedAnswers,
+  //       detailedSolution: base64Solution,
+  //     };
+  //     let response;
+  //     response = await createQuestionApi(
+  //       params,
+  //       examId?._id,
+  //       cookies?.professor?.token
+  //     );
+  //     console.log("response", response);
+  //     // refetchClassDetails();
+  //     // refetchclassDecks();
+  //     showSuccessToast(localeSuccess?.SUCCESS_DECK_CREATED);
+  //   } catch (error: any) {
+  //     console.log("error", error);
+  //     showErrorToast(error?.response?.data?.errorMessage);
+  //   } finally {
+  //     setCreateLoading(false);
+  //     handleCloseCreate();
+  //   }
+  // };
 
   const onDeleteConfirm = async () => {
     // try {
@@ -266,5 +395,7 @@ export const useCreateExamQuestion = () => {
     onSubmitEditExam,
     editExamLoading,
     allTags,
+    modifiedSubjects,
+    createLoading,
   };
 };

@@ -38,6 +38,8 @@ export const BUTTONS = {
     BUTTON_ADD_QUESTION: "Add Question",
     BUTTON_SEND_CODE: "Send Code",
     BUTTON_FINISH: "Finish",
+    BUTTON_EDIT: "Edit",
+    BUTTON_SEE_SOLUTION: "See Solution",
     BUTTON_CONTINUE_TO_LOGIN: "Continue to login",
   },
   es: {
@@ -79,6 +81,8 @@ export const BUTTONS = {
     BUTTON_ADD_QUESTION: "Add Question",
     BUTTON_SEND_CODE: "Send Code",
     BUTTON_FINISH: "Finish",
+    BUTTON_EDIT: "Edit",
+    BUTTON_SEE_SOLUTION: "See Solution",
     BUTTON_CONTINUE_TO_LOGIN: "Continue to login",
   },
 };

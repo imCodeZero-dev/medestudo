@@ -13,6 +13,13 @@ import {
   showSuccessToast,
 } from "../../../config/toastProvider/toastUtils";
 import { loginProfessor } from "../../../redux/slices/ProfessorSlice";
+import {
+  resetPasswordApi,
+  sendOtpToEmailApi,
+  verifyOTPApi,
+} from "../../../utils/api/all";
+import useLocale from "../../../locales";
+import { forgotSteps } from "../../../components/LVL4_Organs/ForgotPasswordModal/types";
 // import { useLocation, useNavigate } from "react-router-dom";
 
 export const useLoginPage = () => {
@@ -28,9 +35,18 @@ export const useLoginPage = () => {
       // rememberme: false,
     },
   });
+  const { localeSuccess } = useLocale();
   const [forgotModal, setForgotModal] = useState<boolean>(false);
   const [forgotLoading, setForgotLoading] = useState<boolean>(false);
   const [loadingLogin, setLoadingLogin] = useState<boolean>(false);
+  const [validOtp, setValidOtp] = useState<boolean>(true);
+  const [forgotEmail, setforgotEmail] = useState<string>("");
+  const [forgotSteps, setForgotSteps] = useState<forgotSteps>({
+    email: true,
+    otp: false,
+    password: false,
+    success: false,
+  });
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [cookies, setCookie] = useCookies(["professor"]);
@@ -45,29 +61,96 @@ export const useLoginPage = () => {
   };
 
   const onSubmitForgotEmail = async (data: any) => {
-    console.log("loginForm", data);
-    // const params = {
-    //   email: data?.email,
-    //   password: data?.password,
-    // };
+    console.log("onSubmitForgotEmail", data);
+    const params = {
+      email: data?.forgotEmail,
+    };
+    setforgotEmail(data?.forgotEmail);
+    try {
+      setForgotLoading(true);
+      let response;
+      response = await sendOtpToEmailApi(params);
+      console.log("response", response);
 
-    // try {
-    //   setForgotLoading(true);
-    //   let response;
-    //   response = await professorLoginApi(params);
-    //   console.log("response", response);
+      showSuccessToast(localeSuccess.SUCCESS_OTP_SENT_CHANGED);
+      setForgotSteps({ ...forgotSteps, otp: true, email: false });
+    } catch (error: any) {
+      console.log("error", error);
+      showErrorToast(error?.response?.data?.errorMessage);
+    } finally {
+      setForgotLoading(false);
+    }
+  };
 
-    //   dispatch(loginProfessor(response?.data));
-    //   setCookie("professor", response?.data, { maxAge: 86400 });
-    //   showSuccessToast("Login Successfully");
+  const resendOtp = async () => {
+    const params = {
+      email: forgotEmail,
+    };
+    try {
+      setForgotLoading(true);
+      let response;
+      response = await sendOtpToEmailApi(params);
+      console.log("response", response);
 
-    //   navigate("/professor");
-    // } catch (error: any) {
-    //   console.log("error", error);
-    //   showErrorToast(error?.response?.data?.errorMessage);
-    // } finally {
-    //   setForgotLoading(false);
-    // }
+      showSuccessToast(localeSuccess.SUCCESS_OTP_SENT_CHANGED);
+      setForgotSteps({ ...forgotSteps, otp: true, email: false });
+    } catch (error: any) {
+      console.log("error", error);
+      showErrorToast(error?.response?.data?.errorMessage);
+    } finally {
+      setForgotLoading(false);
+    }
+  };
+
+  const onSubmitOTP = async (data: any) => {
+    console.log("onSubmitOTP", data);
+    // console.log("onSubmitOTP json", JSON.parse(localStorage.getItem("email")));
+    const params = {
+      otp: data?.otp?.join(""),
+      email: data?.forgotEmail,
+      // otp: data?.otp,
+    };
+
+    try {
+      setForgotLoading(true);
+      let response;
+      response = await verifyOTPApi(params);
+      console.log("response", response);
+      if (response?.data?.valid) {
+        showSuccessToast(localeSuccess.SUCCESS_VALID_OTP);
+        setForgotSteps({ ...forgotSteps, otp: false, password: true });
+      } else {
+        setValidOtp(false);
+      }
+    } catch (error: any) {
+      console.log("error", error);
+      showErrorToast(error?.response?.data?.errorMessage);
+    } finally {
+      setForgotLoading(false);
+    }
+  };
+
+  const onSubmitPassword = async (data: any) => {
+    console.log("onSubmitPassword", data);
+    const params = {
+      newPassword: data?.passwordForgot,
+      confirmPassword: data?.confirmPasswordForgot,
+    };
+
+    try {
+      setForgotLoading(true);
+      let response;
+      response = await resetPasswordApi(params);
+      console.log("response", response);
+
+      showSuccessToast(localeSuccess.SUCCESS_PASSWORD_RESET);
+      setForgotSteps({ ...forgotSteps, password: false, success: true });
+    } catch (error: any) {
+      console.log("error", error);
+      showErrorToast(error?.response?.data?.errorMessage);
+    } finally {
+      setForgotLoading(false);
+    }
   };
 
   const onSubmit = async (data: any) => {
@@ -110,5 +193,10 @@ export const useLoginPage = () => {
     handleForgotClose,
     onSubmitForgotEmail,
     openForgotModal,
+    forgotSteps,
+    onSubmitPassword,
+    onSubmitOTP,
+    resendOtp,
+    validOtp,
   };
 };

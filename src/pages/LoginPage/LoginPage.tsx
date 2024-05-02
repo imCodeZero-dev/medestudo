@@ -37,6 +37,11 @@ const LoginPage = (props: any) => {
     handleForgotClose,
     onSubmitForgotEmail,
     openForgotModal,
+    forgotSteps,
+    onSubmitOTP,
+    onSubmitPassword,
+    resendOtp,
+    validOtp,
   } = useLoginPage();
   const [viewPassword, setViewPassword] = useState<boolean>(false);
 
@@ -138,11 +143,16 @@ const LoginPage = (props: any) => {
 
       <ForgotPasswordModal
         control={control}
+        forgotSteps={forgotSteps}
         handleClose={handleForgotClose}
         handleSubmit={handleSubmit}
-        onSubmit={onSubmitForgotEmail}
+        onSubmitEmail={onSubmitForgotEmail}
+        onSubmitOTP={onSubmitOTP}
+        onSubmitPassword={onSubmitPassword}
         open={forgotModal}
         loading={forgotLoading}
+        resendOtp={resendOtp}
+        validOtp={validOtp}
         // watch={watch}
       />
     </div>

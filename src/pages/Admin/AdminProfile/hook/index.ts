@@ -28,6 +28,7 @@ import {
   useStudentsQuery,
 } from "../../../../redux/slices/APISlice";
 import dayjs from "dayjs";
+import { uploadImageToCloudinary } from "../../../../utils/hooks/helper";
 
 export const useAdminProfile = () => {
   // const navigate = useNavigate();
@@ -133,29 +134,7 @@ export const useAdminProfile = () => {
     }
   };
 
-  const uploadImageToCloudinary = async (image: File): Promise<string> => {
-    console.log("uploadImageToCloudinary", image);
-    const formData = new FormData();
-    formData.append("file", image);
-    formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
-    formData.append("folder", CLOUDINARY_FOLDER);
-
-    const response = await fetch(
-      `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`,
-      {
-        method: "POST",
-        body: formData,
-      }
-    );
-
-    if (!response.ok) {
-      throw new Error("Failed to upload image to Cloudinary");
-    }
-
-    const data = await response.json();
-    return data.secure_url; // Return the URL of the uploaded image
-  };
-
+ 
   const onSubmitResetPasswordAdmin = async (data: any) => {
     console.log("onSubmitResetPasswordAdmin", data);
     try {

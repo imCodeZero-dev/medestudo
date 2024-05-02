@@ -64,7 +64,8 @@ export const TITLES = {
     TITLE_PASSWORD_CHANGED: "Password Changed!",
     TITLE_ENTER_ANS_AND_SELECT_THE_RIGHT_ANS:
       "Enter Answers & Select the right answer",
-    TITLE_SOLUTION_FOR_THE_QUESTION: "Enter Answers & Select the right answer",
+    TITLE_SOLUTION_FOR_THE_QUESTION: "Solution for the question",
+    TITLE_ENTER_QUESTION: "Enter Question",
     TITLE_FILTERED_EXAMS_ARE_LISTED_BELOW: "Filtered exams are listed below",
   },
   es: {
@@ -133,6 +134,7 @@ export const TITLES = {
     TITLE_ENTER_ANS_AND_SELECT_THE_RIGHT_ANS:
       "Enter Answers & Select the right answer",
     TITLE_SOLUTION_FOR_THE_QUESTION: "Solution for the question",
+    TITLE_ENTER_QUESTION: "Enter Question",
     TITLE_FILTERED_EXAMS_ARE_LISTED_BELOW: "Filtered exams are listed below",
   },
 };

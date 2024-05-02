@@ -86,7 +86,7 @@ const CreateQuestions = ({
             />
           </div>
           <div className={styles["inputDiv"]}>
-            <TagInput allTags={allTags} control={control} />
+            <TagInput name="tags" allTags={allTags} control={control} />
           </div>
         </div>{" "}
       </form>

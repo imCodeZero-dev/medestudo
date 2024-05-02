@@ -14,6 +14,7 @@ import TagInput from "../../../components/LVL1_Atoms/Input/TagInput";
 import QuillEditor from "../../../components/LVL3_Cells/QuillEditor/QuillEditor";
 import { Controller } from "react-hook-form";
 import ImageDropzone from "../../../components/LVL2_Molecules/ImageUploader/ImageDropzone";
+import Input from "../../../components/LVL1_Atoms/Input";
 
 const CreateExamQuestion = ({}: CreateExamQuestionProps) => {
   const { localeTitles, localeButtons, localeLables } = useLocale();
@@ -33,6 +34,8 @@ const CreateExamQuestion = ({}: CreateExamQuestionProps) => {
     openDeleteExamModal,
     errors,
     allTags,
+    modifiedSubjects,
+    createLoading,
   } = useCreateExamQuestion();
   // console.log("allDecks", allDecks);
   const navigate = useNavigate();
@@ -46,6 +49,7 @@ const CreateExamQuestion = ({}: CreateExamQuestionProps) => {
   ]);
   const examDetails = location?.state;
 
+  console.log("modifiedSubjects", modifiedSubjects);
   const handleIsCorrectChange = (index: number) => {
     answers.forEach((answer, i) => {
       if (i !== index) {
@@ -73,39 +77,62 @@ const CreateExamQuestion = ({}: CreateExamQuestionProps) => {
                   </div>
                 </div>
                 <div className={styles["main-inner-right"]}>
-                  <Button
+                  {/* <Button
                     className="yellowButton-lessHeight"
                     onClick={() => openDeleteExamModal(examDetails)}
                   >
                     {localeButtons?.BUTTON_DELETE}
-                  </Button>
-                  <Button className="primaryActive-lessHeight" type="submit">
+                  </Button> */}
+                  {/* <Button
+                    className="primaryActive-lessHeight"
+                    type="submit"
+                    loading={createLoading}
+                  >
                     {localeButtons?.BUTTON_SAVE}
-                  </Button>
+                  </Button> */}
                 </div>
               </div>
               <div className={styles["CreateExamQuestion-main-questions"]}>
                 <div className="flex justify-between space-x-6">
                   <div className={styles["inputDiv"]}>
-                    <TagInput allTags={allTags} control={control} />
+                    <TagInput
+                      name="subjects"
+                      allTags={modifiedSubjects}
+                      control={control}
+                    />
                   </div>
                   <div className={styles["inputDiv"]}>
-                    <TagInput allTags={allTags} control={control} />
+                    <TagInput name="tags" allTags={allTags} control={control} />
                   </div>
                 </div>
                 <div className={styles["CreateExamQuestions-section"]}>
-                  <QuillEditor
+                  <div className="my-4">
+                    <Text className={styles.subHeading}>
+                      {localeTitles.TITLE_ENTER_QUESTION}
+                    </Text>
+                    <Input
+                      control={control}
+                      name="question"
+                      placeholder={
+                        localePlaceholders.PLACEHOLDER_ENTER_QUESTION_HERE
+                      }
+                      preDefinedClassName="lesserHeight"
+                      preDefinedWrapClassName="inputField-wrap"
+                      type="text"
+                    />
+                  </div>
+                  {/* <QuillEditor
                     name="question"
                     control={control}
                     placeholder={
                       localePlaceholders.PLACEHOLDER_ENTER_QUESTION_HERE
                     }
-                  />
+                  /> */}
                 </div>
 
                 <div className={styles["CreateExamQuestions-section"]}>
                   <Text className={styles.subHeading}>
-                    {localeTitles.TITLE_SOLUTION_FOR_THE_QUESTION}
+                    {localeTitles.TITLE_ENTER_ANS_AND_SELECT_THE_RIGHT_ANS}
                   </Text>
                   <div className={styles["ansDiv"]}>
                     {answers.map((answer, index) => (
@@ -202,6 +229,7 @@ const CreateExamQuestion = ({}: CreateExamQuestionProps) => {
               <div className="w-48 mx-auto">
                 <Button
                   className="primaryActive"
+                  loading={createLoading}
                   onSubmit={handleSubmit(onSubmitCreate)}
                 >
                   {localeButtons?.BUTTON_ADD_QUESTION}

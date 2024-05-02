@@ -28,7 +28,7 @@ const QuestionBar: React.FC<QuestionBarProps> = ({
       >
         <div className={styles["icon"]}>{`Q${index + 1}`}</div>
         <div className={styles["QuestionBar-left-main"]}>
-          <Text className={styles["title"]}>{data?.title} • </Text>
+          <Text className={styles["title"]}>{data?.question} • </Text>
         </div>
       </div>
       <div className={styles["QuestionBar-right"]} ref={dropdownRef}>

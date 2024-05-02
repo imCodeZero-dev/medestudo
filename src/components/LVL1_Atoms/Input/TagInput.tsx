@@ -4,15 +4,16 @@ import Select from "react-select";
 import { Tag } from "../../../utils/constants/DataTypes";
 
 interface TagInputProps {
-  control: any; // Replace 'any' with your specific type for 'control'
-  allTags: Tag[]; // Assuming 'allTags' is an array of objects with '_id' and 'title' properties
+  control: any;
+  allTags: Tag[] | undefined;
+  name: string;
 }
 
-const TagInput: React.FC<TagInputProps> = ({ control, allTags }) => {
+const TagInput: React.FC<TagInputProps> = ({ control, allTags, name }) => {
   return (
     <div>
       <Controller
-        name="tags"
+        name={name}
         control={control}
         defaultValue={[]}
         render={({ field }) => (
