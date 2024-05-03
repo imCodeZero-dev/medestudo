@@ -171,6 +171,7 @@ export const editExamApi = async (
   examId: string,
   token: string
 ) => {
+  console.log("editExamApi", data, "id", examId);
   const response = await apiRequest({
     method: "Put",
     url: `/professor/updateExam/${examId}`,

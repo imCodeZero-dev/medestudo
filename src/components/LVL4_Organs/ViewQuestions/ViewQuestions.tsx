@@ -75,7 +75,7 @@ const ViewQuestions: React.FC<ViewQuestionsProps> = ({
                 currentIndex + 1
               }`}</Text>
 
-              <div className="flex space-x-4">
+              {/* <div className="flex space-x-4">
                 <div>
                   <Button
                     type="button"
@@ -96,7 +96,7 @@ const ViewQuestions: React.FC<ViewQuestionsProps> = ({
                     {localeButtons?.BUTTON_SAVE}
                   </Button>
                 </div>
-              </div>
+              </div> */}
             </div>
 
             <div className="my-6">
@@ -173,7 +173,6 @@ const ViewQuestions: React.FC<ViewQuestionsProps> = ({
         questionDetails={allQuestion[currentIndex]}
         open={viewSeeSolution}
         handleClose={handleCloseSeeSolution}
-        control={control}
       />
     </div>
   );

@@ -24,13 +24,13 @@ const ExamDetailsHead: React.FC<ExamDetailsHeadProps> = ({
       <div className={styles["main-inner-left"]}>
         <div className={"flex space-x-2 items-center mb-2"}>
           <Text className={styles["title"]}>{examsDetails?.title}</Text>
-          <BiSolidPencil
+          {/* <BiSolidPencil
             onClick={() => openEditModal(examsDetails)}
             size={22}
             color="#3359E4"
             className="cursor-pointer"
             // onClick={() => openEditModal && openEditModal(data)}
-          />
+          /> */}
         </div>
         <div className={styles["details"]}>
           <div className={styles["details-section"]}>
@@ -62,8 +62,11 @@ const ExamDetailsHead: React.FC<ExamDetailsHeadProps> = ({
         >
           {localeButtons?.BUTTON_DELETE_EXAM}
         </Button>
-        <Button className="primaryActive-lessHeight">
-          {localeButtons?.BUTTON_SAVE_EXAM}
+        <Button
+          className="primaryActive-lessHeight"
+          onClick={() => openEditModal(examsDetails)}
+        >
+          {localeButtons?.BUTTON_EDIT}
         </Button>
       </div>
     </div>
