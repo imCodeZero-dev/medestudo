@@ -71,9 +71,9 @@ const ExamsDetails = ({}: ExamsDetailsProps) => {
     navigate("/professor/exams/exam/question", { state: exam });
     // navigate("/professor/classes/deck/flashcard", { state: deck });
   };
-  const navigateToViewFlashcard = (deck: any) => {
-    navigate(`/professor/classes/deck/flashcard/${deck?._id}`, {
-      state: deck,
+  const navigateToEditQuestion = (exam: any) => {
+    navigate(`/professor/exams/exam/question/${exam?._id}`, {
+      state: exam,
     });
   };
 
