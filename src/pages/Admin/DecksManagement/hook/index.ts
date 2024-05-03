@@ -147,7 +147,8 @@ export const useDecksManagement = () => {
       const params = {
         name: data?.deck?.[0]?.name,
         subDeck: data?.deck?.[0]?.subDeck,
-        image: "1.21.1",
+        image:
+          "https://res.cloudinary.com/dmzieqsir/image/upload/v1711538928/Rectangle_30_qqyv5m.png",
       };
       try {
         setDeckLoading(true);

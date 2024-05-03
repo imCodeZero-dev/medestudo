@@ -14,7 +14,9 @@ import { useDispatch, useSelector } from "react-redux";
 
 import {
   createClassDeckApi,
+  deleteClassDeckApi,
   deleteExamApi,
+  deleteQuestionApi,
   editExamApi,
   getExamByIdApi,
   getExamQuestionsApi,
@@ -57,6 +59,9 @@ export const useExamsDetails = () => {
   const [deleteExamModal, setDeleteExamModal] = useState(false);
   const [deleteLoading, setDeleteLoading] = useState(false);
   const [selectedExamId, setSelectedExamId] = useState<null | string>(null);
+  const [selectedQuestionId, setSelectedQuestionId] = useState<null | string>(
+    null
+  );
   const [editModal, setEditModal] = useState(false);
 
   const openEditModal = (data: examCardData) => {
@@ -79,7 +84,7 @@ export const useExamsDetails = () => {
   };
   const openDeleteModal = (id: string) => {
     console.log("openDeleteModal", id);
-    setSelectedExamId(id);
+    setSelectedQuestionId(id);
     setDeleteModal(true);
   };
 
@@ -147,7 +152,7 @@ export const useExamsDetails = () => {
   //   }
   // );
 
-  // console.log("examsDetails", examsDetails);
+  console.log("examsDetails", examsDetails);
   // console.log("examQuestions", examQuestions);
 
   const onSubmitCreate = async (data: any) => {
@@ -175,24 +180,23 @@ export const useExamsDetails = () => {
   };
 
   const onDeleteConfirm = async () => {
-    // try {
-    //   setDeleteLoading(true);
-    //   let response;
-    //   response = await deleteClassDeckApi(
-    //     selectedExamId,
-    //     cookies?.professor?.token
-    //   );
-    //   console.log("response", response);
-    //   refetchClassDetails();
-    //   refetchclassDecks();
-    //   showSuccessToast(localeSuccess?.SUCCESS_DECK_DELETED);
-    // } catch (error: any) {
-    //   console.log("error", error);
-    //   showErrorToast(error?.response?.data?.errorMessage);
-    // } finally {
-    //   setDeleteLoading(false);
-    //   handleDeleteClose();
-    // }
+    try {
+      setDeleteLoading(true);
+      let response;
+      response = await deleteQuestionApi(
+        selectedQuestionId as string,
+        cookies?.professor?.token
+      );
+      console.log("response", response);
+      refetchexamQuestions();
+      showSuccessToast(localeSuccess?.SUCCESS_QUESTION_DELETED);
+    } catch (error: any) {
+      console.log("error", error);
+      showErrorToast(error?.response?.data?.errorMessage);
+    } finally {
+      setDeleteLoading(false);
+      handleDeleteClose();
+    }
   };
   const onExamDeleteConfirm = async () => {
     try {
@@ -247,7 +251,9 @@ export const useExamsDetails = () => {
   };
 
   const getDetails = (data: string) => {
-    navigate(`/professor/exams/exam/${examId}`, { state: data });
+    navigate(`/professor/exams/exam/${examId}`, {
+      state: { examQuestion: data, examsDetails },
+    });
   };
 
   return {

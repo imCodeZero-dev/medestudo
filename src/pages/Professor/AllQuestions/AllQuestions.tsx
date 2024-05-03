@@ -20,6 +20,7 @@ import ViewFlashcards from "../../../components/LVL4_Organs/ViewFlashcards/ViewF
 import ConfirmationModal from "../../../components/LVL4_Organs/ConfirmationModal";
 import AlertIcon from "../../../assets/svgs/AlertIcon";
 import ViewQuestions from "../../../components/LVL4_Organs/ViewQuestions/ViewQuestions";
+import ExamDetailsHead from "../../../components/LVL3_Cells/ExamDetailsHead/ExamDetailsHead";
 
 const AllQuestions = ({}: AllQuestionsProps) => {
   const { localeTitles, localeButtons, localeLables } = useLocale();
@@ -48,6 +49,12 @@ const AllQuestions = ({}: AllQuestionsProps) => {
     onSubmitEdit,
     editLoading,
     examQuestionsLoading,
+    examDetails,
+    openEditModal,
+    openDeleteExamModal,
+    deleteExamModal,
+    onDeleteExamConfirm,
+    closeDeleteExamModal,
   } = useAllQuestions();
   // console.log("allDecks", allDecks);
   const navigate = useNavigate();
@@ -58,6 +65,11 @@ const AllQuestions = ({}: AllQuestionsProps) => {
       <div className={styles["AllQuestions"]}>
         {/* {AllQuestions.map((flashcard) => ( */}
         <div className={styles["AllQuestions-main"]}>
+          <ExamDetailsHead
+            examsDetails={examDetails}
+            openDeleteModal={openDeleteExamModal}
+            openEditModal={openEditModal}
+          />
           <ViewQuestions
             currentIndex={currentQuestionIndex}
             allQuestion={examQuestions}
@@ -84,6 +96,17 @@ const AllQuestions = ({}: AllQuestionsProps) => {
           icon={<AlertIcon />}
           title={localeTitles.TITLE_ARE_YOU_SURE_DELETE}
           handleClose={handleDeleteClose}
+          loading={deleteLoading}
+        />
+
+        <ConfirmationModal
+          open={deleteExamModal}
+          cancelButtonText={localeButtons?.BUTTON_CANCEL}
+          confirmButtonText={localeButtons?.BUTTON_DELETE}
+          onConfirm={onDeleteExamConfirm}
+          icon={<AlertIcon />}
+          title={localeTitles.TITLE_ARE_YOU_SURE_DELETE}
+          handleClose={closeDeleteExamModal}
           loading={deleteLoading}
         />
       </div>

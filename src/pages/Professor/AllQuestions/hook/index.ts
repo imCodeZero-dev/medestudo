@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { closeModal } from "../../../../redux/slices/CreateClassModalSlice";
 
 import {
+  deleteExamApi,
   deleteFlashcardApi,
   editFlashcardApi,
 } from "../../../../utils/api/professors";
@@ -26,11 +27,13 @@ import {
 } from "react-router-dom";
 import {
   useAllClassesQuery,
+  useAllExamsQuery,
   useAllFlashcardsQuery,
   useAllTagsQuery,
   useExamQuestionsQuery,
 } from "../../../../redux/slices/APISlice";
 import { Flashcard, Tag } from "../../../../utils/constants/DataTypes";
+import { examCardData } from "../../../../components/LVL3_Cells/DashboardExams/@types";
 
 export const useAllQuestions = () => {
   // const navigate = useNavigate();
@@ -47,22 +50,52 @@ export const useAllQuestions = () => {
     setValue,
     getValues,
     reset,
-  } = useForm<{ question: string; answer: string; tags: string[] }>({
+  } = useForm<{
+    question: string;
+    answer: string;
+    tags: string[];
+    title: string;
+    institute: string;
+    year: string;
+  }>({
     // resolver: yupResolver(validationSchema),
     defaultValues: {},
   });
 
   const [deleteLoading, setDeleteLoading] = useState<boolean>(false);
   const [deleteModal, setdeleteModal] = useState<boolean>(false);
+  const [deleteExamModal, setdeleteExamModal] = useState<boolean>(false);
   const [enableEdit, setEnableEdit] = useState<boolean>(false);
   const [editLoading, setEditLoading] = useState<boolean>(false);
   const [flashcardData, setFlashcardData] = useState<any>();
-  const location = useLocation();
+  const location = useLocation().state;
   const navigate = useNavigate();
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const examDetails = location?.examsDetails;
+  console.log("AllQuestion Exams", location);
+  console.log("AllQuestion Exams", examDetails);
 
+  const [editModal, setEditModal] = useState(false);
 
-    console.log("AllQuestion Exams", location);
+  const openEditModal = (data: examCardData) => {
+    // setSelectedExamId(data?._id);
+    setEditModal(true);
+    setValue("title", data?.title);
+    setValue("institute", data?.institute);
+    setValue("year", data?.year);
+  };
+
+  const handleEditClose = () => {
+    setEditModal(false);
+  };
+
+  const openDeleteExamModal = () => {
+    setdeleteExamModal(true);
+  };
+
+  const closeDeleteExamModal = () => {
+    setdeleteExamModal(false);
+  };
 
   const handleDeleteOpen = (data: any) => {
     setdeleteModal(true);
@@ -78,9 +111,9 @@ export const useAllQuestions = () => {
     // navigate("/professor/classes/deck/flashcard", { state: data });
   };
 
-  const handleEditClose = () => {
-    setEnableEdit(false);
-  };
+  // const handleEditClose = () => {
+  //   setEnableEdit(false);
+  // };
 
   const {
     examQuestions,
@@ -88,6 +121,8 @@ export const useAllQuestions = () => {
     examQuestionsLoading,
     refetchexamQuestions,
   } = useExamQuestionsQuery(cookies, examId as string);
+
+  const { refetchAllExams } = useAllExamsQuery(cookies);
 
   console.log("examQuestions", examQuestions);
 
@@ -125,6 +160,28 @@ export const useAllQuestions = () => {
     } finally {
       setDeleteLoading(false);
       handleDeleteClose();
+    }
+  };
+
+  const onDeleteExamConfirm = async () => {
+    try {
+      setDeleteLoading(true);
+      let response;
+      response = await deleteExamApi(
+        examId as string,
+        cookies?.professor?.token
+      );
+      console.log("response", response);
+
+      showSuccessToast(localeSuccess?.SUCCESS_EXAM_DELETED);
+      navigate(-1);
+      refetchAllExams();
+    } catch (error: any) {
+      console.log("error", error);
+      showErrorToast(error?.response?.data?.errorMessage);
+    } finally {
+      setDeleteLoading(false);
+      closeDeleteExamModal();
     }
   };
 
@@ -210,5 +267,11 @@ export const useAllQuestions = () => {
     onSubmitEdit,
     editLoading,
     examQuestionsLoading,
+    examDetails,
+    openEditModal,
+    deleteExamModal,
+    openDeleteExamModal,
+    onDeleteExamConfirm,
+    closeDeleteExamModal,
   };
 };

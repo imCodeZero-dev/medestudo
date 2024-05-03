@@ -1,5 +1,8 @@
 import React, { ReactNode } from "react";
-import { Modal, Box, Paper } from "@mui/material";
+import { Modal, Box, Paper, IconButton } from "@mui/material";
+import Text from "../../LVL1_Atoms/Text/Text";
+import { IoMdCloseCircleOutline } from "react-icons/io";
+import { IoIosClose } from "react-icons/io";
 
 interface ModalProps {
   open: boolean;
@@ -14,6 +17,7 @@ const CustomModal: React.FC<ModalProps> = ({
   onClose,
   children,
   width,
+  title,
 }) => {
   return (
     <Modal open={open} onClose={onClose}>
@@ -30,10 +34,14 @@ const CustomModal: React.FC<ModalProps> = ({
         }}
       >
         <Box display="flex" justifyContent="space-between" alignItems="center">
-          {/* <Text variant="h6">{title}</Text> */}
-          {/* <IconButton onClick={onClose}>
-            <IoMdCloseCircleOutline />
-          </IconButton> */}
+          {title && (
+            <>
+              <Text className="text-lg font-semibold">{title}</Text>
+              <IconButton onClick={onClose}>
+                <IoIosClose />
+              </IconButton>
+            </>
+          )}
         </Box>
         {children}
       </Paper>

@@ -34,6 +34,8 @@ export const TEXT = {
       "You have set a new password for your account Click on login to continue.",
     TEXT_THE_CODE_YOU_ENTERED_IS_INVALID: "The code you entered is invalid.",
     TEXT_RESEND_CODE: "Resend Code",
+    TEXT_STATEMENT: "Statement",
+    TEXT_QUESTION_SOLUTION: "Question Solution",
   },
   es: {
     TEXT_ENTER_DETAILS: "Enter Details to continue using your account",
@@ -70,5 +72,7 @@ export const TEXT = {
       "You have set a new password for your account Click on login to continue.",
     TEXT_THE_CODE_YOU_ENTERED_IS_INVALID: "The code you entered is invalid.",
     TEXT_RESEND_CODE: "Resend Code",
+    TEXT_STATEMENT: "Statement",
+    TEXT_QUESTION_SOLUTION: "Question Solution",
   },
 };

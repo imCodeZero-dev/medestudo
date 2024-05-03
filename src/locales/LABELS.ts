@@ -34,6 +34,8 @@ export const LABELS = {
     LABEL_INSTITUTE: "Institute",
     LABEL_UPDATE_NOTIFICATIONS: "Update Notifications",
     LABEL_NEW_PAPER_NOTIFICATIONS: "New Paper Notifications",
+    LABEL_TEST_SOLUTION: "Test Solution",
+    LABEL_REASONING: "Reasoning",
   },
   es: {
     LABEL_USERNAME: "Username or Email",
@@ -70,5 +72,7 @@ export const LABELS = {
     LABEL_INSTITUTE: "Institute",
     LABEL_UPDATE_NOTIFICATIONS: "Update Notifications",
     LABEL_NEW_PAPER_NOTIFICATIONS: "New Paper Notifications",
+    LABEL_TEST_SOLUTION: "Test Solution",
+    LABEL_REASONING: "Reasoning",
   },
 };

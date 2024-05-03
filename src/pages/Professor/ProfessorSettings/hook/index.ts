@@ -90,7 +90,7 @@ export const useProfessorSettings = () => {
 
   const [createLoading, setCreateLoading] = useState<boolean>(false);
 
-  const openCreate = useSelector((state: any) => state.modal.isOpen);
+  // const openCreate = useSelector((state: any) => state.modal.isOpen);
 
   const handleCloseCreate = () => {
     dispatch(closeModal());

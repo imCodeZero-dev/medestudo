@@ -1,0 +1,138 @@
+.modal-head {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+.title {
+  font-family: Poppins;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 36px;
+  color: #1d1f22;
+}
+.basic {
+  font-family: Poppins;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  color: #6f7680;
+}
+
+.mainBody {
+  min-height: 80vh;
+}
+
+.questionSection{
+background-color: #F8FBFF;
+padding: 12px;
+margin: 16px 0;
+}
+
+
+
+.inputDiv {
+  margin-top: 4px;
+}
+
+.questionTitle {
+  font-family: Poppins;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  text-align: left;
+  color: #254d87;
+}
+
+.mcqsDiv {
+  display: flex;
+  flex-direction: column;
+  row-gap: 12px;
+  justify-content: center;
+  /* align-items: center; */
+  width: 100%;
+}
+
+.mcq {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  row-gap: 16px;
+  overflow-y: auto;
+}
+
+.answer {
+  margin-left: 10px;
+}
+.reason {
+  margin-left: 10px;
+}
+
+.correctOption {
+  background-color: #4ac776;
+  border-radius: 50%;
+  padding: 8px;
+  color: #ffffff;
+
+  width: 64px;
+  height: 64px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.incorrectOption {
+  background-color: #ff6600;
+  border-radius: 50%;
+  padding: 8px;
+  color: #ffffff;
+
+  width: 64px;
+  height: 64px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.correctReason {
+  background-color: #4ac776;
+  border-radius: 12px;
+  padding: 16px;
+  color: #ffffff;
+  width: 100%;
+  /* width: 64px;
+  height: 64px; */
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+}
+
+.incorrectReason {
+  background-color: #ffd1b2;
+  border-radius: 12px;
+  padding: 16px;
+  color: #4c1f00;
+
+  /* width: 64px;
+  height: 64px; */
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+}
+
+.optionTextLabe {
+  /* //styleName: Body Large/Bold; */
+  font-family: Poppins;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+  text-align: left;
+}
+.optionText {
+  /* //styleName: Body Large/Bold; */
+  font-family: Poppins;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: left;
+}

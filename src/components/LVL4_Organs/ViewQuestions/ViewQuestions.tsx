@@ -20,6 +20,7 @@ import Loader from "../../LVL1_Atoms/Loader";
 import Input from "../../LVL1_Atoms/Input";
 import { IoIosArrowRoundBack } from "react-icons/io";
 import { IoIosArrowRoundForward } from "react-icons/io";
+import ViewQuestionModal from "../ViewQuestionModal/ViewQuestionModal";
 
 const ViewQuestions: React.FC<ViewQuestionsProps> = ({
   control,
@@ -50,6 +51,15 @@ const ViewQuestions: React.FC<ViewQuestionsProps> = ({
     handleEditClose();
     setKey((prevKey) => prevKey + 1);
   };
+
+  const [viewSeeSolution, setViewSeeSolution] = useState(false);
+  const handleOpenSeeSolution = () => {
+    setViewSeeSolution(true);
+  };
+
+  const handleCloseSeeSolution = () => {
+    setViewSeeSolution(false);
+  };
   // console.log("filteredTags", filteredTags);
   return (
     <div className={styles["ViewQuestions"]}>
@@ -59,29 +69,6 @@ const ViewQuestions: React.FC<ViewQuestionsProps> = ({
         </div>
       ) : (
         <form onSubmit={handleSubmit(onSubmitEdit)} className={styles["form"]}>
-          <div className={styles["ViewQuestions-head"]}>
-            <div className={styles["headLeft"]}>
-              <Text className={styles.title}>
-                {localeTitles.TITLE_FLASHCARD}
-              </Text>
-              <div>
-                <Text className={styles.heading}>
-                  {localeTitles.TITLE_NEW_CHAPTER}
-                </Text>
-              </div>
-            </div>
-            <div className={styles["headRight"]}>
-              {enableEdit && (
-                <Button
-                  type="submit"
-                  className="primaryTab"
-                  loading={editLoading}
-                >
-                  {localeButtons?.BUTTON_SAVE}
-                </Button>
-              )}
-            </div>
-          </div>
           <div className={styles["ViewQuestions-main"]}>
             <div className={styles["ViewQuestions-main-head"]}>
               <Text className={styles["questionTitle"]}>{`Question ${
@@ -92,7 +79,7 @@ const ViewQuestions: React.FC<ViewQuestionsProps> = ({
                 <div>
                   <Button
                     type="button"
-                    className="primary"
+                    className="primary-lessHeight"
                     // loading={loading}
                     // onClick={() => setCreateFlashcard(false)}
                   >
@@ -102,7 +89,7 @@ const ViewQuestions: React.FC<ViewQuestionsProps> = ({
                 <div>
                   <Button
                     type="button"
-                    className="primaryActive"
+                    className="primaryActive-lessHeight"
                     // loading={loading}
                     // onClick={() => setCreateFlashcard(false)}
                   >
@@ -140,14 +127,14 @@ const ViewQuestions: React.FC<ViewQuestionsProps> = ({
                     >
                       {String.fromCharCode(65 + index)}
                     </p>
-                    <p className={styles.reason}>{answer.reason}</p>
+                    <p className={styles.answer}>{answer.text}</p>
                   </div>
                 )
               )}
             </div>
 
             <div className="flex items-center w-64 m-auto">
-              <Button className="yellowButton">
+              <Button className="yellowButton" onClick={handleOpenSeeSolution}>
                 {" "}
                 {localeButtons.BUTTON_SEE_SOLUTION}
               </Button>
@@ -181,6 +168,13 @@ const ViewQuestions: React.FC<ViewQuestionsProps> = ({
           </div>
         </form>
       )}
+
+      <ViewQuestionModal
+        questionDetails={allQuestion[currentIndex]}
+        open={viewSeeSolution}
+        handleClose={handleCloseSeeSolution}
+        control={control}
+      />
     </div>
   );
 };

@@ -4,7 +4,7 @@
   overflow-y: auto;
 }
 .AllQuestions-main {
-  background-color: #f8fbff;
+  /* background-color: #f8fbff; */
   flex: 1;
   padding: 32px;
   height: 100%;

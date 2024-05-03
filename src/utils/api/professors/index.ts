@@ -213,6 +213,16 @@ export const createQuestionApi = async (
   return response;
 };
 
+export const deleteQuestionApi = async (questionId: string, token: string) => {
+  console.log("createQuestionApi", questionId);
+  const response = await apiRequest({
+    method: "Delete",
+    url: `/professor/deleteQns/${questionId}`,
+    token,
+  });
+  return response;
+};
+
 export const getExamQuestionsApi = async (examId: string, token: string) => {
   const response = await apiRequest({
     method: "Get",

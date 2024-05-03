@@ -26,6 +26,7 @@ import { GoQuestion } from "react-icons/go";
 import { BiSolidPencil } from "react-icons/bi";
 import EditExamModal from "../../../components/LVL4_Organs/CreateExamModal/EditExamModal";
 import { totalYears } from "../../../utils/constants/constants";
+import ExamDetailsHead from "../../../components/LVL3_Cells/ExamDetailsHead/ExamDetailsHead";
 
 const ExamsDetails = ({}: ExamsDetailsProps) => {
   const { localeTitles, localeButtons, localeLables } = useLocale();
@@ -63,7 +64,7 @@ const ExamsDetails = ({}: ExamsDetailsProps) => {
   const navigate = useNavigate();
   const { localeText } = useLocale();
 
-  const examId = location?.state;
+  // const examId = location?.state;
 
   const navigateToCreateQuestion = (exam: any) => {
     // console.log("navigateToCreateFlashcard", exam);
@@ -86,7 +87,12 @@ const ExamsDetails = ({}: ExamsDetailsProps) => {
             </div>
           ) : (
             <>
-              <div className={styles["ExamsDetails-main-inner"]}>
+              <ExamDetailsHead
+                examsDetails={examsDetails}
+                openDeleteModal={openDeleteExamModal}
+                openEditModal={openEditModal}
+              />
+              {/* <div className={styles["ExamsDetails-main-inner"]}>
                 <div className={styles["main-inner-left"]}>
                   <div className={"flex space-x-2 items-center mb-2"}>
                     <Text className={styles["title"]}>
@@ -132,7 +138,7 @@ const ExamsDetails = ({}: ExamsDetailsProps) => {
                 <div className={styles["main-inner-right"]}>
                   <Button
                     className="yellowButton-lessHeight"
-                    onClick={() => openDeleteExamModal(examId)}
+                    onClick={() => openDeleteExamModal(examsDetails?._id)}
                   >
                     {localeButtons?.BUTTON_DELETE_EXAM}
                   </Button>
@@ -140,7 +146,7 @@ const ExamsDetails = ({}: ExamsDetailsProps) => {
                     {localeButtons?.BUTTON_SAVE_EXAM}
                   </Button>
                 </div>
-              </div>
+              </div> */}
               <div className={styles["ExamsDetails-main-questions"]}>
                 {Array.isArray(examQuestions) &&
                   examQuestions?.map((data: any, i: number) => (

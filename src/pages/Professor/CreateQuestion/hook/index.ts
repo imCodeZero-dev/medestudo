@@ -24,6 +24,7 @@ import {
   useAllExamsQuery,
   useAllSubjectsQuery,
   useAllTagsQuery,
+  useExamQuestionsQuery,
 } from "../../../../redux/slices/APISlice";
 import { examCardData } from "../../../../components/LVL3_Cells/DashboardExams/@types";
 import { Tag } from "../../../../utils/constants/DataTypes";
@@ -138,8 +139,16 @@ export const useCreateExamQuestion = () => {
 
   const { allExams, allExamsLoading, errorAllExams, refetchAllExams } =
     useAllExamsQuery(cookies);
+
   const { allTags, refetchAllTags, allTagsLoading, errorAllTags } =
     useAllTagsQuery(cookies);
+
+  const {
+    examQuestions,
+    errorexamQuestions,
+    examQuestionsLoading,
+    refetchexamQuestions,
+  } = useExamQuestionsQuery(cookies, examId?._id as string);
 
   console.log("allTags", allTags);
 
@@ -232,7 +241,8 @@ export const useCreateExamQuestion = () => {
       );
       console.log("response", response);
 
-      showSuccessToast(localeSuccess?.SUCCESS_DECK_CREATED);
+      showSuccessToast(localeSuccess?.SUCCESS_QUESTION_CREATED);
+      refetchexamQuestions();
       navigate(-1);
     } catch (error: any) {
       console.log("error", error);
