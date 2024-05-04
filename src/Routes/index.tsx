@@ -153,10 +153,12 @@ const ProjectRoutes = () => {
               path="/professor/exams/exam"
               element={<ExamsDetailsServices />}
             />
+
             <Route
               path="/professor/exams/exam/question"
               element={<CreateExamQuestionServices />}
             />
+
             <Route
               path="/professor/exams/exam/:examId"
               element={<AllQuestionsServices />}

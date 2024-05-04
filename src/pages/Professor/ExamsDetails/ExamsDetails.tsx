@@ -68,12 +68,15 @@ const ExamsDetails = ({}: ExamsDetailsProps) => {
 
   const navigateToCreateQuestion = (exam: any) => {
     // console.log("navigateToCreateFlashcard", exam);
-    navigate("/professor/exams/exam/question", { state: exam });
+    navigate("/professor/exams/exam/question", {
+      state: { ...exam, status: "create" },
+    });
     // navigate("/professor/classes/deck/flashcard", { state: deck });
   };
   const navigateToEditQuestion = (exam: any) => {
-    navigate(`/professor/exams/exam/question/${exam?._id}`, {
-      state: exam,
+    console.log("navigateToEditQuestion", exam);
+    navigate(`/professor/exams/exam/question`, {
+      state: { ...exam, status: "edit" },
     });
   };
 
@@ -156,7 +159,7 @@ const ExamsDetails = ({}: ExamsDetailsProps) => {
                       data={data}
                       getDetails={getDetails}
                       openDeleteModal={openDeleteModal}
-                      // openEditModal={openEditModal}
+                      openEditModal={navigateToEditQuestion}
                     />
                   ))}
               </div>

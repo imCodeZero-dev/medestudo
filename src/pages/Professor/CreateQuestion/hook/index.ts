@@ -17,6 +17,7 @@ import {
   createQuestionApi,
   deleteExamApi,
   editExamApi,
+  editQuestionApi,
   getExamByIdApi,
 } from "../../../../utils/api/professors";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
@@ -29,6 +30,7 @@ import {
 import { examCardData } from "../../../../components/LVL3_Cells/DashboardExams/@types";
 import { Tag } from "../../../../utils/constants/DataTypes";
 import { uploadImageToCloudinary } from "../../../../utils/hooks/helper";
+import { exmaQuestionValidation } from "../../../../utils/hooks/inputValidation";
 
 interface Subject {
   id: number;
@@ -39,7 +41,17 @@ export const useCreateExamQuestion = () => {
   const { localeSuccess } = useLocale();
   const [cookies] = useCookies(["professor"]);
   const [modifiedSubjects, setModifiedSubjects] = useState<Tag[]>();
+  const [createLoading, setCreateLoading] = useState<boolean>(false);
+  const [editExamLoading, setEditExamLoading] = useState<boolean>(false);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [deleteLoading, setDeleteLoading] = useState(false);
+  const [selectedExamId, setSelectedExamId] = useState<null | string>(null);
+  const [editModal, setEditModal] = useState(false);
   const dispatch = useDispatch();
+  const examId = location?.state;
+
+  console.log("examId", examId);
 
   type FormData = {
     answers: {
@@ -66,6 +78,37 @@ export const useCreateExamQuestion = () => {
     }
   }, [allSubjects]);
 
+  useEffect(() => {
+    if (examId?.status === "edit") {
+      const decodedSolution = atob(examId?.detailedSolution);
+      if (examId?.tags && examId?.tags.length > 0) {
+        const filteredTags = examId?.tags?.map((item: Tag) => ({
+          title: item,
+          value: item,
+          label: item,
+        }));
+        setValue("tags", filteredTags);
+      } else {
+        setValue("tags", []);
+      }
+      if (examId?.subjects && examId?.subjects.length > 0) {
+        const filteredSubjects = examId?.subjects?.map((item: Tag) => ({
+          title: item,
+          value: item,
+          label: item,
+        }));
+        setValue("subjects", filteredSubjects);
+      } else {
+        setValue("subjects", []);
+      }
+
+      setValue("solution", decodedSolution);
+      setValue("question", examId?.question);
+      setValue("answers", examId?.answers);
+      setValue("detailedSolution", decodedSolution);
+    }
+  }, [examId]);
+
   console.log("allSubjects", allSubjects);
 
   const {
@@ -76,7 +119,7 @@ export const useCreateExamQuestion = () => {
     setValue,
     reset,
   } = useForm<any>({
-    // resolver: yupResolver(validationSchema),
+    resolver: yupResolver(exmaQuestionValidation),
     defaultValues: {
       answers: [
         { id: "1", isCorrect: false, text: "", reason: "", image: null },
@@ -87,58 +130,12 @@ export const useCreateExamQuestion = () => {
       ],
     },
   });
-  const [createLoading, setCreateLoading] = useState<boolean>(false);
-  const [editExamLoading, setEditExamLoading] = useState<boolean>(false);
-  const location = useLocation();
-
-  const examId = location?.state;
-
-  console.log("examId", examId);
-
-  const navigate = useNavigate();
-  const [createModal, setCreateModal] = useState(false);
-  const [specificDecks, setSpecificDecks] = useState();
-  const [deleteModal, setDeleteModal] = useState(false);
-  const [deleteExamModal, setDeleteExamModal] = useState(false);
-  const [deleteLoading, setDeleteLoading] = useState(false);
-  const [selectedExamId, setSelectedExamId] = useState<null | string>(null);
-  const [editModal, setEditModal] = useState(false);
-
-  const openEditModal = (data: examCardData) => {
-    setSelectedExamId(data?._id);
-    setEditModal(true);
-    setValue("title", data?.title);
-    setValue("institute", data?.institute);
-    setValue("year", data?.year);
-  };
 
   const handleEditClose = () => {
     setEditModal(false);
   };
-  const handleCloseCreate = () => {
-    setCreateModal(false);
-  };
 
-  const handleDeleteClose = () => {
-    setDeleteModal(false);
-  };
-  const openDeleteModal = (id: string) => {
-    console.log("openDeleteModal", id);
-    setSelectedExamId(id);
-    setDeleteModal(true);
-  };
-
-  const handleDeleteExamClose = () => {
-    setDeleteExamModal(false);
-  };
-  const openDeleteExamModal = (id: string) => {
-    console.log("openDeleteModal", id);
-    setSelectedExamId(id);
-    setDeleteExamModal(true);
-  };
-
-  const { allExams, allExamsLoading, errorAllExams, refetchAllExams } =
-    useAllExamsQuery(cookies);
+  const { refetchAllExams } = useAllExamsQuery(cookies);
 
   const { allTags, refetchAllTags, allTagsLoading, errorAllTags } =
     useAllTagsQuery(cookies);
@@ -148,9 +145,12 @@ export const useCreateExamQuestion = () => {
     errorexamQuestions,
     examQuestionsLoading,
     refetchexamQuestions,
-  } = useExamQuestionsQuery(cookies, examId?._id as string);
+  } = useExamQuestionsQuery(
+    cookies,
+    examId?.status === "edit" ? examId?.examId : (examId?._id as string)
+  );
 
-  console.log("allTags", allTags);
+  // console.log("allTags", allTags);
 
   const {
     // data: examsDetails,
@@ -168,18 +168,43 @@ export const useCreateExamQuestion = () => {
     ],
 
     async () => {
-      return getExamByIdApi(examId, cookies?.professor?.token);
+      return getExamByIdApi(
+        examId?.status === "edit" ? examId?.examId : (examId?._id as string),
+        cookies?.professor?.token
+      );
     },
     {
       enabled: !!cookies?.professor?.token && !!examId,
     }
   );
 
-  console.log("examsDetails", examsDetails);
+  // console.log("examsDetails", examsDetails);
 
   const onSubmitCreate = async (data: any) => {
     console.log("onSubmitCreate", data);
+    const hasCorrectAnswer = data?.answers?.some(
+      (answer: any) => answer?.isCorrect
+    );
 
+    if (hasCorrectAnswer) callUploadFunction(data, "create");
+    else {
+      showErrorToast("1 answer must be true");
+    }
+  };
+
+  const onSubmitEditQuestion = async (data: any) => {
+    console.log("onSubmitEditQuestion", data);
+    const hasCorrectAnswer = data?.answers?.some(
+      (answer: any) => answer?.isCorrect
+    );
+
+    if (hasCorrectAnswer) callUploadFunction(data, "edit");
+    else {
+      showErrorToast("1 answer must be true");
+    }
+  };
+
+  const callUploadFunction = async (data: any, type: string) => {
     try {
       setCreateLoading(true);
 
@@ -191,22 +216,15 @@ export const useCreateExamQuestion = () => {
       // Upload images to Cloudinary
       const uploadedAnswers = await Promise.all(
         answersWithImages.map(async (answer: any) => {
-          // Upload image to Cloudinary
           const imageUrl = await uploadImageToCloudinary(answer.image);
 
-          // Return the image URL along with the answer ID
           return {
             id: answer.id,
             image: imageUrl,
           };
-          // return {
-          //   ...answer,
-          //   image: imageUrl,
-          // };
         })
       );
 
-      // Combine uploaded images with the original answers
       const updatedAnswers = data?.answers.map((answer: any) => {
         const uploadedAnswer = uploadedAnswers.find(
           (uploadedAnswer: any) => uploadedAnswer.id === answer.id
@@ -216,12 +234,11 @@ export const useCreateExamQuestion = () => {
           : answer;
       });
 
-      // Extract tags and subjects
       const tags = data?.tags?.map((tag: any) => tag.label);
       const subjects = data?.subjects?.map((tag: any) => tag.label);
 
       // Encode question and solution to base64
-      const base64Question = btoa(data.question);
+      // const base64Question = btoa(data.question);
       const base64Solution = btoa(data.solution);
 
       // Prepare parameters for createQuestionApi
@@ -234,14 +251,24 @@ export const useCreateExamQuestion = () => {
       };
 
       // Call createQuestionApi
-      const response = await createQuestionApi(
-        params,
-        examId?._id,
-        cookies?.professor?.token
-      );
+      let response;
+      if (type === "create") {
+        response = await createQuestionApi(
+          params,
+          examId?._id,
+          cookies?.professor?.token
+        );
+        showSuccessToast(localeSuccess?.SUCCESS_QUESTION_CREATED);
+      } else {
+        response = await editQuestionApi(
+          params,
+          examId?._id,
+          cookies?.professor?.token
+        );
+        showSuccessToast(localeSuccess?.SUCCESS_QUESTION_UPDATED);
+      }
       console.log("response", response);
 
-      showSuccessToast(localeSuccess?.SUCCESS_QUESTION_CREATED);
       refetchexamQuestions();
       navigate(-1);
     } catch (error: any) {
@@ -249,163 +276,21 @@ export const useCreateExamQuestion = () => {
       showErrorToast(error?.response?.data?.errorMessage);
     } finally {
       setCreateLoading(false);
-      handleCloseCreate();
     }
-  };
-
-  // const onSubmitCreate = async (data: any) => {
-  //   console.log("onSubmitCreate", data);
-  //   const base64Question = btoa(data.question);
-  //   const base64Solution = btoa(data.solution);
-  //   const tags = data?.tags?.map((tag: any) => tag.label);
-  //   const subjects = data?.subjects?.map((tag: any) => tag.label);
-
-  //   try {
-  //     setCreateLoading(true);
-  //     const uploadedAnswers = await Promise.all(
-  //       data?.answers.map(async (answer: any) => {
-  //         // Upload image to Cloudinary
-  //         const imageUrl = await uploadImageToCloudinary(answer.image);
-
-  //         // Replace the image file with the Cloudinary URL
-  //         return {
-  //           ...answer,
-  //           imageUrl: imageUrl,
-  //         };
-  //       })
-  //     );
-  //     const params = {
-  //       subjects,
-  //       tags,
-  //       question: base64Question,
-  //       answers: uploadedAnswers,
-  //       detailedSolution: base64Solution,
-  //     };
-  //     let response;
-  //     response = await createQuestionApi(
-  //       params,
-  //       examId?._id,
-  //       cookies?.professor?.token
-  //     );
-  //     console.log("response", response);
-  //     // refetchClassDetails();
-  //     // refetchclassDecks();
-  //     showSuccessToast(localeSuccess?.SUCCESS_DECK_CREATED);
-  //   } catch (error: any) {
-  //     console.log("error", error);
-  //     showErrorToast(error?.response?.data?.errorMessage);
-  //   } finally {
-  //     setCreateLoading(false);
-  //     handleCloseCreate();
-  //   }
-  // };
-
-  const onDeleteConfirm = async () => {
-    // try {
-    //   setDeleteLoading(true);
-    //   let response;
-    //   response = await deleteClassDeckApi(
-    //     selectedExamId,
-    //     cookies?.professor?.token
-    //   );
-    //   console.log("response", response);
-    //   refetchClassDetails();
-    //   refetchclassDecks();
-    //   showSuccessToast(localeSuccess?.SUCCESS_DECK_DELETED);
-    // } catch (error: any) {
-    //   console.log("error", error);
-    //   showErrorToast(error?.response?.data?.errorMessage);
-    // } finally {
-    //   setDeleteLoading(false);
-    //   handleDeleteClose();
-    // }
-  };
-  const onExamDeleteConfirm = async () => {
-    try {
-      setDeleteLoading(true);
-      let response;
-      response = await deleteExamApi(
-        selectedExamId as string,
-        cookies?.professor?.token
-      );
-      console.log("response", response);
-
-      refetchAllExams();
-      navigate("/professor/exams");
-      showSuccessToast(localeSuccess?.SUCCESS_EXAM_DELETED);
-    } catch (error: any) {
-      console.log("error", error);
-      showErrorToast(error?.response?.data?.errorMessage);
-    } finally {
-      setDeleteLoading(false);
-      handleDeleteClose();
-      // }
-    }
-  };
-
-  const onSubmitEditExam = async (data: any) => {
-    console.log("onSubmitEdit", data);
-    const params = {
-      title: data?.title,
-      institute: data?.institute?.label,
-      year: data?.year?.label,
-    };
-    try {
-      setEditExamLoading(true);
-      let response;
-      response = await editExamApi(
-        params,
-        selectedExamId as string,
-        cookies?.professor?.token
-      );
-      console.log("response", response);
-      refetchAllExams();
-      refetchexamsDetails();
-      reset();
-      showSuccessToast(localeSuccess?.SUCCESS_EXAM_UPDATED);
-    } catch (error: any) {
-      console.log("error", error);
-      showErrorToast(error?.response?.data?.errorMessage);
-    } finally {
-      setEditExamLoading(false);
-      handleEditClose();
-    }
-  };
-
-  const getDetails = (data: string) => {
-    navigate(`/professor/classes/deck?${data}`, { state: data });
   };
 
   return {
     control,
-    errors,
     handleSubmit,
-    setValue,
     watch,
-
-    handleCloseCreate,
     onSubmitCreate,
-
-    openDeleteModal,
-    onDeleteConfirm,
-    deleteModal,
-    handleDeleteClose,
-    deleteLoading,
-
-    getDetails,
+    setValue,
     examsDetailsLoading,
     examsDetails,
-    openDeleteExamModal,
-    handleDeleteExamClose,
-    onExamDeleteConfirm,
-    deleteExamModal,
-    editModal,
-    openEditModal,
-    handleEditClose,
-    onSubmitEditExam,
-    editExamLoading,
+    errors,
     allTags,
     modifiedSubjects,
     createLoading,
+    onSubmitEditQuestion,
   };
 };

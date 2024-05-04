@@ -124,7 +124,7 @@
 .ansAndReason {
   background-color: white;
   border-radius: 12px;
-  padding:24px 16px;
+  padding: 24px 16px;
   display: flex;
   flex-direction: column;
   row-gap: 8px;
@@ -145,12 +145,14 @@
 }
 
 .ansAndReason-img {
+  display: flex;
   border: 1px solid #dcdfe2;
   border-radius: 6px;
   padding: 8px;
   width: 40%;
   max-width: 168px;
   max-height: 64px;
+  align-items: center;
 }
 
 .inputField {
@@ -158,4 +160,16 @@
 }
 .textArea {
   width: 100%;
+}
+
+.questionDiv {
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  column-gap: 16px;
+  padding: 24px 16px;
+  margin-top: 12px;
+}
+.questionDiv > div {
+  flex: 1;
 }

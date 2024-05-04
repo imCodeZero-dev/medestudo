@@ -214,6 +214,21 @@ export const createQuestionApi = async (
   return response;
 };
 
+export const editQuestionApi = async (
+  data: any,
+  questionId: string,
+  token: string
+) => {
+  console.log("editQuestionApi", data, "questionId", questionId);
+  const response = await apiRequest({
+    method: "Put",
+    url: `/professor/updateQns/${questionId}`,
+    token,
+    data,
+  });
+  return response;
+};
+
 export const deleteQuestionApi = async (questionId: string, token: string) => {
   console.log("createQuestionApi", questionId);
   const response = await apiRequest({

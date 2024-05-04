@@ -21,6 +21,7 @@ import Input from "../../LVL1_Atoms/Input";
 import { IoIosArrowRoundBack } from "react-icons/io";
 import { IoIosArrowRoundForward } from "react-icons/io";
 import ViewQuestionModal from "../ViewQuestionModal/ViewQuestionModal";
+import { useNavigate } from "react-router-dom";
 
 const ViewQuestions: React.FC<ViewQuestionsProps> = ({
   control,
@@ -41,15 +42,14 @@ const ViewQuestions: React.FC<ViewQuestionsProps> = ({
   const { localeTitles, localePlaceholders, localeButtons, localeText } =
     useLocale();
   // console.log("allTags", allTags);
+  const navigate = useNavigate();
   const [key, setKey] = useState(0);
 
-  const handleEdit = (data: any) => {
-    handleEditOpen(data);
-    setKey((prevKey) => prevKey + 1);
-  };
-  const handleClose = () => {
-    handleEditClose();
-    setKey((prevKey) => prevKey + 1);
+  const navigateToEditQuestion = (exam: any) => {
+    console.log("navigateToEditQuestion", exam);
+    navigate(`/professor/exams/exam/question`, {
+      state: { ...exam, status: "edit" },
+    });
   };
 
   const [viewSeeSolution, setViewSeeSolution] = useState(false);
@@ -75,28 +75,30 @@ const ViewQuestions: React.FC<ViewQuestionsProps> = ({
                 currentIndex + 1
               }`}</Text>
 
-              {/* <div className="flex space-x-4">
+              <div className="flex space-x-4">
                 <div>
                   <Button
                     type="button"
                     className="primary-lessHeight"
                     // loading={loading}
-                    // onClick={() => setCreateFlashcard(false)}
+                    onClick={() =>
+                      navigateToEditQuestion(allQuestion[currentIndex])
+                    }
                   >
                     {localeButtons?.BUTTON_EDIT}
                   </Button>
                 </div>
-                <div>
-                  <Button
-                    type="button"
-                    className="primaryActive-lessHeight"
-                    // loading={loading}
-                    // onClick={() => setCreateFlashcard(false)}
-                  >
-                    {localeButtons?.BUTTON_SAVE}
-                  </Button>
-                </div>
-              </div> */}
+                {/* <div>
+                    <Button
+                      type="button"
+                      className="primaryActive-lessHeight"
+                      // loading={loading}
+                      // onClick={() => setCreateFlashcard(false)}
+                    >
+                      {localeButtons?.BUTTON_SAVE}
+                    </Button>
+                  </div> */}
+              </div>
             </div>
 
             <div className="my-6">
@@ -127,7 +129,15 @@ const ViewQuestions: React.FC<ViewQuestionsProps> = ({
                     >
                       {String.fromCharCode(65 + index)}
                     </p>
-                    <p className={styles.answer}>{answer.text}</p>
+                    <div className={styles["ansAndImg"]}>
+                      <p className={styles.answer}>{answer.text}</p>
+                      {answer?.image && (
+                        <img
+                          className={styles["answerImg"]}
+                          src={answer.image}
+                        />
+                      )}
+                    </div>
                   </div>
                 )
               )}

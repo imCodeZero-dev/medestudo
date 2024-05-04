@@ -165,3 +165,15 @@
   border-bottom: 1px solid rgb(230, 227, 227);
   padding-bottom: 16px;
 }
+
+.ansAndImg {
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  margin-left: 16px;
+}
+.answerImg {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+}
