@@ -20,11 +20,11 @@ import { IoIosCheckmarkCircle } from "react-icons/io";
 import { IoEllipsisHorizontal, IoTimeOutline } from "react-icons/io5";
 import { BiSolidPencil } from "react-icons/bi";
 import HomeLayout from "../../../components/LVL5_Layouts/HomeLayout/HomeLayout";
-import { FaCirclePlus } from "react-icons/fa6";
+import { FaCirclePlus, FaRegTrashCan } from "react-icons/fa6";
 import { SiRundeck } from "react-icons/si";
 import { TbCards } from "react-icons/tb";
 import CreateDeckModal from "../../../components/LVL4_Organs/CreateDeckModal/CreateDeckModal";
-import { Menu, MenuItem } from "@mui/material";
+import { IconButton, Menu, MenuItem } from "@mui/material";
 import ConfirmationModal from "../../../components/LVL4_Organs/ConfirmationModal";
 import AlertIcon from "../../../assets/svgs/AlertIcon";
 import { Class, DecksWithCardCount } from "../../../utils/constants/DataTypes";
@@ -61,6 +61,10 @@ const DeckDetails = ({}: DeckDetailsProps) => {
     specificDecks,
     classDecks,
     classDecksLoading,
+    handleDeleteClassClose,
+    openDeleteClassModal,
+    deleteClassModal,
+    onDeleteClassConfirm,
   } = useDeckDetails();
   // console.log("allDecks", allDecks);
   const navigate = useNavigate();
@@ -105,22 +109,35 @@ const DeckDetails = ({}: DeckDetailsProps) => {
                             {classDetails?.deckId?.createdBy}
                           </Text>
                         </div>
-                        <div className="flex items-center space-x-1">
-                          <IoTimeOutline fill="#2A2D31" />
-                          <Text className={styles.estTime}>
-                            {localeText?.TEXT_EST_TIME} :{" "}
-                            <span className={styles.time}>2hrs</span>
-                          </Text>
-                        </div>
                       </div>
                     </div>
-                    <Button className="primaryRounded">
-                      {localeButtons.BUTTON_PREVIEW}
-                    </Button>
+                    {/* <Button className="primaryRounded"> */}
+                    {/* {localeButtons.BUTTON_PREVIEW} */}
+                    <div className={styles["estTimeDiv"]}>
+                      <IoTimeOutline />
+                      <Text className={styles.estTime}>
+                        {localeText?.TEXT_EST_TIME} :{" "}
+                        <span className={styles.time}>2hrs</span>
+                      </Text>
+                    </div>
+                    {/* </Button> */}
                   </div>
                 </div>
+
                 <div className={styles["head-right"]}>
-                  <BiSolidPencil
+                  {/* <IconButton
+                  style={{
+                    color: "#475467",
+                  }}
+                  // onClick={() => handleDelete && handleDelete(row)}
+                > */}
+                  <FaRegTrashCan
+                    size={16}
+                    className="cursor-pointer"
+                    onClick={openDeleteClassModal}
+                  />
+                  {/* </IconButton> */}
+                  {/* <BiSolidPencil
                     size={25}
                     color="#2A2D31"
                     className="cursor-pointer"
@@ -129,7 +146,7 @@ const DeckDetails = ({}: DeckDetailsProps) => {
                     size={25}
                     color="#2A2D31"
                     className="cursor-pointer"
-                  />
+                  /> */}
                 </div>
               </div>
               <div className={styles["DeckDetails-actions"]}>
@@ -234,11 +251,11 @@ const DeckDetails = ({}: DeckDetailsProps) => {
                                   {localeButtons.BUTTON_ADD_CARD}
                                 </Text>
                               </div>
-                              <BiSolidPencil
+                              {/* <BiSolidPencil
                                 size={25}
                                 color="#2A2D31"
                                 className="cursor-pointer"
-                              />
+                              /> */}
                               {deck?._id && (
                                 <div>
                                   <IoEllipsisHorizontal
@@ -321,6 +338,16 @@ const DeckDetails = ({}: DeckDetailsProps) => {
         filteredDecks={specificDecks?.[0]}
       />
 
+      <ConfirmationModal
+        open={deleteClassModal}
+        cancelButtonText={localeButtons?.BUTTON_CANCEL}
+        confirmButtonText={localeButtons?.BUTTON_DELETE}
+        onConfirm={onDeleteClassConfirm}
+        icon={<AlertIcon />}
+        title={localeTitles.TITLE_ARE_YOU_SURE_DELETE}
+        handleClose={handleDeleteClassClose}
+        loading={deleteLoading}
+      />
       <ConfirmationModal
         open={deleteModal}
         cancelButtonText={localeButtons?.BUTTON_CANCEL}

@@ -22,6 +22,7 @@ import { MdOutlineViewCarousel } from "react-icons/md";
 import { PiExam } from "react-icons/pi";
 import { RiQuestionAnswerLine } from "react-icons/ri";
 import { Class } from "../../../utils/constants/DataTypes";
+import { examCardData } from "../../../components/LVL3_Cells/DashboardExams/@types";
 
 export const dummyFlashCards = [
   { image: flashcard1, title: "Orthopedic", date: "24 Dec,2023" },
@@ -138,6 +139,8 @@ const ProfessorDashboard = ({}: ProfessorDashboardProps) => {
     allClasses,
     allClassesLoading,
     getDetails,
+    getDetailsExam,
+    allExams,
   } = useProfessorDashboard();
   console.log("cookies", cookies);
   const navigate = useNavigate();
@@ -220,8 +223,13 @@ const ProfessorDashboard = ({}: ProfessorDashboardProps) => {
               </Text>
             </div>
 
-            {dummyExams?.slice(0, 3)?.map((data, i) => (
-              <DashboardExams key={i} data={data} play />
+            {allExams?.slice(0, 3)?.map((data: examCardData, i: number) => (
+              <DashboardExams
+                key={i}
+                data={data}
+                play
+                getDetails={getDetailsExam}
+              />
             ))}
           </div>
         </div>

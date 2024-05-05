@@ -23,7 +23,7 @@ const DashboardExams: React.FC<DashboardExamsProps> = ({
 }) => {
   const { localeText } = useLocale();
   const { isDropdownOpen, toggleDropdown, dropdownRef } = useDropdown();
-  console.log("isDropdownOpen", isDropdownOpen);
+  // console.log("isDropdownOpen", isDropdownOpen);
 
   return (
     <div className={styles["DashboardExams"]}>
@@ -53,12 +53,6 @@ const DashboardExams: React.FC<DashboardExamsProps> = ({
         </div>
       </div>
       <div className={styles["DashboardExams-right"]} ref={dropdownRef}>
-        <BiSolidPencil
-          size={25}
-          color="#2A2D31"
-          className="cursor-pointer"
-          onClick={() => openEditModal && openEditModal(data)}
-        />
         {play ? (
           <IoIosPlayCircle
             size={32}
@@ -67,6 +61,12 @@ const DashboardExams: React.FC<DashboardExamsProps> = ({
           />
         ) : (
           <>
+            <BiSolidPencil
+              size={25}
+              color="#2A2D31"
+              className="cursor-pointer"
+              onClick={() => openEditModal && openEditModal(data)}
+            />
             <IoEllipsisHorizontal
               size={25}
               color="#2A2D31"

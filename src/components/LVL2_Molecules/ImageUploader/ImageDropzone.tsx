@@ -46,20 +46,43 @@ const ImageDropzone: React.FC<ImageDropzoneProps> = ({
   return (
     <div className="relative">
       {files.length === 0 ? (
-        <div
-          {...getRootProps()}
-          className={`dropzone flex items-center  cursor-pointer ${
-            isDragActive ? "animate-pulse" : ""
-          }`}
-        >
-          <input {...getInputProps()} />
-          <div className="p-2 bg-gray-100 rounded-md">
-            <IoImageOutline size={22} />
-          </div>
-          <p className={` ml-2 ${styles.uploadtext}`}>
-            {localeText.TEXT_UPLOAD_IMAGE}
-          </p>
-        </div>
+        <Controller
+          name={name}
+          control={control}
+          defaultValue=""
+          render={({ field }) => (
+            <>
+              <div
+                {...getRootProps()}
+                className={`dropzone flex items-center  cursor-pointer ${
+                  isDragActive ? "animate-pulse" : ""
+                }`}
+              >
+                {field.value && typeof field.value === "string" ? (
+                  <>
+                    {console.log("fieldValue", field.value)}
+                    <img
+                      src={field.value}
+                      // alt="Uploaded Image"
+                      style={{ maxWidth: "100px", maxHeight: "50px" }}
+                      className="cursor-pointer"
+                    />
+                  </>
+                ) : (
+                  <>
+                    <input {...getInputProps()} />
+                    <div className="p-2 bg-gray-100 rounded-md">
+                      <IoImageOutline size={22} />
+                    </div>
+                    <p className={` ml-2 ${styles.uploadtext}`}>
+                      {localeText.TEXT_UPLOAD_IMAGE}
+                    </p>
+                  </>
+                )}
+              </div>
+            </>
+          )}
+        />
       ) : (
         <ul className="flex flex-wrap gap-2">
           {files.map((file, index) => (

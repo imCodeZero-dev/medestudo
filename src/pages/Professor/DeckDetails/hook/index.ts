@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   createClassApi,
   createClassDeckApi,
+  deleteClassApi,
   deleteClassDeckApi,
   getAllClassesApi,
   getClassByIdApi,
@@ -70,6 +71,7 @@ export const useDeckDetails = () => {
   const [createModal, setCreateModal] = useState(false);
   const [specificDecks, setSpecificDecks] = useState();
   const [deleteModal, setDeleteModal] = useState(false);
+  const [deleteClassModal, setDeleteClassModal] = useState(false);
   const [deleteLoading, setDeleteLoading] = useState(false);
   const [selectedDeckId, setSelectedDeckId] = useState<null | string>(null);
   const handleCloseCreate = () => {
@@ -84,6 +86,12 @@ export const useDeckDetails = () => {
     handleCloseOptions();
     setSelectedDeckId(id);
     setDeleteModal(true);
+  };
+  const handleDeleteClassClose = () => {
+    setDeleteClassModal(false);
+  };
+  const openDeleteClassModal = () => {
+    setDeleteClassModal(true);
   };
 
   const { allClasses, allClassesLoading, errorAllClasses, refetchAllClasses } =
@@ -137,7 +145,7 @@ export const useDeckDetails = () => {
       enabled: !!cookies?.professor?.token && !!classDetails,
     }
   );
-  console.log("classDecks", classDecks);
+  // console.log("classDecks", classDecks);
   // console.log("classDetails", classDetails);
 
   const onSubmitCreate = async (data: any) => {
@@ -205,6 +213,27 @@ export const useDeckDetails = () => {
     }
   };
 
+  const onDeleteClassConfirm = async () => {
+    try {
+      setDeleteLoading(true);
+      let response;
+      response = await deleteClassApi(
+        classDetails?._id,
+        cookies?.professor?.token
+      );
+      console.log("response", response);
+      refetchAllClasses();
+      showSuccessToast(localeSuccess?.SUCCESS_CLASS_DELETED);
+      navigate(-1);
+    } catch (error: any) {
+      console.log("error", error);
+      showErrorToast(error?.response?.data?.errorMessage);
+    } finally {
+      setDeleteLoading(false);
+      handleDeleteClassClose();
+    }
+  };
+
   const onDeleteConfirm = async () => {
     try {
       setDeleteLoading(true);
@@ -267,5 +296,9 @@ export const useDeckDetails = () => {
     specificDecks,
     classDecks,
     classDecksLoading,
+    handleDeleteClassClose,
+    openDeleteClassModal,
+    deleteClassModal,
+    onDeleteClassConfirm,
   };
 };

@@ -61,8 +61,11 @@ const ProfessorExams = ({}: ProfessorExamsProps) => {
     editModal,
     onSubmitEdit,
     updatedInstitutes,
+    filteredArray,
+    clearFilter,
   } = useProfessorExams();
-  console.log("cookies", cookies);
+  // console.log("cookies", cookies);
+  console.log("allExams", allExams);
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
@@ -102,13 +105,13 @@ const ProfessorExams = ({}: ProfessorExamsProps) => {
               </div>
 
               <div>
-                <Button className="orangeButton">
+                <Button className="orangeButton" onClick={clearFilter}>
                   {localeButtons?.BUTTON_CLEAR_FILTERS}
                 </Button>
               </div>
             </div>
           </div>
-          {allExams?.map((data: examCardData, i: number) => (
+          {filteredArray?.map((data: examCardData, i: number) => (
             <DashboardExams
               key={i}
               data={data}
@@ -124,7 +127,7 @@ const ProfessorExams = ({}: ProfessorExamsProps) => {
             <div className="flex flex-col justify-between space-y-3">
               <Text className={styles.label}> {localeLables.LABEL_YEAR}</Text>
               <CustomSelect
-                name="year"
+                name="filter_year"
                 control={control}
                 options={totalYears}
                 placeholder="Select Year"
@@ -135,7 +138,7 @@ const ProfessorExams = ({}: ProfessorExamsProps) => {
                 {localeLables.LABEL_INSTITUTE}
               </Text>
               <CustomSelect
-                name="institute"
+                name="filter_institute"
                 control={control}
                 options={updatedInstitutes}
                 placeholder="Select Institute"

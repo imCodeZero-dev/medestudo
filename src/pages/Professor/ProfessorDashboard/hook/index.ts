@@ -12,7 +12,10 @@ import { passwordRegex } from "../../../../utils/constants/constants";
 import { useCookies } from "react-cookie";
 import { useQuery } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
-import { useAllClassesQuery } from "../../../../redux/slices/APISlice";
+import {
+  useAllClassesQuery,
+  useAllExamsQuery,
+} from "../../../../redux/slices/APISlice";
 import { useNavigate } from "react-router-dom";
 
 export const useProfessorDashboard = () => {
@@ -55,9 +58,14 @@ export const useProfessorDashboard = () => {
 
   const { allClasses, allClassesLoading, errorAllClasses, refetchAllClasses } =
     useAllClassesQuery(cookies);
+  const { allExams, allExamsLoading, errorAllExams, refetchAllExams } =
+    useAllExamsQuery(cookies);
 
   const getDetails = (data: string) => {
     navigate(`/professor/classes/deck?${data}`, { state: data });
+  };
+  const getDetailsExam = (data: string) => {
+    navigate(`/professor/exams/exam?${data}`, { state: data });
   };
 
   const onChangeProfessorStatus = async (data: any) => {
@@ -95,5 +103,7 @@ export const useProfessorDashboard = () => {
     allClasses,
     allClassesLoading,
     getDetails,
+    getDetailsExam,
+    allExams,
   };
 };

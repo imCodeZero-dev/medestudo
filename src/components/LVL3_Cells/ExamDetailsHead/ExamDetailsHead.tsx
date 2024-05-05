@@ -14,6 +14,7 @@ const ExamDetailsHead: React.FC<ExamDetailsHeadProps> = ({
   examsDetails,
   openEditModal,
   openDeleteModal,
+  totalQuestions,
 }) => {
   // const { localeText, localeDropdowns } = useLocale();
   const { localeText, localeButtons } = useLocale();
@@ -35,9 +36,7 @@ const ExamDetailsHead: React.FC<ExamDetailsHeadProps> = ({
         <div className={styles["details"]}>
           <div className={styles["details-section"]}>
             <GoQuestion size={12} color="#545961" />{" "}
-            <Text className={styles["detailText"]}>
-              {examsDetails?.institute}
-            </Text>
+            <Text className={styles["detailText"]}>{totalQuestions}</Text>
           </div>
           <div className={styles["details-section"]}>
             <BsBuildings size={12} color="#545961" />{" "}

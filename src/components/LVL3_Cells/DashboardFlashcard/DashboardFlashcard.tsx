@@ -27,7 +27,7 @@ export const DropdownMenu: React.FC<{
     <div className={styles.dropdownMenu}>
       <div
         onClick={handleDeleteClick}
-        className="flex p-3 space-x-2 items-center"
+        className="flex p-3 space-x-2 items-center cursor-pointer"
       >
         <TiDeleteOutline color="red" />{" "}
         <Text>{localeDropdowns.DROPDOWN_DELETE}</Text>

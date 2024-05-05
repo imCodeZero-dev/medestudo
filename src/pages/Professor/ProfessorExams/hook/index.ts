@@ -34,6 +34,7 @@ export const useProfessorExams = () => {
   const [cookies] = useCookies(["professor"]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [filteredArray, setFilteredArray] = useState<examCardData[]>([]);
 
   const validationSchema = yup.object().shape({
     title: yup.string().required("title is required"),
@@ -66,7 +67,7 @@ export const useProfessorExams = () => {
     refetchAllInstitute,
   } = useAllInstituteQuery(cookies);
 
-  console.log("allInstitute", allInstitute);
+  // console.log("allInstitute", allInstitute);
 
   const { allExams, allExamsLoading, errorAllExams, refetchAllExams } =
     useAllExamsQuery(cookies);
@@ -192,6 +193,28 @@ export const useProfessorExams = () => {
     }
   }, [allInstitute]);
 
+  const clearFilter = () => {
+    setValue("filter_year", "");
+    setValue("filter_institute", "");
+  };
+
+  const year = watch("filter_year");
+  const institute = watch("filter_institute");
+  useEffect(() => {
+    console.log("year", year, "institute", institute);
+    const filteredData = allExams?.filter((item: examCardData) => {
+      if (!year && !institute) {
+        return true;
+      }
+      return (
+        (!year || item?.year === year?.label) &&
+        (!institute || item?.institute === institute?.label)
+      );
+    });
+
+    setFilteredArray(filteredData);
+  }, [allExams, year, institute]);
+
   return {
     control,
     errors,
@@ -216,5 +239,7 @@ export const useProfessorExams = () => {
     editModal,
     onSubmitEdit,
     updatedInstitutes,
+    filteredArray,
+    clearFilter,
   };
 };

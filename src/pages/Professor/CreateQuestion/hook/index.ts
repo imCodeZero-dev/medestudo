@@ -51,7 +51,7 @@ export const useCreateExamQuestion = () => {
   const dispatch = useDispatch();
   const examId = location?.state;
 
-  console.log("examId", examId);
+  // console.log("examId", examId);
 
   type FormData = {
     answers: {
@@ -104,12 +104,18 @@ export const useCreateExamQuestion = () => {
 
       setValue("solution", decodedSolution);
       setValue("question", examId?.question);
-      setValue("answers", examId?.answers);
+      // console.log("examId", examId);
+      const answerWithId = examId?.answers?.map((ans: any, index: number) => ({
+        ...ans,
+        id: index,
+      }));
+
+      setValue("answers", answerWithId);
       setValue("detailedSolution", decodedSolution);
     }
   }, [examId]);
 
-  console.log("allSubjects", allSubjects);
+  // console.log("allSubjects", allSubjects);
 
   const {
     handleSubmit,
@@ -118,6 +124,7 @@ export const useCreateExamQuestion = () => {
     watch,
     setValue,
     reset,
+    getValues
   } = useForm<any>({
     resolver: yupResolver(exmaQuestionValidation),
     defaultValues: {
@@ -212,12 +219,13 @@ export const useCreateExamQuestion = () => {
       const answersWithImages = data?.answers.filter(
         (answer: any) => answer.image
       );
-
+      // console.log("answersWithImages", answersWithImages);
       // Upload images to Cloudinary
       const uploadedAnswers = await Promise.all(
-        answersWithImages.map(async (answer: any) => {
+        answersWithImages.map(async (answer: any, index: number) => {
           const imageUrl = await uploadImageToCloudinary(answer.image);
 
+          // console.log("answersWithImages map", answer);
           return {
             id: answer.id,
             image: imageUrl,
@@ -229,6 +237,7 @@ export const useCreateExamQuestion = () => {
         const uploadedAnswer = uploadedAnswers.find(
           (uploadedAnswer: any) => uploadedAnswer.id === answer.id
         );
+        // console.log("answersWithImages uploadedAnswer", uploadedAnswer);
         return uploadedAnswer
           ? { ...answer, image: uploadedAnswer.image }
           : answer;
@@ -291,6 +300,6 @@ export const useCreateExamQuestion = () => {
     allTags,
     modifiedSubjects,
     createLoading,
-    onSubmitEditQuestion,
+    onSubmitEditQuestion,getValues
   };
 };

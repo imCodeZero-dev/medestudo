@@ -103,7 +103,7 @@ export const useAllFlashCards = () => {
     navigate(`/professor/classes/deck?${data}`, { state: data });
   };
 
-  console.log("allFlashcards", allFlashcards);
+  // console.log("allFlashcards", allFlashcards);
 
   const handleNextFlashcard = () => {
     setCurrentFlashcardIndex((prevIndex) =>
@@ -129,6 +129,7 @@ export const useAllFlashCards = () => {
 
       showSuccessToast(localeSuccess?.SUCCESS_FLASH_DELETED);
       refetchallFlashcards();
+      navigate(-1);
     } catch (error: any) {
       console.log("error", error);
       showErrorToast(error?.response?.data?.errorMessage);

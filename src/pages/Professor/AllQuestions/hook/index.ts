@@ -70,10 +70,12 @@ export const useAllQuestions = () => {
   const [flashcardData, setFlashcardData] = useState<any>();
   const location = useLocation().state;
   const navigate = useNavigate();
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(
+    location?.currentIndex
+  );
   const examDetails = location?.examsDetails;
-  console.log("AllQuestion Exams", location);
-  console.log("AllQuestion Exams", examDetails);
+  // console.log("AllQuestion Exams", location);
+  // console.log("AllQuestion Exams", examDetails);
 
   const [editModal, setEditModal] = useState(false);
 
@@ -124,7 +126,7 @@ export const useAllQuestions = () => {
 
   const { refetchAllExams } = useAllExamsQuery(cookies);
 
-  console.log("examQuestions", examQuestions);
+  // console.log("examQuestions", examQuestions);
 
   // const getDetails = (data: string) => {
   //   navigate(`/professor/classes/deck?${data}`, { state: data });

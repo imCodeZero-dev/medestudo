@@ -22,6 +22,7 @@ import ConfirmationModal from "../../../components/LVL4_Organs/ConfirmationModal
 import AlertIcon from "../../../assets/svgs/AlertIcon";
 import { Flashcard } from "../../../utils/constants/DataTypes";
 import DashboardExams from "../../../components/LVL3_Cells/DashboardExams/DashboardExams";
+import { examCardData } from "../../../components/LVL3_Cells/DashboardExams/@types";
 
 const ProfessorClasses = ({}: ProfessorClassesProps) => {
   const { localeTitles, localeButtons, localeLables } = useLocale();
@@ -47,6 +48,8 @@ const ProfessorClasses = ({}: ProfessorClassesProps) => {
     deleteModal,
     handleDeleteClose,
     onDeleteConfirm,
+    allExams,
+    getDetailsExam,
   } = useProfessorClasses();
   // console.log("allDecks", allDecks);
   const navigate = useNavigate();
@@ -113,8 +116,13 @@ const ProfessorClasses = ({}: ProfessorClassesProps) => {
               </Text>
             </div>
 
-            {dummyExams?.slice(0, 3)?.map((data, i) => (
-              <DashboardExams key={i} data={data} play />
+            {allExams?.slice(0, 3)?.map((data: examCardData, i: number) => (
+              <DashboardExams
+                key={i}
+                data={data}
+                play
+                getDetails={getDetailsExam}
+              />
             ))}
           </div>
         </div>

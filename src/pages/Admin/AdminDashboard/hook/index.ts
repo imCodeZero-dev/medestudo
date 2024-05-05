@@ -85,7 +85,7 @@ export const useAdminDashboard = () => {
     errorAllStudents,
   } = useStudentsQuery(cookies as AdminCookies);
 
-  console.log("allProfessors", allProfessors);
+  // console.log("allProfessors", allProfessors);
 
   const onSubmitCreateProfessor = async (data: any) => {
     const params = {

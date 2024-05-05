@@ -4,7 +4,7 @@ export interface QuestionBarProps {
   data: examCardData;
   play?: boolean;
   index: number;
-  getDetails?: (data: string) => void;
+  getDetails?: (data: string, index: number) => void;
   openDeleteModal?: (data: string) => void;
   openEditModal?: (data: examCardData) => void;
 }

@@ -83,7 +83,7 @@ export const useExamsDetails = () => {
     setDeleteModal(false);
   };
   const openDeleteModal = (id: string) => {
-    console.log("openDeleteModal", id);
+    // console.log("openDeleteModal", id);
     setSelectedQuestionId(id);
     setDeleteModal(true);
   };
@@ -92,7 +92,7 @@ export const useExamsDetails = () => {
     setDeleteExamModal(false);
   };
   const openDeleteExamModal = (id: string) => {
-    console.log("openDeleteModal", id);
+    // console.log("openDeleteModal", id);
     setSelectedExamId(id);
     setDeleteExamModal(true);
   };
@@ -152,7 +152,7 @@ export const useExamsDetails = () => {
   //   }
   // );
 
-  console.log("examsDetails", examsDetails);
+  // console.log("examsDetails", examsDetails);
   // console.log("examQuestions", examQuestions);
 
   const onSubmitCreate = async (data: any) => {
@@ -250,9 +250,10 @@ export const useExamsDetails = () => {
     }
   };
 
-  const getDetails = (data: string) => {
+  const getDetails = (data: string, i: number) => {
+    // debugger;
     navigate(`/professor/exams/exam/${examId}`, {
-      state: { examQuestion: data, examsDetails },
+      state: { examQuestion: data, examsDetails, currentIndex: i },
     });
   };
 

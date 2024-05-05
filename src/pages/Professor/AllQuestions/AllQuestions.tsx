@@ -66,6 +66,7 @@ const AllQuestions = ({}: AllQuestionsProps) => {
         {/* {AllQuestions.map((flashcard) => ( */}
         <div className={styles["AllQuestions-main"]}>
           <ExamDetailsHead
+            totalQuestions={examQuestions?.length}
             examsDetails={examDetails}
             openDeleteModal={openDeleteExamModal}
             openEditModal={openEditModal}

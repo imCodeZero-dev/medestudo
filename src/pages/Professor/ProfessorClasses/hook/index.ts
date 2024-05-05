@@ -28,6 +28,7 @@ import { useNavigate } from "react-router-dom";
 import {
   useAllClassesQuery,
   useAllDecksQuery,
+  useAllExamsQuery,
 } from "../../../../redux/slices/APISlice";
 
 export const useProfessorClasses = () => {
@@ -82,6 +83,8 @@ export const useProfessorClasses = () => {
 
   const { allClasses, allClassesLoading, errorAllClasses, refetchAllClasses } =
     useAllClassesQuery(cookies);
+  const { allExams, allExamsLoading, errorAllExams, refetchAllExams } =
+    useAllExamsQuery(cookies);
 
   const { allDecks, allDecksLoading, errorAllDecks, refetchAllDecks } =
     useAllDecksQuery(cookies);
@@ -130,6 +133,9 @@ export const useProfessorClasses = () => {
   const getDetails = (data: string) => {
     navigate(`/professor/classes/deck?${data}`, { state: data });
   };
+  const getDetailsExam = (data: string) => {
+    navigate(`/professor/exams/exam?${data}`, { state: data });
+  };
 
   // console.log("filteredDecks", filteredDecks);
   return {
@@ -150,5 +156,7 @@ export const useProfessorClasses = () => {
     deleteModal,
     handleDeleteClose,
     onDeleteConfirm,
+    allExams,
+    getDetailsExam,
   };
 };

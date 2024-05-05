@@ -24,7 +24,7 @@ const QuestionBar: React.FC<QuestionBarProps> = ({
     <div className={styles["QuestionBar"]}>
       <div
         className={styles["QuestionBar-left"]}
-        onClick={() => getDetails && getDetails(data?._id)}
+        onClick={() => getDetails && getDetails(data?._id, index)}
       >
         <div className={styles["icon"]}>{`Q${index + 1}`}</div>
         <div className={styles["QuestionBar-left-main"]}>

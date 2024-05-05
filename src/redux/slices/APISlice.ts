@@ -279,7 +279,7 @@ export const useAllSubjectsQuery = (cookies: any) => {
 };
 
 export const useExamQuestionsQuery = (cookies: any, examId: string) => {
-  console.log("useExamQuestionsQuery", cookies, "examId", examId);
+  // console.log("useExamQuestionsQuery", cookies, "examId", examId);
   const {
     data: { data: examQuestions = {} } = {},
     isLoading: examQuestionsLoading,

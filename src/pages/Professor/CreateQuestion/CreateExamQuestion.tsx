@@ -28,6 +28,7 @@ const CreateExamQuestion = ({}: CreateExamQuestionProps) => {
     control,
     handleSubmit,
     watch,
+    getValues,
     onSubmitCreate,
     setValue,
     examsDetailsLoading,
@@ -49,7 +50,7 @@ const CreateExamQuestion = ({}: CreateExamQuestionProps) => {
     { isCorrect: false, text: "", reason: "", image: null },
   ]);
 
-  console.log("modifiedSubjects", modifiedSubjects);
+  // console.log("modifiedSubjects", modifiedSubjects);
   const handleIsCorrectChange = (index: number) => {
     answers.forEach((answer, i) => {
       if (i !== index) {
@@ -78,7 +79,7 @@ const CreateExamQuestion = ({}: CreateExamQuestionProps) => {
                 <div className={styles["main-inner-left"]}>
                   <div className={"flex space-x-2 items-center mb-2"}>
                     <Text className={styles["title"]}>
-                      {`${examsDetails?.title} `} 
+                      {`${examsDetails?.title} `}
                     </Text>
                   </div>
                 </div>

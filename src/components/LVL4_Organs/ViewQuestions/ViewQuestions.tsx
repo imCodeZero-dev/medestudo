@@ -38,7 +38,7 @@ const ViewQuestions: React.FC<ViewQuestionsProps> = ({
   loading,
   editLoading,
 }) => {
-  console.log("allQuestion", allQuestion);
+  // console.log("allQuestion", allQuestion);
   const { localeTitles, localePlaceholders, localeButtons, localeText } =
     useLocale();
   // console.log("allTags", allTags);
@@ -46,7 +46,7 @@ const ViewQuestions: React.FC<ViewQuestionsProps> = ({
   const [key, setKey] = useState(0);
 
   const navigateToEditQuestion = (exam: any) => {
-    console.log("navigateToEditQuestion", exam);
+    // console.log("navigateToEditQuestion", exam);
     navigate(`/professor/exams/exam/question`, {
       state: { ...exam, status: "edit" },
     });
