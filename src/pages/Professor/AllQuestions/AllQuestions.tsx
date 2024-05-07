@@ -55,6 +55,7 @@ const AllQuestions = ({}: AllQuestionsProps) => {
     deleteExamModal,
     onDeleteExamConfirm,
     closeDeleteExamModal,
+    getValues,
   } = useAllQuestions();
   // console.log("allDecks", allDecks);
   const navigate = useNavigate();
@@ -75,6 +76,8 @@ const AllQuestions = ({}: AllQuestionsProps) => {
             currentIndex={currentQuestionIndex}
             allQuestion={examQuestions}
             control={control}
+            watch={watch}
+            getValues={getValues}
             handleNext={handleNextQuestion}
             handlePrevious={handlePreviousQuestion}
             handleDeleteOpen={handleDeleteOpen}

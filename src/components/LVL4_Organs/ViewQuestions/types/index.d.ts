@@ -9,6 +9,8 @@ export type ViewQuestionsProps = {
   // onSubmit: (data: any) => void;
   // setCreateFlashcard: (data: boolean) => void;
   control: Control<any>;
+  getValues: any;
+  watch: any;
   allQuestion: any;
   handleNext: () => void;
   handlePrevious: () => void;
@@ -18,12 +20,5 @@ export type ViewQuestionsProps = {
   enableEdit: boolean;
 
   onSubmitEdit: (data: any) => Promise<void>;
-  handleSubmit: UseFormHandleSubmit<
-    {
-      question: string;
-      answer: string;
-      tags: string[];
-    },
-    undefined
-  >;
+  handleSubmit: UseFormHandleSubmit<any>;
 };

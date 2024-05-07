@@ -21,6 +21,8 @@
 
 .mainBody {
   min-height: 80vh;
+  max-height: 80vh;
+  overflow-y: auto;
 }
 
 .questionSection{
@@ -135,4 +137,11 @@ margin: 16px 0;
   font-weight: 400;
   line-height: 24px;
   text-align: left;
+}
+
+
+.questionImage{
+  width: 350px;
+  margin: auto;
+
 }

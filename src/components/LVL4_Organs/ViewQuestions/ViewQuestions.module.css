@@ -177,3 +177,10 @@
   height: 64px;
   object-fit: contain;
 }
+
+
+.questionImage{
+  width: 350px;
+  margin: auto;
+
+}

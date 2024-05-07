@@ -37,8 +37,10 @@ const ViewQuestions: React.FC<ViewQuestionsProps> = ({
   handleSubmit,
   loading,
   editLoading,
+  watch,
 }) => {
-  // console.log("allQuestion", allQuestion);
+  // console.log("allQuestion", allQuestion[currentIndex]?.question);
+  // console.log("allQuestion watch", watch("questionImage"));
   const { localeTitles, localePlaceholders, localeButtons, localeText } =
     useLocale();
   // console.log("allTags", allTags);
@@ -69,7 +71,10 @@ const ViewQuestions: React.FC<ViewQuestionsProps> = ({
         </div>
       ) : (
         <form onSubmit={handleSubmit(onSubmitEdit)} className={styles["form"]}>
-          <div className={styles["ViewQuestions-main"]}>
+          <div
+            className={styles["ViewQuestions-main"]}
+            key={allQuestion[currentIndex]?._id}
+          >
             <div className={styles["ViewQuestions-main-head"]}>
               <Text className={styles["questionTitle"]}>{`Question ${
                 currentIndex + 1
@@ -108,11 +113,27 @@ const ViewQuestions: React.FC<ViewQuestionsProps> = ({
               <QuillEditor
                 name="question"
                 control={control}
+                noHeader
+                key={allQuestion[currentIndex]?.question}
+                readOnly
                 placeholder={
                   localePlaceholders.PLACEHOLDER_ENTER_DETAILED_SOLUTION_HERE
                 }
               />
-              {/* <img /> */}
+              <Controller
+                name={"questionImage"}
+                control={control}
+                defaultValue=""
+                key={allQuestion[currentIndex]?.question}
+                render={({ field }) => (
+                  <>
+                    <img
+                      className={styles["questionImage"]}
+                      src={field.value}
+                    />
+                  </>
+                )}
+              />
               {/* <Input
                 control={control}
                 name="question"
@@ -151,7 +172,11 @@ const ViewQuestions: React.FC<ViewQuestionsProps> = ({
             </div>
 
             <div className="flex items-center w-64 m-auto">
-              <Button className="yellowButton" onClick={handleOpenSeeSolution}>
+              <Button
+                className="yellowButton"
+                onClick={handleOpenSeeSolution}
+                type="button"
+              >
                 {" "}
                 {localeButtons.BUTTON_SEE_SOLUTION}
               </Button>

@@ -53,6 +53,8 @@ export const useAllQuestions = () => {
   } = useForm<{
     question: string;
     solution: string;
+    questionImage: string;
+    detailedSolutionImage: string;
     tags: string[];
     title: string;
     institute: string;
@@ -222,13 +224,21 @@ export const useAllQuestions = () => {
 
   useEffect(() => {
     // Set initial values when component mounts or currentQuestionIndex changes
+    // console.log('currentQuestionIndex',currentQuestionIndex,'examQuestions',examQuestions);
     if (examQuestions[currentQuestionIndex]) {
-      const { question, detailedSolution, tags } =
-        examQuestions[currentQuestionIndex];
+      const {
+        question,
+        detailedSolution,
+        tags,
+        questionImage,
+        detailedSolutionImage,
+      } = examQuestions[currentQuestionIndex];
       try {
         const decodedQuestion = atob(question);
         const decodedSolution = atob(detailedSolution);
         setValue("question", decodedQuestion);
+        setValue("questionImage", questionImage);
+        setValue("detailedSolutionImage", detailedSolutionImage);
         setValue("solution", decodedSolution);
         if (tags && tags.length > 0) {
           const filteredTags = tags?.map((item: Tag) => ({
@@ -245,7 +255,7 @@ export const useAllQuestions = () => {
       }
     }
     console.log("examQuestions", examQuestions[currentQuestionIndex]);
-  }, [currentQuestionIndex, examQuestions, setValue]);
+  }, [currentQuestionIndex, examQuestions]);
 
   // console.log("allTags", allTags, "watchTags", tags);
 
@@ -255,7 +265,7 @@ export const useAllQuestions = () => {
     handleSubmit,
     setValue,
     watch,
-
+    getValues,
     handleNextQuestion,
     handlePreviousQuestion,
     examQuestions,

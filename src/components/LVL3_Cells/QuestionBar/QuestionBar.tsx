@@ -20,6 +20,18 @@ const QuestionBar: React.FC<QuestionBarProps> = ({
   const { isDropdownOpen, toggleDropdown, dropdownRef } = useDropdown();
   // console.log("isDropdownOpen", isDropdownOpen);
 
+  // Create a temporary element to parse the HTML
+  const tempElement = document.createElement("div");
+  tempElement.innerHTML = atob(data?.question);
+
+  // Get all <p> elements within the temporary element
+  const paragraphs = tempElement.querySelectorAll("p, h1, h2, h3,h4,h5,h6");
+
+  // Extract text content from each <p> element
+  const textContents = Array.from(paragraphs).map((p) => p.textContent);
+
+  console.log("textContents", textContents);
+
   return (
     <div className={styles["QuestionBar"]}>
       <div
@@ -28,7 +40,7 @@ const QuestionBar: React.FC<QuestionBarProps> = ({
       >
         <div className={styles["icon"]}>{`Q${index + 1}`}</div>
         <div className={styles["QuestionBar-left-main"]}>
-          <Text className={styles["title"]}>{data?.question} • </Text>
+          <Text className={styles["title"]}>{textContents[0]} • </Text>
         </div>
       </div>
       <div className={styles["QuestionBar-right"]} ref={dropdownRef}>

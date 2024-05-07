@@ -36,15 +36,18 @@ const ViewQuestionModal = ({
     watch,
     setValue,
   } = useForm({
-    // defaultValues: {
-    //   search: "",
-    // },
+    defaultValues: {
+      question: "",
+      solution: "",
+    },
   });
 
   useEffect(() => {
     if (questionDetails) {
       const decodedSolution = atob(questionDetails?.detailedSolution);
+      const decodedQuestion = atob(questionDetails?.question);
 
+      setValue("question", decodedQuestion);
       setValue("solution", decodedSolution);
     }
   }, [questionDetails]);
@@ -72,19 +75,38 @@ const ViewQuestionModal = ({
                 <Text className={styles.questionTitle}>
                   {localeText.TEXT_STATEMENT}
                 </Text>
-                <Text>{questionDetails?.question}</Text>
+                <QuillEditor
+                  key={questionDetails?.question}
+                  name="question"
+                  noHeader
+                  readOnly
+                  control={control}
+                  placeholder={
+                    localePlaceholders.PLACEHOLDER_ENTER_QUESTION_HERE
+                  }
+                />
+                <img
+                  className={styles["questionImage"]}
+                  src={questionDetails?.questionImage}
+                />
               </div>
               <Text className={styles.questionTitle}>
                 {localeText.TEXT_QUESTION_SOLUTION}
               </Text>
 
               <QuillEditor
+                key={questionDetails?.solution}
                 name="solution"
                 noHeader
+                readOnly
                 control={control}
                 placeholder={
                   localePlaceholders.PLACEHOLDER_ENTER_DETAILED_SOLUTION_HERE
                 }
+              />
+              <img
+                className={styles["questionImage"]}
+                src={questionDetails?.detailedSolutionImage}
               />
             </div>
           )}
