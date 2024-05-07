@@ -166,9 +166,12 @@
   background-color: white;
   display: flex;
   justify-content: space-between;
+  -moz-column-gap: 16px;
   column-gap: 16px;
-  padding: 24px 16px;
+  padding: 1px 16px;
   margin-top: 12px;
+  align-items: center;
+  column-gap: 32px;
 }
 .questionDiv > div {
   flex: 1;

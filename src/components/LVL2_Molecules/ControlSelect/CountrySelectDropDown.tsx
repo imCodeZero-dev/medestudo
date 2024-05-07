@@ -13,9 +13,6 @@ const CountrySelectDropDown = ({
   control,
   name,
   items,
-  labelKey,
-  valueKey,
-  hideLabel,
   label,
 }: CountrySelectProps) => {
   return (
@@ -24,10 +21,7 @@ const CountrySelectDropDown = ({
       <Controller
         name={name}
         control={control}
-        defaultValue={JSON.stringify({
-          name: items?.[0]?.[labelKey],
-          isoCode: items?.[0]?.[valueKey],
-        })}
+        defaultValue="Pakistan" // Set default value to "Pakistan"
         render={({ field }) => (
           <NativeSelect
             {...field}
@@ -39,13 +33,13 @@ const CountrySelectDropDown = ({
               height: "44px",
               borderRadius: "8px",
               "&:focus": {
-                borderBottom: "none", // Remove bottom border on focus
+                borderBottom: "none",
               },
               "&:hover": {
-                backgroundColor: "#FFFFFF", // Maintain same background color on hover
+                backgroundColor: "#FFFFFF",
               },
               "&:active": {
-                backgroundColor: "#FFFFFF", // Maintain same background color on active
+                backgroundColor: "#FFFFFF",
               },
               "& option": {
                 backgroundColor: "#FFFFFF",
@@ -53,14 +47,8 @@ const CountrySelectDropDown = ({
             }}
           >
             {items?.map((item: any) => (
-              <option
-                value={JSON.stringify({
-                  name: item?.[labelKey],
-                  isoCode: item?.[valueKey],
-                })}
-                key={item?.[valueKey]}
-              >
-                {item?.[labelKey]}
+              <option value={item.name} key={item.isoCode}>
+                {item.name}
               </option>
             ))}
           </NativeSelect>

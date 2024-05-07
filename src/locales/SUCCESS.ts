@@ -35,6 +35,9 @@ export const SUCCESS = {
     SUCCESS_OTP_SENT_CHANGED: "OTP Sent Successfully",
     SUCCESS_VALID_OTP: "Valid OTP",
     SUCCESS_INVALID_OTP: "Invalid OTP",
+    SUCCESS_GENERAL_INFO_CREATED: "General Info Created Successfully",
+    SUCCESS_GENERAL_INFO_UPDATED: "General Info Updated Successfully",
+    SUCCESS_PROFILE_PICTURE_UPDATED: "Profile Picture Updated Successfully",
   },
   es: {
     SUCCESS_PROFESSOR_CREATED: "Professor Created Successfully",
@@ -73,5 +76,8 @@ export const SUCCESS = {
     SUCCESS_OTP_SENT_CHANGED: "OTP Sent Successfully",
     SUCCESS_VALID_OTP: "Valid OTP",
     SUCCESS_INVALID_OTP: "Invalid OTP",
+    SUCCESS_GENERAL_INFO_CREATED: "General Info Created Successfully",
+    SUCCESS_GENERAL_INFO_UPDATED: "General Info Updated Successfully",
+    SUCCESS_PROFILE_PICTURE_UPDATED: "Profile Picture Updated Successfully",
   },
 };

@@ -1,20 +1,17 @@
 import { useEffect, useState } from "react";
 import styles from "./SettingsSecurity.module.css";
 import { useLocation, useNavigate } from "react-router-dom";
-
 import { SettingsSecurityProps } from "./types";
 import Text from "../../LVL1_Atoms/Text/Text";
 import useLocale from "../../../locales";
 import Input from "../../LVL1_Atoms/Input";
 import { Button } from "../../LVL1_Atoms/Button";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
 const SettingsSecurity = ({
   control,
-  handleSubmit,
-  emailLoading,
   onSubmitPassword,
   handleSubmitPassword,
-  onSubmitEmail,
   passwordLoading,
   watch,
 }: SettingsSecurityProps) => {
@@ -22,12 +19,28 @@ const SettingsSecurity = ({
   const location = useLocation();
   const { localeTitles, localeLables, localePlaceholders, localeButtons } =
     useLocale();
+  const [viewCurrentPassword, setViewCurrentPassword] =
+    useState<boolean>(false);
+  const [viewNewPassword, setViewNewPassword] = useState<boolean>(false);
+  const [viewConfirmPassword, setViewConfirmPassword] =
+    useState<boolean>(false);
+
+  const handleViewCurrent = () => {
+    setViewCurrentPassword(!viewCurrentPassword);
+  };
+
+  const handleViewNew = () => {
+    setViewNewPassword(!viewNewPassword);
+  };
+  const handleViewConfirm = () => {
+    setViewConfirmPassword(!viewConfirmPassword);
+  };
 
   return (
     <div className={styles.SettingsSecurity}>
-      <div className="grid grid-cols-3 space-x-6 my-6">
+      <div className="my-6">
         <form
-          onSubmit={handleSubmit(onSubmitPassword)}
+          onSubmit={handleSubmitPassword(onSubmitPassword)}
           className={`${styles["form"]} col-span-2`}
         >
           <div className={styles["SettingsSecurity-section-1"]}>
@@ -42,7 +55,22 @@ const SettingsSecurity = ({
                 placeholder={localePlaceholders.PLACEHOLDER_ENTER_PASSWORD}
                 preDefinedClassName="lesserHeight"
                 preDefinedWrapClassName="inputField-wrap"
-                type="password"
+                type={!viewCurrentPassword ? "password" : "text"}
+                suffix={
+                  !viewCurrentPassword ? (
+                    <AiFillEyeInvisible
+                      size={24}
+                      color="#8b93a1"
+                      onClick={handleViewCurrent}
+                    />
+                  ) : (
+                    <AiFillEye
+                      size={24}
+                      color="#8b93a1"
+                      onClick={handleViewCurrent}
+                    />
+                  )
+                }
               />
             </div>
 
@@ -54,7 +82,22 @@ const SettingsSecurity = ({
                 placeholder={localePlaceholders.PLACEHOLDER_ENTER_PASSWORD}
                 preDefinedClassName="lesserHeight"
                 preDefinedWrapClassName="inputField-wrap"
-                type="password"
+                type={!viewNewPassword ? "password" : "text"}
+                suffix={
+                  !viewNewPassword ? (
+                    <AiFillEyeInvisible
+                      size={24}
+                      color="#8b93a1"
+                      onClick={handleViewNew}
+                    />
+                  ) : (
+                    <AiFillEye
+                      size={24}
+                      color="#8b93a1"
+                      onClick={handleViewNew}
+                    />
+                  )
+                }
               />
               <Input
                 label={localeLables?.LABEL_CONFIRM_PASSWORD}
@@ -63,47 +106,32 @@ const SettingsSecurity = ({
                 placeholder={localePlaceholders.PLACEHOLDER_ENTER_PASSWORD}
                 preDefinedClassName="lesserHeight"
                 preDefinedWrapClassName="inputField-wrap"
-                type="password"
+                type={!viewConfirmPassword ? "password" : "text"}
+                suffix={
+                  !viewConfirmPassword ? (
+                    <AiFillEyeInvisible
+                      size={24}
+                      color="#8b93a1"
+                      onClick={handleViewConfirm}
+                    />
+                  ) : (
+                    <AiFillEye
+                      size={24}
+                      color="#8b93a1"
+                      onClick={handleViewConfirm}
+                    />
+                  )
+                }
               />
             </div>
             <Button
               type="submit"
-              loading={emailLoading}
+              loading={passwordLoading}
               className="purpleBtn"
-              onClick={handleSubmit(onSubmitPassword)}
+              onClick={handleSubmitPassword(onSubmitPassword)}
             >
               {localeButtons?.BUTTON_UPDATE}
             </Button>
-          </div>
-        </form>
-
-        <form
-          onSubmit={handleSubmitPassword(onSubmitEmail)}
-          className={styles["form"]}
-        >
-          <div className={styles["SettingsSecurity-section-2"]}>
-            <div className="flex flex-col justify-between h-full  w-fullitems-start">
-              <Text className={styles.heading}>{localeTitles.TITLE_EMAIL}</Text>
-              <Input
-                label={localeLables?.LABEL_EMAIL}
-                control={control}
-                name="email"
-                placeholder={localePlaceholders.PLACEHOLDER_ENTER_EMAIL}
-                preDefinedClassName="lesserHeight"
-                preDefinedWrapClassName="inputField-wrap"
-                type="text"
-              />
-
-              <div>
-                <Button
-                  className="purpleBtn"
-                  type="submit"
-                  loading={passwordLoading}
-                >
-                  {localeButtons?.BUTTON_CHANGE_IMAGE}
-                </Button>
-              </div>
-            </div>
           </div>
         </form>
       </div>

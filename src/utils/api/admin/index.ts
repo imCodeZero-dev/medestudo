@@ -302,3 +302,53 @@ export const changeInstituteStatusApi = async (
   });
   return response;
 };
+
+export const professorCreateGeneralProfileApi = async (
+  data: any,
+  token: string
+) => {
+  const response = await apiRequest({
+    method: "Post",
+    url: `/professor/createSetting`,
+    data,
+    token,
+  });
+  return response;
+};
+
+export const professorEditGeneralProfileApi = async (
+  data: any,
+  token: string
+) => {
+  const response = await apiRequest({
+    method: "Put",
+    url: `/professor/updateSettings`,
+    data,
+    token,
+  });
+  return response;
+};
+
+export const professorUpdateProfilePictureApi = async (
+  data: any,
+  token: string
+) => {
+  const response = await apiRequest({
+    method: "Put",
+    url: `/professor/updatePicture`,
+    data,
+    token,
+  });
+  return response;
+};
+
+export const professorResetPasswordApi = async (data: any, token: string) => {
+  console.log("professorResetPasswordApi", data);
+  const response = await apiRequest({
+    method: "Put",
+    url: `/professor/resetPassword`,
+    data,
+    token,
+  });
+  return response;
+};

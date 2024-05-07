@@ -16,8 +16,8 @@ export type CountrySelectProps = {
   hideLabel?: boolean;
   label?: string;
   items: any;
-  labelKey: string;
-  valueKey: string;
+  // labelKey: string;
+  // valueKey: string;
 };
 
 // {

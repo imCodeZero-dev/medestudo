@@ -24,10 +24,14 @@ import { IoMdClipboard } from "react-icons/io";
 import { IoSettingsOutline } from "react-icons/io5";
 import Input from "../../LVL1_Atoms/Input";
 import { BiSearch } from "react-icons/bi";
+import { useCookies } from "react-cookie";
 
 const HomeLayout = ({ children, createButton }: HomeLayoutProps) => {
   const navigate = useNavigate();
   // const [activeButton, setActiveButton] = useState<string>("");
+  const [cookies, removeCookie] = useCookies(["professor"]);
+  let userData = cookies?.professor?.professor;
+
   const location = useLocation();
   const { width } = useWidth();
   const { localeButtons, localeTitles, localeLables, localePlaceholders } =
@@ -124,7 +128,11 @@ const HomeLayout = ({ children, createButton }: HomeLayoutProps) => {
             </div>
 
             <div className="ml-3 cursor-pointer">
-              <UserDropdown handleOpenLogout={handleOpenLogout} />
+              <UserDropdown
+                handleOpenLogout={handleOpenLogout}
+                userData={userData}
+                userType="Professor"
+              />
             </div>
           </div>
         </div>

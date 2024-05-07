@@ -8,7 +8,7 @@ import ImageResize from "quill-image-resize-module-react";
 
 Quill.register("modules/imageResize", ImageResize);
 
-const Editor = {
+const EditorWithMedia = {
   toolbar: [
     [{ header: "1" }, { header: "2" }, { font: [] }],
     [{ size: [] }],
@@ -33,6 +33,27 @@ const Editor = {
   // Add the imageResize module here
   // imageResize: {},
 };
+const Editor = {
+  toolbar: [
+    [{ header: "1" }, { header: "2" }, { font: [] }],
+    [{ size: [] }],
+    ["bold", "italic", "underline", "strike", "blockquote"],
+    [
+      { list: "ordered" },
+      { list: "bullet" },
+      { indent: "-1" },
+      { indent: "+1" },
+    ],
+    [{ align: [] }],
+    ["clean"],
+  ],
+  clipboard: {
+    matchVisual: false,
+  },
+
+  // Add the imageResize module here
+  // imageResize: {},
+};
 
 const NoToolbar = {
   toolbar: false,
@@ -49,7 +70,7 @@ const QuillEditor: React.FC<QuillEditorProps> = ({
 }) => {
   return (
     <div
-      className={`bg-white rounded-lg my-3`}
+      className={`bg-white rounded-lg`}
       style={{ borderRadius, border: 0, outline: 0 }}
     >
       <Controller

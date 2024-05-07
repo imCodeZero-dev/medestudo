@@ -58,7 +58,7 @@ const ExamsDetails = ({}: ExamsDetailsProps) => {
     onSubmitEditExam,
     editExamLoading,
     errors,
-    examQuestions,
+    examQuestions,updatedInstitutes
   } = useExamsDetails();
   // console.log("allDecks", allDecks);
   const navigate = useNavigate();
@@ -196,7 +196,7 @@ const ExamsDetails = ({}: ExamsDetailsProps) => {
         onSubmit={onSubmitEditExam}
         open={editModal}
         loading={editExamLoading}
-        filteredDecks={totalYears}
+        filteredDecks={updatedInstitutes}
         watch={watch}
       />
 

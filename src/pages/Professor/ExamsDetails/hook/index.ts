@@ -24,6 +24,7 @@ import {
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import {
   useAllExamsQuery,
+  useAllInstituteQuery,
   useExamQuestionsQuery,
 } from "../../../../redux/slices/APISlice";
 import { examCardData } from "../../../../components/LVL3_Cells/DashboardExams/@types";
@@ -59,6 +60,7 @@ export const useExamsDetails = () => {
   const [deleteExamModal, setDeleteExamModal] = useState(false);
   const [deleteLoading, setDeleteLoading] = useState(false);
   const [selectedExamId, setSelectedExamId] = useState<null | string>(null);
+  const [updatedInstitutes, setUpdatedInstitutes] = useState<any[]>([]);
   const [selectedQuestionId, setSelectedQuestionId] = useState<null | string>(
     null
   );
@@ -99,6 +101,13 @@ export const useExamsDetails = () => {
 
   const { allExams, allExamsLoading, errorAllExams, refetchAllExams } =
     useAllExamsQuery(cookies);
+
+  const {
+    allInstitute,
+    allInstituteLoading,
+    errorAllInstitute,
+    refetchAllInstitute,
+  } = useAllInstituteQuery(cookies);
 
   const {
     // data: examsDetails,
@@ -257,6 +266,17 @@ export const useExamsDetails = () => {
     });
   };
 
+  useEffect(() => {
+    if (allInstitute) {
+      const updatedInstitutes = allInstitute.map((institute: any) => ({
+        ...institute,
+        name: institute.title,
+        title: undefined,
+      }));
+      setUpdatedInstitutes(updatedInstitutes);
+    }
+  }, [allInstitute]);
+
   return {
     control,
     errors,
@@ -286,5 +306,6 @@ export const useExamsDetails = () => {
     onSubmitEditExam,
     editExamLoading,
     examQuestions,
+    updatedInstitutes,
   };
 };

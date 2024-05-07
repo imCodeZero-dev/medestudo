@@ -3,6 +3,7 @@ import { Control } from "react-hook-form";
 
 export type ProfileInfoProps = {
   control: Control<any>;
+  controlImage: Control<any>;
   handleSubmit: any;
   generalLoading: boolean;
   onSubmitGeneral: (data: any) => void;

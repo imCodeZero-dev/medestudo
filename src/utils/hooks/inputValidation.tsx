@@ -1,5 +1,21 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { passwordRegex } from "../constants/constants";
+
+export const passwordValidationSchema = yup.object().shape({
+  currentPassword: yup
+    .string()
+    .required("Password is required")
+    .matches(passwordRegex, "Invalid password format"),
+  newPassword: yup
+    .string()
+    .required("Password is required")
+    .matches(passwordRegex, "Invalid password format"),
+  confirmPassword: yup
+    .string()
+    .required("Confirm Password is required")
+    .oneOf([yup.ref("newPassword")], "Passwords must match"),
+});
 
 export const validationSchema = yup.object().shape({
   email: yup.string(),

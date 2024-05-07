@@ -111,7 +111,10 @@ const ProfessorClasses = ({}: ProfessorClassesProps) => {
               <Text className={styles["sectionHeading"]}>
                 {localeTitles?.TITLE_RECENT_EXAMS_CREATED}
               </Text>
-              <Text className={styles["viewMore"]}>
+              <Text
+                className={styles["viewMore"]}
+                onClick={() => navigate("/professor/exams")}
+              >
                 {localeTitles?.TITLE_VIEW_MORE}
               </Text>
             </div>

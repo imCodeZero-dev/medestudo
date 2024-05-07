@@ -95,9 +95,9 @@ const ProfessorExams = ({}: ProfessorExamsProps) => {
               <div className={styles["HomeLayout-header-mid"]}>
                 <Input
                   control={control}
-                  name="name"
+                  name="filter_title"
                   prefix={<BiSearch size={24} />}
-                  placeholder={localePlaceholders.PLACEHOLDER_SEARCH_TAGS}
+                  placeholder={localePlaceholders.PLACEHOLDER_SEARCH_TITILE}
                   preDefinedClassName="lesserHeight"
                   preDefinedWrapClassName="inputField-wrap"
                   type="text"

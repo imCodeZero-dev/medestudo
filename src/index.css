@@ -91,7 +91,7 @@ input:focus {
   border-left: none;
   border-bottom: none;
   border-right: none;
-  min-height: 104px;
+  /* min-height: 104px; */
 
   font-family: Poppins, sans-serif !important; /* Set the font family to Poppins */
   

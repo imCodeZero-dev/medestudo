@@ -102,10 +102,17 @@ const ViewQuestions: React.FC<ViewQuestionsProps> = ({
             </div>
 
             <div className="my-6">
-              <Text className={styles["questionTitle"]}>
+              {/* <Text className={styles["questionTitle"]}>
                 {allQuestion[currentIndex]?.question}
-              </Text>
-
+              </Text> */}
+              <QuillEditor
+                name="question"
+                control={control}
+                placeholder={
+                  localePlaceholders.PLACEHOLDER_ENTER_DETAILED_SOLUTION_HERE
+                }
+              />
+              {/* <img /> */}
               {/* <Input
                 control={control}
                 name="question"

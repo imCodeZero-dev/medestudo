@@ -196,24 +196,27 @@ export const useProfessorExams = () => {
   const clearFilter = () => {
     setValue("filter_year", "");
     setValue("filter_institute", "");
+    setValue("filter_title", "");
   };
 
   const year = watch("filter_year");
   const institute = watch("filter_institute");
+  const title = watch("filter_title");
   useEffect(() => {
-    console.log("year", year, "institute", institute);
+    console.log("year", year, "institute", institute, "title", title);
     const filteredData = allExams?.filter((item: examCardData) => {
-      if (!year && !institute) {
+      if (!year && !institute && !title) {
         return true;
       }
       return (
         (!year || item?.year === year?.label) &&
+        (!title || item?.title.toLowerCase().includes(title.toLowerCase())) &&
         (!institute || item?.institute === institute?.label)
       );
     });
 
     setFilteredArray(filteredData);
-  }, [allExams, year, institute]);
+  }, [allExams, year, institute, title]);
 
   return {
     control,

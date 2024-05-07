@@ -15,6 +15,7 @@ import ConfirmationModal from "../../LVL4_Organs/ConfirmationModal";
 import useLocale from "../../../locales";
 import { useAdminLayout } from "./hook";
 import LogoutIcon from "../../../assets/svgs/LogoutIcon";
+import { useCookies } from "react-cookie";
 
 const AdminLayout = ({ children }: AdminLayoutProps) => {
   const navigate = useNavigate();
@@ -24,6 +25,8 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
   const { localeButtons, localeTitles } = useLocale();
   const { logoutModal, handleOpenLogout, handleCloseLogout, onLogoutConfirm } =
     useAdminLayout();
+  const [cookies, removeCookie] = useCookies(["admin"]);
+  let userData = cookies?.admin;
 
   const buttons = [
     { label: "Dashboard", route: "/admin" },
@@ -81,7 +84,11 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
             <BellIcon />
           </div> */}
           <div className="ml-3 cursor-pointer">
-            <UserDropdown handleOpenLogout={handleOpenLogout} />
+            <UserDropdown
+              handleOpenLogout={handleOpenLogout}
+              userData={userData}
+              userType="Admin"
+            />
           </div>
         </div>
       </div>

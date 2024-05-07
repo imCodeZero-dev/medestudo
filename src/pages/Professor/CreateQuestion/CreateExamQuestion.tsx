@@ -124,7 +124,14 @@ const CreateExamQuestion = ({}: CreateExamQuestionProps) => {
                       {localeTitles.TITLE_ENTER_QUESTION}
                     </Text>
                     <div className={styles["questionDiv"]}>
-                      <Input
+                      <QuillEditor
+                        name="question"
+                        control={control}
+                        placeholder={
+                          localePlaceholders.PLACEHOLDER_ENTER_QUESTION_HERE
+                        }
+                      />
+                      {/* <Input
                         control={control}
                         name="question"
                         placeholder={
@@ -133,7 +140,7 @@ const CreateExamQuestion = ({}: CreateExamQuestionProps) => {
                         preDefinedClassName="inputField"
                         preDefinedWrapClassName="inputField-wrap"
                         type="text"
-                      />
+                      /> */}
 
                       <div className={styles["ansAndReason-img"]}>
                         <Controller
@@ -151,13 +158,6 @@ const CreateExamQuestion = ({}: CreateExamQuestionProps) => {
                       </div>
                     </div>
                   </div>
-                  {/* <QuillEditor
-                    name="question"
-                    control={control}
-                    placeholder={
-                      localePlaceholders.PLACEHOLDER_ENTER_QUESTION_HERE
-                    }
-                  /> */}
                 </div>
 
                 <div className={styles["CreateExamQuestions-section"]}>
@@ -263,16 +263,52 @@ const CreateExamQuestion = ({}: CreateExamQuestionProps) => {
                   </div>
                 </div>
                 <div className={styles["CreateExamQuestions-section"]}>
-                  <Text className={styles.subHeading}>
-                    {localeTitles.TITLE_SOLUTION_FOR_THE_QUESTION}
-                  </Text>
-                  <QuillEditor
+                  <div className="my-4">
+                    <Text className={styles.subHeading}>
+                      {localeTitles.TITLE_SOLUTION_FOR_THE_QUESTION}
+                    </Text>
+                    <div className={styles["questionDiv"]}>
+                      {/* <Input
+                        control={control}
+                        name="solution"
+                        placeholder={
+                          localePlaceholders.PLACEHOLDER_ENTER_DETAILED_SOLUTION_HERE
+                        }
+                        preDefinedClassName="inputField"
+                        preDefinedWrapClassName="inputField-wrap"
+                        type="text"
+                      /> */}
+                       <QuillEditor
+                        name="solution"
+                        control={control}
+                        placeholder={
+                          localePlaceholders.PLACEHOLDER_ENTER_DETAILED_SOLUTION_HERE
+                        }
+                      />
+
+                      <div className={styles["ansAndReason-img"]}>
+                        <Controller
+                          name={`solutionImage`}
+                          control={control}
+                          defaultValue={null}
+                          render={({ field }) => (
+                            <ImageDropzone
+                              setValue={setValue}
+                              control={control}
+                              name={`solutionImage`}
+                            />
+                          )}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  {/* <QuillEditor
                     name="solution"
                     control={control}
                     placeholder={
                       localePlaceholders.PLACEHOLDER_ENTER_DETAILED_SOLUTION_HERE
                     }
-                  />
+                  /> */}
                 </div>
               </div>
               <div className="w-48 mx-auto">

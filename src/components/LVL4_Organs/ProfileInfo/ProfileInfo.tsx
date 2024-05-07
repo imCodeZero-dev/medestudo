@@ -11,9 +11,11 @@ import { Button } from "../../LVL1_Atoms/Button";
 import AvatarUploader from "../../LVL2_Molecules/ImageUploader/AvatarUploader";
 import { Country, City } from "country-state-city";
 import CountrySelectDropDown from "../../LVL2_Molecules/ControlSelect/CountrySelectDropDown";
+import { useCookies } from "react-cookie";
 
 const ProfileInfo = ({
   control,
+  controlImage,
   handleSubmit,
   generalLoading,
   onSubmitGeneral,
@@ -42,7 +44,7 @@ const ProfileInfo = ({
               <Input
                 label={localeLables?.LABEL_NAME}
                 control={control}
-                name="firstName"
+                name="name"
                 placeholder={localePlaceholders.PLACEHOLDER_ENTER_NAME}
                 preDefinedClassName="lesserHeight"
                 preDefinedWrapClassName="inputField-wrap"
@@ -52,20 +54,18 @@ const ProfileInfo = ({
 
             <div className="grid grid-cols-2 space-x-2 my-4">
               <Input
-                label={localeLables?.LABEL_EMAIL}
+                label={localeLables?.LABEL_USERNAME}
                 control={control}
-                name="email"
-                placeholder={localePlaceholders.PLACEHOLDER_ENTER_EMAIL}
+                name="username"
+                placeholder={localePlaceholders.PLACEHOLDER_ENTER_USERNAME}
                 preDefinedClassName="lesserHeight"
                 preDefinedWrapClassName="inputField-wrap"
-                type="email"
+                type="text"
               />
               <CountrySelectDropDown
                 items={Country?.getAllCountries()}
-                name="country"
+                name="location"
                 control={control}
-                labelKey="name"
-                valueKey="isoCode"
                 label="Location"
               />
             </div>
@@ -90,11 +90,16 @@ const ProfileInfo = ({
                 {localeTitles.TITLE_PROFILE_IMAGE}
               </Text>
 
-              <AvatarUploader control={control} name="image" watch={watch} />
+              <AvatarUploader
+                control={controlImage}
+                name="pic"
+                watch={watch}
+              />
               <Button
                 className="purpleBtn"
                 type="submit"
                 loading={imageLoading}
+                onClick={handleSubmitImage(onSubmitImage)}
               >
                 {localeButtons?.BUTTON_CHANGE_IMAGE}
               </Button>

@@ -52,7 +52,7 @@ export const useAllQuestions = () => {
     reset,
   } = useForm<{
     question: string;
-    answer: string;
+    solution: string;
     tags: string[];
     title: string;
     institute: string;
@@ -223,12 +223,13 @@ export const useAllQuestions = () => {
   useEffect(() => {
     // Set initial values when component mounts or currentQuestionIndex changes
     if (examQuestions[currentQuestionIndex]) {
-      const { question, answer, tags } = examQuestions[currentQuestionIndex];
+      const { question, detailedSolution, tags } =
+        examQuestions[currentQuestionIndex];
       try {
         const decodedQuestion = atob(question);
-        const decodedAnswer = atob(answer);
+        const decodedSolution = atob(detailedSolution);
         setValue("question", decodedQuestion);
-        setValue("answer", decodedAnswer);
+        setValue("solution", decodedSolution);
         if (tags && tags.length > 0) {
           const filteredTags = tags?.map((item: Tag) => ({
             title: item,
@@ -243,6 +244,7 @@ export const useAllQuestions = () => {
         console.error("Error decoding base64 string:", error);
       }
     }
+    console.log("examQuestions", examQuestions[currentQuestionIndex]);
   }, [currentQuestionIndex, examQuestions, setValue]);
 
   // console.log("allTags", allTags, "watchTags", tags);

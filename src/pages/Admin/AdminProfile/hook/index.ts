@@ -29,6 +29,7 @@ import {
 } from "../../../../redux/slices/APISlice";
 import dayjs from "dayjs";
 import { uploadImageToCloudinary } from "../../../../utils/hooks/helper";
+import { passwordValidationSchema } from "../../../../utils/hooks/inputValidation";
 
 export const useAdminProfile = () => {
   // const navigate = useNavigate();
@@ -44,20 +45,7 @@ export const useAdminProfile = () => {
     lastName: yup.string().required("Last name is required"),
     image: yup.string().required("Picture is required"),
   });
-  const passwordValidationSchema = yup.object().shape({
-    currentPassword: yup
-      .string()
-      .required("Password is required")
-      .matches(passwordRegex, "Invalid password format"),
-    newPassword: yup
-      .string()
-      .required("Password is required")
-      .matches(passwordRegex, "Invalid password format"),
-    confirmPassword: yup
-      .string()
-      .required("Confirm Password is required")
-      .oneOf([yup.ref("newPassword")], "Passwords must match"),
-  });
+ 
 
   const {
     handleSubmit,

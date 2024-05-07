@@ -23,22 +23,25 @@ import SettingsPrivacy from "../../../components/LVL4_Organs/SettingsPrivacy/Set
 
 const ProfessorSettings = ({}: ProfessorSettingsProps) => {
   const { localeTitles, localeButtons, localeLables } = useLocale();
-  const [cookies] = useCookies(["admin"]);
+  const [cookies] = useCookies(["professor"]);
   const {
     control,
-
+    controlImage,
+    controlPassword,
     handleSubmit,
 
     watch,
+    watchImg,
     handleSubmitImage,
     onSubmitGeneral,
     onSubmitImage,
-    handleSubmitEmail,
     handleSubmitPassword,
-    onSubmitEmail,
     onSubmitPassword,
     handleSubmitPrivacy,
     onSubmitPrivacy,
+    generalLoading,
+    profilePicLoading,
+    passwordLoading,
   } = useProfessorSettings();
   console.log("cookies", cookies);
   const navigate = useNavigate();
@@ -66,24 +69,22 @@ const ProfessorSettings = ({}: ProfessorSettingsProps) => {
         {value === 0 && (
           <ProfileInfo
             control={control}
-            generalLoading={false}
+            controlImage={controlImage}
+            generalLoading={generalLoading}
             handleSubmit={handleSubmit}
             handleSubmitImage={handleSubmitImage}
-            imageLoading={false}
+            imageLoading={profilePicLoading}
             onSubmitGeneral={onSubmitGeneral}
             onSubmitImage={onSubmitImage}
-            watch={watch}
+            watch={watchImg}
           />
         )}
 
         {value === 1 && (
           <SettingsSecurity
-            control={control}
-            emailLoading={false}
-            passwordLoading={false}
-            handleSubmit={handleSubmitEmail}
+            control={controlPassword}
+            passwordLoading={passwordLoading}
             handleSubmitPassword={handleSubmitPassword}
-            onSubmitEmail={onSubmitEmail}
             onSubmitPassword={onSubmitPassword}
           />
         )}

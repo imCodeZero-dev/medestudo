@@ -13,42 +13,34 @@ import { useCookies } from "react-cookie";
 import { useQuery } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
 import { closeModal } from "../../../../redux/slices/CreateClassModalSlice";
+import {
+  changeProfessorStatusApi,
+  professorCreateGeneralProfileApi,
+  professorEditGeneralProfileApi,
+  professorResetPasswordApi,
+  professorUpdateProfilePictureApi,
+} from "../../../../utils/api/admin";
+import { uploadImageToCloudinary } from "../../../../utils/hooks/helper";
+import { passwordValidationSchema } from "../../../../utils/hooks/inputValidation";
 
 export const useProfessorSettings = () => {
   // const navigate = useNavigate();
   const { localeSuccess } = useLocale();
-  const [cookies] = useCookies(["admin"]);
+  const [cookies, setCookie] = useCookies(["professor"]);
   const dispatch = useDispatch();
 
-  const validationSchema = yup.object().shape({
-    email: yup
-      .string()
-      .required("Email is required")
-      .email("Invalid email format"),
-    password: yup
-      .string()
-      .required("Password is required")
-      .matches(passwordRegex, "Invalid password format"),
-    phone: yup.string().required("Phone number is required"),
-    // .matches(/^\d{10}$/, "Invalid phone number format"),
-    name: yup.string().required("Name is required"),
-    confirmPassword: yup
-      .string()
-      .required("Confirm Password is required")
-      .oneOf([yup.ref("password")], "Passwords must match"),
-  });
   const {
     handleSubmit,
     control,
     formState: { errors },
     watch,
   } = useForm({
-    resolver: yupResolver(validationSchema),
+    // resolver: yupResolver(validationSchema),
     defaultValues: {
-      email: "",
-      password: "",
-      phone: "",
-      name: "",
+      email: cookies?.professor?.professor?.email,
+      name: cookies?.professor?.professor?.name,
+      username: cookies?.professor?.professor?.username,
+      location: cookies?.professor?.professor?.location,
     },
   });
   const {
@@ -57,25 +49,17 @@ export const useProfessorSettings = () => {
     formState: { errors: errorsImg },
     watch: watchImg,
   } = useForm({
-    resolver: yupResolver(validationSchema),
-    defaultValues: {},
+    defaultValues: { pic: cookies?.professor?.professor?.pic },
   });
-  const {
-    handleSubmit: handleSubmitEmail,
-    control: controlEmail,
-    formState: { errors: errorEmail },
-    watch: watchEmail,
-  } = useForm({
-    resolver: yupResolver(validationSchema),
-    defaultValues: {},
-  });
+
   const {
     handleSubmit: handleSubmitPassword,
     control: controlPassword,
     formState: { errors: errorPassword },
+    reset: resetPassword,
     // watch: watchEmail,
   } = useForm({
-    resolver: yupResolver(validationSchema),
+    resolver: yupResolver(passwordValidationSchema),
     defaultValues: {},
   });
   const {
@@ -84,11 +68,13 @@ export const useProfessorSettings = () => {
     formState: { errors: errorPrivacy },
     // watch: watchEmail,
   } = useForm({
-    resolver: yupResolver(validationSchema),
     defaultValues: {},
   });
 
   const [createLoading, setCreateLoading] = useState<boolean>(false);
+  const [generalLoading, setGeneralLoading] = useState<boolean>(false);
+  const [profilePicLoading, setProfilePicLoading] = useState<boolean>(false);
+  const [passwordLoading, setPasswordLoading] = useState<boolean>(false);
 
   // const openCreate = useSelector((state: any) => state.modal.isOpen);
 
@@ -97,36 +83,91 @@ export const useProfessorSettings = () => {
   };
 
   const onSubmitGeneral = async (data: any) => {
+    console.log("params", data);
     const params = {
-      status: data?.status === "active" ? "inactive" : "active",
+      name: data?.name,
+      username: data?.username,
+      location: data?.location,
     };
     console.log("params", params);
-    // try {
-    //   setProfessorLoading(true);
-    //   let response;
-    //   response = await changeProfessorStatusApi(
-    //     params,
-    //     data?._id,
-    //     cookies?.admin?.token
-    //   );
-    //   console.log("response", response);
-    //   refetchAllProfessors();
-    //   showSuccessToast(localeSuccess?.SUCCESS_PROFESSOR_STATUS_CHANGED);
-    // } catch (error: any) {
-    //   console.log("error", error);
-    //   showErrorToast(error?.response?.data?.errorMessage);
-    // } finally {
-    //   setProfessorLoading(false);
-    // }
+
+    try {
+      setGeneralLoading(true);
+      let response;
+      response = await professorEditGeneralProfileApi(
+        params,
+        cookies?.professor?.token
+      );
+      console.log("response", response);
+      // refetchAllProfessors();
+      setCookie(
+        "professor",
+        { ...cookies.professor, professor: response?.data?.professor },
+        { maxAge: 86400 }
+      );
+      showSuccessToast(localeSuccess?.SUCCESS_GENERAL_INFO_UPDATED);
+    } catch (error: any) {
+      console.log("error", error);
+      showErrorToast(error?.response?.data?.errorMessage);
+    } finally {
+      setGeneralLoading(false);
+    }
   };
   const onSubmitImage = async (data: any) => {
-    console.log("params", data);
+    console.log("onSubmitImage params", data);
+    let imageUrl = "";
+    imageUrl = await uploadImageToCloudinary(data?.pic);
+    const params = {
+      pic: imageUrl,
+    };
+    console.log("onSubmitImage params", params);
+    try {
+      setProfilePicLoading(true);
+      let response;
+      response = await professorUpdateProfilePictureApi(
+        params,
+        cookies?.professor?.token
+      );
+      console.log("response", response);
+      // refetchAllProfessors();
+      setCookie(
+        "professor",
+        { ...cookies.professor, professor: response?.data?.professor },
+        { maxAge: 86400 }
+      );
+      showSuccessToast(localeSuccess?.SUCCESS_PROFILE_PICTURE_UPDATED);
+    } catch (error: any) {
+      console.log("error", error);
+      showErrorToast(error?.response?.data?.errorMessage);
+    } finally {
+      setProfilePicLoading(false);
+    }
   };
-  const onSubmitEmail = async (data: any) => {
-    console.log("params", data);
-  };
+
   const onSubmitPassword = async (data: any) => {
-    console.log("params", data);
+    console.log("onSubmitPassword", data);
+    const params = {
+      currentPassword: data?.currentPassword,
+      newPassword: data?.newPassword,
+      confirmPassword: data?.confirmPassword,
+    };
+    try {
+      setPasswordLoading(true);
+      let response;
+      response = await professorResetPasswordApi(
+        params,
+        cookies?.professor?.token
+      );
+      console.log("response", response);
+      // refetchAllProfessors();
+      showSuccessToast(localeSuccess?.SUCCESS_PASSWORD_RESET);
+      resetPassword();
+    } catch (error: any) {
+      console.log("error", error);
+      showErrorToast(error?.response?.data?.errorMessage);
+    } finally {
+      setPasswordLoading(false);
+    }
   };
   const onSubmitPrivacy = async (data: any) => {
     console.log("params", data);
@@ -134,19 +175,23 @@ export const useProfessorSettings = () => {
 
   return {
     control,
+    controlImage,
+    controlPassword,
     errors,
     handleSubmit,
 
     watch,
+    watchImg,
 
     handleSubmitImage,
     onSubmitGeneral,
     onSubmitImage,
-    handleSubmitEmail,
     handleSubmitPassword,
-    onSubmitEmail,
     onSubmitPassword,
     handleSubmitPrivacy,
     onSubmitPrivacy,
+    generalLoading,
+    profilePicLoading,
+    passwordLoading,
   };
 };

@@ -81,6 +81,7 @@ export const useCreateExamQuestion = () => {
   useEffect(() => {
     if (examId?.status === "edit") {
       const decodedSolution = atob(examId?.detailedSolution);
+      const decodedQuestion = atob(examId?.question);
       if (examId?.tags && examId?.tags.length > 0) {
         const filteredTags = examId?.tags?.map((item: Tag) => ({
           title: item,
@@ -103,7 +104,7 @@ export const useCreateExamQuestion = () => {
       }
 
       setValue("solution", decodedSolution);
-      setValue("question", examId?.question);
+      setValue("question", decodedQuestion);
       // console.log("examId", examId);
       const answerWithId = examId?.answers?.map((ans: any, index: number) => ({
         ...ans,
@@ -124,7 +125,7 @@ export const useCreateExamQuestion = () => {
     watch,
     setValue,
     reset,
-    getValues
+    getValues,
   } = useForm<any>({
     resolver: yupResolver(exmaQuestionValidation),
     defaultValues: {
@@ -215,6 +216,15 @@ export const useCreateExamQuestion = () => {
     try {
       setCreateLoading(true);
 
+      let questionImgUrl;
+      if (data?.questionImage) {
+        questionImgUrl = await uploadImageToCloudinary(data?.questionImage);
+      }
+      let solutionImgUrl;
+      if (data?.solutionImage) {
+        solutionImgUrl = await uploadImageToCloudinary(data?.solutionImage);
+      }
+
       // Filter out answers with image files
       const answersWithImages = data?.answers.filter(
         (answer: any) => answer.image
@@ -247,16 +257,17 @@ export const useCreateExamQuestion = () => {
       const subjects = data?.subjects?.map((tag: any) => tag.label);
 
       // Encode question and solution to base64
-      // const base64Question = btoa(data.question);
+      const base64Question = btoa(data.question);
       const base64Solution = btoa(data.solution);
 
-      // Prepare parameters for createQuestionApi
       const params = {
         subjects,
         tags,
-        question: data.question,
+        question: base64Question,
+        questionImage: questionImgUrl,
         answers: updatedAnswers,
         detailedSolution: base64Solution,
+        detailedSolutionImage: solutionImgUrl,
       };
 
       // Call createQuestionApi
@@ -300,6 +311,7 @@ export const useCreateExamQuestion = () => {
     allTags,
     modifiedSubjects,
     createLoading,
-    onSubmitEditQuestion,getValues
+    onSubmitEditQuestion,
+    getValues,
   };
 };

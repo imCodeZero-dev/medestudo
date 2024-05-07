@@ -11,11 +11,14 @@ import SettingIcon from "../../../assets/svgs/SettingIcon";
 import { CiLogout } from "react-icons/ci";
 import Text from "../../LVL1_Atoms/Text/Text";
 
-const UserDropdown: React.FC<UserDropdownProps> = ({ handleOpenLogout }) => {
+const UserDropdown: React.FC<UserDropdownProps> = ({
+  handleOpenLogout,
+  userData,
+  userType,
+}) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const navigate = useNavigate();
   const { localeDropdowns } = useLocale();
-  const [cookies] = useCookies(["admin"]);
 
   const navigation = (link: string) => {
     if (link === "/logout") {
@@ -39,7 +42,7 @@ const UserDropdown: React.FC<UserDropdownProps> = ({ handleOpenLogout }) => {
   const menuButtons = [
     {
       label: localeDropdowns?.DROPDOWN_PROFILE,
-      route: "/admin/profile",
+      route: userType === "Admin" ? "/admin/profile" : "/professor/settings",
       icon: <SettingIcon />,
     },
     {
@@ -53,8 +56,8 @@ const UserDropdown: React.FC<UserDropdownProps> = ({ handleOpenLogout }) => {
     <div className={styles["UserDropdown"]}>
       <div className={styles[""]} onClick={(e: any) => handleClick(e)}>
         <div className="flex items-center space-x-1">
-          {cookies?.admin?.pic ? (
-            <img className={styles.image} src={cookies?.admin?.pic} />
+          {userData?.pic ? (
+            <img className={styles.image} src={userData?.pic} />
           ) : (
             <RxAvatar size={40} />
           )}
