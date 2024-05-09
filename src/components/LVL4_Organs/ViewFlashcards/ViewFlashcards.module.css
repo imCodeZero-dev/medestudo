@@ -94,3 +94,17 @@
   text-align: center;
   color: #e8e9ec;
 }
+
+.ViewFlashcards-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.questionImage {
+  width: 350px;
+  height: 350px;
+  /* margin: auto; */
+  margin: 12px 0;
+}

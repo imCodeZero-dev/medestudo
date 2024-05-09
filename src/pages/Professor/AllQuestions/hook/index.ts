@@ -160,7 +160,7 @@ export const useAllQuestions = () => {
       refetchexamQuestions();
     } catch (error: any) {
       console.log("error", error);
-      showErrorToast(error?.response?.data?.errorMessage);
+      showErrorToast(error?.response?.data?.message);
     } finally {
       setDeleteLoading(false);
       handleDeleteClose();
@@ -182,7 +182,7 @@ export const useAllQuestions = () => {
       refetchAllExams();
     } catch (error: any) {
       console.log("error", error);
-      showErrorToast(error?.response?.data?.errorMessage);
+      showErrorToast(error?.response?.data?.message);
     } finally {
       setDeleteLoading(false);
       closeDeleteExamModal();
@@ -214,7 +214,7 @@ export const useAllQuestions = () => {
       refetchexamQuestions();
     } catch (error: any) {
       console.log("error", error);
-      showErrorToast(error?.response?.data?.errorMessage);
+      showErrorToast(error?.response?.data?.message);
     } finally {
       setEditLoading(false);
       reset();

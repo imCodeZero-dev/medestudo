@@ -125,7 +125,7 @@ export const useProfessorExams = () => {
       showSuccessToast(localeSuccess?.SUCCESS_EXAM_UPDATED);
     } catch (error: any) {
       console.log("error", error);
-      showErrorToast(error?.response?.data?.errorMessage);
+      showErrorToast(error?.response?.data?.message);
     } finally {
       setCreateLoading(false);
       handleEditClose();
@@ -149,7 +149,7 @@ export const useProfessorExams = () => {
       showSuccessToast(localeSuccess?.SUCCESS_EXAM_CREATED);
     } catch (error: any) {
       console.log("error", error);
-      showErrorToast(error?.response?.data?.errorMessage);
+      showErrorToast(error?.response?.data?.message);
     } finally {
       setCreateLoading(false);
       handleCloseCreate();
@@ -170,7 +170,7 @@ export const useProfessorExams = () => {
       setSelecteExamId(null);
     } catch (error: any) {
       console.log("error", error);
-      showErrorToast(error?.response?.data?.errorMessage);
+      showErrorToast(error?.response?.data?.message);
     } finally {
       setDeleteLoading(false);
       handleDeleteClose();

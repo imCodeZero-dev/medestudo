@@ -21,6 +21,7 @@ import {
   useAllFlashcardsQuery,
   useAllTagsQuery,
 } from "../../../../redux/slices/APISlice";
+import { uploadImageToCloudinary } from "../../../../utils/hooks/helper";
 
 export const useCreateFlashcard = () => {
   // const navigate = useNavigate();
@@ -78,6 +79,15 @@ export const useCreateFlashcard = () => {
 
   const onSubmitCreate = async (data: any) => {
     try {
+      let questionImgUrl;
+      if (data?.questionImage) {
+        questionImgUrl = await uploadImageToCloudinary(data?.questionImage);
+      }
+      let answerImgUrl;
+      if (data?.answerImage) {
+        answerImgUrl = await uploadImageToCloudinary(data?.answerImage);
+      }
+
       const tagsLabels = data?.tags?.map(
         (tag: { value: string; label: string }) => tag.label
       );
@@ -87,7 +97,9 @@ export const useCreateFlashcard = () => {
       // Prepare the payload with base64 encoded question and answer
       const payload = {
         question: base64Question,
+        questionImage: questionImgUrl,
         answer: base64Answer,
+        answerImage: answerImgUrl,
         tags: tagsLabels,
       };
 
@@ -104,7 +116,7 @@ export const useCreateFlashcard = () => {
       refetchallFlashcards();
     } catch (error: any) {
       console.log("error", error);
-      showErrorToast(error?.response?.data?.errorMessage);
+      showErrorToast(error?.response?.data?.message);
     } finally {
       setCreateLoading(false);
       reset();

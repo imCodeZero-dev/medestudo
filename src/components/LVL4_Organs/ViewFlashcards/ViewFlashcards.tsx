@@ -17,6 +17,7 @@ import { Controller } from "react-hook-form";
 import Select from "react-select";
 import { Tag } from "../../../utils/constants/DataTypes";
 import Loader from "../../LVL1_Atoms/Loader";
+import ImageDropzone from "../../LVL2_Molecules/ImageUploader/ImageDropzone";
 
 const ViewFlashcards: React.FC<ViewFlashcardsProps> = ({
   control,
@@ -34,10 +35,12 @@ const ViewFlashcards: React.FC<ViewFlashcardsProps> = ({
   handleSubmit,
   loading,
   editLoading,
+  setValue,
+  deckDetails,
 }) => {
   const { localeTitles, localePlaceholders, localeButtons, localeText } =
     useLocale();
-  // console.log("allTags", allTags);
+  console.log("allFlashcards", allFlashcards);
   const filteredTags = allTags?.map((item: any) => item.title);
   const [key, setKey] = useState(0);
 
@@ -65,7 +68,7 @@ const ViewFlashcards: React.FC<ViewFlashcardsProps> = ({
               </Text>
               <div>
                 <Text className={styles.heading}>
-                  {localeTitles.TITLE_NEW_CHAPTER}
+                  {deckDetails?.classId?.deckId?.name}
                 </Text>
               </div>
             </div>
@@ -85,7 +88,7 @@ const ViewFlashcards: React.FC<ViewFlashcardsProps> = ({
             <div className={styles["ViewFlashcards-mainHead"]}>
               <div className={styles["ViewFlashcards-option"]}>
                 <TbCards size={16} fill="#2A2D31" />
-                Science
+                {deckDetails?.subdeck?.name}
               </div>
               <div className={styles["ViewFlashcards-option"]}>
                 <TbCards size={16} fill="#2A2D31" />
@@ -144,6 +147,39 @@ const ViewFlashcards: React.FC<ViewFlashcardsProps> = ({
                       localePlaceholders.PLACEHOLDER_ENTER_QUESTION_HERE
                     }
                   />
+                  {enableEdit && (
+                    <Controller
+                      name={"new_questionImage"}
+                      control={control}
+                      defaultValue=""
+                      // key={allFlashcards[currentFlashcardIndex]?._id}
+                      render={({ field }) => (
+                        <>
+                          <ImageDropzone
+                            setValue={setValue}
+                            control={control}
+                            name={`new_questionImage`}
+                          />
+                        </>
+                      )}
+                    />
+                  )}
+                  {!enableEdit && (
+                    <Controller
+                      name={"questionImage"}
+                      control={control}
+                      defaultValue=""
+                      // key={allFlashcards[currentFlashcardIndex]?._id}
+                      render={({ field }) => (
+                        <>
+                          <img
+                            className={styles["questionImage"]}
+                            src={field.value}
+                          />
+                        </>
+                      )}
+                    />
+                  )}
                 </div>
                 <div className={styles["ViewFlashcards-section"]}>
                   <Text className={styles.heading2}>A</Text>
@@ -157,6 +193,39 @@ const ViewFlashcards: React.FC<ViewFlashcardsProps> = ({
                       localePlaceholders.PLACEHOLDER_ENTER_ANSWER_HERE
                     }
                   />
+                  {enableEdit && (
+                    <Controller
+                      name={"new_answerImage"}
+                      control={control}
+                      defaultValue=""
+                      // key={allFlashcards[currentFlashcardIndex]?._id}
+                      render={({ field }) => (
+                        <>
+                          <ImageDropzone
+                            setValue={setValue}
+                            control={control}
+                            name={`new_answerImage`}
+                          />
+                        </>
+                      )}
+                    />
+                  )}
+                  {!enableEdit && (
+                    <Controller
+                      name={"answerImage"}
+                      control={control}
+                      defaultValue=""
+                      // key={allFlashcards[currentFlashcardIndex]?._id}
+                      render={({ field }) => (
+                        <>
+                          <img
+                            className={styles["questionImage"]}
+                            src={field.value}
+                          />
+                        </>
+                      )}
+                    />
+                  )}
                 </div>
                 {!enableEdit ? (
                   <div className={styles["tags"]}>

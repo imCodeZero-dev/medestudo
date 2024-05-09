@@ -181,7 +181,7 @@ export const useExamsDetails = () => {
     //   showSuccessToast(localeSuccess?.SUCCESS_DECK_CREATED);
     // } catch (error: any) {
     //   console.log("error", error);
-    //   showErrorToast(error?.response?.data?.errorMessage);
+    //   showErrorToast(error?.response?.data?.message);
     // } finally {
     //   setCreateLoading(false);
     //   handleCloseCreate();
@@ -201,7 +201,7 @@ export const useExamsDetails = () => {
       showSuccessToast(localeSuccess?.SUCCESS_QUESTION_DELETED);
     } catch (error: any) {
       console.log("error", error);
-      showErrorToast(error?.response?.data?.errorMessage);
+      showErrorToast(error?.response?.data?.message);
     } finally {
       setDeleteLoading(false);
       handleDeleteClose();
@@ -222,7 +222,7 @@ export const useExamsDetails = () => {
       showSuccessToast(localeSuccess?.SUCCESS_EXAM_DELETED);
     } catch (error: any) {
       console.log("error", error);
-      showErrorToast(error?.response?.data?.errorMessage);
+      showErrorToast(error?.response?.data?.message);
     } finally {
       setDeleteLoading(false);
       handleDeleteClose();
@@ -252,7 +252,7 @@ export const useExamsDetails = () => {
       showSuccessToast(localeSuccess?.SUCCESS_EXAM_UPDATED);
     } catch (error: any) {
       console.log("error", error);
-      showErrorToast(error?.response?.data?.errorMessage);
+      showErrorToast(error?.response?.data?.message);
     } finally {
       setEditExamLoading(false);
       handleEditClose();

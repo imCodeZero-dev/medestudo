@@ -50,6 +50,8 @@ const AllFlashCards = ({}: AllFlashCardsProps) => {
     handleSubmit,
     editLoading,
     allFlashcardsLoading,
+    setValue,
+    deckDetails,
   } = useAllFlashCards();
   // console.log("allDecks", allDecks);
   const navigate = useNavigate();
@@ -63,7 +65,9 @@ const AllFlashCards = ({}: AllFlashCardsProps) => {
           <ViewFlashcards
             currentFlashcardIndex={currentFlashcardIndex}
             allFlashcards={allFlashcards}
+            deckDetails={deckDetails}
             control={control}
+            setValue={setValue}
             allTags={allTags}
             tags={tags}
             handleNextFlashcard={handleNextFlashcard}

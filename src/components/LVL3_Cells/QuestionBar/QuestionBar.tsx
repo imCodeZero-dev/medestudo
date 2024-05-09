@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { QuestionBarProps } from "./@types";
 import styles from "./QuestionBar.module.css";
 import Text from "../../LVL1_Atoms/Text/Text";
@@ -18,11 +18,13 @@ const QuestionBar: React.FC<QuestionBarProps> = ({
 }) => {
   const { localeText } = useLocale();
   const { isDropdownOpen, toggleDropdown, dropdownRef } = useDropdown();
-  // console.log("isDropdownOpen", isDropdownOpen);
+  console.log("data?.question", data?.question);
 
   // Create a temporary element to parse the HTML
+  const decodedQuestion = data?.question ? atob(data.question) : "";
+
   const tempElement = document.createElement("div");
-  tempElement.innerHTML = atob(data?.question);
+  tempElement.innerHTML = decodedQuestion;
 
   // Get all <p> elements within the temporary element
   const paragraphs = tempElement.querySelectorAll("p, h1, h2, h3,h4,h5,h6");
@@ -31,6 +33,57 @@ const QuestionBar: React.FC<QuestionBarProps> = ({
   const textContents = Array.from(paragraphs).map((p) => p.textContent);
 
   console.log("textContents", textContents);
+  // const [textContents, setTextContents] = useState<string[]>([]);
+
+  // useEffect(() => {
+  //   if (data?.question) {
+  //     // Create a temporary element to parse the HTML
+  //     const tempElement = document.createElement("div");
+  //     tempElement.innerHTML = atob(data.question);
+
+  //     // Get all <p> elements within the temporary element
+  //     const paragraphs = tempElement.querySelectorAll(
+  //       "p, h1, h2, h3, h4, h5, h6"
+  //     );
+
+  //     // Extract text content from each <p> element
+  //     const extractedTextContents = Array.from(paragraphs).map(
+  //       (p) => p.textContent
+  //     );
+
+  //     setTextContents(extractedTextContents as any);
+  //   }
+  // }, [data?.question]);
+
+  // useEffect(() => {
+  //   if (data?.question) {
+  //     // Regular expression to match Base64 encoded strings
+  //     const base64Regex = /^[A-Za-z0-9+/=]+$/;
+
+  //     // Check if the string matches the Base64 pattern
+  //     const isBase64Encoded = base64Regex.test(data.question);
+
+  //     if (isBase64Encoded) {
+  //       // Decode data.question
+  //       const decodedQuestion = atob(data.question);
+
+  //       // Create a temporary element to parse the HTML
+  //       const tempElement = document.createElement("div");
+  //       tempElement.innerHTML = decodedQuestion;
+
+  //       // Get all <p> elements within the temporary element
+  //       const paragraphs = tempElement.querySelectorAll("p, h1, h2, h3, h4, h5, h6");
+
+  //       // Extract text content from each <p> element
+  //       const extractedTextContents = Array.from(paragraphs).map((p) => p.textContent);
+
+  //       setTextContents(extractedTextContents);
+  //     } else {
+  //       // If not Base64 encoded, use data.question directly
+  //       setTextContents([data.question]);
+  //     }
+  //   }
+  // }, [data?.question]);
 
   return (
     <div className={styles["QuestionBar"]}>

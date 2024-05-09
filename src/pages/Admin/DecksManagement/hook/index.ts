@@ -160,7 +160,7 @@ export const useDecksManagement = () => {
         refetchAllDecks();
       } catch (error: any) {
         console.log("error", error);
-        showErrorToast(error?.response?.data?.errorMessage);
+        showErrorToast(error?.response?.data?.message);
       } finally {
         setDeckLoading(false);
         handleCreateCancel();
@@ -189,7 +189,7 @@ export const useDecksManagement = () => {
       refetchAllDecks();
     } catch (error: any) {
       console.log("error", error);
-      showErrorToast(error?.response?.data?.errorMessage);
+      showErrorToast(error?.response?.data?.message);
     } finally {
       setDeckLoading(false);
       handleEditCancel();
@@ -207,7 +207,7 @@ export const useDecksManagement = () => {
       refetchAllDecks();
     } catch (error: any) {
       console.log("error", error);
-      showErrorToast(error?.response?.data?.errorMessage);
+      showErrorToast(error?.response?.data?.message);
     } finally {
       setDeleteLoading(false);
       handleDeleteClose();

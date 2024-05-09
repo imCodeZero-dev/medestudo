@@ -141,8 +141,11 @@ const ProfessorDashboard = ({}: ProfessorDashboardProps) => {
     getDetails,
     getDetailsExam,
     allExams,
+    dashboardData,
+    totals,
   } = useProfessorDashboard();
   console.log("cookies", cookies);
+  console.log("totals", totals);
   const navigate = useNavigate();
 
   const dummyData = [
@@ -162,8 +165,8 @@ const ProfessorDashboard = ({}: ProfessorDashboardProps) => {
 
   const dsahboardCards = [
     {
-      title: localeTitles?.TITLE_TOTAL_FLASHCARDS,
-      value: 33,
+      title: localeTitles?.TITLE_TOTAL_DECKS,
+      value: totals?.allDecks,
       // image: flashcardsImg,
       icon: <MdOutlineViewCarousel size={50} color="#A2A9B3" />,
       text: localeTitles?.TITLE_UPLOADED,
@@ -177,7 +180,7 @@ const ProfessorDashboard = ({}: ProfessorDashboardProps) => {
     },
     {
       title: localeTitles?.TITLE_TOTAL_QUESTIONS,
-      value: 126,
+      value: totals.allQuestions,
       // image: examsImgs,
       icon: <RiQuestionAnswerLine size={50} color="#A2A9B3" />,
       text: localeTitles?.TITLE_UPLOADED,
@@ -205,7 +208,7 @@ const ProfessorDashboard = ({}: ProfessorDashboardProps) => {
               {localeTitles?.TITLE_FLASHCARDS_AND_QUESTIONS_CREATED}
             </Text>
             <BarChartComponent
-              data={dummyData}
+              data={dashboardData}
               legends={[
                 localeTitles?.TITLE_FLASHCARDS,
                 localeTitles?.TITLE_QUESTIONS,

@@ -86,7 +86,7 @@ export const useInstituteManagement = () => {
       showSuccessToast(localeSuccess?.SUCCESS_INSTITUTE_DELETED);
     } catch (error: any) {
       console.log("error", error);
-      showErrorToast(error?.response?.data?.errorMessage);
+      showErrorToast(error?.response?.data?.message);
     } finally {
       setCreateLoading(false);
       handleDeleteModalClose();
@@ -103,7 +103,7 @@ export const useInstituteManagement = () => {
       showSuccessToast(localeSuccess?.SUCCESS_INSTITUTE_CREATED);
     } catch (error: any) {
       console.log("error", error);
-      showErrorToast(error?.response?.data?.errorMessage);
+      showErrorToast(error?.response?.data?.message);
     } finally {
       setCreateLoading(false);
       handleCloseCreate();
@@ -124,7 +124,7 @@ export const useInstituteManagement = () => {
       showSuccessToast(localeSuccess?.SUCCESS_INSTITUTE_UPDATED);
     } catch (error: any) {
       console.log("error", error);
-      showErrorToast(error?.response?.data?.errorMessage);
+      showErrorToast(error?.response?.data?.message);
     } finally {
       setCreateLoading(false);
       handleCloseEdit();
@@ -149,7 +149,7 @@ export const useInstituteManagement = () => {
       showSuccessToast(localeSuccess?.SUCCESS_INSTITUTE_STATUS_CHANGED);
     } catch (error: any) {
       console.log("error", error);
-      showErrorToast(error?.response?.data?.errorMessage);
+      showErrorToast(error?.response?.data?.message);
     } finally {
       setCreateLoading(false);
     }

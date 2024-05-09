@@ -108,7 +108,7 @@ export const useProfessorSettings = () => {
       showSuccessToast(localeSuccess?.SUCCESS_GENERAL_INFO_UPDATED);
     } catch (error: any) {
       console.log("error", error);
-      showErrorToast(error?.response?.data?.errorMessage);
+      showErrorToast(error?.response?.data?.message);
     } finally {
       setGeneralLoading(false);
     }
@@ -138,7 +138,7 @@ export const useProfessorSettings = () => {
       showSuccessToast(localeSuccess?.SUCCESS_PROFILE_PICTURE_UPDATED);
     } catch (error: any) {
       console.log("error", error);
-      showErrorToast(error?.response?.data?.errorMessage);
+      showErrorToast(error?.response?.data?.message);
     } finally {
       setProfilePicLoading(false);
     }
@@ -164,7 +164,7 @@ export const useProfessorSettings = () => {
       resetPassword();
     } catch (error: any) {
       console.log("error", error);
-      showErrorToast(error?.response?.data?.errorMessage);
+      showErrorToast(error?.response?.data?.message);
     } finally {
       setPasswordLoading(false);
     }

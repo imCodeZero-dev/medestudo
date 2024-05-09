@@ -104,7 +104,7 @@ export const useProfessorClasses = () => {
       showSuccessToast(localeSuccess?.SUCCESS_CLASS_CREATED);
     } catch (error: any) {
       console.log("error", error);
-      showErrorToast(error?.response?.data?.errorMessage);
+      showErrorToast(error?.response?.data?.message);
     } finally {
       setCreateLoading(false);
       handleCloseCreate();
@@ -123,7 +123,7 @@ export const useProfessorClasses = () => {
       showSuccessToast(localeSuccess?.SUCCESS_CLASS_DELETED);
     } catch (error: any) {
       console.log("error", error);
-      showErrorToast(error?.response?.data?.errorMessage);
+      showErrorToast(error?.response?.data?.message);
     } finally {
       setDeleteLoading(false);
       handleDeleteClose();

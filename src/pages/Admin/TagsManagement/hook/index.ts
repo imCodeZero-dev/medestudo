@@ -103,7 +103,7 @@ export const useTagsManagement = () => {
       showSuccessToast(localeSuccess?.SUCCESS_TAG_DELETED);
     } catch (error: any) {
       console.log("error", error);
-      showErrorToast(error?.response?.data?.errorMessage);
+      showErrorToast(error?.response?.data?.message);
     } finally {
       setCreateLoading(false);
       handleDeleteModalClose();
@@ -120,7 +120,7 @@ export const useTagsManagement = () => {
       showSuccessToast(localeSuccess?.SUCCESS_TAG_CREATED);
     } catch (error: any) {
       console.log("error", error);
-      showErrorToast(error?.response?.data?.errorMessage);
+      showErrorToast(error?.response?.data?.message);
     } finally {
       setCreateLoading(false);
       handleCloseCreate();
@@ -137,7 +137,7 @@ export const useTagsManagement = () => {
       showSuccessToast(localeSuccess?.SUCCESS_TAG_UPDATED);
     } catch (error: any) {
       console.log("error", error);
-      showErrorToast(error?.response?.data?.errorMessage);
+      showErrorToast(error?.response?.data?.message);
     } finally {
       setCreateLoading(false);
       handleCloseEdit();
@@ -162,7 +162,7 @@ export const useTagsManagement = () => {
       showSuccessToast(localeSuccess?.SUCCESS_TAG_STATUS_CHANGED);
     } catch (error: any) {
       console.log("error", error);
-      showErrorToast(error?.response?.data?.errorMessage);
+      showErrorToast(error?.response?.data?.message);
     } finally {
       setCreateLoading(false);
     }

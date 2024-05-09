@@ -116,7 +116,7 @@ export const useAdminProfile = () => {
       showSuccessToast(localeSuccess?.SUCCESS_ADMIN_UPDATED);
     } catch (error: any) {
       console.log("error", error);
-      showErrorToast(error?.response?.data?.errorMessage);
+      showErrorToast(error?.response?.data?.message);
     } finally {
       setProfileLoading(false);
     }
@@ -143,7 +143,7 @@ export const useAdminProfile = () => {
       showSuccessToast(localeSuccess?.SUCCESS_PASSWORD_RESET);
     } catch (error: any) {
       console.log("error", error);
-      showErrorToast(error?.response?.data?.errorMessage);
+      showErrorToast(error?.response?.data?.message);
     } finally {
       setResetLoading(false);
     }

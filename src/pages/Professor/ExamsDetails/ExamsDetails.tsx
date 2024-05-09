@@ -66,7 +66,7 @@ const ExamsDetails = ({}: ExamsDetailsProps) => {
 
   // const examId = location?.state;
 
-  // console.log("examQuestions?.length", examQuestions?.length);
+  console.log("examQuestions?.length", examQuestions);
   const navigateToCreateQuestion = (exam: any) => {
     // console.log("navigateToCreateFlashcard", exam);
     navigate("/professor/exams/exam/question", {

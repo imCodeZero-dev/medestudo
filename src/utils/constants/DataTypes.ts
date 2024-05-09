@@ -84,3 +84,26 @@ export interface examForm {
   institute: string;
   year: string;
 }
+
+export interface DeckDetailType {
+  _id: string;
+  subdeck: SubdeckType;
+  classId: ClassIdType;
+  deckId: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+}
+
+export interface SubdeckType {
+  name: string;
+  _id: string;
+}
+
+export interface ClassIdType {
+  _id: string;
+  deckId: SubdeckType;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+}

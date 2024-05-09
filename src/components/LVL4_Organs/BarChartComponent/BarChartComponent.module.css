@@ -18,7 +18,7 @@
   right: 20px;
 }
 
-.increaseText {
+.deckText {
   display: flex;
   justify-content: center;
   text-align: center;
@@ -28,8 +28,50 @@
   /* padding: 10px 0px 0px 0px; */
   gap: 10px;
   border-radius: 8px;
-  background: #4ac776;
+  background: #0030dd;
   color: white;
+  /* opacity: 0px; */
+}
+.deckTextDecrease {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  width: 114px;
+  height: 38px;
+  /* padding: 10px 0px 0px 0px; */
+  gap: 10px;
+  border-radius: 8px;
+  background: #0030dd;
+  color: white;
+  /* opacity: 0px; */
+}
+.questionText {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  width: 114px;
+  height: 38px;
+  /* padding: 10px 0px 0px 0px; */
+  gap: 10px;
+  border-radius: 8px;
+  background: #ffbc6e;
+  color: white;
+  /* opacity: 0px; */
+}
+.questionTextDecrease {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  width: 114px;
+  height: 38px;
+  /* padding: 10px 0px 0px 0px; */
+  gap: 10px;
+  border-radius: 8px;
+  background: #ffbc6e;
+  color: red;
   /* opacity: 0px; */
 }
 
@@ -70,12 +112,10 @@
   padding: 6px;
 }
 
-
-.legendText{
-font-family: Poppins;
-font-size: 12px;
-font-weight: 400;
-line-height: 18px;
-/* text-align: left; */
-
+.legendText {
+  font-family: Poppins;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+  /* text-align: left; */
 }

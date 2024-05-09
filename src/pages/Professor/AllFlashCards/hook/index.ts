@@ -21,6 +21,7 @@ import {
   getAllClassesApi,
   getAllFlashcardsByIdApi,
   getClassByIdApi,
+  getDeckDetailsApi,
 } from "../../../../utils/api/professors";
 import {
   useLocation,
@@ -34,6 +35,7 @@ import {
   useAllTagsQuery,
 } from "../../../../redux/slices/APISlice";
 import { Flashcard, Tag } from "../../../../utils/constants/DataTypes";
+import { uploadImageToCloudinary } from "../../../../utils/hooks/helper";
 
 export const useAllFlashCards = () => {
   // const navigate = useNavigate();
@@ -50,7 +52,15 @@ export const useAllFlashCards = () => {
     setValue,
     getValues,
     reset,
-  } = useForm<{ question: string; answer: string; tags: string[] }>({
+  } = useForm<{
+    question: string;
+    questionImage: string;
+    new_questionImage: string;
+    answerImage: string;
+    new_answerImage: string;
+    answer: string;
+    tags: string[];
+  }>({
     // resolver: yupResolver(validationSchema),
     defaultValues: {},
   });
@@ -99,6 +109,29 @@ export const useAllFlashCards = () => {
     refetchallFlashcards,
   } = useAllFlashcardsQuery(cookies, deckId as string);
 
+  const {
+    data: { data: { Deck: deckDetails = [] } = {} } = {},
+    isLoading: deckDetailsLoading,
+    error: errordeckDetails,
+    refetch: refetchdeckDetails,
+  } = useQuery(
+    [
+      "deckDetails",
+      {
+        cookies,
+      },
+    ],
+
+    async () => {
+      return getDeckDetailsApi(deckId as string, cookies?.professor?.token);
+    },
+    {
+      enabled: !!cookies?.professor?.token,
+    }
+  );
+
+  // console.log("deckDetails", deckDetails);
+
   const getDetails = (data: string) => {
     navigate(`/professor/classes/deck?${data}`, { state: data });
   };
@@ -132,7 +165,7 @@ export const useAllFlashCards = () => {
       navigate(-1);
     } catch (error: any) {
       console.log("error", error);
-      showErrorToast(error?.response?.data?.errorMessage);
+      showErrorToast(error?.response?.data?.message);
     } finally {
       setDeleteLoading(false);
       handleDeleteClose();
@@ -141,6 +174,15 @@ export const useAllFlashCards = () => {
 
   const onSubmitEdit = async (data: any) => {
     try {
+      let questionImgUrl = data?.questionImage;
+      if (data?.questionImage !== data?.new_questionImage) {
+        questionImgUrl = await uploadImageToCloudinary(data?.new_questionImage);
+      }
+      let answerImgUrl = data?.answerImage;
+      if (data?.answerImage !== data?.new_answerImage) {
+        answerImgUrl = await uploadImageToCloudinary(data?.new_answerImage);
+      }
+
       const tagsLabels = data?.tags?.map(
         (tag: { value: string; label: string }) => tag.label
       );
@@ -149,6 +191,8 @@ export const useAllFlashCards = () => {
 
       const payload = {
         question: base64Question,
+        questionImage: questionImgUrl,
+        answerImage: answerImgUrl,
         answer: base64Answer,
         tags: tagsLabels,
       };
@@ -164,7 +208,7 @@ export const useAllFlashCards = () => {
       refetchallFlashcards();
     } catch (error: any) {
       console.log("error", error);
-      showErrorToast(error?.response?.data?.errorMessage);
+      showErrorToast(error?.response?.data?.message);
     } finally {
       setEditLoading(false);
       reset();
@@ -175,12 +219,17 @@ export const useAllFlashCards = () => {
   useEffect(() => {
     // Set initial values when component mounts or currentFlashcardIndex changes
     if (allFlashcards[currentFlashcardIndex]) {
-      const { question, answer, tags } = allFlashcards[currentFlashcardIndex];
+      const { question, answer, tags, questionImage, answerImage } =
+        allFlashcards[currentFlashcardIndex];
       try {
         const decodedQuestion = atob(question);
         const decodedAnswer = atob(answer);
         setValue("question", decodedQuestion);
         setValue("answer", decodedAnswer);
+        setValue("questionImage", questionImage);
+        setValue("answerImage", answerImage);
+        setValue("new_questionImage", questionImage);
+        setValue("new_answerImage", answerImage);
         if (tags && tags.length > 0) {
           const filteredTags = tags?.map((item: Tag) => ({
             title: item,
@@ -195,7 +244,7 @@ export const useAllFlashCards = () => {
         console.error("Error decoding base64 string:", error);
       }
     }
-  }, [currentFlashcardIndex, allFlashcards, setValue]);
+  }, [currentFlashcardIndex, allFlashcards]);
 
   // console.log("allTags", allTags, "watchTags", tags);
 
@@ -226,5 +275,6 @@ export const useAllFlashCards = () => {
     onSubmitEdit,
     editLoading,
     allFlashcardsLoading,
+    deckDetails,
   };
 };

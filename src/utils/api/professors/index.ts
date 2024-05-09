@@ -147,7 +147,7 @@ export const getAllFlashcardsByIdApi = async (
 };
 
 export const createExamApi = async (data: examForm, token: string) => {
-  // console.log("professorLoginApi", data);
+  console.log("createExamApi", data);
   const response = await apiRequest({
     method: "Post",
     url: `/professor/createExam`,
@@ -243,6 +243,24 @@ export const getExamQuestionsApi = async (examId: string, token: string) => {
   const response = await apiRequest({
     method: "Get",
     url: `/professor/getAllQns/${examId}`,
+    token,
+  });
+  return response;
+};
+
+export const getDeckDetailsApi = async (deckId: string, token: string) => {
+  const response = await apiRequest({
+    method: "Get",
+    url: `/professor/getDeckByDeckId/${deckId}`,
+    token,
+  });
+  return response;
+};
+
+export const getDashboardDataApi = async (token: string) => {
+  const response = await apiRequest({
+    method: "Get",
+    url: `/professor/getAllFlashCardMonthly`,
     token,
   });
   return response;

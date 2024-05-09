@@ -145,7 +145,7 @@ export const useDeckDetails = () => {
       enabled: !!cookies?.professor?.token && !!classDetails,
     }
   );
-  // console.log("classDecks", classDecks);
+  console.log("classDecks", classDecks);
   // console.log("classDetails", classDetails);
 
   const onSubmitCreate = async (data: any) => {
@@ -206,7 +206,7 @@ export const useDeckDetails = () => {
       showSuccessToast(localeSuccess?.SUCCESS_DECK_CREATED);
     } catch (error: any) {
       console.log("error", error);
-      showErrorToast(error?.response?.data?.errorMessage);
+      showErrorToast(error?.response?.data?.message);
     } finally {
       setCreateLoading(false);
       handleCloseCreate();
@@ -227,7 +227,7 @@ export const useDeckDetails = () => {
       navigate(-1);
     } catch (error: any) {
       console.log("error", error);
-      showErrorToast(error?.response?.data?.errorMessage);
+      showErrorToast(error?.response?.data?.message);
     } finally {
       setDeleteLoading(false);
       handleDeleteClassClose();
@@ -248,7 +248,7 @@ export const useDeckDetails = () => {
       showSuccessToast(localeSuccess?.SUCCESS_DECK_DELETED);
     } catch (error: any) {
       console.log("error", error);
-      showErrorToast(error?.response?.data?.errorMessage);
+      showErrorToast(error?.response?.data?.message);
     } finally {
       setDeleteLoading(false);
       handleDeleteClose();

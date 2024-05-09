@@ -1,5 +1,5 @@
 import { Control, UseFormHandleSubmit } from "react-hook-form";
-import { Flashcard, Tag } from "../../../../utils/constants/DataTypes";
+import { DeckDetailType, Flashcard, Tag } from "../../../../utils/constants/DataTypes";
 
 export type ViewFlashcardsProps = {
   loading: boolean;
@@ -8,6 +8,7 @@ export type ViewFlashcardsProps = {
   // handleSubmit: any;
   // onSubmit: (data: any) => void;
   // setCreateFlashcard: (data: boolean) => void;
+  setValue: any;
   control: Control<any>;
   tags: string[];
   allTags: string[];
@@ -18,6 +19,7 @@ export type ViewFlashcardsProps = {
   handleEditOpen: (data: any) => void;
   handleEditClose: () => void;
   enableEdit: boolean;
+  deckDetails: DeckDetailType;
 
   onSubmitEdit: (data: any) => Promise<void>;
   handleSubmit: UseFormHandleSubmit<

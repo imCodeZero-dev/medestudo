@@ -105,7 +105,7 @@ export const useAdminDashboard = () => {
       showSuccessToast(localeSuccess?.SUCCESS_PROFESSOR_CREATED);
     } catch (error: any) {
       console.log("error", error);
-      showErrorToast(error?.response?.data?.errorMessage);
+      showErrorToast(error?.response?.data?.message);
     } finally {
       setProfessorLoading(false);
       handleCloseProfessor();
@@ -130,7 +130,7 @@ export const useAdminDashboard = () => {
       showSuccessToast(localeSuccess?.SUCCESS_PROFESSOR_STATUS_CHANGED);
     } catch (error: any) {
       console.log("error", error);
-      showErrorToast(error?.response?.data?.errorMessage);
+      showErrorToast(error?.response?.data?.message);
     } finally {
       setProfessorLoading(false);
     }

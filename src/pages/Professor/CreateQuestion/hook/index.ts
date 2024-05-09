@@ -293,7 +293,7 @@ export const useCreateExamQuestion = () => {
       navigate(-1);
     } catch (error: any) {
       console.log("error", error);
-      showErrorToast(error?.response?.data?.errorMessage);
+      showErrorToast(error?.response?.data?.message);
     } finally {
       setCreateLoading(false);
     }

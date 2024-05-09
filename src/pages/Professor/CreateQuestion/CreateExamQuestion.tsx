@@ -278,7 +278,7 @@ const CreateExamQuestion = ({}: CreateExamQuestionProps) => {
                         preDefinedWrapClassName="inputField-wrap"
                         type="text"
                       /> */}
-                       <QuillEditor
+                      <QuillEditor
                         name="solution"
                         control={control}
                         placeholder={

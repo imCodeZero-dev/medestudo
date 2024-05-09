@@ -76,7 +76,7 @@ export const useLoginPage = () => {
       setForgotSteps({ ...forgotSteps, otp: true, email: false });
     } catch (error: any) {
       console.log("error", error);
-      showErrorToast(error?.response?.data?.errorMessage);
+      showErrorToast(error?.response?.data?.message);
     } finally {
       setForgotLoading(false);
     }
@@ -96,7 +96,7 @@ export const useLoginPage = () => {
       setForgotSteps({ ...forgotSteps, otp: true, email: false });
     } catch (error: any) {
       console.log("error", error);
-      showErrorToast(error?.response?.data?.errorMessage);
+      showErrorToast(error?.response?.data?.message);
     } finally {
       setForgotLoading(false);
     }
@@ -124,7 +124,7 @@ export const useLoginPage = () => {
       }
     } catch (error: any) {
       console.log("error", error);
-      showErrorToast(error?.response?.data?.errorMessage);
+      showErrorToast(error?.response?.data?.message);
     } finally {
       setForgotLoading(false);
     }
@@ -147,7 +147,7 @@ export const useLoginPage = () => {
       setForgotSteps({ ...forgotSteps, password: false, success: true });
     } catch (error: any) {
       console.log("error", error);
-      showErrorToast(error?.response?.data?.errorMessage);
+      showErrorToast(error?.response?.data?.message);
     } finally {
       setForgotLoading(false);
     }
@@ -173,7 +173,7 @@ export const useLoginPage = () => {
       navigate("/professor");
     } catch (error: any) {
       console.log("error", error);
-      showErrorToast(error?.response?.data?.errorMessage);
+      showErrorToast(error?.response?.data?.message);
     } finally {
       setLoadingLogin(false);
     }

@@ -17,13 +17,19 @@ import {
   useAllExamsQuery,
 } from "../../../../redux/slices/APISlice";
 import { useNavigate } from "react-router-dom";
+import { getDashboardDataApi } from "../../../../utils/api/professors";
 
 export const useProfessorDashboard = () => {
   // const navigate = useNavigate();
   const { localeSuccess } = useLocale();
-  const [cookies] = useCookies(["admin"]);
+  const [cookies] = useCookies(["professor"]);
   const navigate = useNavigate();
-
+  const [totals, setTotals] = useState({
+    allFlashcards: 0,
+    allQuestions: 0,
+    allExams: 0,
+    allDecks: 0,
+  });
   const validationSchema = yup.object().shape({
     email: yup
       .string()
@@ -61,6 +67,29 @@ export const useProfessorDashboard = () => {
   const { allExams, allExamsLoading, errorAllExams, refetchAllExams } =
     useAllExamsQuery(cookies);
 
+  const {
+    data: { data: { data: dashboardData = [] } = {} } = {},
+    isLoading: dashboardDataLoading,
+    error: errorDashboardData,
+    refetch: refetchDashboardData,
+  } = useQuery(
+    [
+      "dashboardData",
+      {
+        cookies,
+      },
+    ],
+
+    async () => {
+      return getDashboardDataApi(cookies?.professor?.token);
+    },
+    {
+      enabled: !!cookies?.professor?.token,
+    }
+  );
+
+  console.log("dashboardData", dashboardData);
+
   const getDetails = (data: string) => {
     navigate(`/professor/classes/deck?${data}`, { state: data });
   };
@@ -86,11 +115,35 @@ export const useProfessorDashboard = () => {
     //   showSuccessToast(localeSuccess?.SUCCESS_PROFESSOR_STATUS_CHANGED);
     // } catch (error: any) {
     //   console.log("error", error);
-    //   showErrorToast(error?.response?.data?.errorMessage);
+    //   showErrorToast(error?.response?.data?.message);
     // } finally {
     //   setProfessorLoading(false);
     // }
   };
+
+  useEffect(() => {
+    if (dashboardData?.length > 0) {
+      const allQuestions = dashboardData.reduce(
+        (total: number, item: any) => total + item.questions,
+        0
+      );
+
+      const allExams = dashboardData?.reduce(
+        (total: number, item: any) => total + item.exams,
+        0
+      );
+      const allFlashcards = dashboardData?.reduce(
+        (total: number, item: any) => total + item.flashcards,
+        0
+      );
+      const allDecks = dashboardData?.reduce(
+        (total: number, item: any) => total + item.decks,
+        0
+      );
+
+      setTotals({ allQuestions, allExams, allFlashcards, allDecks });
+    }
+  }, [dashboardData]);
 
   return {
     control,
@@ -105,5 +158,7 @@ export const useProfessorDashboard = () => {
     getDetails,
     getDetailsExam,
     allExams,
+    dashboardData,
+    totals,
   };
 };

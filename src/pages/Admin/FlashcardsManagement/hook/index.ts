@@ -62,7 +62,7 @@ export const useFlashcardsManagement = () => {
       showSuccessToast(localeSuccess?.SUCCESS_PROFESSOR_CREATED);
     } catch (error: any) {
       console.log("error", error);
-      showErrorToast(error?.response?.data?.errorMessage);
+      showErrorToast(error?.response?.data?.message);
     } finally {
       setProfessorLoading(false);
     }
@@ -83,7 +83,7 @@ export const useFlashcardsManagement = () => {
     //   showSuccessToast(localeSuccess?.SUCCESS_PROFESSOR_CREATED);
     // } catch (error: any) {
     //   console.log("error", error);
-    //   showErrorToast(error?.response?.data?.errorMessage);
+    //   showErrorToast(error?.response?.data?.message);
     // } finally {
     //   setProfessorLoading(false);
     // }

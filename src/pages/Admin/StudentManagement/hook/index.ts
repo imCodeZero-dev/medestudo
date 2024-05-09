@@ -79,7 +79,7 @@ export const useStudentManagement = () => {
       showSuccessToast(localeSuccess?.SUCCESS_STUDENT_STATUS_CHANGED);
     } catch (error: any) {
       console.log("error", error);
-      showErrorToast(error?.response?.data?.errorMessage);
+      showErrorToast(error?.response?.data?.message);
     } finally {
       setStudentLoading(false);
     }
@@ -98,7 +98,7 @@ export const useStudentManagement = () => {
       showSuccessToast(localeSuccess?.SUCCESS_STUDENT_DELETED);
     } catch (error: any) {
       console.log("error", error);
-      showErrorToast(error?.response?.data?.errorMessage);
+      showErrorToast(error?.response?.data?.message);
     } finally {
       setDeleteLoading(false);
       handleDeleteClose();

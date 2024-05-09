@@ -41,3 +41,23 @@
   align-items: center;
   margin-bottom: 16px;
 }
+
+.CreateQuestions-section {
+  margin: 16px 0;
+  display: flex;
+  column-gap: 16px;
+  justify-content: space-between;
+}
+
+.ansAndReason-img {
+  display: flex;
+  border: 1px solid #dcdfe2;
+  border-radius: 6px;
+  padding: 8px;
+  width: 40%;
+  max-width: 168px;
+  max-height: 64px;
+  align-items: center;
+  margin-top: 8px;
+  background-color: white;
+}

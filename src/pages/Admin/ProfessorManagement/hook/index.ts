@@ -112,7 +112,7 @@ export const useProfessorManagement = () => {
       refetchAllProfessors();
     } catch (error: any) {
       console.log("error", error);
-      showErrorToast(error?.response?.data?.errorMessage);
+      showErrorToast(error?.response?.data?.message);
     } finally {
       setProfessorLoading(false);
       handleCloseProfessor();
@@ -139,7 +139,7 @@ export const useProfessorManagement = () => {
       refetchAllProfessors();
     } catch (error: any) {
       console.log("error", error);
-      showErrorToast(error?.response?.data?.errorMessage);
+      showErrorToast(error?.response?.data?.message);
     } finally {
       setEditLoading(false);
       handleCloseEdit();
@@ -164,7 +164,7 @@ export const useProfessorManagement = () => {
       showSuccessToast(localeSuccess?.SUCCESS_PROFESSOR_STATUS_CHANGED);
     } catch (error: any) {
       console.log("error", error);
-      showErrorToast(error?.response?.data?.errorMessage);
+      showErrorToast(error?.response?.data?.message);
     } finally {
       setProfessorLoading(false);
     }
@@ -183,7 +183,7 @@ export const useProfessorManagement = () => {
       showSuccessToast(localeSuccess?.SUCCESS_PROFESSOR_DELETED);
     } catch (error: any) {
       console.log("error", error);
-      showErrorToast(error?.response?.data?.errorMessage);
+      showErrorToast(error?.response?.data?.message);
     } finally {
       setDeleteLoading(false);
       handleDeleteClose();
