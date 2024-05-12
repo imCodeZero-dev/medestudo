@@ -2,10 +2,13 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useCookies } from "react-cookie";
-import { validationSchema } from "../../../utils/hooks/inputValidation";
+import {
+  validationSchema,
+  validationSchemaRegistration,
+} from "../../../utils/hooks/inputValidation";
 import { professorLoginApi } from "../../../utils/api/professors";
 import { loginAdmin } from "../../../redux/slices/AdminSlice";
 import {
@@ -20,25 +23,36 @@ import {
 } from "../../../utils/api/all";
 import useLocale from "../../../locales";
 import { forgotSteps } from "../../../components/LVL4_Organs/ForgotPasswordModal/types";
+import {
+  studentLoginApi,
+  studentRegistrationApi,
+} from "../../../utils/api/Students";
 // import { useLocation, useNavigate } from "react-router-dom";
 
 export const useLoginPage = () => {
+  const [authType, setAuthType] = useState<string>("login");
+
   const {
     handleSubmit,
     control,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(validationSchema),
+    resolver: yupResolver(
+      authType === "login" ? validationSchema : validationSchemaRegistration
+    ),
     defaultValues: {
       email: "",
       password: "",
       // rememberme: false,
     },
   });
+  const pathName = useLocation().pathname;
+  const professorPanel = pathName.includes("/professor");
   const { localeSuccess } = useLocale();
   const [forgotModal, setForgotModal] = useState<boolean>(false);
   const [forgotLoading, setForgotLoading] = useState<boolean>(false);
   const [loadingLogin, setLoadingLogin] = useState<boolean>(false);
+  const [loadingRegister, setLoadingRegister] = useState<boolean>(false);
   const [validOtp, setValidOtp] = useState<boolean>(true);
   const [forgotEmail, setforgotEmail] = useState<string>("");
   const [forgotSteps, setForgotSteps] = useState<forgotSteps>({
@@ -49,8 +63,14 @@ export const useLoginPage = () => {
   });
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [cookies, setCookie] = useCookies(["professor"]);
+  const [cookies, setCookie] = useCookies(["professor", "student"]);
   // const navigate = useNavigate();
+  const switchToRegistration = () => {
+    setAuthType("registration");
+  };
+  const switchToLogin = () => {
+    setAuthType("login");
+  };
 
   const handleForgotClose = () => {
     setForgotModal(false);
@@ -163,19 +183,55 @@ export const useLoginPage = () => {
     try {
       setLoadingLogin(true);
       let response;
-      response = await professorLoginApi(params);
-      console.log("response", response);
+      if (professorPanel) {
+        response = await professorLoginApi(params);
+        console.log("response", response);
 
-      dispatch(loginProfessor(response?.data));
-      setCookie("professor", response?.data, { maxAge: 86400 });
-      showSuccessToast("Login Successfully");
+        dispatch(loginProfessor(response?.data));
+        setCookie("professor", response?.data, { maxAge: 86400 });
+        showSuccessToast("Login Successfully");
 
-      navigate("/professor");
+        navigate("/professor");
+      } else {
+        response = await studentLoginApi(params);
+        console.log("response", response);
+
+        dispatch(loginProfessor(response?.data));
+        setCookie("student", response?.data, { maxAge: 86400 });
+        showSuccessToast("Login Successfully");
+        navigate("/student/survey");
+      }
     } catch (error: any) {
       console.log("error", error);
       showErrorToast(error?.response?.data?.message);
     } finally {
       setLoadingLogin(false);
+    }
+  };
+  const onSubmitRegistration = async (data: any) => {
+    console.log("onSubmitRegistration", data);
+    const params = {
+      name: data?.name,
+      email: data?.email,
+      password: data?.password,
+    };
+
+    try {
+      setLoadingRegister(true);
+      let response;
+      response = await studentRegistrationApi(params);
+      console.log("response", response);
+
+      // dispatch(loginProfessor(response?.data));
+      setCookie("student", response?.data, { maxAge: 86400 });
+      showSuccessToast("Registration Successfully");
+
+      navigate("/student/survey");
+    } catch (error: any) {
+      console.log("error", error);
+      showErrorToast(error?.response?.data?.message);
+    } finally {
+      setLoadingRegister(false);
     }
   };
   const googleLoginBtn = async (data: any) => {};
@@ -198,5 +254,9 @@ export const useLoginPage = () => {
     onSubmitOTP,
     resendOtp,
     validOtp,
+    onSubmitRegistration,
+    switchToRegistration,
+    switchToLogin,
+    authType,
   };
 };

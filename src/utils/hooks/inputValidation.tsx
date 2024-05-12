@@ -22,6 +22,23 @@ export const validationSchema = yup.object().shape({
   // .required(localeErrors.ERROR_EMAIL_REQUIRED)
   // .email(localeErrors.ERROR_EMAIL_INVALID),
   password: yup.string(),
+  // confirmPassword: yup
+  //   .string()
+  //   .required("Confirm Password is required")
+  //   .oneOf([yup.ref("password")], "Passwords must match"),
+  // .required(localeErrors.ERROR_PW_REQUIRED)
+  // .matches(password_regex, localeErrors.ERROR_PW_INVALID),
+  // rememberme: yup.boolean().required(),
+});
+export const validationSchemaRegistration = yup.object().shape({
+  email: yup.string(),
+  // .required(localeErrors.ERROR_EMAIL_REQUIRED)
+  // .email(localeErrors.ERROR_EMAIL_INVALID),
+  password: yup.string(),
+  confirmPassword: yup
+    .string()
+    .required("Confirm Password is required")
+    .oneOf([yup.ref("password")], "Passwords must match"),
   // .required(localeErrors.ERROR_PW_REQUIRED)
   // .matches(password_regex, localeErrors.ERROR_PW_INVALID),
   // rememberme: yup.boolean().required(),

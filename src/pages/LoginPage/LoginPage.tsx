@@ -45,8 +45,11 @@ const LoginPage = (props: any) => {
     onSubmitPassword,
     resendOtp,
     validOtp,
+    onSubmitRegistration,
+    switchToRegistration,
+    switchToLogin,
+    authType,
   } = useLoginPage();
-  const [authType, setAuthType] = useState<string>("login");
 
   // console.log("pathName", pathName);
 
@@ -59,12 +62,6 @@ const LoginPage = (props: any) => {
   // const [viewPassword, setViewPassword] = useState<boolean>(false);
 
   // const { control, handleSubmit, facebookLogin } = useLoginPage();
-  const switchToRegistration = () => {
-    setAuthType("registration");
-  };
-  const switchToLogin = () => {
-    setAuthType("login");
-  };
 
   return (
     <div className={styles["login"]}>
@@ -84,7 +81,7 @@ const LoginPage = (props: any) => {
           control={control}
           handleSubmit={handleSubmit}
           loadingRegister={false}
-          onSubmit={onSubmit}
+          onSubmit={onSubmitRegistration}
           switchToLogin={switchToLogin}
         />
       )}
