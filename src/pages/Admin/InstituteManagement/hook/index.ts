@@ -69,7 +69,7 @@ export const useInstituteManagement = () => {
     allInstituteLoading,
     errorAllInstitute,
     refetchAllInstitute,
-  } = useAllInstituteQuery(cookies);
+  } = useAllInstituteQuery();
   // console.log("cookies", cookies);
   // console.log("allInstitute", allInstitute);
 

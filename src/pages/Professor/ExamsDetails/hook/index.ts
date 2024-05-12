@@ -107,7 +107,7 @@ export const useExamsDetails = () => {
     allInstituteLoading,
     errorAllInstitute,
     refetchAllInstitute,
-  } = useAllInstituteQuery(cookies);
+  } = useAllInstituteQuery();
 
   const {
     // data: examsDetails,

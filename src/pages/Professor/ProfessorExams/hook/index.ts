@@ -65,7 +65,7 @@ export const useProfessorExams = () => {
     allInstituteLoading,
     errorAllInstitute,
     refetchAllInstitute,
-  } = useAllInstituteQuery(cookies);
+  } = useAllInstituteQuery();
 
   // console.log("allInstitute", allInstitute);
 
