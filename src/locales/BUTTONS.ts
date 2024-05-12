@@ -41,6 +41,8 @@ export const BUTTONS = {
     BUTTON_EDIT: "Edit",
     BUTTON_SEE_SOLUTION: "See Solution",
     BUTTON_CONTINUE_TO_LOGIN: "Continue to login",
+    BUTTON_SIGNUP: "Signup",
+    BUTTON_BACK: "Back",
   },
   es: {
     submit: "Enviar",
@@ -84,5 +86,7 @@ export const BUTTONS = {
     BUTTON_EDIT: "Edit",
     BUTTON_SEE_SOLUTION: "See Solution",
     BUTTON_CONTINUE_TO_LOGIN: "Continue to login",
+    BUTTON_SIGNUP: "Signup",
+    BUTTON_BACK: "Back",
   },
 };

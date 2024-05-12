@@ -1,7 +1,9 @@
 export const PLACEHOLDERS = {
   en: {
     PLACEHOLDER_ENTER_USERNAME: "Enter Username",
+    PLACEHOLDER_ENTER_HOSPITAL_NAME: "Enter Hospital Name",
     PLACEHOLDER_ENTER_EMAIL: "Enter Email",
+    PLACEHOLDER_ENTER_FULL_NAME: "Enter Full Name",
     PLACEHOLDER_ENTER_PASSWORD: "Enter Password",
     PLACEHOLDER_NEW_PASSWORD: "New Password",
     PLACEHOLDER_CONFIRM_PASSWORD: "Confirm Password",
@@ -17,10 +19,13 @@ export const PLACEHOLDERS = {
     PLACEHOLDER_ENTER_DETAILED_SOLUTION_HERE: "Enter detailed solution here",
     PLACEHOLDER_ENTER_ANSWER_HERE: "Enter your Answer Here",
     PLACEHOLDER_ENTER_EXAM_TITLE: "Enter Exam Title",
+    PLACEHOLDER_SELECT_INSTITUTE: "Select Institute",
   },
   es: {
     PLACEHOLDER_ENTER_USERNAME: "Enter Username",
+    PLACEHOLDER_ENTER_HOSPITAL_NAME: "Enter Hospital Name",
     PLACEHOLDER_ENTER_EMAIL: "Enter Email",
+    PLACEHOLDER_ENTER_FULL_NAME: "Enter Full Name",
     PLACEHOLDER_ENTER_PASSWORD: "Enter Password",
     PLACEHOLDER_NEW_PASSWORD: "New Password",
     PLACEHOLDER_CONFIRM_PASSWORD: "Confirm Password",
@@ -36,5 +41,6 @@ export const PLACEHOLDERS = {
     PLACEHOLDER_ENTER_DETAILED_SOLUTION_HERE: "Enter detailed solution here",
     PLACEHOLDER_ENTER_ANSWER_HERE: "Enter your Answer Here",
     PLACEHOLDER_ENTER_EXAM_TITLE: "Enter Exam Title",
+    PLACEHOLDER_SELECT_INSTITUTE: "Select Institute",
   },
 };

@@ -35,7 +35,13 @@ export const TEXT = {
     TEXT_THE_CODE_YOU_ENTERED_IS_INVALID: "The code you entered is invalid.",
     TEXT_RESEND_CODE: "Resend Code",
     TEXT_STATEMENT: "Statement",
+    TEXT_ALREADY_A_MEMBER: "Already a member?",
     TEXT_QUESTION_SOLUTION: "Question Solution",
+    TEXT_LOGIN_NOW: "Login Now",
+    TEXT_REGISTER_NOW: "Register Now",
+    TEXT_NOT_YET_A_MEMBER: "Not yet a member?",
+    TEXT_ENTER_DETAILS_TO_CONTINUE:
+      "Enter details to continue using your account!",
   },
   es: {
     TEXT_ENTER_DETAILS: "Enter Details to continue using your account",
@@ -73,6 +79,12 @@ export const TEXT = {
     TEXT_THE_CODE_YOU_ENTERED_IS_INVALID: "The code you entered is invalid.",
     TEXT_RESEND_CODE: "Resend Code",
     TEXT_STATEMENT: "Statement",
+    TEXT_ALREADY_A_MEMBER: "Already a member?",
     TEXT_QUESTION_SOLUTION: "Question Solution",
+    TEXT_LOGIN_NOW: "Login Now",
+    TEXT_REGISTER_NOW: "Register Now",
+    TEXT_NOT_YET_A_MEMBER: "Not yet a member?",
+    TEXT_ENTER_DETAILS_TO_CONTINUE:
+      "Enter details to continue using your account!",
   },
 };

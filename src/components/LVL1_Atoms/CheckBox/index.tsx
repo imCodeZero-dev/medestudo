@@ -4,10 +4,20 @@ import { Controller } from "react-hook-form";
 interface CheckboxProps {
   name: string;
   label: string;
-  control: any; // Update this with the appropriate type for the 'control' prop
+  control: any;
+  selectedCheckboxes?: string[];
+  setSelectedCheckboxes?: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
-const Checkbox: React.FC<CheckboxProps> = ({ name, label, control }) => {
+const Checkbox: React.FC<CheckboxProps> = ({
+  name,
+  label,
+  control,
+  selectedCheckboxes,
+  setSelectedCheckboxes,
+}) => {
+  // const isChecked = selectedCheckboxes.includes(name);
+
   return (
     <div className="flex items-center space-x-2">
       <Controller
@@ -18,8 +28,21 @@ const Checkbox: React.FC<CheckboxProps> = ({ name, label, control }) => {
             <input
               type="checkbox"
               id={name}
-              checked={value}
-              onChange={(e) => onChange(e.target.checked)}
+              // checked={value}
+              // onChange={(e) => onChange(e.target.checked)}
+              // checked={isChecked}
+              onChange={(e) => {
+                if (e.target.checked) {
+                  setSelectedCheckboxes &&
+                    setSelectedCheckboxes((prev) => [...prev, name]);
+                } else {
+                  setSelectedCheckboxes &&
+                    setSelectedCheckboxes((prev) =>
+                      prev.filter((item) => item !== name)
+                    );
+                }
+                onChange(e.target.checked);
+              }}
               className="form-checkbox h-5 w-5 text-indigo-600 transition duration-150 ease-in-out"
             />
             <label

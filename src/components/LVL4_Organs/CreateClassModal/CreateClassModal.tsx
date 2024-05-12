@@ -7,9 +7,7 @@ import Input from "../../LVL1_Atoms/Input";
 import { Button } from "../../LVL1_Atoms/Button";
 import CustomModal from "../../LVL2_Molecules/CustomModal/CustomModal";
 import Text from "../../LVL1_Atoms/Text/Text";
-import SelectDropDown from "../../LVL2_Molecules/ControlSelect/CountrySelectDropDown";
 import CustomSelect from "../../LVL2_Molecules/ControlSelect/CustomSelect";
-import CountrySelectDropDown from "../../LVL2_Molecules/ControlSelect/CountrySelectDropDown";
 
 const CreateClassModal = ({
   open,

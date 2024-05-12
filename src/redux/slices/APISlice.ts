@@ -220,7 +220,7 @@ export const useAllFlashcardsQuery = (cookies: any, deckId: string) => {
   };
 };
 
-export const useAllInstituteQuery = (cookies: any) => {
+export const useAllInstituteQuery = () => {
   const {
     data: { data: { tags: allInstitute = [] } = {} } = {},
     isLoading: allInstituteLoading,
@@ -229,9 +229,9 @@ export const useAllInstituteQuery = (cookies: any) => {
   } = useQuery(
     [
       "allInstitute",
-      {
-        cookies,
-      },
+      // {
+      //   cookies,
+      // },
     ],
     async () => {
       return getAllInstituteApi();
@@ -249,7 +249,7 @@ export const useAllInstituteQuery = (cookies: any) => {
   };
 };
 
-export const useAllSubjectsQuery = (cookies: any) => {
+export const useAllSubjectsQuery = () => {
   const {
     data: { data: { names: allSubjects = [] } = {} } = {},
     isLoading: allSubjectsLoading,
@@ -258,9 +258,9 @@ export const useAllSubjectsQuery = (cookies: any) => {
   } = useQuery(
     [
       "allSubjects",
-      {
-        cookies,
-      },
+      // {
+      //   cookies,
+      // },
     ],
     async () => {
       return getAllSubjectsApi();

@@ -1,0 +1,18 @@
+.logo {
+  width: 120px;
+  height: 48px;
+  object-fit: contain;
+}
+
+.AuthLayout-header {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 12px 24px;
+  border-bottom: 1px solid #dcdfe2;
+}
+
+.AuthLayout-header-buttons {
+  display: flex;
+  column-gap: 8px;
+}

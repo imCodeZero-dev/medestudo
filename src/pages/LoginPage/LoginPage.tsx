@@ -13,6 +13,9 @@ import { useLoginPage } from "./hook";
 import { useState } from "react";
 import { GoogleLogin } from "@react-oauth/google";
 import ForgotPasswordModal from "../../components/LVL4_Organs/ForgotPasswordModal/ForgotPasswordModal";
+import RegistrationForm from "../../components/LVL3_Cells/RegistrationForm/RegistrationForm";
+import LoginForm from "../../components/LVL3_Cells/LoginForm/LoginForm";
+import { useLocation } from "react-router-dom";
 
 // import { useNavigate } from "react-router-dom";
 // import { useLoginPage } from "./hook";
@@ -43,24 +46,52 @@ const LoginPage = (props: any) => {
     resendOtp,
     validOtp,
   } = useLoginPage();
-  const [viewPassword, setViewPassword] = useState<boolean>(false);
+  const [authType, setAuthType] = useState<string>("login");
 
-  const handleView = () => {
-    setViewPassword(!viewPassword);
-  };
+  // console.log("pathName", pathName);
+
+  // const [viewPassword, setViewPassword] = useState<boolean>(false);
+
+  // const handleView = () => {
+  //   setViewPassword(!viewPassword);
+  // };
   // const navigate = useNavigate();
   // const [viewPassword, setViewPassword] = useState<boolean>(false);
 
   // const { control, handleSubmit, facebookLogin } = useLoginPage();
+  const switchToRegistration = () => {
+    setAuthType("registration");
+  };
+  const switchToLogin = () => {
+    setAuthType("login");
+  };
 
   return (
     <div className={styles["login"]}>
       <div className={styles[""]}></div>
-      <div className={styles["login-main"]}>
+      {authType === "login" ? (
+        <LoginForm
+          control={control}
+          handleSubmit={handleSubmit}
+          loadingLogin={false}
+          onSubmit={onSubmit}
+          openForgotModal={openForgotModal}
+          // professorPanel
+          switchToRegistration={switchToRegistration}
+        />
+      ) : (
+        <RegistrationForm
+          control={control}
+          handleSubmit={handleSubmit}
+          loadingRegister={false}
+          onSubmit={onSubmit}
+          switchToLogin={switchToLogin}
+        />
+      )}
+      {/* <div className={styles["login-main"]}>
         <div className={styles["login-main-text"]}>
           <Text className={styles["h2Heading"]}>
             {localeTitles.TITLE_LOGIN_TO_YOUR_ACCOUNT}
-            {/* <img src={handImg} /> */}
           </Text>
           <Text className="text-center">{localeText.TEXT_ENTER_DETAILS}</Text>
         </div>
@@ -131,7 +162,7 @@ const LoginPage = (props: any) => {
             {localeButtons.BUTTON_LOGIN}
           </Button>
         </form>
-      </div>
+      </div> */}
       <div className={styles["loginBottom"]}>
         <Text className={styles["labelText"]}>
           {localeLables?.LABEL_PRIVACY_POLICY}

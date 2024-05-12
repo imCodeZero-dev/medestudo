@@ -67,7 +67,7 @@ export const useCreateExamQuestion = () => {
     allSubjectsLoading,
     errorAllSubjects,
     refetchAllSubjects,
-  } = useAllSubjectsQuery(cookies);
+  } = useAllSubjectsQuery();
 
   useEffect(() => {
     if (allSubjects) {

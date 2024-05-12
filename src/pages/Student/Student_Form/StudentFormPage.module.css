@@ -1,0 +1,16 @@
+.StudentFormPage-main {
+  /* flex: 1; */
+  display: flex;
+}
+.StudentFormPage-left {
+  background-color: white;
+  width: 331px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.StudentFormPage-right {
+  flex: 1;
+}

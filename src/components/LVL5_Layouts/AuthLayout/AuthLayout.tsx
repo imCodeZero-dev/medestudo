@@ -11,6 +11,7 @@ import { Button } from "../../LVL1_Atoms/Button";
 import { useNavigate } from "react-router-dom";
 import useLocale from "../../../locales";
 import HeaderMenuDropdown from "../../LVL3_Cells/HeaderMenuDropdown/HeaderMenuDropdown";
+import Header from "../../LVL4_Organs/Header/Header";
 
 const dummyData = [
   {
@@ -36,7 +37,7 @@ const AuthLayout = ({ children }: AuthLayoutProps) => {
 
   return (
     <div>
-      <div className={styles["AuthLayout-header"]}>
+      {/* <div className={styles["AuthLayout-header"]}>
         <img src={logoImg} className={styles["logo"]} />
 
         <div className={styles["AuthLayout-header-buttons"]}>
@@ -66,7 +67,8 @@ const AuthLayout = ({ children }: AuthLayoutProps) => {
             {localeButtons.BUTTON_GET_STARTED}
           </Button>
         </div>
-      </div>
+      </div> */}
+      <Header />
       <div className={styles["AuthLayout-body"]}>
         <div className={styles["leftSection"]}>{children}</div>
         {/* <div style={{ flex: 1 }}><FormComponent /> </div> */}

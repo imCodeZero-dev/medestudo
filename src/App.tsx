@@ -8,11 +8,11 @@ import { CLOUDINARY_CLOUD_NAME } from "./utils/constants/constants";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 
 function App() {
-  const cld = new Cloudinary({
-    cloud: {
-      cloudName: CLOUDINARY_CLOUD_NAME,
-    },
-  });
+  // const cld = new Cloudinary({
+  //   cloud: {
+  //     cloudName: CLOUDINARY_CLOUD_NAME,
+  //   },
+  // });
   return (
     <>
       <ToastProvider>

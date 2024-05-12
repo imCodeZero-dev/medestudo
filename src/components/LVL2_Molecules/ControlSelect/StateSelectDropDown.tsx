@@ -5,23 +5,29 @@ import Select from "@mui/material/Select";
 import { Controller } from "react-hook-form";
 import PropTypes from "prop-types";
 import { InputLabel } from "@mui/material";
-import { CountrySelectProps, selectProps } from "./@types";
+import { CountrySelectProps, StateSelectProps, selectProps } from "./@types";
 import Text from "../../LVL1_Atoms/Text/Text";
 import styles from "./Select.module.css";
 
-const CountrySelectDropDown = ({
+const StateSelectDropDown = ({
+  items,
   control,
   name,
-  items,
   label,
-}: CountrySelectProps) => {
+  labelKey,
+  valueKey,
+  hideLabel,
+}: StateSelectProps) => {
   return (
     <div className="flex flex-col">
       {!!label && <Text className={styles["label14"]}>{label}</Text>}
       <Controller
         name={name}
         control={control}
-        defaultValue=""
+        defaultValue={JSON.stringify({
+          name: items?.[0]?.[labelKey],
+          isoCode: items?.[0]?.[valueKey],
+        })}
         render={({ field }) => (
           <NativeSelect
             {...field}
@@ -47,15 +53,23 @@ const CountrySelectDropDown = ({
             }}
           >
             {items?.map((item: any) => (
-              <option value={item} key={item.id}>
-                {item.name}
+              <option
+                value={JSON.stringify({
+                  name: item?.[labelKey],
+                  isoCode: item?.[valueKey],
+                })}
+                key={item?.[valueKey]}
+              >
+                {item?.[labelKey]}
               </option>
             ))}
           </NativeSelect>
         )}
       />
+
+      
     </div>
   );
 };
 
-export default CountrySelectDropDown;
+export default StateSelectDropDown;

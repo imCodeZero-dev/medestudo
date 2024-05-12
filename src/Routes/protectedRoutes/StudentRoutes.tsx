@@ -9,21 +9,21 @@ interface Props {
   children: ReactNode;
 }
 
-export const AuthRoutes = ({ children }: Props) => {
+export const StudentRoutes = ({ children }: Props) => {
   const navigate = useNavigate();
   const [cookies, setCookie, removeCookie] = useCookies(["student"] as any);
-  console.log("object", cookies.accessToken);
+  console.log("cookies", cookies);
 
-  // useEffect(() => {
-  //   if (cookies?.accessToken) {
-  //     navigate("/");
-  //   }
-  // }, [cookies, navigate]);
+  useEffect(() => {
+    if (!cookies?.student?.token) {
+      navigate("/student/login");
+    }
+  }, [cookies, navigate]);
 
   // If userData and accessToken are present, render the children
-  return !cookies?.accessToken ? <>{children}</> : <LoadingScreen />;
+  return cookies?.student?.token ? <>{children}</> : <LoadingScreen />;
 };
 
-AuthRoutes.propTypes = {
+StudentRoutes.propTypes = {
   children: PropTypes.node.isRequired,
 };

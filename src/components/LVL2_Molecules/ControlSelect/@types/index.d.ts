@@ -20,6 +20,16 @@ export type CountrySelectProps = {
   // valueKey: string;
 };
 
+export type StateSelectProps = {
+  name: string;
+  control: Control<any>;
+  hideLabel?: boolean;
+  label?: string;
+  items: any;
+  labelKey: string;
+  valueKey: string;
+};
+
 // {
 //   value: string;
 //   label: string | undefined;

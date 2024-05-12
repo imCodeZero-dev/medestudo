@@ -42,3 +42,15 @@ for (let year = currentYear; year >= 1970; year--) {
 }
 
 export const totalYears = years;
+
+export const surveySteps = (localeLabel: any) => [
+  {
+    label: localeLabel.LABEL_COLLEGE_DETAILS,
+  },
+  {
+    label: localeLabel.LABEL_INTERESETS,
+  },
+  {
+    label: localeLabel.LABEL_GOALS_ON_WEBSITE,
+  },
+];

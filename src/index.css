@@ -94,9 +94,11 @@ input:focus {
   /* min-height: 104px; */
 
   font-family: Poppins, sans-serif !important; /* Set the font family to Poppins */
-  
 }
 
+.css-13cymwt-control {
+  min-height: 44px !important;
+}
 /* .css-1bigob2 {
   text-align: center !important;
   font-weight: 500 !important;
