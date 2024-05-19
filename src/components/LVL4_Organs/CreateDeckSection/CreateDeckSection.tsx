@@ -34,19 +34,36 @@ const CreateDeckSection = ({
     nestedIndex?: number,
     deepNestedDeck?: number
   ) => {
-    debugger;
+    // debugger;
+    console.log("currentIndex", currentIndex);
+    console.log("level", level);
+    console.log("nestedIndex", nestedIndex);
+    console.log("deepNestedDeck", deepNestedDeck);
     const currentDecks = getValues("deck") || [];
     console.log("currentDecks", currentDecks);
-    let currentLevel: any = currentDecks[currentIndex];
+    let currentLevel: any = currentDecks[0];
+    console.log("currentLevel00000", currentDecks);
     console.log("currentLevel", currentLevel);
-    if (currentLevel == undefined) {
-      currentLevel = currentDecks[0]?.subDeck[currentIndex];
+    console.log(
+      "currentLevel?.subDeck[currentIndex] !== undefined",
+      currentLevel
+    );
+    if (
+      level != 1 &&
+      level != 2 &&
+      currentLevel?.subDeck &&
+      currentLevel?.subDeck[currentIndex] !== undefined
+    ) {
+      currentLevel = currentLevel?.subDeck[currentIndex];
+      console.log("aaaa", currentLevel);
     }
     if (
       nestedIndex !== undefined &&
       nestedIndex !== null &&
       !isNaN(nestedIndex)
     ) {
+      console.log("currentLevel11111.1", currentLevel);
+      console.log("currentLevel11111.2", nestedIndex);
       currentLevel = currentLevel?.subDeck[nestedIndex];
     }
     if (
@@ -54,15 +71,19 @@ const CreateDeckSection = ({
       deepNestedDeck !== null &&
       !isNaN(deepNestedDeck)
     ) {
+      console.log("currentLevel111112", currentLevel);
+      console.log("deepNestedDeck", deepNestedDeck);
       currentLevel = currentLevel?.subDeck[deepNestedDeck];
     }
-
-    for (let i = 0; i < level - 1; i++) {
-      currentLevel.subDeck = currentLevel.subDeck || [];
+    console.log("currentLevel", currentLevel);
+    // for (let i = 0; i < level - 1; i++) {
+    if (level != 1) {
+      currentLevel.subDeck = currentLevel?.subDeck || [];
 
       // Check if the current level has sub-decks
       const lastSubDeck = currentLevel.subDeck[currentIndex];
-      if (lastSubDeck && lastSubDeck.subDeck) {
+      console.log("lastSubDeck", lastSubDeck);
+      if (level != 3 && level != 4 && lastSubDeck && lastSubDeck.subDeck) {
         // Move to the last sub-deck
         currentLevel = lastSubDeck;
       } else {
@@ -210,7 +231,7 @@ const CreateDeckSection = ({
                     (nestedDeck: any, nestedIndex: number) => (
                       <div
                         // key={nestedIndex}
-                        key={parentIndex + "-" + nestedIndex}
+                        key={parentIndex + "-" + nestedIndex} //------------------------------------
                         className={styles["nestedDeckContainer"]}
                       >
                         <InputDeck
@@ -219,7 +240,7 @@ const CreateDeckSection = ({
                           placeholder={
                             localePlaceholders.PLACEHOLDER_ENTER_NAME
                           }
-                          onAdd={() => onAdd(nestedIndex, 3, nestedIndex)}
+                          onAdd={() => onAdd(index, 3, nestedIndex)}
                           onDelete={() =>
                             onDelete(parentIndex, index, nestedIndex)
                           } // Delete nestedIndex
