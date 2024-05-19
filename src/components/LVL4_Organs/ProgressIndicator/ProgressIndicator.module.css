@@ -1,0 +1,25 @@
+/* src/ProgressIndicator.module.css */
+.progressIndicator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.circle {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: lightblue;
+  margin: 0 5px;
+  transition: background-color 0.3s ease;
+}
+
+.completed {
+  background-color: blue;
+}
+
+.current {
+  border: 2px solid blue;
+  background-color: white;
+}

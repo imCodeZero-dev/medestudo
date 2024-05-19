@@ -44,7 +44,7 @@ const CollegeDetailForm: React.FC<CollegeDetailFormProps> = ({
             </Text>
             <CustomSelect
               placeholder="Select Institute"
-              name="institute"
+              name="institution"
               control={control}
               options={allInstitutes}
             />

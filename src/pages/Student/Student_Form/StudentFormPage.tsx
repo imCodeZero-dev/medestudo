@@ -45,6 +45,7 @@ const StudentFormPage = (props: any) => {
     mainInteresetArray,
     moveBack,
     activeSection,
+    formLogin,
   } = useStudentFormPage();
   const getProgress = () => {
     if (activeSection === 0) {
@@ -73,7 +74,7 @@ const StudentFormPage = (props: any) => {
 
   return (
     <div className={styles["StudentFormPage"]}>
-      <Header />
+      <Header showSkip />
 
       <div className={styles["StudentFormPage-main"]}>
         <div className={styles["StudentFormPage-left"]}>
@@ -118,7 +119,7 @@ const StudentFormPage = (props: any) => {
               control={control}
               onSubmit={onSubmit}
               handleSubmit={handleSubmit}
-              loading={false}
+              loading={formLogin}
               watch={watch}
               whyChooseArray={whyChooseArray}
               toggleButtonWhyChoose={toggleButtonWhyChoose}

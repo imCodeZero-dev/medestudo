@@ -43,6 +43,11 @@ export const BUTTONS = {
     BUTTON_CONTINUE_TO_LOGIN: "Continue to login",
     BUTTON_SIGNUP: "Signup",
     BUTTON_BACK: "Back",
+    BUTTON_SKIP: "Skip",
+    BUTTON_START_STUDYING: "Start Studying",
+    BUTTON_THIS_ROUND: "This Round",
+    BUTTON_OVERALL: "Overall",
+    BUTTON_REVEAL_THE_ANSWER: "Reveal The Answer",
   },
   es: {
     submit: "Enviar",
@@ -88,5 +93,10 @@ export const BUTTONS = {
     BUTTON_CONTINUE_TO_LOGIN: "Continue to login",
     BUTTON_SIGNUP: "Signup",
     BUTTON_BACK: "Back",
+    BUTTON_SKIP: "Skip",
+    BUTTON_START_STUDYING: "Start Studying",
+    BUTTON_THIS_ROUND: "This Round",
+    BUTTON_OVERALL: "Overall",
+    BUTTON_REVEAL_THE_ANSWER: "Reveal The Answer",
   },
 };

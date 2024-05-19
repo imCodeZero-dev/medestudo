@@ -16,7 +16,7 @@ const Checkbox: React.FC<CheckboxProps> = ({
   selectedCheckboxes,
   setSelectedCheckboxes,
 }) => {
-  // const isChecked = selectedCheckboxes.includes(name);
+  const isChecked = selectedCheckboxes && selectedCheckboxes.includes(name);
 
   return (
     <div className="flex items-center space-x-2">
@@ -30,7 +30,7 @@ const Checkbox: React.FC<CheckboxProps> = ({
               id={name}
               // checked={value}
               // onChange={(e) => onChange(e.target.checked)}
-              // checked={isChecked}
+              checked={isChecked}
               onChange={(e) => {
                 if (e.target.checked) {
                   setSelectedCheckboxes &&
@@ -45,12 +45,14 @@ const Checkbox: React.FC<CheckboxProps> = ({
               }}
               className="form-checkbox h-5 w-5 text-indigo-600 transition duration-150 ease-in-out"
             />
-            <label
-              htmlFor={name}
-              className="ml-2 block text-sm leading-5 text-gray-900"
-            >
-              {label}
-            </label>
+            {label && (
+              <label
+                htmlFor={name}
+                className="ml-2 block text-sm leading-5 text-gray-900"
+              >
+                {label}
+              </label>
+            )}
             {error && <span className="text-red-500">{error.message}</span>}
           </>
         )}

@@ -40,7 +40,7 @@ const ViewFlashcards: React.FC<ViewFlashcardsProps> = ({
 }) => {
   const { localeTitles, localePlaceholders, localeButtons, localeText } =
     useLocale();
-  console.log("allFlashcards", allFlashcards);
+  // console.log("allFlashcards", allFlashcards);
   const filteredTags = allTags?.map((item: any) => item.title);
   const [key, setKey] = useState(0);
 

@@ -12,7 +12,11 @@ import {
   useAllSubjectsQuery,
 } from "../../../../redux/slices/APISlice";
 import { Tag } from "../../../../utils/constants/DataTypes";
-import { showSuccessToast } from "../../../../config/toastProvider/toastUtils";
+import {
+  showErrorToast,
+  showSuccessToast,
+} from "../../../../config/toastProvider/toastUtils";
+import { studentUpdateSurveyApi } from "../../../../utils/api/Students";
 
 // import { useLocation, useNavigate } from "react-router-dom";
 
@@ -29,7 +33,7 @@ export const useStudentFormPage = () => {
     },
   });
   const { localeSuccess } = useLocale();
-  const [loadingLogin, setLoadingLogin] = useState<boolean>(false);
+  const [formLogin, setFormLogin] = useState<boolean>(false);
   const [allInstitutes, setAllInstitutes] = useState<any[]>([]);
   const [modifiedSubjects, setModifiedSubjects] = useState<Tag[]>();
   const [arrayOfSubjects, setArrayOfSubjects] = useState<any>([]);
@@ -109,16 +113,18 @@ export const useStudentFormPage = () => {
   }, [allSubjects]);
 
   useEffect(() => {
-    if (watch("subject")) {
+    if (watch("speciality")) {
       // console.log("arrayOfSubjects", watch("subject"));
-      arrayOfSubjects.push(watch("subject").label);
-      setArrayOfSubjects([...arrayOfSubjects]);
+      if (!arrayOfSubjects.includes(watch("speciality").label)) {
+        arrayOfSubjects.push(watch("speciality").label);
+        setArrayOfSubjects([...arrayOfSubjects]);
+      }
     }
-  }, [watch("subject")]);
+  }, [watch("speciality")]);
 
-  // useEffect(() => {
-  //   console.log("arrayOfSubjects", arrayOfSubjects);
-  // }, [arrayOfSubjects]);
+  useEffect(() => {
+    console.log("selectedCheckboxes", selectedCheckboxes);
+  }, [selectedCheckboxes]);
 
   // useEffect(() => {
   //   if (watch("state")) {
@@ -133,33 +139,72 @@ export const useStudentFormPage = () => {
 
   const onSubmit = async (data: any) => {
     console.log("loginForm", data);
-    if (activeSection === 2) {
-      showSuccessToast("Data Received");
+    if (activeSection === 0 && !(data?.institution && data?.year)) {
+      {
+        showErrorToast("All Fields are required");
+      }
+    } else if (
+      activeSection === 1 &&
+      !(
+        data?.country &&
+        data?.city &&
+        data?.hospital &&
+        selectedCheckboxes?.length > 0
+      )
+    ) {
+      {
+        showErrorToast("All Fields are required");
+      }
+    } else if (
+      activeSection === 2 &&
+      !(
+        mainInteresetArray?.some((obj) => obj.active) &&
+        whyChooseArray?.some((obj) => obj.active)
+      )
+    ) {
+      {
+        showErrorToast("All Fields are required");
+      }
     } else {
-      setActiveSection(activeSection + 1);
+      if (activeSection === 2) {
+        const params = {
+          institution: data?.institution.label,
+          year: data?.year.label,
+          country: JSON?.parse(data?.country).name,
+          city: JSON?.parse(data?.city).name,
+          speciality: selectedCheckboxes,
+          hospital: data?.hospital,
+          mainInterest: mainInteresetArray
+            ?.filter((i) => i.active)
+            ?.map((data) => data?.label),
+          whyChoose: whyChooseArray
+            ?.filter((i) => i.active)
+            ?.map((data) => data?.label),
+        };
+        console.log("params", params);
+
+        try {
+          setFormLogin(true);
+          let response;
+          response = await studentUpdateSurveyApi(
+            params,
+            cookies?.student?.token
+          );
+          console.log("response", response);
+
+          showSuccessToast("Submitted Successfully");
+
+          navigate("/student");
+        } catch (error: any) {
+          console.log("error", error);
+          showErrorToast(error?.response?.data);
+        } finally {
+          setFormLogin(false);
+        }
+      } else {
+        setActiveSection(activeSection + 1);
+      }
     }
-    // const params = {
-    //   email: data?.email,
-    //   password: data?.password,
-    // };
-
-    // try {
-    //   setLoadingLogin(true);
-    //   let response;
-    //   response = await professorLoginApi(params);
-    //   console.log("response", response);
-
-    //   dispatch(loginProfessor(response?.data));
-    //   setCookie("professor", response?.data, { maxAge: 86400 });
-    //   showSuccessToast("Login Successfully");
-
-    //   navigate("/professor");
-    // } catch (error: any) {
-    //   console.log("error", error);
-    //   showErrorToast(error?.response?.data?.message);
-    // } finally {
-    //   setLoadingLogin(false);
-    // }
   };
 
   return {
@@ -179,5 +224,6 @@ export const useStudentFormPage = () => {
     mainInteresetArray,
     moveBack,
     activeSection,
+    formLogin,
   };
 };

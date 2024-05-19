@@ -96,7 +96,7 @@ export const useLoginPage = () => {
       setForgotSteps({ ...forgotSteps, otp: true, email: false });
     } catch (error: any) {
       console.log("error", error);
-      showErrorToast(error?.response?.data?.message);
+      showErrorToast(error?.response?.data);
     } finally {
       setForgotLoading(false);
     }
@@ -116,7 +116,7 @@ export const useLoginPage = () => {
       setForgotSteps({ ...forgotSteps, otp: true, email: false });
     } catch (error: any) {
       console.log("error", error);
-      showErrorToast(error?.response?.data?.message);
+      showErrorToast(error?.response?.data);
     } finally {
       setForgotLoading(false);
     }
@@ -144,7 +144,7 @@ export const useLoginPage = () => {
       }
     } catch (error: any) {
       console.log("error", error);
-      showErrorToast(error?.response?.data?.message);
+      showErrorToast(error?.response?.data);
     } finally {
       setForgotLoading(false);
     }
@@ -167,7 +167,7 @@ export const useLoginPage = () => {
       setForgotSteps({ ...forgotSteps, password: false, success: true });
     } catch (error: any) {
       console.log("error", error);
-      showErrorToast(error?.response?.data?.message);
+      showErrorToast(error?.response?.data);
     } finally {
       setForgotLoading(false);
     }
@@ -203,7 +203,7 @@ export const useLoginPage = () => {
       }
     } catch (error: any) {
       console.log("error", error);
-      showErrorToast(error?.response?.data?.message);
+      showErrorToast(error?.response?.data);
     } finally {
       setLoadingLogin(false);
     }
@@ -229,7 +229,7 @@ export const useLoginPage = () => {
       navigate("/student/survey");
     } catch (error: any) {
       console.log("error", error);
-      showErrorToast(error?.response?.data?.message);
+      showErrorToast(error?.response?.data);
     } finally {
       setLoadingRegister(false);
     }
@@ -258,5 +258,6 @@ export const useLoginPage = () => {
     switchToRegistration,
     switchToLogin,
     authType,
+    loadingRegister,
   };
 };

@@ -69,6 +69,19 @@ const AllQuestionsServices = React.lazy(
 const StudentFormPageServices = React.lazy(
   () => import("../pages/Student/Student_Form/StudentFormPage")
 );
+const StudentDashboardServices = React.lazy(
+  () => import("../pages/Student/StudentDashboard/StudentDashboard")
+);
+const StudentFlashcardsExploreServices = React.lazy(
+  () =>
+    import("../pages/Student/StudentFlashcardsExplore/StudentFlashcardsExplore")
+);
+const StudentDeckDetailsServices = React.lazy(
+  () => import("../pages/Student/StudentDeckDetails/StudentDeckDetails")
+);
+const StudentAllFlashCardsServices = React.lazy(
+  () => import("../pages/Student/StudentAllFlashCards/StudentAllFlashCards")
+);
 const App = React.lazy(() => import("../App"));
 
 const ProjectRoutes = () => {
@@ -170,6 +183,19 @@ const ProjectRoutes = () => {
             <Route
               path="/student/survey"
               element={<StudentFormPageServices />}
+            />
+            <Route path="/student" element={<StudentDashboardServices />} />
+            <Route
+              path="/student/flashcards/explore"
+              element={<StudentFlashcardsExploreServices />}
+            />
+            <Route
+              path="/student/flashcard/deck"
+              element={<StudentDeckDetailsServices />}
+            />
+            <Route
+              path="/student/flashcard/deck/flashcard/:deckId"
+              element={<StudentAllFlashCardsServices />}
             />
 
             <Route path="*" element={<NotFound />} />

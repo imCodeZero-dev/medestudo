@@ -43,6 +43,7 @@ const GoalsForm: React.FC<GoalsFormProps> = ({
             {whyChooseArray?.map((btn, index: number) => (
               <div key={index} className="min-w-44 mt-4">
                 <Button
+                  type="button"
                   className={!btn.active ? "inactiveButton" : "yellowButton"}
                   onClick={() => toggleButtonWhyChoose(index)}
                 >
@@ -61,6 +62,7 @@ const GoalsForm: React.FC<GoalsFormProps> = ({
             {mainInteresetArray?.map((btn, index: number) => (
               <div key={index} className="min-w-44 mt-4">
                 <Button
+                  type="button"
                   className={!btn.active ? "inactiveButton" : "yellowButton"}
                   onClick={() => toggleButtonInterest(index)}
                 >

@@ -20,3 +20,14 @@ export const studentLoginApi = async (data: any) => {
   });
   return response;
 };
+
+export const studentUpdateSurveyApi = async (data: any, token: string) => {
+  console.log("studentUpdateSurveyApi", data);
+  const response = await apiRequest({
+    method: "Put",
+    url: `/user/updateDetails`,
+    data,
+    token,
+  });
+  return response;
+};

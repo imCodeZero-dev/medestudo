@@ -49,6 +49,7 @@ const LoginPage = (props: any) => {
     switchToRegistration,
     switchToLogin,
     authType,
+    loadingRegister,
   } = useLoginPage();
 
   // console.log("pathName", pathName);
@@ -70,7 +71,7 @@ const LoginPage = (props: any) => {
         <LoginForm
           control={control}
           handleSubmit={handleSubmit}
-          loadingLogin={false}
+          loadingLogin={loadingLogin}
           onSubmit={onSubmit}
           openForgotModal={openForgotModal}
           // professorPanel
@@ -80,7 +81,7 @@ const LoginPage = (props: any) => {
         <RegistrationForm
           control={control}
           handleSubmit={handleSubmit}
-          loadingRegister={false}
+          loadingRegister={loadingRegister}
           onSubmit={onSubmitRegistration}
           switchToLogin={switchToLogin}
         />

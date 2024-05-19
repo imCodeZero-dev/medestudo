@@ -11,14 +11,14 @@
 
 .SwitchController-label {
   /* //styleName: Body Large/Medium; */
-  font-family: Poppins;
+   /* font-family: Poppins; */
   font-size: 16px;
   font-weight: 500;
   line-height: 24px;
 }
 
 .SwitchController-text {
-  font-family: Poppins;
+   /* font-family: Poppins; */
   font-size: 14px;
   font-weight: 400;
   line-height: 21px;

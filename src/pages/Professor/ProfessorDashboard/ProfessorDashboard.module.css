@@ -45,7 +45,7 @@
 }
 
 .sectionHeading {
-  font-family: Poppins;
+   /* font-family: Poppins; */
   font-size: 16px;
   font-weight: 600;
   line-height: 24px;
@@ -53,7 +53,7 @@
 }
 
 .viewMore {
-  font-family: Poppins;
+   /* font-family: Poppins; */
   font-size: 12px;
   font-weight: 500;
   line-height: 18px;

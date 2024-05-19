@@ -100,12 +100,12 @@ const InterestedInForm: React.FC<InterestedInFormProps> = ({
           </div>
           <div className={styles["inputDiv"]}>
             <Text className={styles["labelText"]}>
-              {localeLables.LABEL_SELECT_YEAR}{" "}
+              {localeLables.LABEL_SELECT_SPECIALITY}{" "}
               <span className={styles["mandatory"]}>*</span>
             </Text>
 
             <CustomSelect
-              name="subject"
+              name="speciality"
               control={control}
               options={allSubjects}
               placeholder="Select Year"

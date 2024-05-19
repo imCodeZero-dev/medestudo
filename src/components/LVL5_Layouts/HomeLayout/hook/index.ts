@@ -11,7 +11,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 export const useHomeLayout = () => {
   // const navigate = useNavigate();
   const {} = useLocale();
-  const [cookies, removeCookie] = useCookies(["professor"]);
+  const [cookies, removeCookie] = useCookies(["professor", "student"]);
   const {
     handleSubmit,
     control,
@@ -24,13 +24,30 @@ export const useHomeLayout = () => {
     },
   });
   const wipeTokens = () => {
-    if (!cookies || !cookies.professor) {
+    if (!cookies || (!cookies.professor && !cookies.student)) {
       return;
     }
-    removeCookie("professor", {
-      path: "/",
-      expires: new Date(0),
-    });
+    // const cookieOptions = {
+    //   path: "/",
+    //   expires: new Date(0),
+    // };
+
+    const cookieOptions = {};
+    if (cookies.professor) {
+      removeCookie("professor", cookieOptions);
+    }
+
+    if (cookies.student) {
+      removeCookie("student", cookieOptions);
+    }
+    // removeCookie("professor", {
+    //   path: "/",
+    //   expires: new Date(0),
+    // });
+    // removeCookie("student", {
+    //   path: "/",
+    //   expires: new Date(0),
+    // });
   };
   const dispatch = useDispatch();
   const [logoutModal, setlogoutModal] = useState<boolean>(false);

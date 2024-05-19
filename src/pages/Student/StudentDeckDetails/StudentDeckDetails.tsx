@@ -1,0 +1,317 @@
+import styles from "./StudentDeckDetails.module.css";
+import { StudentDeckDetailsProps } from "./types";
+import Text from "../../../components/LVL1_Atoms/Text/Text";
+import useLocale from "../../../locales";
+import { Button } from "../../../components/LVL1_Atoms/Button";
+import { useCookies } from "react-cookie";
+
+import { useStudentDeckDetails } from "./hook";
+import { useLocation, useNavigate } from "react-router-dom";
+
+import flashcard1 from "../../../assets/Images/dashboard/flashcard1.png";
+
+import DashboardFlashcard from "../../../components/LVL3_Cells/DashboardFlashcard/DashboardFlashcard";
+
+import CreateClassModal from "../../../components/LVL4_Organs/CreateClassModal/CreateClassModal";
+import { useState } from "react";
+import { IoIosCheckmarkCircle, IoIosPlayCircle } from "react-icons/io";
+import { IoEllipsisHorizontal, IoTimeOutline } from "react-icons/io5";
+import { BiChevronRight, BiSolidPencil } from "react-icons/bi";
+import HomeLayout from "../../../components/LVL5_Layouts/HomeLayout/HomeLayout";
+import { FaCirclePlus, FaClock, FaRegTrashCan } from "react-icons/fa6";
+import { SiRundeck } from "react-icons/si";
+import { TbCards } from "react-icons/tb";
+import CreateDeckModal from "../../../components/LVL4_Organs/CreateDeckModal/CreateDeckModal";
+import { IconButton, Menu, MenuItem } from "@mui/material";
+import ConfirmationModal from "../../../components/LVL4_Organs/ConfirmationModal";
+import AlertIcon from "../../../assets/svgs/AlertIcon";
+import { Class, DecksWithCardCount } from "../../../utils/constants/DataTypes";
+import Loader from "../../../components/LVL1_Atoms/Loader";
+import { StudentRoutes } from "../../../Routes/protectedRoutes/StudentRoutes";
+import {
+  dummyDecks,
+  dummyFlashCards,
+  dummyFlashcardDetails,
+} from "../StudentDashboard/StudentDashboard";
+
+const StudentDeckDetails = ({}: StudentDeckDetailsProps) => {
+  const { localeTitles, localeButtons, localeLables } = useLocale();
+  const [cookies] = useCookies(["admin"]);
+  const [createFlashcard, setCreateFlashcard] = useState<boolean>(false);
+  const location = useLocation();
+
+  const {
+    control,
+    handleSubmit,
+    watch,
+    handleCloseCreate,
+    onSubmitCreate,
+    setCreateModal,
+    createModal,
+    createLoading,
+    classDetails,
+    setValue,
+    openDeleteModal,
+    deleteModal,
+    handleDeleteClose,
+    onDeleteConfirm,
+    deleteLoading,
+    anchorEl,
+    handleClickOptions,
+    handleCloseOptions,
+    allClasses,
+    allClassesLoading,
+    getDetails,
+    specificDecks,
+    classDecks,
+    classDecksLoading,
+    handleDeleteClassClose,
+    openDeleteClassModal,
+    deleteClassModal,
+    onDeleteClassConfirm,
+  } = useStudentDeckDetails();
+  // console.log("allDecks", allDecks);
+  const navigate = useNavigate();
+  const { localeText } = useLocale();
+
+
+  const navigateToViewFlashcard = (deck: any) => {
+    navigate(`/student/flashcard/deck/flashcard/${deck?._id}`, {
+      state: deck,
+    });
+  };
+
+  return (
+    <HomeLayout>
+      <div className={styles["StudentDeckDetails"]}>
+        <div className={styles["StudentDeckDetails-main"]}>
+          {/* {!classDetails?.deckId ? (
+            <div className={"min-h-[75vh] m-auto flex"}>
+              <Loader />
+            </div>
+          ) : ( */}
+          <>
+            <div className={styles["StudentDeckDetails-head"]}>
+              <div className={styles["head-left"]}>
+                <img
+                  src={dummyFlashCards[0]?.deckId?.image}
+                  className={styles.image}
+                />
+                <div className={styles["leftDetails"]}>
+                  <div>
+                    <Text className={styles.heading}>
+                      {dummyFlashCards[0]?.deckId?.name}
+                    </Text>
+                    <div className="flex space-x-3 ">
+                      <div className="flex items-center space-x-1">
+                        <IoIosCheckmarkCircle fill="#1DB954" />
+                        <Text className={styles.createdText}>
+                          {localeLables.LABEL_MEDESTUDIO_CERTIFIED}
+                        </Text>
+                      </div>
+                      <div className="flex items-center space-x-1 ">
+                        <IoTimeOutline />
+                        <Text className={styles.estTime}>
+                          {localeText?.TEXT_EST_TIME} :{" "}
+                          <span className={styles.time}>2hrs</span>
+                        </Text>
+                      </div>
+                    </div>
+                  </div>
+                  <Button
+                    className="primaryRounded"
+                    rightIcon={<BiChevronRight size={24} />}
+                  >
+                    {localeButtons.BUTTON_START_STUDYING}
+                  </Button>
+                  <div className={styles["estTimeDiv"]}></div>
+                </div>
+              </div>
+
+              <div className={styles["head-right"]}>
+                <div className="flex ml-auto">
+                  <Text className={styles["levelTag"]}>
+                    {localeLables.LABEL_BENINNER}
+                  </Text>
+                </div>
+
+                <div className="flex ">
+                  {dummyFlashcardDetails[0]?.subjects?.map((sub, i) => (
+                    <Text className={styles["searchTag"]}>{sub}</Text>
+                  ))}
+                </div>
+              </div>
+            </div>
+            <div className={styles["StudentDeckDetails-actions"]}>
+              {/* <div
+                className="flex items-center space-x-1 cursor-pointer"
+                onClick={() => setCreateModal(true)}
+              >
+                <FaCirclePlus size={24} fill="#FF900E" />
+                <Text className={styles.addDeckText}>
+                  {localeButtons.BUTTON_ADD_DECK}
+                </Text>
+              </div> */}
+            </div>
+
+            {classDecksLoading ? (
+              <div className="py-8">
+                <Loader />
+              </div>
+            ) : (
+              <div className={styles["StudentDeckDetails-decks"]}>
+                {dummyDecks?.length < 1 ? (
+                  <Text>No Deck Created</Text>
+                ) : (
+                  <>
+                    {dummyDecks?.map((deck: any, i: number) => (
+                      <div key={deck?._id} className={styles["deckBody"]}>
+                        <div
+                          className={styles["deckBody-left"]}
+                          onClick={() => navigateToViewFlashcard(deck)}
+                        >
+                          <SiRundeck />
+                          <div>
+                            <Text className={styles.deckName}>
+                              {deck?.title}
+                            </Text>
+                            <div className="flex items-center space-x-1 my-2">
+                              <TbCards size={20} fill="#2A2D31" />
+                              <Text className={styles.totalCardsText}>
+                                {` ${deck?.cardCount} Cards`}
+                              </Text>
+                            </div>
+                          </div>
+                        </div>
+                        <div className={styles["deckBody-right"]}>
+                          <IoIosPlayCircle
+                            size={32}
+                            color="#FF900E"
+                            className="cursor-pointer"
+                          />
+                          {/* <div
+                            className="flex items-center space-x-1 cursor-pointer"
+                            onClick={() => navigateToCreateFlashcard(deck)}
+                          >
+                            <FaCirclePlus size={24} fill="#FF900E" />
+                            <Text className={styles.addDeckText}>
+                              {localeButtons.BUTTON_ADD_CARD}
+                            </Text>
+                          </div> */}
+                          {/* <BiSolidPencil
+                                size={25}
+                                color="#2A2D31"
+                                className="cursor-pointer"
+                              /> */}
+                          {deck?._id && (
+                            <div>
+                              <IoEllipsisHorizontal
+                                size={25}
+                                color="#2A2D31"
+                                className="cursor-pointer"
+                                onClick={(event) =>
+                                  handleClickOptions(event as any)
+                                }
+                              />
+                              <Menu
+                                anchorEl={anchorEl}
+                                open={Boolean(anchorEl)}
+                                onClose={handleCloseOptions}
+                                keepMounted
+                              >
+                                <MenuItem
+                                  onClick={() => openDeleteModal(deck?._id)}
+                                >
+                                  Delete
+                                </MenuItem>
+                              </Menu>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                  </>
+                )}
+              </div>
+            )}
+            <div className="flex w-64 m-auto">
+              <Button
+                className="primaryActive"
+                onClick={() => setCreateModal(true)}
+              >
+                {localeButtons.BUTTON_ADD_NEW_DECK}
+              </Button>
+            </div>
+          </>
+          {/* )} */}
+        </div>
+
+        <div className={styles["StudentDeckDetails-right"]}>
+          <div className={styles["right-section-main"]}>
+            <div className="flex justify-between items-center">
+              <Text className={styles["sectionHeading"]}>
+                {localeTitles?.TITLE_RECENT_FLASHCARDS_CREATED}
+              </Text>
+              <Text
+                className={styles["viewMore"]}
+                onClick={() => navigate("/professor/classes")}
+              >
+                {localeTitles?.TITLE_VIEW_MORE}
+              </Text>
+            </div>
+
+            {allClasses?.slice(0, 8)?.map((data: Class, i: number) => (
+              <DashboardFlashcard
+                key={i}
+                data={data}
+                play
+                minView
+                getDetails={getDetails}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+      <CreateDeckModal
+        setValue={setValue}
+        watch={watch}
+        control={control}
+        handleClose={handleCloseCreate}
+        handleSubmit={handleSubmit}
+        onSubmit={onSubmitCreate}
+        open={createModal}
+        loading={createLoading}
+        filteredDecks={specificDecks?.[0]}
+      />
+
+      <ConfirmationModal
+        open={deleteClassModal}
+        cancelButtonText={localeButtons?.BUTTON_CANCEL}
+        confirmButtonText={localeButtons?.BUTTON_DELETE}
+        onConfirm={onDeleteClassConfirm}
+        icon={<AlertIcon />}
+        title={localeTitles.TITLE_ARE_YOU_SURE_DELETE}
+        handleClose={handleDeleteClassClose}
+        loading={deleteLoading}
+      />
+      <ConfirmationModal
+        open={deleteModal}
+        cancelButtonText={localeButtons?.BUTTON_CANCEL}
+        confirmButtonText={localeButtons?.BUTTON_DELETE}
+        onConfirm={onDeleteConfirm}
+        icon={<AlertIcon />}
+        title={localeTitles.TITLE_ARE_YOU_SURE_DELETE}
+        handleClose={handleDeleteClose}
+        loading={deleteLoading}
+      />
+    </HomeLayout>
+  );
+};
+
+export default function StudentDeckDetailsServices() {
+  return (
+    <StudentRoutes>
+      <StudentDeckDetails />
+    </StudentRoutes>
+  );
+}

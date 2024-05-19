@@ -97,7 +97,7 @@ export const useAllFlashCards = () => {
     setEnableEdit(false);
   };
 
-  console.log("flashcardData", flashcardData);
+  // console.log("flashcardData", flashcardData);
 
   const { allClasses, allClassesLoading, errorAllClasses, refetchAllClasses } =
     useAllClassesQuery(cookies);

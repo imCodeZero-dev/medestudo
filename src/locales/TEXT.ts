@@ -40,8 +40,10 @@ export const TEXT = {
     TEXT_LOGIN_NOW: "Login Now",
     TEXT_REGISTER_NOW: "Register Now",
     TEXT_NOT_YET_A_MEMBER: "Not yet a member?",
+    TEXT_THIS_ROUND: "This Round",
     TEXT_ENTER_DETAILS_TO_CONTINUE:
       "Enter details to continue using your account!",
+    TEXT_HOW_WELL_DID_YOU_KNOW_ANS: "How well did you know the answer",
   },
   es: {
     TEXT_ENTER_DETAILS: "Enter Details to continue using your account",
@@ -84,7 +86,9 @@ export const TEXT = {
     TEXT_LOGIN_NOW: "Login Now",
     TEXT_REGISTER_NOW: "Register Now",
     TEXT_NOT_YET_A_MEMBER: "Not yet a member?",
+    TEXT_THIS_ROUND: "This Round",
     TEXT_ENTER_DETAILS_TO_CONTINUE:
       "Enter details to continue using your account!",
+    TEXT_HOW_WELL_DID_YOU_KNOW_ANS: "How well did you know the answer",
   },
 };

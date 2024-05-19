@@ -1,0 +1,36 @@
+/* src/CircularProgress.module.css */
+.container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.background {
+  fill: none;
+  stroke: #e6e6e6;
+}
+
+.progress {
+  fill: none;
+  stroke: url(#gradient); /* Gradient color */
+  transform: rotate(-90deg);
+  transform-origin: center;
+  transition: stroke-dashoffset 0.35s;
+}
+
+.text {
+  position: absolute;
+  text-align: center;
+}
+
+.label {
+  font-size: 1rem;
+  color: #666;
+}
+
+.percentage {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+}

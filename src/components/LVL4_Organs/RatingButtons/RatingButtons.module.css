@@ -1,0 +1,49 @@
+.ratingButtons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ratingButton {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  margin: 0 5px;
+  font-size: 16px;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ratingButton:hover {
+  transform: scale(1.1);
+}
+
+.selected {
+  transform: scale(1.2);
+}
+
+.ratingButton:nth-child(1) {
+  background-color: #e67e22;
+}
+
+.ratingButton:nth-child(2) {
+  background-color: #f39c12;
+}
+
+.ratingButton:nth-child(3) {
+  background-color: #f1c40f;
+  color: #333;
+}
+
+.ratingButton:nth-child(4) {
+  background-color: #27ae60;
+}
+
+.ratingButton:nth-child(5) {
+  background-color: #2ecc71;
+}

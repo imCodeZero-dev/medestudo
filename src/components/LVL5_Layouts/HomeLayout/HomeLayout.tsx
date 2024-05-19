@@ -16,15 +16,21 @@ import useLocale from "../../../locales";
 import { useHomeLayout } from "./hook";
 import LogoutIcon from "../../../assets/svgs/LogoutIcon";
 import LeftSidebar from "../../LVL4_Organs/LeftSidebar/LeftSidebar";
-import { MdOutlineDashboard } from "react-icons/md";
+import {
+  MdOutlineDashboard,
+  MdOutlineExplore,
+  MdOutlineIntegrationInstructions,
+} from "react-icons/md";
 import { PiNewspaperBold } from "react-icons/pi";
 import { MdOutlineViewCarousel } from "react-icons/md";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { IoMdClipboard } from "react-icons/io";
-import { IoSettingsOutline } from "react-icons/io5";
+import { IoBookmarkOutline, IoSettingsOutline } from "react-icons/io5";
 import Input from "../../LVL1_Atoms/Input";
 import { BiSearch } from "react-icons/bi";
 import { useCookies } from "react-cookie";
+import { CiShare2 } from "react-icons/ci";
+import { BsQuestionCircle } from "react-icons/bs";
 
 const HomeLayout = ({ children, createButton }: HomeLayoutProps) => {
   const navigate = useNavigate();
@@ -43,6 +49,72 @@ const HomeLayout = ({ children, createButton }: HomeLayoutProps) => {
     onLogoutConfirm,
     control,
   } = useHomeLayout();
+  const optionsStudent = [
+    {
+      title: localeLables?.LABEL_DASHBOARD,
+      url: "/student",
+      image: <MdOutlineDashboard />,
+    },
+    {
+      title: localeLables?.LABEL_FLASHCARDS,
+      url: "/student/flashcards/explore",
+      image: <PiNewspaperBold />,
+      submenu: [
+        {
+          title: localeLables?.LABEL_EXPLORE,
+          url: "/student/flashcards/explore",
+          image: <MdOutlineExplore />,
+        },
+        {
+          title: localeLables?.LABEL_CUSTOM,
+          url: "/student/flashcards",
+          image: <MdOutlineIntegrationInstructions />,
+        },
+        {
+          title: localeLables?.LABEL_CREATE_NEW,
+          url: "/student/flashcards",
+          image: <IoMdAddCircleOutline />,
+        },
+        {
+          title: localeLables?.LABEL_REVIEW_DECK,
+          url: "/student/flashcards",
+          image: <BsQuestionCircle />,
+        },
+        {
+          title: localeLables?.LABEL_FAVORITE,
+          url: "/student/flashcards",
+          image: <IoBookmarkOutline />,
+        },
+      ],
+    },
+    {
+      title: localeLables?.LABEL_EXAMS,
+      url: "/student/exams",
+      image: <IoMdClipboard />,
+      submenu: [
+        {
+          title: localeLables?.LABEL_ALL_EXAMS,
+          url: "/student/exams",
+          image: <MdOutlineViewCarousel />,
+        },
+        {
+          title: localeLables?.LABEL_CREATE_NEW,
+          url: "/student/exams/new",
+          image: <IoMdAddCircleOutline />,
+        },
+      ],
+    },
+    {
+      title: localeLables?.LABEL_INVITE,
+      url: "/professor/invite",
+      image: <CiShare2 />,
+    },
+    {
+      title: localeLables?.LABEL_SETTINGS,
+      url: "/professor/settings",
+      image: <IoSettingsOutline />,
+    },
+  ];
   const options = [
     {
       title: localeLables?.LABEL_DASHBOARD,
@@ -103,7 +175,11 @@ const HomeLayout = ({ children, createButton }: HomeLayoutProps) => {
 
   return (
     <div className={styles["HomeLayout"]}>
-      <LeftSidebar options={options} />
+      <LeftSidebar
+        options={
+          location?.pathname.includes("/student") ? optionsStudent : options
+        }
+      />
       <div className={styles["HomeLayout-main"]}>
         <div className={styles["HomeLayout-header"]}>
           <div className="flex items-center space-x-3">

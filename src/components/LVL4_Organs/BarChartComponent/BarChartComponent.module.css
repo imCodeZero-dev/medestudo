@@ -91,14 +91,14 @@
 .activeBtn {
   border: 2px solid #0026b1;
   color: #0030dd;
-  font-family: Poppins;
+   /* font-family: Poppins; */
   font-size: 12px;
   font-weight: 500;
 }
 .inactiveBtn {
   /* border: 1px solid #0026b1; */
   color: #0030dd;
-  font-family: Poppins;
+   /* font-family: Poppins; */
   font-size: 12px;
   font-weight: 500;
 }
@@ -113,7 +113,7 @@
 }
 
 .legendText {
-  font-family: Poppins;
+   /* font-family: Poppins; */
   font-size: 12px;
   font-weight: 400;
   line-height: 18px;
