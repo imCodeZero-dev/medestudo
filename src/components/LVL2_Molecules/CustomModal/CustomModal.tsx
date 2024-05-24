@@ -8,7 +8,7 @@ interface ModalProps {
   open: boolean;
   onClose: () => void;
   title?: string;
-  width?: number;
+  width?: number | string;
   children: ReactNode;
 }
 

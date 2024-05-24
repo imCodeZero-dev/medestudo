@@ -19,6 +19,8 @@ import { Tag } from "../../../utils/constants/DataTypes";
 import Loader from "../../LVL1_Atoms/Loader";
 import ImageDropzone from "../../LVL2_Molecules/ImageUploader/ImageDropzone";
 import RatingButtons from "../RatingButtons/RatingButtons";
+import { BsBookmark } from "react-icons/bs";
+import { MdOutlineZoomOutMap } from "react-icons/md";
 
 const StudentViewFlashcard: React.FC<StudentViewFlashcardProps> = ({
   control,
@@ -40,6 +42,9 @@ const StudentViewFlashcard: React.FC<StudentViewFlashcardProps> = ({
   deckDetails,
   revealAnswer,
   setRevealAnswer,
+  mode,
+  handleRatingChange,
+  handleViewCardModalOpen,
 }) => {
   const { localeTitles, localePlaceholders, localeButtons, localeText } =
     useLocale();
@@ -47,9 +52,6 @@ const StudentViewFlashcard: React.FC<StudentViewFlashcardProps> = ({
   const filteredTags = allTags?.map((item: any) => item.title);
   const [key, setKey] = useState(0);
 
-  const handleRatingChange = (rating: number) => {
-    console.log(`Selected Rating: ${rating}`);
-  };
   const handleEdit = (data: any) => {
     handleEditOpen(data);
     setKey((prevKey) => prevKey + 1);
@@ -93,17 +95,18 @@ const StudentViewFlashcard: React.FC<StudentViewFlashcardProps> = ({
 
           <div className={styles["StudentViewFlashcard-main"]}>
             <div className={styles["StudentViewFlashcard-mainHead"]}>
-              <div className={styles["StudentViewFlashcard-option"]}>
-                <TbCards size={16} fill="#2A2D31" />
-                {deckDetails?.subdeck?.name}
-              </div>
-              <div className={styles["StudentViewFlashcard-option"]}>
-                <TbCards size={16} fill="#2A2D31" />
-                {`${localeText?.TEXT_CARDS}: ${currentFlashcardIndex + 1} / ${
-                  allFlashcards?.length
-                }`}
-              </div>
-              {!enableEdit ? (
+              <div className={styles["StudentViewFlashcard-mainHead-left"]}>
+                <div className={styles["StudentViewFlashcard-option"]}>
+                  <TbCards size={16} fill="#2A2D31" />
+                  {deckDetails?.subdeck?.name}
+                </div>
+                <div className={styles["StudentViewFlashcard-option"]}>
+                  <TbCards size={16} fill="#2A2D31" />
+                  {`${localeText?.TEXT_CARDS}: ${currentFlashcardIndex + 1} / ${
+                    allFlashcards?.length
+                  }`}
+                </div>
+                {/* {!enableEdit ? (
                 <div
                   className={`${styles["StudentViewFlashcard-option"]} cursor-pointer`}
                   onClick={() =>
@@ -127,6 +130,27 @@ const StudentViewFlashcard: React.FC<StudentViewFlashcardProps> = ({
                 }
               >
                 <FaRegTrashAlt size={16} fill="#CC5200" />
+              </div> */}
+
+                <div
+                  className={`${styles["StudentViewFlashcard-option"]} cursor-pointer`}
+                  onClick={() =>
+                    handleDeleteOpen(allFlashcards[currentFlashcardIndex])
+                  }
+                >
+                  <BsBookmark size={16} fill="#1D1F22" />
+                </div>
+                <div
+                  className={`${styles["StudentViewFlashcard-option"]} cursor-pointer`}
+                  onClick={() => handleViewCardModalOpen()}
+                >
+                  <MdOutlineZoomOutMap size={16} fill="#1D1F22" />
+                </div>
+              </div>
+              <div className={styles["StudentViewFlashcard-mainHead-right"]}>
+                <Button className="primary-lessHeight">
+                  {localeButtons.BUTTON_SKIP_CARD}
+                </Button>
               </div>
             </div>
 
@@ -243,16 +267,17 @@ const StudentViewFlashcard: React.FC<StudentViewFlashcardProps> = ({
                           )}
                         />
                       )}
-
-                      <div className={styles["ratingSection"]}>
-                        <Text className={styles["ratingText"]}>
-                          {localeText.TEXT_HOW_WELL_DID_YOU_KNOW_ANS}
-                        </Text>
-                        <RatingButtons
-                          totalRatings={5}
-                          onRatingChange={handleRatingChange}
-                        />
-                      </div>
+                      {mode === "exam" && (
+                        <div className={styles["ratingSection"]}>
+                          <Text className={styles["ratingText"]}>
+                            {localeText.TEXT_HOW_WELL_DID_YOU_KNOW_ANS}
+                          </Text>
+                          <RatingButtons
+                            totalRatings={5}
+                            onRatingChange={handleRatingChange}
+                          />
+                        </div>
+                      )}
                     </>
                   )}
                 </div>
@@ -260,10 +285,10 @@ const StudentViewFlashcard: React.FC<StudentViewFlashcardProps> = ({
                   <div className={styles["tags"]}>
                     {tags?.map((tag: any, i) => (
                       <div
-                        className="flex w-auto bg-slate-200 p-3 rounded-lg"
+                        className="flex w-auto bg-slate-100 p-3 rounded-lg"
                         key={i}
                       >
-                        <Text className={styles.tag}>{tag?.label}</Text>
+                        <Text className={styles.tag}>#{tag?.label}</Text>
                       </div>
                     ))}
                   </div>

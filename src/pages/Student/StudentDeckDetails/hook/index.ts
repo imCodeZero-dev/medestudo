@@ -28,11 +28,12 @@ import {
   useAllDecksQuery,
 } from "../../../../redux/slices/APISlice";
 import { DeckId } from "../../../../utils/constants/DataTypes";
+import { getAllDecksByIdApi } from "../../../../utils/api/Students";
 
 export const useStudentDeckDetails = () => {
   // const navigate = useNavigate();
   const { localeSuccess } = useLocale();
-  const [cookies] = useCookies(["professor"]);
+  const [cookies] = useCookies(["student"]);
   const dispatch = useDispatch();
 
   const {
@@ -63,8 +64,9 @@ export const useStudentDeckDetails = () => {
   const location = useLocation();
 
   const deckId = location?.state;
+  const mode = location?.state?.mode;
 
-  // console.log("deckId", deckId);
+  console.log("deckId in studente", deckId, mode);
 
   // const openCreate = useSelector((state: any) => state.modal.isOpen);
   const navigate = useNavigate();
@@ -97,10 +99,31 @@ export const useStudentDeckDetails = () => {
   const { allClasses, allClassesLoading, errorAllClasses, refetchAllClasses } =
     useAllClassesQuery(cookies);
 
-  const { allDecks, allDecksLoading, errorAllDecks, refetchAllDecks } =
-    useAllDecksQuery(cookies);
+  // const { allDecks, allDecksLoading, errorAllDecks, refetchAllDecks } =
+  //   useAllDecksQuery(cookies?.student?.token);
 
-  // console.log("allDecks in deckDetails", allDecks);
+  const {
+    data: { data: { deck: allDecks = [] } = {} } = {},
+    isLoading: allDecksLoading,
+    error: errorallDecks,
+    refetch: refetchallDecks,
+  } = useQuery(
+    [
+      "allDecks",
+      {
+        cookies,
+        deckId,
+      },
+    ],
+
+    async () => {
+      return getAllDecksByIdApi(deckId?.deckId?._id, cookies?.student?.token);
+    },
+    {
+      enabled: !!cookies?.student?.token && !!deckId?.deckId?._id,
+    }
+  );
+  console.log("allDecks in deckDetails", allDecks);
 
   const {
     data: { data: { class: classDetails = [] } = {} } = {},
@@ -117,10 +140,10 @@ export const useStudentDeckDetails = () => {
     ],
 
     async () => {
-      return getClassByIdApi(deckId, cookies?.professor?.token);
+      return getClassByIdApi(deckId?._id, cookies?.student?.token);
     },
     {
-      enabled: !!cookies?.professor?.token && !!deckId,
+      enabled: !!cookies?.student?.token && !!deckId?._id,
     }
   );
 
@@ -139,10 +162,10 @@ export const useStudentDeckDetails = () => {
     ],
 
     async () => {
-      return getClassDecksApi(classDetails?._id, cookies?.professor?.token);
+      return getClassDecksApi(classDetails?._id, cookies?.student?.token);
     },
     {
-      enabled: !!cookies?.professor?.token && !!classDetails,
+      enabled: !!cookies?.student?.token && !!classDetails,
     }
   );
   console.log("classDecks", classDecks);
@@ -198,7 +221,7 @@ export const useStudentDeckDetails = () => {
       response = await createClassDeckApi(
         requestData,
         classDetails?._id,
-        cookies?.professor?.token
+        cookies?.student?.token
       );
       console.log("response", response);
       refetchClassDetails();
@@ -219,7 +242,7 @@ export const useStudentDeckDetails = () => {
       let response;
       response = await deleteClassApi(
         classDetails?._id,
-        cookies?.professor?.token
+        cookies?.student?.token
       );
       console.log("response", response);
       refetchAllClasses();
@@ -240,7 +263,7 @@ export const useStudentDeckDetails = () => {
       let response;
       response = await deleteClassDeckApi(
         selectedDeckId,
-        cookies?.professor?.token
+        cookies?.student?.token
       );
       console.log("response", response);
       refetchClassDetails();
@@ -259,14 +282,15 @@ export const useStudentDeckDetails = () => {
     navigate(`/student/flashcard/deck?${data}`, { state: data });
   };
 
-  useEffect(() => {
-    if (allDecks?.length > 0) {
-      const currentClass = allDecks?.filter(
-        (deck: DeckId) => deck?._id === classDetails?.deckId?._id
-      );
-      setSpecificDecks(currentClass);
-    }
-  }, [classDetails, allDecks]);
+  // useEffect(() => {
+  //   console.log("classDetails", classDetails);
+  //   if (allDecks?.length > 0) {
+  //     const currentClass = allDecks?.filter(
+  //       (deck: DeckId) => deck?._id === classDetails?.deckId?._id
+  //     );
+  //     setSpecificDecks(currentClass);
+  //   }
+  // }, [classDetails, allDecks]);
 
   return {
     control,
@@ -300,5 +324,7 @@ export const useStudentDeckDetails = () => {
     openDeleteClassModal,
     deleteClassModal,
     onDeleteClassConfirm,
+    allDecks,
+    mode,
   };
 };

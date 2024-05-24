@@ -68,6 +68,7 @@ const StudentManagement = ({}: StudentManagementProps) => {
     "Action",
   ];
 
+  console.log('allStudents',allStudents)
   return (
     <AdminLayout>
       <div className={styles["StudentManagement"]}>

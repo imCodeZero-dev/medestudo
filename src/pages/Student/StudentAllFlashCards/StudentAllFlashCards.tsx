@@ -9,7 +9,7 @@ import { useStudentAllFlashCards } from "./hook";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { ProfessorRoutes } from "../../../Routes/protectedRoutes/ProfessorRoutes";
 import DashboardFlashcard from "../../../components/LVL3_Cells/DashboardFlashcard/DashboardFlashcard";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import HomeLayout from "../../../components/LVL5_Layouts/HomeLayout/HomeLayout";
 
@@ -30,6 +30,9 @@ import ProgressIndicator from "../../../components/LVL4_Organs/ProgressIndicator
 import StudentViewFlashcard from "../../../components/LVL4_Organs/StudentViewFlashcard/StudentViewFlashcard";
 import CircularProgressChart from "../../../components/LVL3_Cells/CircularProgressChart/CircularProgressChart";
 import RatingBars from "../../../components/LVL4_Organs/RatingBars/RatingBars";
+import ViewCardModal from "../../../components/LVL4_Organs/ViewCardModal/ViewCardModal";
+import dayjs from "dayjs";
+import TimerComponent from "../../../components/LVL4_Organs/TimerComponent/TimerComponent";
 
 const StudentAllFlashCards = ({}: StudentAllFlashCardsProps) => {
   const { localeTitles, localeButtons, localeLables } = useLocale();
@@ -49,7 +52,7 @@ const StudentAllFlashCards = ({}: StudentAllFlashCardsProps) => {
     allFlashcardsLoading,
     allTags,
     currentFlashcardIndex,
-    onDeleteConfirm,
+    // onDeleteConfirm,
     deleteModal,
     deleteLoading,
     handleDeleteOpen,
@@ -63,17 +66,22 @@ const StudentAllFlashCards = ({}: StudentAllFlashCardsProps) => {
     onSubmitEdit,
     handleSubmit,
     editLoading,
-
     setValue,
     deckDetails,
+    mode,
+    handleRatingChange,
+    handleViewCardModalClose,
+    openViewCardModal,
+    handleViewCardModalOpen,
   } = useStudentAllFlashCards();
   // console.log("allDecks", allDecks);
   const navigate = useNavigate();
   const { localeText } = useLocale();
   const [activeSection, setActiveSection] = useState("thisRound");
   const [currentStep, setCurrentStep] = useState(2); // Example current step
-  const totalSteps = 10;
+  const totalSteps = allFlashcards?.length;
   const [revealAnswer, setRevealAnswer] = useState(false);
+  const [seconds, setSeconds] = useState(0);
   const ratings = [
     { label: "New", value: 15, maxValue: 20 },
     { label: "1", value: 3, maxValue: 20 },
@@ -89,6 +97,9 @@ const StudentAllFlashCards = ({}: StudentAllFlashCardsProps) => {
         {/* {StudentAllFlashCards.map((flashcard) => ( */}
         <div className={styles["StudentAllFlashCards-main"]}>
           <StudentViewFlashcard
+            handleRatingChange={handleRatingChange}
+            mode={mode}
+            handleViewCardModalOpen={handleViewCardModalOpen}
             currentFlashcardIndex={currentFlashcardIndex}
             allFlashcards={allFlashcards}
             // allFlashCards={allFlashCards}
@@ -181,8 +192,12 @@ const StudentAllFlashCards = ({}: StudentAllFlashCardsProps) => {
               </>
             ) : (
               <>
-                <div className={styles['circularProgress']}>
-                  <CircularProgressChart percentage={85} size={177} strokeWidth={16}/>
+                <div className={styles["circularProgress"]}>
+                  <CircularProgressChart
+                    percentage={85}
+                    size={177}
+                    strokeWidth={16}
+                  />
                 </div>
                 <RatingBars
                   ratings={ratings}
@@ -195,11 +210,12 @@ const StudentAllFlashCards = ({}: StudentAllFlashCardsProps) => {
             <Text className={styles["thisRound"]}>
               {localeText.TEXT_THIS_ROUND}
             </Text>
-            <Text className={styles["timer"]}>6:00</Text>
+            {/* <Text className={styles["timer"]}> {formatTime(seconds)}</Text> */}
+            <TimerComponent />
           </div>
         </div>
 
-        <ConfirmationModal
+        {/* <ConfirmationModal
           open={deleteModal}
           cancelButtonText={localeButtons?.BUTTON_CANCEL}
           confirmButtonText={localeButtons?.BUTTON_DELETE}
@@ -208,6 +224,21 @@ const StudentAllFlashCards = ({}: StudentAllFlashCardsProps) => {
           title={localeTitles.TITLE_ARE_YOU_SURE_DELETE}
           handleClose={handleDeleteClose}
           loading={deleteLoading}
+        /> */}
+
+        <ViewCardModal
+          handleClose={handleViewCardModalClose}
+          open={openViewCardModal}
+          revealAnswer={revealAnswer}
+          setRevealAnswer={setRevealAnswer}
+          control={control}
+          tags={tags}
+          handleNextFlashcard={handleNextFlashcard}
+          handlePreviousFlashcard={handlePreviousFlashcard}
+          handleRatingChange={handleRatingChange}
+          mode={mode}
+          currentFlashcardIndex={currentFlashcardIndex}
+          allFlashcards={allFlashcards}
         />
       </div>
     </HomeLayout>

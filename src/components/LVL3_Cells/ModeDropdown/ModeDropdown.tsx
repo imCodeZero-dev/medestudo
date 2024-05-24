@@ -16,20 +16,14 @@ import { MdOutlineCreditCard } from "react-icons/md";
 import { AiOutlineIdcard } from "react-icons/ai";
 import { TbCards } from "react-icons/tb";
 
-const ModeDropdown: React.FC<ModeDropdownProps> = ({}) => {
+const ModeDropdown: React.FC<ModeDropdownProps> = ({ setMode, mode }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const navigate = useNavigate();
   const { localeDropdowns, localeLables } = useLocale();
 
-  const navigation = (link: string) => {
-    if (link === "/logout") {
-      handleClose();
-      // handleOpenLogout && handleOpenLogout();
-    } else {
-      handleClose();
-      navigate(link);
-      // setIsModeDropdownVisible(false);
-    }
+  const setType = (data: string) => {
+    setMode(data);
+    handleClose();
   };
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -43,32 +37,30 @@ const ModeDropdown: React.FC<ModeDropdownProps> = ({}) => {
   const menuButtons = [
     {
       label: localeLables.LABEL_FREE_MODE,
-      // route: userType === "Admin" ? "/admin/profile" : "/professor/settings",
+      type: "free",
       icon: <MdOutlineCreditCard size={14} />,
     },
     {
       label: localeLables.LABEL_TEST_MODE,
-      // route: userType === "Admin" ? "/admin/profile" : "/professor/settings",
+      type: "test",
       icon: <TbCards size={14} />,
     },
     {
       label: localeLables.LABEL_EXAM_MODE,
-      // route: userType === "Admin" ? "/admin/profile" : "/professor/settings",
+      type: "exam",
       icon: <AiOutlineIdcard size={14} />,
     },
-    // {
-    //   label: localeDropdowns?.DROPDOWN_LOGOUT,
-    //   route: "/logout",
-    //   icon: <CiLogout size={20} />,
-    // },
   ];
+  const currentButton = menuButtons.find((data) => data.type === mode);
 
   return (
     <div className={styles["ModeDropdown"]}>
       <div className={styles[""]} onClick={(e: any) => handleClick(e)}>
         <div className="bg-white flex items-center space-x-2 p-2 rounded-lg">
           <IoSettingsSharp size={16} />
-          <Text>{localeLables.LABEL_FREE_MODE}</Text>
+          <Text>
+            {currentButton ? currentButton.label : localeLables.LABEL_FREE_MODE}
+          </Text>
           <FaChevronDown size={12} />
         </div>
 
@@ -79,7 +71,7 @@ const ModeDropdown: React.FC<ModeDropdownProps> = ({}) => {
         {menuButtons.map((button, i) => (
           <MenuItem
             key={i}
-            // onClick={() => navigation(button.route)}
+            onClick={() => setType(button.type)}
             className="flex space-x-3"
           >
             {button?.icon}

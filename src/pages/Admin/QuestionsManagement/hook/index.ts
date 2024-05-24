@@ -6,10 +6,14 @@ import {
   showErrorToast,
   showSuccessToast,
 } from "../../../../config/toastProvider/toastUtils";
-import { createProfessorApi } from "../../../../utils/api/admin";
+import {
+  createProfessorApi,
+  getAllQuestionsAdmindApi,
+} from "../../../../utils/api/admin";
 import useLocale from "../../../../locales";
 import { passwordRegex } from "../../../../utils/constants/constants";
 import { useCookies } from "react-cookie";
+import { useQuery } from "react-query";
 // import { useLocation, useNavigate } from "react-router-dom";
 
 export const useQuestionsManagement = () => {
@@ -65,6 +69,28 @@ export const useQuestionsManagement = () => {
   const handleCloseEdit = () => {
     setEditProfessorModal(false);
   };
+  // const {
+  //   data: { data: { cards: allQuestions = [] } = {} } = {},
+  const {
+    data: { data: allQuestions = [] } = {},
+    isLoading: allQuestionsLoading,
+    error: errorAllQuestions,
+    refetch: refetchAllQuestions,
+  } = useQuery(
+    [
+      "allQuestions",
+      {
+        cookies,
+      },
+    ],
+
+    async () => {
+      return getAllQuestionsAdmindApi(cookies?.admin?.token);
+    },
+    {
+      enabled: !!cookies?.admin?.token,
+    }
+  );
 
   const onSubmitCreateProfessor = async (data: any) => {
     const params = {
@@ -125,5 +151,6 @@ export const useQuestionsManagement = () => {
     editLoading,
     onSubmitEditProfessor,
     watch,
+    allQuestions,
   };
 };

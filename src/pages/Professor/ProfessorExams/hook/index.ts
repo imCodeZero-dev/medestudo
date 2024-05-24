@@ -58,7 +58,7 @@ export const useProfessorExams = () => {
   // console.log("watchInst", watchInst);
 
   const { allDecks, allDecksLoading, errorAllDecks, refetchAllDecks } =
-    useAllDecksQuery(cookies);
+    useAllDecksQuery(cookies?.professor?.token);
 
   const {
     allInstitute,

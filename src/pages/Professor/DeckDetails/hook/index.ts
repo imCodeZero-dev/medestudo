@@ -98,7 +98,7 @@ export const useDeckDetails = () => {
     useAllClassesQuery(cookies);
 
   const { allDecks, allDecksLoading, errorAllDecks, refetchAllDecks } =
-    useAllDecksQuery(cookies);
+    useAllDecksQuery(cookies?.professor?.token);
 
   // console.log("allDecks in deckDetails", allDecks);
 

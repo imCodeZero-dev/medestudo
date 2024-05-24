@@ -27,6 +27,8 @@ const FlashcardsManagement = ({}: FlashcardsManagementProps) => {
     handleCloseEdit,
     editLoading,
     watch,
+    allFlashcards,
+    allFlashcardsLoading,
   } = useFlashcardsManagement();
 
   const cards = [
@@ -41,14 +43,14 @@ const FlashcardsManagement = ({}: FlashcardsManagementProps) => {
       value: "2420",
       img: flashcardsImg,
       text: localeLables.LABEL_OUT_OF,
-      outOf: '2420',
+      outOf: "2420",
     },
     {
       title: localeTitles?.TITLE_INACTIVE_FLASHCARDS,
       value: "2420",
       img: flashcardsImg,
       text: localeLables.LABEL_OUT_OF,
-      outOf: '2420',
+      outOf: "2420",
     },
   ];
 
@@ -254,6 +256,7 @@ const FlashcardsManagement = ({}: FlashcardsManagementProps) => {
   const handleStatusToggle = (data: any) => {
     console.log("handleStatusToggle", data);
   };
+  console.log("allFlashcards", allFlashcards);
 
   return (
     <AdminLayout>
@@ -286,7 +289,8 @@ const FlashcardsManagement = ({}: FlashcardsManagementProps) => {
           <CustomTable
             loading={false}
             headers={headers}
-            data={data}
+            data={Array.isArray(data) ? data : []}
+            // data={allFlashcards}
             control={control}
             // pagination={true}
             rowsPerPage={10}

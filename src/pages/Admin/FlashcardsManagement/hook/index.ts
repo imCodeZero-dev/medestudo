@@ -6,10 +6,15 @@ import {
   showErrorToast,
   showSuccessToast,
 } from "../../../../config/toastProvider/toastUtils";
-import { createProfessorApi } from "../../../../utils/api/admin";
+import {
+  createProfessorApi,
+  getAllDecksApi,
+  getAllFlashcardsAdmindApi,
+} from "../../../../utils/api/admin";
 import useLocale from "../../../../locales";
 import { passwordRegex } from "../../../../utils/constants/constants";
 import { useCookies } from "react-cookie";
+import { useQuery } from "react-query";
 // import { useLocation, useNavigate } from "react-router-dom";
 
 export const useFlashcardsManagement = () => {
@@ -44,6 +49,27 @@ export const useFlashcardsManagement = () => {
   const handleCloseEdit = () => {
     setEditProfessorModal(false);
   };
+
+  const {
+    data: { data: { cards: allFlashcards = [] } = {} } = {},
+    isLoading: allFlashcardsLoading,
+    error: errorAllFlashcards,
+    refetch: refetchAllFlashcards,
+  } = useQuery(
+    [
+      "allFlashcards",
+      {
+        cookies,
+      },
+    ],
+
+    async () => {
+      return getAllFlashcardsAdmindApi(cookies?.admin?.token);
+    },
+    {
+      enabled: !!cookies?.admin?.token,
+    }
+  );
 
   const onSubmitCreateProfessor = async (data: any) => {
     const params = {
@@ -104,5 +130,7 @@ export const useFlashcardsManagement = () => {
     editLoading,
     onSubmitEditProfessor,
     watch,
+    allFlashcards,
+    allFlashcardsLoading,
   };
 };

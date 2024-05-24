@@ -19,6 +19,7 @@ import {
   useAllClassesQuery,
   useAllDecksQuery,
   useAllExamsQuery,
+  useStudentAllClassesQuery,
 } from "../../../../redux/slices/APISlice";
 
 export const useStudentFlashcardsExplore = () => {
@@ -29,8 +30,12 @@ export const useStudentFlashcardsExplore = () => {
   const [viewClass, setViewClass] = useState<boolean>(true);
   const [viewClassDetails, setViewClassDetails] = useState<boolean>(false);
   const [classId, setClassId] = useState<string>();
+  const [modeType, setModeType] = useState<string>("free");
   const navigate = useNavigate();
 
+  useEffect(() => {
+    console.log("modeType", modeType);
+  }, [modeType]);
   const {
     handleSubmit,
     control,
@@ -72,19 +77,21 @@ export const useStudentFlashcardsExplore = () => {
   };
 
   const { allClasses, allClassesLoading, errorAllClasses, refetchAllClasses } =
-    useAllClassesQuery(cookies);
+    useStudentAllClassesQuery(cookies);
   const { allExams, allExamsLoading, errorAllExams, refetchAllExams } =
     useAllExamsQuery(cookies);
 
   const { allDecks, allDecksLoading, errorAllDecks, refetchAllDecks } =
-    useAllDecksQuery(cookies);
-  // console.log("allClasses", allClasses);
+    useAllDecksQuery(cookies?.professor?.token);
+  console.log("allClasses", allClasses);
 
   const onSubmitCreate = async (data: any) => {};
   const onDeleteConfirm = async () => {};
 
-  const getDetails = (data: string) => {
-    navigate(`/student/flashcard/deck?${data}`, { state: data });
+  const getDetails = (data: any) => {
+    navigate(`/student/flashcard/deck?${data?._id}`, {
+      state: { ...data, mode: modeType },
+    });
   };
   const getDetailsExam = (data: string) => {
     // navigate(`/professor/exams/exam?${data}`, { state: data });
@@ -111,5 +118,7 @@ export const useStudentFlashcardsExplore = () => {
     onDeleteConfirm,
     allExams,
     getDetailsExam,
+    setModeType,
+    modeType,
   };
 };

@@ -23,7 +23,7 @@ import { Button } from "../../LVL1_Atoms/Button";
 import { handleImageURL } from "../../../utils/constants/constants";
 import dayjs from "dayjs";
 import styles from "./CustomTable.module.css";
-import { IOSSwitch } from "../../../utils/hooks/helper";
+import { IOSSwitch, getDecodedText } from "../../../utils/hooks/helper";
 import Loader from "../../LVL1_Atoms/Loader";
 
 interface CustomTableProps {
@@ -254,7 +254,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
                           )}
                           {header === "Question Title" && (
                             <Text className={styles[""]}>
-                              {row?.title.substring(0, 100) + "..."}
+                              {getDecodedText(row?.question)}
                             </Text>
                           )}
                           {header === "Title" && (

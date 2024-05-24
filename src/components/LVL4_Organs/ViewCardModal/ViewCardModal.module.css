@@ -1,31 +1,26 @@
-.StudentViewFlashcard {
-  margin: 32px;
-  flex: 0 0 65%;
+.title {
+  /* font-family: Inter; */
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 28px;
+  margin-top: 16px;
 }
-.StudentViewFlashcard-head {
-  display: flex;
-  justify-content: space-between;
-  border-bottom: 1px solid rgb(230, 227, 227);
-  padding: 24px 0;
-  margin-bottom: 24px;
+.basic {
+  /* font-family: Inter; */
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  margin-top: 8px;
+}
+.form {
+  margin-top: 16px;
 }
 
-.title {
-  /* //styleName: Body Small/Medium; */
-  /* font-family: Poppins; */
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 21px;
-  color: #0026b1;
+.inputDiv {
+  margin-top: 4px;
 }
-.heading {
-  /* font-family: Poppins; */
-  font-size: 24px;
-  font-weight: 600;
-  line-height: 36px;
-  color: #1d1f22;
-}
-.StudentViewFlashcard-main {
+
+.ViewCardModal-main {
   background: white;
   /* padding: 24px; */
   border-radius: 12px;
@@ -35,7 +30,7 @@
     height: 100%; */
 }
 
-.StudentViewFlashcard-mainHead {
+.ViewCardModal-mainHead {
   display: flex;
   /* column-gap: 12px; */
   align-items: center;
@@ -45,16 +40,16 @@
   justify-content: space-between;
 }
 
-.StudentViewFlashcard-mainHead-left {
+.ViewCardModal-mainHead-left {
   display: flex;
   column-gap: 12px;
 }
 
-.StudentViewFlashcard-mainHead-right {
+.ViewCardModal-mainHead-right {
   width: 180px;
 }
 
-.StudentViewFlashcard-option {
+.ViewCardModal-option {
   border: 1px solid #dcdfe2;
   display: flex;
   padding: 12px;
@@ -85,15 +80,17 @@
   /* min-height: 45px; */
 }
 
-.StudentViewFlashcard-body {
+.ViewCardModal-body {
   display: flex;
   padding: 16px;
   width: 100%;
   justify-content: space-between;
   align-items: center;
   column-gap: 16px;
+  max-height: 80vh;
+  overflow-y: auto;
 }
-.StudentViewFlashcard-body-main {
+.ViewCardModal-body-main {
   width: 100%;
 }
 
@@ -106,7 +103,7 @@
   color: #e8e9ec;
 }
 
-.StudentViewFlashcard-section {
+.ViewCardModal-section {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -118,21 +115,4 @@
   height: 350px;
   /* margin: auto; */
   margin: 12px 0;
-}
-
-.ratingText {
-  /* font-family: Poppins; */
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 21px;
-  text-align: center;
-  color: #6f7680;
-  margin-bottom: 16px;
-}
-
-.ratingSection {
-  width: 100%;
-  margin-top: 16px;
-  border-top: 1px solid lightgray;
-  padding: 16px 0;
 }

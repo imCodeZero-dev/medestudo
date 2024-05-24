@@ -49,6 +49,8 @@ const StudentFlashcardsExplore = ({}: StudentFlashcardsExploreProps) => {
     onDeleteConfirm,
     allExams,
     getDetailsExam,
+    setModeType,
+    modeType,
   } = useStudentFlashcardsExplore();
   // console.log("allDecks", allDecks);
   const navigate = useNavigate();
@@ -59,7 +61,7 @@ const StudentFlashcardsExplore = ({}: StudentFlashcardsExploreProps) => {
         {viewClass && (
           <div className={styles["StudentFlashcardsExplore-main"]}>
             <div className={styles["StudentFlashcardsExplore-head"]}>
-              <ModeDropdown />
+              <ModeDropdown setMode={setModeType} mode={modeType} />
               <div>
                 <Button
                   rightIcon={<FaChevronRight />}
@@ -69,7 +71,7 @@ const StudentFlashcardsExplore = ({}: StudentFlashcardsExploreProps) => {
                 </Button>
               </div>
             </div>
-            {dummyFlashCards?.slice(0, 8)?.map((data: any, i: number) => (
+            {allClasses?.slice(0, 8)?.map((data: any, i: number) => (
               <ExpandableFlashcard
                 control={control}
                 key={data?._id}

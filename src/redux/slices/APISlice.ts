@@ -15,6 +15,7 @@ import {
   getExamQuestionsApi,
 } from "../../utils/api/professors";
 import { getAllSubjectsApi } from "../../utils/api/all";
+import { studentGetAllClassesApi } from "../../utils/api/Students";
 
 export const useProfessorsQuery = (cookies: AdminCookies) => {
   const {
@@ -131,7 +132,7 @@ export const useAllClassesQuery = (cookies: any) => {
   };
 };
 
-export const useAllDecksQuery = (cookies: any) => {
+export const useAllDecksQuery = (token: any) => {
   const {
     data: { data: { decks: allDecks = [] } = {} } = {},
     isLoading: allDecksLoading,
@@ -141,14 +142,14 @@ export const useAllDecksQuery = (cookies: any) => {
     [
       "allDecks",
       {
-        cookies,
+        token,
       },
     ],
     async () => {
-      return getAllDecksApi(cookies?.professor?.token);
+      return getAllDecksApi(token);
     },
     {
-      enabled: !!cookies?.professor?.token,
+      enabled: !!token,
     }
   );
 
@@ -306,5 +307,33 @@ export const useExamQuestionsQuery = (cookies: any, examId: string) => {
     examQuestionsLoading,
     errorexamQuestions,
     refetchexamQuestions,
+  };
+};
+
+export const useStudentAllClassesQuery = (cookies: any) => {
+  const {
+    data: { data: { class: allClasses = [] } = {} } = {},
+    isLoading: allClassesLoading,
+    error: errorAllClasses,
+    refetch: refetchAllClasses,
+  } = useQuery(
+    [
+      "allClasses",
+      {
+        cookies,
+      },
+    ],
+    async () => {
+      return studentGetAllClassesApi(cookies?.student?.token);
+    },
+    {
+      enabled: !!cookies?.student?.token,
+    }
+  );
+  return {
+    allClasses,
+    allClassesLoading,
+    errorAllClasses,
+    refetchAllClasses,
   };
 };

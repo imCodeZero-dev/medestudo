@@ -36,14 +36,23 @@ import {
 } from "../../../../redux/slices/APISlice";
 import { Flashcard, Tag } from "../../../../utils/constants/DataTypes";
 import { uploadImageToCloudinary } from "../../../../utils/hooks/helper";
+import {
+  getAllCardsByIdApi,
+  provideRateToCardApi,
+} from "../../../../utils/api/Students";
 
 export const useStudentAllFlashCards = () => {
   // const navigate = useNavigate();
   const { localeSuccess } = useLocale();
-  const [cookies] = useCookies(["professor"]);
+  const [cookies] = useCookies(["student"]);
   const dispatch = useDispatch();
   const { deckId } = useParams();
-  // console.log("AllFlashCards", deckId);
+
+  const location = useLocation();
+
+  const mode = location?.state?.mode;
+
+  console.log("AllFlashCards mode", mode);
   const {
     handleSubmit,
     control,
@@ -68,17 +77,23 @@ export const useStudentAllFlashCards = () => {
   const tags = watch("tags");
 
   const [deleteLoading, setDeleteLoading] = useState<boolean>(false);
+  const [openViewCardModal, setOpenViewCardModal] = useState<boolean>(false);
   const [deleteModal, setdeleteModal] = useState<boolean>(false);
   const [enableEdit, setEnableEdit] = useState<boolean>(false);
   const [editLoading, setEditLoading] = useState<boolean>(false);
   const [flashcardData, setFlashcardData] = useState<any>();
-  const location = useLocation();
   const navigate = useNavigate();
   const [currentFlashcardIndex, setCurrentFlashcardIndex] = useState(0);
 
   const { allTags, refetchAllTags, allTagsLoading, errorAllTags } =
     useAllTagsQuery(cookies);
 
+  const handleViewCardModalClose = () => {
+    setOpenViewCardModal(false);
+  };
+  const handleViewCardModalOpen = () => {
+    setOpenViewCardModal(true);
+  };
   const handleDeleteOpen = (data: any) => {
     setdeleteModal(true);
     setFlashcardData(data);
@@ -102,12 +117,36 @@ export const useStudentAllFlashCards = () => {
   const { allClasses, allClassesLoading, errorAllClasses, refetchAllClasses } =
     useAllClassesQuery(cookies);
 
+  // const {
+  //   allFlashcards,
+  //   allFlashcardsLoading,
+  //   errorallFlashcards,
+  //   refetchallFlashcards,
+  // } = useAllFlashcardsQuery(cookies, deckId as string);
+
   const {
-    allFlashcards,
-    allFlashcardsLoading,
-    errorallFlashcards,
-    refetchallFlashcards,
-  } = useAllFlashcardsQuery(cookies, deckId as string);
+    data: { data: { cards: allFlashcards = [] } = {} } = {},
+    isLoading: allFlashcardsLoading,
+    error: errorAllFlashcards,
+    refetch: refetchAllFlashcards,
+  } = useQuery(
+    [
+      "allFlashcards",
+      {
+        cookies,
+        deckId,
+      },
+    ],
+
+    async () => {
+      return getAllCardsByIdApi(deckId as string, cookies?.student?.token);
+    },
+    {
+      enabled: !!cookies?.student?.token && !!deckId,
+    }
+  );
+
+  console.log("allFlashcards", allFlashcards);
 
   const {
     data: { data: { Deck: deckDetails = [] } = {} } = {},
@@ -123,10 +162,10 @@ export const useStudentAllFlashCards = () => {
     ],
 
     async () => {
-      return getDeckDetailsApi(deckId as string, cookies?.professor?.token);
+      return getDeckDetailsApi(deckId as string, cookies?.student?.token);
     },
     {
-      enabled: !!cookies?.professor?.token,
+      enabled: !!cookies?.student?.token,
     }
   );
 
@@ -149,71 +188,90 @@ export const useStudentAllFlashCards = () => {
       prevIndex > 0 ? prevIndex - 1 : prevIndex
     );
   };
-
-  const onDeleteConfirm = async () => {
+  const handleRatingChange = async (rating: number) => {
+    console.log(`Selected Rating: ${rating}`);
+    const params = {
+      rate: rating,
+      studentId: cookies?.student?.student?._id,
+      cardId: allFlashcards?.[0]?._id,
+    };
     try {
       setDeleteLoading(true);
       let response;
-      response = await deleteFlashcardApi(
-        flashcardData?._id,
-        cookies?.professor?.token
-      );
+      response = await provideRateToCardApi(params, cookies?.student?.token);
       console.log("response", response);
-
-      showSuccessToast(localeSuccess?.SUCCESS_FLASH_DELETED);
-      refetchallFlashcards();
-      navigate(-1);
+      showSuccessToast(localeSuccess?.SUCCESS_RATE);
+      // refetchallFlashcards();
+      // navigate(-1);
     } catch (error: any) {
       console.log("error", error);
       showErrorToast(error?.response?.data?.message);
     } finally {
       setDeleteLoading(false);
-      handleDeleteClose();
+      // handleDeleteClose();
     }
   };
 
+  const onDeleteConfirm = async () => {
+    // try {
+    //   setDeleteLoading(true);
+    //   let response;
+    //   response = await deleteFlashcardApi(
+    //     flashcardData?._id,
+    //     cookies?.student?.token
+    //   );
+    //   console.log("response", response);
+    //   showSuccessToast(localeSuccess?.SUCCESS_FLASH_DELETED);
+    //   refetchallFlashcards();
+    //   navigate(-1);
+    // } catch (error: any) {
+    //   console.log("error", error);
+    //   showErrorToast(error?.response?.data?.message);
+    // } finally {
+    //   setDeleteLoading(false);
+    //   handleDeleteClose();
+    // }
+  };
+
   const onSubmitEdit = async (data: any) => {
-    try {
-      let questionImgUrl = data?.questionImage;
-      if (data?.questionImage !== data?.new_questionImage) {
-        questionImgUrl = await uploadImageToCloudinary(data?.new_questionImage);
-      }
-      let answerImgUrl = data?.answerImage;
-      if (data?.answerImage !== data?.new_answerImage) {
-        answerImgUrl = await uploadImageToCloudinary(data?.new_answerImage);
-      }
-
-      const tagsLabels = data?.tags?.map(
-        (tag: { value: string; label: string }) => tag.label
-      );
-      const base64Question = btoa(data.question);
-      const base64Answer = btoa(data.answer);
-
-      const payload = {
-        question: base64Question,
-        questionImage: questionImgUrl,
-        answerImage: answerImgUrl,
-        answer: base64Answer,
-        tags: tagsLabels,
-      };
-
-      setEditLoading(true);
-      const response = await editFlashcardApi(
-        payload,
-        flashcardData?._id,
-        cookies?.professor?.token
-      );
-      console.log("response", response);
-      showSuccessToast(localeSuccess?.SUCCESS_FLASH_EDIT);
-      refetchallFlashcards();
-    } catch (error: any) {
-      console.log("error", error);
-      showErrorToast(error?.response?.data?.message);
-    } finally {
-      setEditLoading(false);
-      reset();
-      // navigate(-1);
-    }
+    // try {
+    //   let questionImgUrl = data?.questionImage;
+    //   if (data?.questionImage !== data?.new_questionImage) {
+    //     questionImgUrl = await uploadImageToCloudinary(data?.new_questionImage);
+    //   }
+    //   let answerImgUrl = data?.answerImage;
+    //   if (data?.answerImage !== data?.new_answerImage) {
+    //     answerImgUrl = await uploadImageToCloudinary(data?.new_answerImage);
+    //   }
+    //   const tagsLabels = data?.tags?.map(
+    //     (tag: { value: string; label: string }) => tag.label
+    //   );
+    //   const base64Question = btoa(data.question);
+    //   const base64Answer = btoa(data.answer);
+    //   const payload = {
+    //     question: base64Question,
+    //     questionImage: questionImgUrl,
+    //     answerImage: answerImgUrl,
+    //     answer: base64Answer,
+    //     tags: tagsLabels,
+    //   };
+    //   setEditLoading(true);
+    //   const response = await editFlashcardApi(
+    //     payload,
+    //     flashcardData?._id,
+    //     cookies?.student?.token
+    //   );
+    //   console.log("response", response);
+    //   showSuccessToast(localeSuccess?.SUCCESS_FLASH_EDIT);
+    //   refetchallFlashcards();
+    // } catch (error: any) {
+    //   console.log("error", error);
+    //   showErrorToast(error?.response?.data?.message);
+    // } finally {
+    //   setEditLoading(false);
+    //   reset();
+    //   // navigate(-1);
+    // }
   };
 
   useEffect(() => {
@@ -276,5 +334,10 @@ export const useStudentAllFlashCards = () => {
     editLoading,
     allFlashcardsLoading,
     deckDetails,
+    mode,
+    handleRatingChange,
+    handleViewCardModalClose,
+    openViewCardModal,
+    handleViewCardModalOpen,
   };
 };

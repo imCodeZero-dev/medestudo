@@ -87,7 +87,7 @@ export const useProfessorClasses = () => {
     useAllExamsQuery(cookies);
 
   const { allDecks, allDecksLoading, errorAllDecks, refetchAllDecks } =
-    useAllDecksQuery(cookies);
+    useAllDecksQuery(cookies?.professor?.token);
   // console.log("allClasses", allClasses);
 
   const onSubmitCreate = async (data: any) => {

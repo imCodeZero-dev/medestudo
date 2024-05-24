@@ -114,7 +114,7 @@ export const useDecksManagement = () => {
     setdeleteModal(false);
   };
 
-  console.log("deckData", deckData);
+  // console.log("deckData", deckData);
 
   const {
     data: { data: { decks: allDecks = [] } = {} } = {},

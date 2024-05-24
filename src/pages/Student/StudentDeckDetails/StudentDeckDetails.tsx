@@ -69,15 +69,17 @@ const StudentDeckDetails = ({}: StudentDeckDetailsProps) => {
     openDeleteClassModal,
     deleteClassModal,
     onDeleteClassConfirm,
+    allDecks,
+    mode,
   } = useStudentDeckDetails();
-  // console.log("allDecks", allDecks);
+  console.log("specificDecks", specificDecks);
   const navigate = useNavigate();
   const { localeText } = useLocale();
 
-
   const navigateToViewFlashcard = (deck: any) => {
+    console.log("navigateToViewFlashcard", deck);
     navigate(`/student/flashcard/deck/flashcard/${deck?._id}`, {
-      state: deck,
+      state: { ...deck, mode },
     });
   };
 
@@ -85,65 +87,65 @@ const StudentDeckDetails = ({}: StudentDeckDetailsProps) => {
     <HomeLayout>
       <div className={styles["StudentDeckDetails"]}>
         <div className={styles["StudentDeckDetails-main"]}>
-          {/* {!classDetails?.deckId ? (
+          {!classDetails?.deckId ? (
             <div className={"min-h-[75vh] m-auto flex"}>
               <Loader />
             </div>
-          ) : ( */}
-          <>
-            <div className={styles["StudentDeckDetails-head"]}>
-              <div className={styles["head-left"]}>
-                <img
-                  src={dummyFlashCards[0]?.deckId?.image}
-                  className={styles.image}
-                />
-                <div className={styles["leftDetails"]}>
-                  <div>
-                    <Text className={styles.heading}>
-                      {dummyFlashCards[0]?.deckId?.name}
-                    </Text>
-                    <div className="flex space-x-3 ">
-                      <div className="flex items-center space-x-1">
-                        <IoIosCheckmarkCircle fill="#1DB954" />
-                        <Text className={styles.createdText}>
-                          {localeLables.LABEL_MEDESTUDIO_CERTIFIED}
-                        </Text>
-                      </div>
-                      <div className="flex items-center space-x-1 ">
-                        <IoTimeOutline />
-                        <Text className={styles.estTime}>
-                          {localeText?.TEXT_EST_TIME} :{" "}
-                          <span className={styles.time}>2hrs</span>
-                        </Text>
+          ) : (
+            <>
+              <div className={styles["StudentDeckDetails-head"]}>
+                <div className={styles["head-left"]}>
+                  <img
+                    src={classDetails?.deckId?.image}
+                    className={styles.image}
+                  />
+                  <div className={styles["leftDetails"]}>
+                    <div>
+                      <Text className={styles.heading}>
+                        {classDetails?.deckId?.name}
+                      </Text>
+                      <div className="flex space-x-3 ">
+                        <div className="flex items-center space-x-1">
+                          <IoIosCheckmarkCircle fill="#1DB954" />
+                          <Text className={styles.createdText}>
+                            {localeLables.LABEL_MEDESTUDIO_CERTIFIED}
+                          </Text>
+                        </div>
+                        <div className="flex items-center space-x-1 ">
+                          <IoTimeOutline />
+                          <Text className={styles.estTime}>
+                            {localeText?.TEXT_EST_TIME} :{" "}
+                            <span className={styles.time}>2hrs</span>
+                          </Text>
+                        </div>
                       </div>
                     </div>
+                    <Button
+                      className="primaryRounded"
+                      rightIcon={<BiChevronRight size={24} />}
+                    >
+                      {localeButtons.BUTTON_START_STUDYING}
+                    </Button>
+                    <div className={styles["estTimeDiv"]}></div>
                   </div>
-                  <Button
-                    className="primaryRounded"
-                    rightIcon={<BiChevronRight size={24} />}
-                  >
-                    {localeButtons.BUTTON_START_STUDYING}
-                  </Button>
-                  <div className={styles["estTimeDiv"]}></div>
-                </div>
-              </div>
-
-              <div className={styles["head-right"]}>
-                <div className="flex ml-auto">
-                  <Text className={styles["levelTag"]}>
-                    {localeLables.LABEL_BENINNER}
-                  </Text>
                 </div>
 
-                <div className="flex ">
-                  {dummyFlashcardDetails[0]?.subjects?.map((sub, i) => (
-                    <Text className={styles["searchTag"]}>{sub}</Text>
-                  ))}
+                <div className={styles["head-right"]}>
+                  <div className="flex ml-auto">
+                    <Text className={styles["levelTag"]}>
+                      {localeLables.LABEL_BENINNER}
+                    </Text>
+                  </div>
+
+                  {/* <div className="flex ">
+                    {dummyFlashcardDetails[0]?.subjects?.map((sub, i) => (
+                      <Text className={styles["searchTag"]}>{sub}</Text>
+                    ))}
+                  </div> */}
                 </div>
               </div>
-            </div>
-            <div className={styles["StudentDeckDetails-actions"]}>
-              {/* <div
+              <div className={styles["StudentDeckDetails-actions"]}>
+                {/* <div
                 className="flex items-center space-x-1 cursor-pointer"
                 onClick={() => setCreateModal(true)}
               >
@@ -152,44 +154,47 @@ const StudentDeckDetails = ({}: StudentDeckDetailsProps) => {
                   {localeButtons.BUTTON_ADD_DECK}
                 </Text>
               </div> */}
-            </div>
-
-            {classDecksLoading ? (
-              <div className="py-8">
-                <Loader />
               </div>
-            ) : (
-              <div className={styles["StudentDeckDetails-decks"]}>
-                {dummyDecks?.length < 1 ? (
-                  <Text>No Deck Created</Text>
-                ) : (
-                  <>
-                    {dummyDecks?.map((deck: any, i: number) => (
-                      <div key={deck?._id} className={styles["deckBody"]}>
-                        <div
-                          className={styles["deckBody-left"]}
-                          onClick={() => navigateToViewFlashcard(deck)}
-                        >
-                          <SiRundeck />
-                          <div>
-                            <Text className={styles.deckName}>
-                              {deck?.title}
-                            </Text>
-                            <div className="flex items-center space-x-1 my-2">
-                              <TbCards size={20} fill="#2A2D31" />
-                              <Text className={styles.totalCardsText}>
-                                {` ${deck?.cardCount} Cards`}
-                              </Text>
+
+              {classDecksLoading ? (
+                <div className="py-8">
+                  <Loader />
+                </div>
+              ) : (
+                <div className={styles["StudentDeckDetails-decks"]}>
+                  {classDecks[0]?.deckId?.subDeck?.length < 1 ? (
+                    <Text>No Deck Created</Text>
+                  ) : (
+                    <>
+                      {classDecks[0]?.deckId?.subDeck?.map(
+                        (deck: any, i: number) => (
+                          <div key={deck?._id} className={styles["deckBody"]}>
+                            <div
+                              className={styles["deckBody-left"]}
+                              onClick={() =>
+                                navigateToViewFlashcard(classDecks[0])
+                              }
+                            >
+                              <SiRundeck />
+                              <div>
+                                <Text className={styles.deckName}>
+                                  {deck?.name}
+                                </Text>
+                                <div className="flex items-center space-x-1 my-2">
+                                  <TbCards size={20} fill="#2A2D31" />
+                                  <Text className={styles.totalCardsText}>
+                                    {` ${deck?.cardCount} Cards`}
+                                  </Text>
+                                </div>
+                              </div>
                             </div>
-                          </div>
-                        </div>
-                        <div className={styles["deckBody-right"]}>
-                          <IoIosPlayCircle
-                            size={32}
-                            color="#FF900E"
-                            className="cursor-pointer"
-                          />
-                          {/* <div
+                            <div className={styles["deckBody-right"]}>
+                              <IoIosPlayCircle
+                                size={32}
+                                color="#FF900E"
+                                className="cursor-pointer"
+                              />
+                              {/* <div
                             className="flex items-center space-x-1 cursor-pointer"
                             onClick={() => navigateToCreateFlashcard(deck)}
                           >
@@ -198,52 +203,53 @@ const StudentDeckDetails = ({}: StudentDeckDetailsProps) => {
                               {localeButtons.BUTTON_ADD_CARD}
                             </Text>
                           </div> */}
-                          {/* <BiSolidPencil
+                              {/* <BiSolidPencil
                                 size={25}
                                 color="#2A2D31"
                                 className="cursor-pointer"
                               /> */}
-                          {deck?._id && (
-                            <div>
-                              <IoEllipsisHorizontal
-                                size={25}
-                                color="#2A2D31"
-                                className="cursor-pointer"
-                                onClick={(event) =>
-                                  handleClickOptions(event as any)
-                                }
-                              />
-                              <Menu
-                                anchorEl={anchorEl}
-                                open={Boolean(anchorEl)}
-                                onClose={handleCloseOptions}
-                                keepMounted
-                              >
-                                <MenuItem
-                                  onClick={() => openDeleteModal(deck?._id)}
-                                >
-                                  Delete
-                                </MenuItem>
-                              </Menu>
+                              {deck?._id && (
+                                <div>
+                                  <IoEllipsisHorizontal
+                                    size={25}
+                                    color="#2A2D31"
+                                    className="cursor-pointer"
+                                    onClick={(event) =>
+                                      handleClickOptions(event as any)
+                                    }
+                                  />
+                                  <Menu
+                                    anchorEl={anchorEl}
+                                    open={Boolean(anchorEl)}
+                                    onClose={handleCloseOptions}
+                                    keepMounted
+                                  >
+                                    <MenuItem
+                                      onClick={() => openDeleteModal(deck?._id)}
+                                    >
+                                      Delete
+                                    </MenuItem>
+                                  </Menu>
+                                </div>
+                              )}
                             </div>
-                          )}
-                        </div>
-                      </div>
-                    ))}
-                  </>
-                )}
+                          </div>
+                        )
+                      )}
+                    </>
+                  )}
+                </div>
+              )}
+              <div className="flex w-64 m-auto">
+                <Button
+                  className="primaryActive"
+                  onClick={() => setCreateModal(true)}
+                >
+                  {localeButtons.BUTTON_ADD_NEW_DECK}
+                </Button>
               </div>
-            )}
-            <div className="flex w-64 m-auto">
-              <Button
-                className="primaryActive"
-                onClick={() => setCreateModal(true)}
-              >
-                {localeButtons.BUTTON_ADD_NEW_DECK}
-              </Button>
-            </div>
-          </>
-          {/* )} */}
+            </>
+          )}
         </div>
 
         <div className={styles["StudentDeckDetails-right"]}>

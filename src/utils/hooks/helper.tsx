@@ -119,3 +119,17 @@ export const uploadImageToCloudinary = async (image: File): Promise<string> => {
   const data = await response.json();
   return data.secure_url; // Return the URL of the uploaded image
 };
+
+export const getDecodedText = (data: any) => {
+  const decodedQuestion = data ? atob(data) : "";
+
+  const tempElement = document.createElement("div");
+  tempElement.innerHTML = decodedQuestion;
+
+  // Get all <p> elements within the temporary element
+  const paragraphs = tempElement.querySelectorAll("p, h1, h2, h3,h4,h5,h6");
+
+  // Extract text content from each <p> element
+  const textContents = Array.from(paragraphs).map((p) => p.textContent);
+  return textContents;
+};

@@ -27,7 +27,9 @@ const QuestionsManagement = ({}: QuestionsManagementProps) => {
     handleCloseEdit,
     editLoading,
     watch,
+    allQuestions,
   } = useQuestionsManagement();
+  console.log("allQuestions", allQuestions);
 
   const cards = [
     {
@@ -41,14 +43,14 @@ const QuestionsManagement = ({}: QuestionsManagementProps) => {
       value: "2420",
       img: examsImgs,
       text: localeLables.LABEL_OUT_OF,
-      outOf: '2420',
+      outOf: "2420",
     },
     {
       title: localeTitles?.TITLE_INACTIVE_QUESTIONS,
       value: "2420",
       img: examsImgs,
       text: localeLables.LABEL_OUT_OF,
-      outOf: '2420',
+      outOf: "2420",
     },
   ];
 
@@ -286,7 +288,7 @@ const QuestionsManagement = ({}: QuestionsManagementProps) => {
           <CustomTable
             loading={false}
             headers={headers}
-            data={data}
+            data={Array.isArray(allQuestions) ? allQuestions : []}
             control={control}
             // pagination={true}
             rowsPerPage={10}

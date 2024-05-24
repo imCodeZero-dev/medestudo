@@ -92,7 +92,7 @@ const ExpandableFlashcard: React.FC<ExpandableFlashcardProps> = ({
         />
         <div
           className={styles["ExpandableFlashcard-left"]}
-          onClick={() => getDetails && getDetails(data?._id)}
+          onClick={() => getDetails && getDetails(data)}
         >
           <img className={styles["image"]} src={data?.deckId?.image} />
 
@@ -109,7 +109,7 @@ const ExpandableFlashcard: React.FC<ExpandableFlashcardProps> = ({
         <div className={styles["ExpandableFlashcard-right"]} ref={dropdownRef}>
           {/* <BiSolidPencil size={25} color="#2A2D31" className="cursor-pointer" /> */}
 
-          <Text className={styles["cardNumber"]}>55</Text>
+          <Text className={styles["cardNumber"]}>{data?.flashcardCount}</Text>
           <TbCards size={26} fill="black" />
         </div>
       </div>
@@ -122,7 +122,7 @@ const ExpandableFlashcard: React.FC<ExpandableFlashcardProps> = ({
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.6 }}
           >
-            {data?.decks?.map((dcks: any, i: any) => (
+            {data?.subDeck?.subDeck?.map((dcks: any, i: any) => (
               <div className={`${styles["expandedContent-main"]} `}>
                 <Controller
                   name={"abc"}
@@ -145,7 +145,7 @@ const ExpandableFlashcard: React.FC<ExpandableFlashcardProps> = ({
                 />
                 <div
                   className={styles["expandedContent-left"]}
-                  onClick={() => getDetails && getDetails(data?._id)}
+                  onClick={() => getDetails && getDetails(data)}
                 >
                   <div>
                     <Text className={styles["title"]}>{dcks?.name}</Text>

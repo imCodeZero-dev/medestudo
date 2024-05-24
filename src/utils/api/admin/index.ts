@@ -343,11 +343,28 @@ export const professorUpdateProfilePictureApi = async (
 };
 
 export const professorResetPasswordApi = async (data: any, token: string) => {
-  console.log("professorResetPasswordApi", data);
   const response = await apiRequest({
     method: "Put",
     url: `/professor/resetPassword`,
     data,
+    token,
+  });
+  return response;
+};
+
+export const getAllQuestionsAdmindApi = async (token: string) => {
+  const response = await apiRequest({
+    method: "get",
+    url: `/admin/getAllQuestions`,
+    token,
+  });
+  return response;
+};
+
+export const getAllFlashcardsAdmindApi = async (token: string) => {
+  const response = await apiRequest({
+    method: "get",
+    url: `/admin/getAllFlashCards`,
     token,
   });
   return response;
