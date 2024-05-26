@@ -22,9 +22,13 @@ import {
   useStudentAllClassesQuery,
 } from "../../../../redux/slices/APISlice";
 import { createInstituteApi } from "../../../../utils/api/admin";
-import { createCustomClassApi } from "../../../../utils/api/Students";
+import {
+  createCustomClassApi,
+  getAllCustomClassesApi,
+} from "../../../../utils/api/Students";
+import { getDashboardDataApi } from "../../../../utils/api/professors";
 
-export const useStudentFlashcardsExplore = () => {
+export const useStudentCustomClasses = () => {
   // const navigate = useNavigate();
   const { localeSuccess } = useLocale();
   const [cookies] = useCookies(["student"]);
@@ -105,12 +109,33 @@ export const useStudentFlashcardsExplore = () => {
     setDeleteModal(true);
   };
 
+  const {
+    data: { data: { classes: customClasses = [] } = {} } = {},
+    isLoading: customClassesLoading,
+    error: errorCustomClasses,
+    refetch: refetchCustomClasses,
+  } = useQuery(
+    [
+      "customClasses",
+      {
+        cookies,
+      },
+    ],
+
+    async () => {
+      return getAllCustomClassesApi(cookies?.student?.token);
+    },
+    {
+      enabled: !!cookies?.student?.token,
+    }
+  );
+
   const { allClasses, allClassesLoading, errorAllClasses, refetchAllClasses } =
     useStudentAllClassesQuery(cookies);
   const { allExams, allExamsLoading, errorAllExams, refetchAllExams } =
     useAllExamsQuery(cookies);
 
-  console.log("allClasses", allClasses);
+  console.log("customClasses", customClasses);
 
   const onSubmitCreate = async (data: any) => {
     console.log("onSubmitCreate", data);
@@ -135,8 +160,8 @@ export const useStudentFlashcardsExplore = () => {
   const onDeleteConfirm = async () => {};
 
   const getDetails = (data: any) => {
-    navigate(`/student/flashcard/deck?${data?._id}`, {
-      state: { ...data, mode: modeType },
+    navigate(`/student/flashcard/custom/${data?._id}`, {
+      state: { ...data, mode: modeType, custom: true },
     });
   };
   const getDetailsExam = (data: string) => {
@@ -169,5 +194,6 @@ export const useStudentFlashcardsExplore = () => {
     handleCheckboxChange,
     handleCheckboxDecks,
     selectedDecks,
+    customClasses,
   };
 };

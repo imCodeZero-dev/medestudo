@@ -44,6 +44,8 @@ export const TEXT = {
     TEXT_ENTER_DETAILS_TO_CONTINUE:
       "Enter details to continue using your account!",
     TEXT_HOW_WELL_DID_YOU_KNOW_ANS: "How well did you know the answer",
+    TEXT_ALL: "All",
+    TEXT_SELECTED_OF: "Selected of",
   },
   es: {
     TEXT_ENTER_DETAILS: "Enter Details to continue using your account",
@@ -90,5 +92,7 @@ export const TEXT = {
     TEXT_ENTER_DETAILS_TO_CONTINUE:
       "Enter details to continue using your account!",
     TEXT_HOW_WELL_DID_YOU_KNOW_ANS: "How well did you know the answer",
+    TEXT_ALL: "All",
+    TEXT_SELECTED_OF: "Selected of",
   },
 };

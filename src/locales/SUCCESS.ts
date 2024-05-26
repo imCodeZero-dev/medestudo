@@ -25,6 +25,7 @@ export const SUCCESS = {
     SUCCESS_ADMIN_UPDATED: "Admin Updated Successfully",
     SUCCESS_PASSWORD_RESET: "Password reset Successfully",
 
+    SUCCESS_CUSTOM_CLASS_CREATED: "Custom Class Created Successfully",
     SUCCESS_INSTITUTE_CREATED: "Institute Created Successfully",
     SUCCESS_INSTITUTE_UPDATED: "Institute Updated Successfully",
     SUCCESS_INSTITUTE_DELETED: "Institute Deleted Successfully",
@@ -67,6 +68,7 @@ export const SUCCESS = {
     SUCCESS_ADMIN_UPDATED: "Admin Updated Successfully",
     SUCCESS_PASSWORD_RESET: "Password reset Successfully",
 
+    SUCCESS_CUSTOM_CLASS_CREATED: "Custom Class Created Successfully",
     SUCCESS_INSTITUTE_CREATED: "Institute Created Successfully",
     SUCCESS_INSTITUTE_UPDATED: "Institute Updated Successfully",
     SUCCESS_INSTITUTE_DELETED: "Institute Deleted Successfully",

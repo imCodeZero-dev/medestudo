@@ -17,6 +17,7 @@ import { Controller } from "react-hook-form";
 import { TbCards } from "react-icons/tb";
 import { FaCheckCircle } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
+import { handleImageURL } from "../../../utils/constants/constants";
 
 export const DropdownMenu: React.FC<{
   openDeleteModal: ((data: string) => void) | undefined;
@@ -49,12 +50,18 @@ const ExpandableFlashcard: React.FC<ExpandableFlashcardProps> = ({
   getDetails,
   openDeleteModal,
   control,
+  onCheckboxChange,
+  handleCheckboxDecks,
+  selectedDecks,
+  custom,
 }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   // const { localeText, localeDropdowns } = useLocale();
   const { localeText, localeLables } = useLocale();
   const { isDropdownOpen, toggleDropdown, dropdownRef } = useDropdown();
+
+  const subDecks = data?.subDeck?.subDeck || [];
 
   return (
     <motion.div
@@ -66,24 +73,22 @@ const ExpandableFlashcard: React.FC<ExpandableFlashcardProps> = ({
     >
       <div className={`${styles.ExpandableFlashcardMain} `}>
         <Controller
-          name={"abc"}
+          name={`class-${data._id}`}
           control={control}
           render={({ field: { onChange, value }, fieldState: { error } }) => (
             <>
               <input
                 type="checkbox"
+                checked={subDecks.every((subDeck: any) =>
+                  selectedDecks?.some(
+                    (selectedDeck: any) => selectedDeck._id === subDeck._id
+                  )
+                )}
                 // id={data?.deckId?._id}
                 onChange={(e) => {
-                  // if (e.target.checked) {
-                  //   setSelectedCheckboxes &&
-                  //     setSelectedCheckboxes((prev) => [...prev, name]);
-                  // } else {
-                  //   setSelectedCheckboxes &&
-                  //     setSelectedCheckboxes((prev) =>
-                  //       prev.filter((item) => item !== name)
-                  //     );
-                  // }
-                  onChange(e.target.checked);
+                  const isChecked = e.target.checked;
+                  onChange(isChecked); // Update form control value
+                  onCheckboxChange && onCheckboxChange(isChecked, data); // Pass the checkbox state and deckId to the parent
                 }}
                 className={` form-checkbox h-5 w-5 text-indigo-600 transition duration-150 ease-in-out rounded-full mr-3`}
               />
@@ -94,15 +99,22 @@ const ExpandableFlashcard: React.FC<ExpandableFlashcardProps> = ({
           className={styles["ExpandableFlashcard-left"]}
           onClick={() => getDetails && getDetails(data)}
         >
-          <img className={styles["image"]} src={data?.deckId?.image} />
+          <img
+            className={styles["image"]}
+            src={handleImageURL(data?.deckId?.image)}
+          />
 
           {!minView && (
             <div>
-              <Text className={styles["title"]}>{data?.deckId?.name}</Text>
-              <Text className={styles["certifiedText"]}>
-                <FaCheckCircle fill="#1DB954" />
-                {localeLables.LABEL_MEDESTUDIO_CERTIFIED}
+              <Text className={styles["title"]}>
+                {custom ? data?.title : data?.deckId?.name}
               </Text>
+              {!custom && (
+                <Text className={styles["certifiedText"]}>
+                  <FaCheckCircle fill="#1DB954" />
+                  {localeLables.LABEL_MEDESTUDIO_CERTIFIED}
+                </Text>
+              )}
             </div>
           )}
         </div>
@@ -125,7 +137,7 @@ const ExpandableFlashcard: React.FC<ExpandableFlashcardProps> = ({
             {data?.subDeck?.subDeck?.map((dcks: any, i: any) => (
               <div className={`${styles["expandedContent-main"]} `}>
                 <Controller
-                  name={"abc"}
+                  name={`decks-${data._id}`}
                   control={control}
                   render={({
                     field: { onChange, value },
@@ -135,8 +147,15 @@ const ExpandableFlashcard: React.FC<ExpandableFlashcardProps> = ({
                       <input
                         type="checkbox"
                         // id={data?.deckId?._id}
+                        checked={
+                          // selectedDecks?.length > 0 &&
+                          selectedDecks?.find((d: any) => d?._id === dcks?._id)
+                        }
                         onChange={(e) => {
-                          onChange(e.target.checked);
+                          const isChecked = e.target.checked;
+                          onChange(isChecked);
+                          handleCheckboxDecks &&
+                            handleCheckboxDecks(isChecked, dcks);
                         }}
                         className={` form-checkbox h-5 w-5 text-indigo-600 transition duration-150 ease-in-out rounded-full mr-3`}
                       />

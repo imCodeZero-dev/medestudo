@@ -87,7 +87,7 @@ const StudentDeckDetails = ({}: StudentDeckDetailsProps) => {
     <HomeLayout>
       <div className={styles["StudentDeckDetails"]}>
         <div className={styles["StudentDeckDetails-main"]}>
-          {!classDetails?.deckId ? (
+          {classDetails?.length > 0 && !classDetails?.deckId ? (
             <div className={"min-h-[75vh] m-auto flex"}>
               <Loader />
             </div>
@@ -279,6 +279,7 @@ const StudentDeckDetails = ({}: StudentDeckDetailsProps) => {
         </div>
       </div>
       <CreateDeckModal
+      
         setValue={setValue}
         watch={watch}
         control={control}

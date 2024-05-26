@@ -1,11 +1,11 @@
-import styles from "./StudentFlashcardsExplore.module.css";
-import { StudentFlashcardsExploreProps } from "./types";
+import styles from "./StudentCustomClasses.module.css";
+import { StudentCustomClassesProps } from "./types";
 import Text from "../../../components/LVL1_Atoms/Text/Text";
 import useLocale from "../../../locales";
 import { Button } from "../../../components/LVL1_Atoms/Button";
 import { useCookies } from "react-cookie";
 
-import { useStudentFlashcardsExplore } from "./hook";
+import { useStudentCustomClasses } from "./hook";
 import { useNavigate } from "react-router-dom";
 import HomeLayout from "../../../components/LVL5_Layouts/HomeLayout/HomeLayout";
 import { ProfessorRoutes } from "../../../Routes/protectedRoutes/ProfessorRoutes";
@@ -23,7 +23,7 @@ import ModeDropdown from "../../../components/LVL3_Cells/ModeDropdown/ModeDropdo
 import ExpandableFlashcard from "../../../components/LVL3_Cells/ExpandableFlashcard/ExpandableFlashcard";
 import { dummyFlashCards } from "../StudentDashboard/StudentDashboard";
 
-const StudentFlashcardsExplore = ({}: StudentFlashcardsExploreProps) => {
+const StudentCustomClasses = ({}: StudentCustomClassesProps) => {
   const { localeTitles, localeButtons, localeLables } = useLocale();
   const [cookies] = useCookies(["admin"]);
 
@@ -37,7 +37,6 @@ const StudentFlashcardsExplore = ({}: StudentFlashcardsExploreProps) => {
     onSubmitCreate,
     openCreate,
     createLoading,
-  
 
     allClasses,
     getDetails,
@@ -54,16 +53,17 @@ const StudentFlashcardsExplore = ({}: StudentFlashcardsExploreProps) => {
     handleCheckboxChange,
     handleCheckboxDecks,
     selectedDecks,
-  } = useStudentFlashcardsExplore();
+    customClasses,
+  } = useStudentCustomClasses();
 
   const navigate = useNavigate();
 
   return (
     <HomeLayout>
-      <div className={styles["StudentFlashcardsExplore"]}>
+      <div className={styles["StudentCustomClasses"]}>
         {viewClass && (
-          <div className={styles["StudentFlashcardsExplore-main"]}>
-            <div className={styles["StudentFlashcardsExplore-head"]}>
+          <div className={styles["StudentCustomClasses-main"]}>
+            <div className={styles["StudentCustomClasses-head"]}>
               <ModeDropdown setMode={setModeType} mode={modeType} />
               <div>
                 <Button
@@ -74,8 +74,9 @@ const StudentFlashcardsExplore = ({}: StudentFlashcardsExploreProps) => {
                 </Button>
               </div>
             </div>
-            {allClasses?.slice(0, 8)?.map((data: any, i: number) => (
+            {customClasses?.slice(0, 8)?.map((data: any, i: number) => (
               <ExpandableFlashcard
+                custom
                 control={control}
                 key={data?._id}
                 data={data}
@@ -90,7 +91,7 @@ const StudentFlashcardsExplore = ({}: StudentFlashcardsExploreProps) => {
           </div>
         )}
 
-        <div className={styles["StudentFlashcardsExplore-right"]}>
+        <div className={styles["StudentCustomClasses-right"]}>
           <div className={styles["right-section-main"]}>
             <div className="flex justify-between items-center">
               <Text className={styles["sectionHeading"]}>
@@ -164,10 +165,10 @@ const StudentFlashcardsExplore = ({}: StudentFlashcardsExploreProps) => {
   );
 };
 
-export default function StudentFlashcardsExploreServices() {
+export default function StudentCustomClassesServices() {
   return (
     <StudentRoutes>
-      <StudentFlashcardsExplore />
+      <StudentCustomClasses />
     </StudentRoutes>
   );
 }

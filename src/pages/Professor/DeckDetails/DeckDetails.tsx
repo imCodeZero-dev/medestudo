@@ -327,6 +327,7 @@ const DeckDetails = ({}: DeckDetailsProps) => {
         </div>
       </div>
       <CreateDeckModal
+        custom={false}
         setValue={setValue}
         watch={watch}
         control={control}

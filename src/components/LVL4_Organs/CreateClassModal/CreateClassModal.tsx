@@ -17,6 +17,7 @@ const CreateClassModal = ({
   control,
   loading,
   filteredDecks,
+  custom,
 }: CreateClassModalProps) => {
   const {
     localeTitles,
@@ -38,20 +39,23 @@ const CreateClassModal = ({
         </div>
         <form onSubmit={handleSubmit(onSubmit)} className={styles["form"]}>
           <div className={styles["inputDiv"]}>
-            {/* <SelectDropDown
-              items={filteredDecks}
-              name="class"
-              control={control}
-              labelKey="name"
-              valueKey="isoCode"
-              label="Location"
-            /> */}
-            <CustomSelect
-              placeholder="Select Deck"
-              name="class"
-              control={control}
-              options={filteredDecks}
-            />
+            {custom ? (
+              <Input
+                control={control}
+                name="title"
+                placeholder={localePlaceholders.PLACEHOLDER_ENTER_CLASS_TITLE}
+                preDefinedClassName="lesserHeight"
+                preDefinedWrapClassName="inputField-wrap"
+                type="text"
+              />
+            ) : (
+              <CustomSelect
+                placeholder="Select Deck"
+                name="class"
+                control={control}
+                options={filteredDecks}
+              />
+            )}
           </div>
 
           <div className="flex justify-between mt-4 space-x-4">

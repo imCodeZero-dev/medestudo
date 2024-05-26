@@ -19,6 +19,8 @@ export const PLACEHOLDERS = {
     PLACEHOLDER_ENTER_DETAILED_SOLUTION_HERE: "Enter detailed solution here",
     PLACEHOLDER_ENTER_ANSWER_HERE: "Enter your Answer Here",
     PLACEHOLDER_ENTER_EXAM_TITLE: "Enter Exam Title",
+    PLACEHOLDER_ENTER_CLASS_TITLE: "Enter Class Title",
+    PLACEHOLDER_ENTER_DECK_TITLE: "Enter Deck Title",
     PLACEHOLDER_SELECT_INSTITUTE: "Select Institute",
   },
   es: {
@@ -41,6 +43,8 @@ export const PLACEHOLDERS = {
     PLACEHOLDER_ENTER_DETAILED_SOLUTION_HERE: "Enter detailed solution here",
     PLACEHOLDER_ENTER_ANSWER_HERE: "Enter your Answer Here",
     PLACEHOLDER_ENTER_EXAM_TITLE: "Enter Exam Title",
+    PLACEHOLDER_ENTER_CLASS_TITLE: "Enter Class Title",
+    PLACEHOLDER_ENTER_DECK_TITLE: "Enter Deck Title",
     PLACEHOLDER_SELECT_INSTITUTE: "Select Institute",
   },
 };

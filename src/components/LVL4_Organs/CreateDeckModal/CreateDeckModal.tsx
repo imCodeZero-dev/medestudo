@@ -24,6 +24,7 @@ const CreateDeckModal = ({
   filteredDecks,
   setValue,
   watch,
+  custom,
 }: CreateDeckModalProps) => {
   const {
     localeTitles,
@@ -54,64 +55,73 @@ const CreateDeckModal = ({
           </Text>
         </div>
         <form onSubmit={handleSubmit(onSubmit)} className={styles["form"]}>
-          <div className={styles["inputDiv"]}>
-            <Controller
-              name={"class"}
+          {custom ? (
+            <Input
               control={control}
-              defaultValue={null}
-              render={({ field }) => (
-                <Select
-                  {...field}
-                  value={{ label: filteredDecks?.name }}
-                  isSearchable={false}
-                  isDisabled
-                />
-              )}
+              name="title"
+              placeholder={localePlaceholders.PLACEHOLDER_ENTER_DECK_TITLE}
+              preDefinedClassName="lesserHeight"
+              preDefinedWrapClassName="inputField-wrap"
+              type="text"
             />
-          </div>
-          <div className={styles["inputDiv"]}>
-            <CustomSelect
-              name="subDeck"
-              control={control}
-              options={filteredDecks?.subDeck}
-            />
-          </div>
-
-          {subDeck && subDeck?.value?.subDeck?.length > 0 && (
-            <div className={styles["inputDiv"]}>
-              <CustomSelect
-                name="nestedSubDeck"
-                control={control}
-                options={subDeck?.value?.subDeck}
-              />
-            </div>
-          )}
-
-          {nestedsubDeck && nestedsubDeck?.value?.subDeck?.length > 0 && (
-            <div className={styles["inputDiv"]}>
-              <CustomSelect
-                name="deepNestedsubDeck"
-                control={control}
-                options={nestedsubDeck?.value?.subDeck}
-              />
-            </div>
-          )}
-          {deepNestedsubDeck &&
-            deepNestedsubDeck?.value?.subDeck?.length > 0 && (
+          ) : (
+            <>
               <div className={styles["inputDiv"]}>
-                <CustomSelect
-                  name="lastNestedsubDeck"
+                <Controller
+                  name={"class"}
                   control={control}
-                  options={deepNestedsubDeck?.value?.subDeck}
+                  defaultValue={null}
+                  render={({ field }) => (
+                    <Select
+                      {...field}
+                      value={{ label: filteredDecks?.name }}
+                      isSearchable={false}
+                      isDisabled
+                    />
+                  )}
                 />
               </div>
-            )}
+              <div className={styles["inputDiv"]}>
+                <CustomSelect
+                  name="subDeck"
+                  control={control}
+                  options={filteredDecks?.subDeck}
+                />
+              </div>
+
+              {subDeck && subDeck?.value?.subDeck?.length > 0 && (
+                <div className={styles["inputDiv"]}>
+                  <CustomSelect
+                    name="nestedSubDeck"
+                    control={control}
+                    options={subDeck?.value?.subDeck}
+                  />
+                </div>
+              )}
+
+              {nestedsubDeck && nestedsubDeck?.value?.subDeck?.length > 0 && (
+                <div className={styles["inputDiv"]}>
+                  <CustomSelect
+                    name="deepNestedsubDeck"
+                    control={control}
+                    options={nestedsubDeck?.value?.subDeck}
+                  />
+                </div>
+              )}
+              {deepNestedsubDeck &&
+                deepNestedsubDeck?.value?.subDeck?.length > 0 && (
+                  <div className={styles["inputDiv"]}>
+                    <CustomSelect
+                      name="lastNestedsubDeck"
+                      control={control}
+                      options={deepNestedsubDeck?.value?.subDeck}
+                    />
+                  </div>
+                )}
+            </>
+          )}
           <div className="flex justify-between mt-4 space-x-4">
-            <Button
-              type="button"
-              className="primary"
-              onClick={handleClose}
-            >
+            <Button type="button" className="primary" onClick={handleClose}>
               {localeButtons.BUTTON_CANCEL}
             </Button>
             <Button

@@ -67,12 +67,12 @@ const HomeLayout = ({ children, createButton }: HomeLayoutProps) => {
         },
         {
           title: localeLables?.LABEL_CUSTOM,
-          url: "/student/flashcards",
+          url: "/student/flashcards/custom",
           image: <MdOutlineIntegrationInstructions />,
         },
         {
           title: localeLables?.LABEL_CREATE_NEW,
-          url: "/student/flashcards",
+          url: "/student/flashcards/new",
           image: <IoMdAddCircleOutline />,
         },
         {

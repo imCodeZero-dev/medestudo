@@ -26,13 +26,14 @@ const LeftSidebar = ({ options }: LeftSidebarProps) => {
 
   const handleTabClick = (opt: { title: string; url: string }) => {
     console.log("handleTabClick", opt);
-    if (opt?.url === "/professor/classes/new") {
+    if (
+      opt?.url === "/professor/classes/new" ||
+      opt?.url === "/student/flashcards/new"
+    ) {
       handleOpenModal();
-    } 
-   else if(opt?.url === "/professor/exams/new"){
-    handleCreateExamModal()
-   } 
-    else {
+    } else if (opt?.url === "/professor/exams/new") {
+      handleCreateExamModal();
+    } else {
       navigate(opt?.url);
       setActiveTab(opt?.title);
     }

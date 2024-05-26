@@ -9,6 +9,10 @@ export interface ExpandableFlashcardProps {
   getDetails?: (data: string) => void;
   openDeleteModal?: (data: string) => void;
   control: Control<any>;
+  onCheckboxChange?: (check: boolean, data: any) => void;
+  handleCheckboxDecks?: (check: boolean, data: any) => void;
+  selectedDecks?: any;
+  custom?: boolean;
 }
 
 interface cardData {
