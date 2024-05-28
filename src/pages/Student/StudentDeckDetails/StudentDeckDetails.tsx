@@ -33,6 +33,7 @@ import {
   dummyFlashCards,
   dummyFlashcardDetails,
 } from "../StudentDashboard/StudentDashboard";
+import { Controller } from "react-hook-form";
 
 const StudentDeckDetails = ({}: StudentDeckDetailsProps) => {
   const { localeTitles, localeButtons, localeLables } = useLocale();
@@ -71,6 +72,9 @@ const StudentDeckDetails = ({}: StudentDeckDetailsProps) => {
     onDeleteClassConfirm,
     allDecks,
     mode,
+    selectedDecks,
+    handleAllSelect,
+    handleCheckboxDecks,
   } = useStudentDeckDetails();
   console.log("specificDecks", specificDecks);
   const navigate = useNavigate();
@@ -121,6 +125,7 @@ const StudentDeckDetails = ({}: StudentDeckDetailsProps) => {
                       </div>
                     </div>
                     <Button
+                      disabled={selectedDecks?.length === 0}
                       className="primaryRounded"
                       rightIcon={<BiChevronRight size={24} />}
                     >
@@ -143,6 +148,37 @@ const StudentDeckDetails = ({}: StudentDeckDetailsProps) => {
                     ))}
                   </div> */}
                 </div>
+              </div>
+              <div className={styles["StudentDeckDetails-actions-left"]}>
+                <Controller
+                  name={`customSelect`}
+                  control={control}
+                  render={({
+                    field: { onChange, value },
+                    fieldState: { error },
+                  }) => (
+                    <div className="flex items-center">
+                      <input
+                        type="checkbox"
+                        checked={
+                          selectedDecks?.length === allDecks?.subDeck?.length
+                        }
+                        onChange={(e) => {
+                          const isChecked = e.target.checked;
+                          onChange(isChecked);
+                          handleAllSelect && handleAllSelect(isChecked);
+                        }}
+                        className={` form-checkbox h-5 w-5 text-indigo-600 transition duration-150 ease-in-out rounded-full mr-3`}
+                      />
+                      <Text className={styles["allLabel"]}>
+                        {localeText.TEXT_ALL}
+                      </Text>
+                    </div>
+                  )}
+                />
+                <Text className={styles["allLabel"]}>
+                  {`${selectedDecks?.length} ${localeText.TEXT_SELECTED_OF} ${allDecks?.subDeck?.length}`}
+                </Text>
               </div>
               <div className={styles["StudentDeckDetails-actions"]}>
                 {/* <div
@@ -169,13 +205,37 @@ const StudentDeckDetails = ({}: StudentDeckDetailsProps) => {
                       {classDecks[0]?.deckId?.subDeck?.map(
                         (deck: any, i: number) => (
                           <div key={deck?._id} className={styles["deckBody"]}>
+                            <Controller
+                              name={`class-${deck._id}`}
+                              control={control}
+                              render={({
+                                field: { onChange, value },
+                                fieldState: { error },
+                              }) => (
+                                <>
+                                  <input
+                                    type="checkbox"
+                                    checked={selectedDecks?.find(
+                                      (d: any) => d?._id === deck?._id
+                                    )}
+                                    onChange={(e) => {
+                                      const isChecked = e.target.checked;
+                                      onChange(isChecked);
+                                      handleCheckboxDecks &&
+                                        handleCheckboxDecks(isChecked, deck);
+                                    }}
+                                    className={` form-checkbox h-5 w-5 text-indigo-600 transition duration-150 ease-in-out rounded-full mr-3`}
+                                  />
+                                </>
+                              )}
+                            />
                             <div
                               className={styles["deckBody-left"]}
                               onClick={() =>
                                 navigateToViewFlashcard(classDecks[0])
                               }
                             >
-                              <SiRundeck />
+                              {/* <SiRundeck /> */}
                               <div>
                                 <Text className={styles.deckName}>
                                   {deck?.name}
@@ -279,7 +339,6 @@ const StudentDeckDetails = ({}: StudentDeckDetailsProps) => {
         </div>
       </div>
       <CreateDeckModal
-      
         setValue={setValue}
         watch={watch}
         control={control}

@@ -18,6 +18,7 @@ const CreateClassModal = ({
   loading,
   filteredDecks,
   custom,
+  edit,
 }: CreateClassModalProps) => {
   const {
     localeTitles,
@@ -31,7 +32,9 @@ const CreateClassModal = ({
       <CustomModal open={open} onClose={handleClose}>
         <div className={styles["modal-head"]}>
           <Text className={styles["title"]}>
-            {localeTitles?.TITLE_CREATE_CLASS}
+            {edit
+              ? localeTitles?.TITLE_EDIT_CLASS
+              : localeTitles?.TITLE_CREATE_CLASS}
           </Text>
           <Text className={styles["basic"]}>
             {localeText?.TEXT_A_CLASS_IS_A_SET_OF_FLASHCARDS}

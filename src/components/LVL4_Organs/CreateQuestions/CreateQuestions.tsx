@@ -62,14 +62,14 @@ const CreateQuestions = ({
         <div className={styles["CreateQuestions-main"]}>
           <div className={styles["CreateQuestions-mainHead"]}>
             <Text>Question 1</Text>
-            <div>
+            {/* <div>
               <Button
                 className="roundedYellow"
                 leftIcon={<IoCloseCircleOutline size={16} />}
               >
                 {localeButtons?.BUTTON_DELETE}
               </Button>
-            </div>
+            </div> */}
           </div>
 
           <div className={styles["CreateQuestions-section"]}>

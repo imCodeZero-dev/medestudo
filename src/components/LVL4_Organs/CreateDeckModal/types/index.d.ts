@@ -10,6 +10,7 @@ export type CreateDeckModalProps = {
   filteredDecks: any;
   setValue: any;
   watch: any;
-  custom: boolean;
+  custom?: boolean;
+  edit?: boolean;
   // filteredDecks: { name: string; _id: string }[];
 };

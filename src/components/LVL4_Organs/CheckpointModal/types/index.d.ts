@@ -9,3 +9,10 @@ export type CheckpointModalProps = {
   control: Control<any>;
   filteredDecks?: { name: string; _id: string }[];
 };
+export type AllSetModalProps = {
+  open: boolean;
+  handleClose: () => void;
+
+
+
+};

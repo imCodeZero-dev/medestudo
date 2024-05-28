@@ -19,6 +19,7 @@ import {
   useAllClassesQuery,
   useAllDecksQuery,
   useAllExamsQuery,
+  useCustomAllClassesQuery,
   useStudentAllClassesQuery,
 } from "../../../../redux/slices/APISlice";
 import { createInstituteApi } from "../../../../utils/api/admin";
@@ -109,31 +110,16 @@ export const useStudentCustomClasses = () => {
     setDeleteModal(true);
   };
 
-  const {
-    data: { data: { classes: customClasses = [] } = {} } = {},
-    isLoading: customClassesLoading,
-    error: errorCustomClasses,
-    refetch: refetchCustomClasses,
-  } = useQuery(
-    [
-      "customClasses",
-      {
-        cookies,
-      },
-    ],
-
-    async () => {
-      return getAllCustomClassesApi(cookies?.student?.token);
-    },
-    {
-      enabled: !!cookies?.student?.token,
-    }
-  );
-
   const { allClasses, allClassesLoading, errorAllClasses, refetchAllClasses } =
     useStudentAllClassesQuery(cookies);
   const { allExams, allExamsLoading, errorAllExams, refetchAllExams } =
     useAllExamsQuery(cookies);
+  const {
+    customClasses,
+    customClassesLoading,
+    errorCustomClasses,
+    refetchCustomClasses,
+  } = useCustomAllClassesQuery(cookies);
 
   console.log("customClasses", customClasses);
 
@@ -148,6 +134,7 @@ export const useStudentCustomClasses = () => {
       response = await createCustomClassApi(params, cookies?.student?.token);
       console.log("response", response);
       // refetchAllInstitute();
+      refetchCustomClasses();
       showSuccessToast(localeSuccess?.SUCCESS_CUSTOM_CLASS_CREATED);
     } catch (error: any) {
       console.log("error", error);

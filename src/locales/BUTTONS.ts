@@ -49,6 +49,7 @@ export const BUTTONS = {
     BUTTON_THIS_ROUND: "This Round",
     BUTTON_OVERALL: "Overall",
     BUTTON_REVEAL_THE_ANSWER: "Reveal The Answer",
+    BUTTON_GO_TO_DASHBOARD: "Go to Dashboard",
   },
   es: {
     submit: "Enviar",
@@ -100,5 +101,6 @@ export const BUTTONS = {
     BUTTON_THIS_ROUND: "This Round",
     BUTTON_OVERALL: "Overall",
     BUTTON_REVEAL_THE_ANSWER: "Reveal The Answer",
+    BUTTON_GO_TO_DASHBOARD: "Go to Dashboard",
   },
 };

@@ -19,6 +19,7 @@ import {
   useAllClassesQuery,
   useAllDecksQuery,
   useAllExamsQuery,
+  useCustomAllClassesQuery,
   useStudentAllClassesQuery,
 } from "../../../../redux/slices/APISlice";
 import { createInstituteApi } from "../../../../utils/api/admin";
@@ -36,6 +37,13 @@ export const useStudentFlashcardsExplore = () => {
   const navigate = useNavigate();
   const [selectedClasses, setSelectedClasses] = useState<any>([]);
   const [selectedDecks, setSelectedDecks] = useState<any>([]);
+
+  const {
+    customClasses,
+    customClassesLoading,
+    errorCustomClasses,
+    refetchCustomClasses,
+  } = useCustomAllClassesQuery(cookies);
 
   useEffect(() => {
     console.log("modeType", modeType);
@@ -122,7 +130,7 @@ export const useStudentFlashcardsExplore = () => {
       let response;
       response = await createCustomClassApi(params, cookies?.student?.token);
       console.log("response", response);
-      // refetchAllInstitute();
+      refetchCustomClasses();
       showSuccessToast(localeSuccess?.SUCCESS_CUSTOM_CLASS_CREATED);
     } catch (error: any) {
       console.log("error", error);

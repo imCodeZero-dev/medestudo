@@ -93,11 +93,14 @@ export const getAllCustomClassesApi = async (token: string) => {
   return response;
 };
 
-export const getCustomClassDecksApi = async (token: string) => {
-  console.log("createCustomClassApi", "token", token);
+export const getCustomClassDecksApi = async (
+  classId: string,
+  token: string
+) => {
+  console.log("createCustomClassApi", classId, "token", token);
   const response = await apiRequest({
     method: "get",
-    url: `/user/getStudentDecks`,
+    url: `/user/getDeckByClassId/${classId}`,
     token,
   });
   return response;
@@ -108,11 +111,88 @@ export const creteCustomDecksApi = async (
   classId: string,
   token: string
 ) => {
-  console.log("creteCustomDecksApi", classId, "token", token);
+  // console.log("creteCustomDecksApi", classId, "token", token);
   const response = await apiRequest({
     method: "Post",
     url: `/user/createDeck/${classId}`,
     data,
+    token,
+  });
+  return response;
+};
+
+export const editCustomDecksApi = async (
+  data: any,
+  id: string,
+  token: string
+) => {
+  // console.log("editCustomDecksApi", id, "token", token);
+  const response = await apiRequest({
+    method: "Put",
+    url: `/user/updateDeck/${id}`,
+    data,
+    token,
+  });
+  return response;
+};
+
+export const deleteCustomDecksApi = async (deckId: string, token: string) => {
+  console.log("deleteCustomDecksApi", deckId, "token", token);
+  const response = await apiRequest({
+    method: "Delete",
+    url: `/user/deleteDeck/${deckId}`,
+    token,
+  });
+  return response;
+};
+
+export const startStudyingApi = async (data: any, token: string) => {
+  console.log("startStudyingApi", token);
+  const response = await apiRequest({
+    method: "Get",
+    url: `/user/startStudying`,
+    data,
+    token,
+  });
+  return response;
+};
+
+export const createCustomFlashcardApi = async (
+  data: any,
+  deckId: string,
+  token: string
+) => {
+  console.log("createCustomFlashcardApi", data, "deckId", deckId);
+  const response = await apiRequest({
+    method: "Post",
+    url: `/user/createFlashCard/${deckId}`,
+    data,
+    token,
+  });
+  return response;
+};
+
+export const updateCustomClassApi = async (
+  data: any,
+  classId: string,
+  token: string
+) => {
+  console.log("updateCustomClassApi", data, "deckId", classId);
+  const response = await apiRequest({
+    method: "Put",
+    url: `/user/updateClass/${classId}`,
+    data,
+    token,
+  });
+  return response;
+};
+
+export const deleteCustomClassApi = async (classId: string, token: string) => {
+  console.log("deleteCustomClassApi", "deckId", classId);
+  const response = await apiRequest({
+    method: "Delete",
+    url: `/user/deleteClass/${classId}`,
+
     token,
   });
   return response;

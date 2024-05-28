@@ -82,7 +82,7 @@ export const createFlashcardApi = async (
   deckId: string,
   token: string
 ) => {
-  console.log("createFlashcardApi", data);
+  // console.log("createFlashcardApi", data);
   const response = await apiRequest({
     method: "Post",
     url: `/professor/createFlashCard/${deckId}`,
@@ -97,7 +97,7 @@ export const editFlashcardApi = async (
   flashCardId: string,
   token: string
 ) => {
-  console.log("editFlashcardApi", data);
+  // console.log("editFlashcardApi", data);
   const response = await apiRequest({
     method: "Put",
     url: `/professor/updateFlashCard/${flashCardId}`,

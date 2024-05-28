@@ -52,6 +52,7 @@ export const useStudentDeckDetails = () => {
   const deepNestedsubDeck = watch("deepNestedsubDeck");
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [selectedDecks, setSelectedDecks] = useState<any>([]);
 
   const handleClickOptions = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -170,6 +171,29 @@ export const useStudentDeckDetails = () => {
   );
   console.log("classDecks", classDecks);
   // console.log("classDetails", classDetails);
+
+  const handleCheckboxDecks = (isChecked: boolean, deck: any) => {
+    if (isChecked) {
+      setSelectedDecks([...selectedDecks, deck]);
+    } else {
+      const remove = selectedDecks?.filter((d: any) => d._id !== deck?._id);
+      setSelectedDecks(remove);
+    }
+  };
+
+  const handleAllSelect = (isChecked: boolean) => {
+    console.log("handleAllSelect", isChecked);
+    if (isChecked) {
+      const getAll = allDecks?.subDeck?.flatMap((deck: any) => deck || []);
+      setSelectedDecks(getAll);
+    } else {
+      // const remove = selectedDecks?.filter((d: any) => d._id !== deck?._id);
+      setSelectedDecks([]);
+    }
+  };
+  useEffect(() => {
+    console.log("selectedDecks", selectedDecks);
+  }, [selectedDecks]);
 
   const onSubmitCreate = async (data: any) => {
     console.log("onSubmitCreate", data);
@@ -326,5 +350,8 @@ export const useStudentDeckDetails = () => {
     onDeleteClassConfirm,
     allDecks,
     mode,
+    handleAllSelect,
+    selectedDecks,
+    handleCheckboxDecks,
   };
 };

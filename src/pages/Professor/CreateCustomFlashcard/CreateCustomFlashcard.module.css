@@ -1,9 +1,9 @@
-.StudentDeckDetails {
+.CreateFlashcard {
   display: flex;
   max-height: 88vh;
   overflow-y: auto;
 }
-.StudentDeckDetails-main {
+.CreateFlashcard-main {
   background-color: #f8fbff;
   flex: 0 0 65%;
   padding: 32px;
@@ -13,31 +13,12 @@
   justify-content: center;
 }
 
-.StudentDeckDetails-right {
+.CreateFlashcard-right {
   background-color: inherit;
   flex: 1;
 }
-.StudentDeckDetails-actions-left {
-  display: flex;
-  align-items: center;
-  column-gap: 12px;
-}
 
-/* .StudentDeckDetails {
-  display: flex;
-  flex-direction: column;
-  max-height: 88vh;
-  overflow-y: auto;
-  background-color: #f8fbff;
-} */
-/* .StudentDeckDetails-main {
-
-
-  padding: 0 32px;
-  height: 100%;
-} */
-
-.StudentDeckDetails-head {
+.CreateFlashcard-head {
   display: flex;
   justify-content: space-between;
   padding-bottom: 16px;
@@ -54,16 +35,14 @@
 .leftDetails {
   display: flex;
   flex-direction: column;
-  row-gap: 16px;
-  /* justify-content: space-between; */
 }
 
-.StudentDeckDetails-head {
+.CreateFlashcard-head {
   display: flex;
 }
 
 .heading {
-  /* font-family: Poppins; */
+   /* font-family: Poppins; */
   font-size: 24px;
   font-weight: 600;
   line-height: 36px;
@@ -76,54 +55,41 @@
   object-fit: contain;
 }
 .createdText {
-  /* font-family: Poppins; */
+   /* font-family: Poppins; */
   font-size: 14px;
   font-weight: 500;
   line-height: 21px;
   color: #0026b1;
 }
 .estTime {
-  /* font-family: Poppins; */
+   /* font-family: Poppins; */
   font-size: 14px;
   font-weight: 400;
   line-height: 21px;
   color: #6f7680;
 }
 .time {
-  /* font-family: Poppins; */
+   /* font-family: Poppins; */
   font-size: 14px;
   font-weight: 500;
   line-height: 21px;
   color: #2a2d31;
-  /* color: #2a2d31; */
-}
-
-.estTimeDiv {
-  display: flex;
-  align-items: center;
-  column-gap: 4px;
-  /* border: 2px solid #0026b1; */
-  /* border-radius: 24px; */
-  padding: 8px;
-  /* "flex items-center space-x-1 " */
 }
 
 .head-right {
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
   column-gap: 16px;
 }
 
 .addDeckText {
-  /* font-family: Poppins; */
+   /* font-family: Poppins; */
   font-size: 14px;
   font-weight: 500;
   line-height: 21px;
   color: #1d1f22;
 }
 
-.StudentDeckDetails-actions {
+.CreateFlashcard-actions {
   padding-bottom: 16px;
   margin-bottom: 16px;
 
@@ -140,15 +106,12 @@
 
   border-bottom: 1px solid lightgray;
   border-top: 1px solid lightgray;
-  align-items: center;
 }
 
 .deckBody-left {
   display: flex;
   align-items: center;
   column-gap: 16px;
-  flex: 1;
-  cursor: pointer;
 }
 .deckBody-right {
   display: flex;
@@ -157,7 +120,7 @@
 }
 
 .deckName {
-  /* font-family: Poppins; */
+   /* font-family: Poppins; */
   font-size: 14px;
   font-weight: 500;
   line-height: 21px;
@@ -165,7 +128,7 @@
 }
 
 .totalCardsText {
-  /* font-family: Poppins; */
+   /* font-family: Poppins; */
   font-size: 14px;
   font-weight: 400;
   line-height: 21px;
@@ -186,7 +149,7 @@
 }
 
 .viewMore {
-  /* font-family: Poppins; */
+   /* font-family: Poppins; */
   font-size: 12px;
   font-weight: 500;
   line-height: 18px;
@@ -195,27 +158,4 @@
   border-bottom: 1px solid #383c41;
   cursor: pointer;
   /* text-underline-offset: #383c41; */
-}
-
-.levelTag {
-  /* font-family: Poppins; */
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 21px;
-  text-align: left;
-  background: #6683eb;
-  border-radius: 16px;
-  padding: 4px 12px;
-  color: white;
-}
-.searchTag {
-  /* font-family: Poppins; */
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 21px;
-  text-align: left;
-  background: #f2f7ff;
-  border-radius: 16px;
-  padding: 4px 12px;
-  color: #6495dd;
 }

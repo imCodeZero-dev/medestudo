@@ -33,6 +33,7 @@ import RatingBars from "../../../components/LVL4_Organs/RatingBars/RatingBars";
 import ViewCardModal from "../../../components/LVL4_Organs/ViewCardModal/ViewCardModal";
 import dayjs from "dayjs";
 import TimerComponent from "../../../components/LVL4_Organs/TimerComponent/TimerComponent";
+import AllSetModal from "../../../components/LVL4_Organs/CheckpointModal/AllSetModal";
 
 const StudentAllFlashCards = ({}: StudentAllFlashCardsProps) => {
   const { localeTitles, localeButtons, localeLables } = useLocale();
@@ -73,6 +74,8 @@ const StudentAllFlashCards = ({}: StudentAllFlashCardsProps) => {
     handleViewCardModalClose,
     openViewCardModal,
     handleViewCardModalOpen,
+    allSetModal,
+    handleAllSetModalClose,
   } = useStudentAllFlashCards();
   // console.log("allDecks", allDecks);
   const navigate = useNavigate();
@@ -225,6 +228,8 @@ const StudentAllFlashCards = ({}: StudentAllFlashCardsProps) => {
           handleClose={handleDeleteClose}
           loading={deleteLoading}
         /> */}
+
+        <AllSetModal handleClose={handleAllSetModalClose} open={allSetModal} />
 
         <ViewCardModal
           handleClose={handleViewCardModalClose}

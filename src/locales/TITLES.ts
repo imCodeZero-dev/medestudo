@@ -56,6 +56,8 @@ export const TITLES = {
     TITLE_VIEW_MORE: "View More",
     TITLE_UPLOADED: "Uploaded",
     TITLE_CREATE_CLASS: "Create Class",
+    TITLE_EDIT_CLASS: "Edit Class",
+    TITLE_EDIT_DECK: "Edit Deck",
     TITLE_CREATE_NEW_DECK: "Create new deck",
     TITLE_CREATE_PAST_EXAM: "Create Past Exam",
     TITLE_EDIT_PAST_EXAM: "Edit Past Exam",
@@ -80,6 +82,7 @@ export const TITLES = {
     TITLE_WHAT_IS_YOUR_MAIN_INTERES: "What is your main interest?",
     TITLE_CHECKPOINT: "Checkpoint",
     TITLE_CONFIDENCE_GAINED: "Confidence Gained",
+    TITLE_YOU_ARE_ALL_SET_UP: "You are all set up!",
   },
   es: {
     TITLE_TEST: "Este es el título de la prueba",
@@ -138,6 +141,8 @@ export const TITLES = {
     TITLE_VIEW_MORE: "View More",
     TITLE_UPLOADED: "Uploaded",
     TITLE_CREATE_CLASS: "Create Class",
+    TITLE_EDIT_CLASS: "Edit Class",
+    TITLE_EDIT_DECK: "Edit Deck",
     TITLE_CREATE_NEW_DECK: "Create new deck",
     TITLE_CREATE_PAST_EXAM: "Create Past Exam",
     TITLE_EDIT_PAST_EXAM: "Edit Past Exam",
@@ -162,5 +167,6 @@ export const TITLES = {
     TITLE_WHAT_IS_YOUR_MAIN_INTERES: "What is your main interest?",
     TITLE_CHECKPOINT: "Checkpoint",
     TITLE_CONFIDENCE_GAINED: "Confidence Gained",
+    TITLE_YOU_ARE_ALL_SET_UP: "You are all set up!",
   },
 };

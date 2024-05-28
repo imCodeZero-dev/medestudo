@@ -78,6 +78,7 @@ export const useStudentAllFlashCards = () => {
 
   const [deleteLoading, setDeleteLoading] = useState<boolean>(false);
   const [openViewCardModal, setOpenViewCardModal] = useState<boolean>(false);
+  const [allSetModal, setAllSetModal] = useState<boolean>(false);
   const [deleteModal, setdeleteModal] = useState<boolean>(false);
   const [enableEdit, setEnableEdit] = useState<boolean>(false);
   const [editLoading, setEditLoading] = useState<boolean>(false);
@@ -93,6 +94,12 @@ export const useStudentAllFlashCards = () => {
   };
   const handleViewCardModalOpen = () => {
     setOpenViewCardModal(true);
+  };
+  const handleAllSetModalClose = () => {
+    setAllSetModal(false);
+  };
+  const handleAllSetModalOpen = () => {
+    setAllSetModal(true);
   };
   const handleDeleteOpen = (data: any) => {
     setdeleteModal(true);
@@ -200,7 +207,8 @@ export const useStudentAllFlashCards = () => {
       let response;
       response = await provideRateToCardApi(params, cookies?.student?.token);
       console.log("response", response);
-      showSuccessToast(localeSuccess?.SUCCESS_RATE);
+      // showSuccessToast(localeSuccess?.SUCCESS_RATE);
+      handleAllSetModalOpen();
       // refetchallFlashcards();
       // navigate(-1);
     } catch (error: any) {
@@ -339,5 +347,7 @@ export const useStudentAllFlashCards = () => {
     handleViewCardModalClose,
     openViewCardModal,
     handleViewCardModalOpen,
+    allSetModal,
+    handleAllSetModalClose,
   };
 };

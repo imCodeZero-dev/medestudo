@@ -46,6 +46,8 @@ export const TEXT = {
     TEXT_HOW_WELL_DID_YOU_KNOW_ANS: "How well did you know the answer",
     TEXT_ALL: "All",
     TEXT_SELECTED_OF: "Selected of",
+    TEXT_CLICK_ON_CONTINUE_TO_DASHBOARD:
+      "Click on continue to navigate to your dashboard",
   },
   es: {
     TEXT_ENTER_DETAILS: "Enter Details to continue using your account",
@@ -94,5 +96,7 @@ export const TEXT = {
     TEXT_HOW_WELL_DID_YOU_KNOW_ANS: "How well did you know the answer",
     TEXT_ALL: "All",
     TEXT_SELECTED_OF: "Selected of",
+    TEXT_CLICK_ON_CONTINUE_TO_DASHBOARD:
+      "Click on continue to navigate to your dashboard",
   },
 };

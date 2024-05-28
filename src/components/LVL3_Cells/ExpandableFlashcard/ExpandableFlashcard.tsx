@@ -87,7 +87,7 @@ const ExpandableFlashcard: React.FC<ExpandableFlashcardProps> = ({
                 // id={data?.deckId?._id}
                 onChange={(e) => {
                   const isChecked = e.target.checked;
-                  onChange(isChecked); // Update form control value
+                  onChange(isChecked);
                   onCheckboxChange && onCheckboxChange(isChecked, data); // Pass the checkbox state and deckId to the parent
                 }}
                 className={` form-checkbox h-5 w-5 text-indigo-600 transition duration-150 ease-in-out rounded-full mr-3`}
@@ -119,10 +119,26 @@ const ExpandableFlashcard: React.FC<ExpandableFlashcardProps> = ({
           )}
         </div>
         <div className={styles["ExpandableFlashcard-right"]} ref={dropdownRef}>
-          {/* <BiSolidPencil size={25} color="#2A2D31" className="cursor-pointer" /> */}
-
           <Text className={styles["cardNumber"]}>{data?.flashcardCount}</Text>
           <TbCards size={26} fill="black" />
+          {custom && (
+            <>
+              <BiSolidPencil
+                size={25}
+                color="#2A2D31"
+                className="cursor-pointer"
+              />
+              <IoEllipsisHorizontal
+                size={25}
+                color="#2A2D31"
+                className="cursor-pointer"
+                onClick={toggleDropdown}
+              />
+              {isDropdownOpen && (
+                <DropdownMenu openDeleteModal={openDeleteModal} data={data} />
+              )}
+            </>
+          )}
         </div>
       </div>
       <AnimatePresence>
@@ -134,7 +150,8 @@ const ExpandableFlashcard: React.FC<ExpandableFlashcardProps> = ({
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.6 }}
           >
-            {data?.subDeck?.subDeck?.map((dcks: any, i: any) => (
+            {/* {data?.subDeck?.subDeck?.map((dcks: any, i: any) => ( */}
+            {data?.subDeck?.map((dcks: any, i: any) => (
               <div className={`${styles["expandedContent-main"]} `}>
                 <Controller
                   name={`decks-${data._id}`}

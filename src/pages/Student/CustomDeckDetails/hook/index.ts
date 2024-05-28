@@ -26,12 +26,17 @@ import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import {
   useAllClassesQuery,
   useAllDecksQuery,
+  useCustomAllClassesQuery,
 } from "../../../../redux/slices/APISlice";
 import { DeckId } from "../../../../utils/constants/DataTypes";
 import {
   creteCustomDecksApi,
+  deleteCustomClassApi,
+  deleteCustomDecksApi,
+  editCustomDecksApi,
   getAllDecksByIdApi,
   getCustomClassDecksApi,
+  updateCustomClassApi,
 } from "../../../../utils/api/Students";
 
 export const useCustomDeckDetails = () => {
@@ -51,19 +56,11 @@ export const useCustomDeckDetails = () => {
     defaultValues: {},
   });
 
-  const watchSubDeck = watch("subDeck");
-  const watchnNestedSubDeck = watch("nestedSubDeck");
-  const deepNestedsubDeck = watch("deepNestedsubDeck");
-
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [selectedDecks, setSelectedDecks] = useState<any>([]);
 
-  const handleClickOptions = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleCloseOptions = () => {
-    setAnchorEl(null);
-  };
+
+
   const handleCheckboxDecks = (isChecked: boolean, deck: any) => {
     if (isChecked) {
       setSelectedDecks([...selectedDecks, deck]);
@@ -73,7 +70,7 @@ export const useCustomDeckDetails = () => {
     }
   };
   const handleAllSelect = (isChecked: boolean) => {
-    console.log("handleAllSelect", isChecked);
+    // console.log("handleAllSelect", isChecked);
     if (isChecked) {
       const getAll = allCustomDecks?.flatMap((deck: any) => deck || []);
       setSelectedDecks(getAll);
@@ -95,23 +92,59 @@ export const useCustomDeckDetails = () => {
   const navigate = useNavigate();
   const [createModal, setCreateModal] = useState(false);
   const [specificDecks, setSpecificDecks] = useState();
+  const [editClassModal, setEditClassModal] = useState(false);
+  const [editDeckModal, setEditDeckModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
   const [deleteClassModal, setDeleteClassModal] = useState(false);
   const [deleteLoading, setDeleteLoading] = useState(false);
+  const [editLoading, setEditLoading] = useState(false);
   const [selectedDeckId, setSelectedDeckId] = useState<null | string>(null);
+
+  const handleClickOptions = (
+    event: React.MouseEvent<HTMLElement>,
+    data: any
+  ) => {
+    setAnchorEl(event.currentTarget);
+    setSelectedDeckId(data?._id);
+  };
+
+  const handleCloseOptions = () => {
+    setAnchorEl(null);
+    // setSelectedDeckId(null);
+  };
+
   const handleCloseCreate = () => {
     setCreateModal(false);
+  };
+
+  const handleOpenEditClass = () => {
+    setEditClassModal(true);
+    setValue("title", deckData?.title);
+  };
+  const handleCloseEditClass = () => {
+    setEditClassModal(false);
+  };
+
+  const handleOpenEditDeck = (data: any) => {
+    setEditDeckModal(true);
+    setValue("deckTitle", data?.title);
+    setSelectedDeckId(data?._id);
+  };
+  const handleCloseEditDeck = () => {
+    setEditDeckModal(false);
   };
 
   const handleDeleteClose = () => {
     setDeleteModal(false);
   };
-  const openDeleteModal = (id: string) => {
-    console.log("openDeleteModal", id);
+  const openDeleteModal = () => {
+    // console.log("openDeleteModal", data);
     handleCloseOptions();
-    setSelectedDeckId(id);
+    // setSelectedDeckId(data?._id);
     setDeleteModal(true);
   };
+
+
   const handleDeleteClassClose = () => {
     setDeleteClassModal(false);
   };
@@ -122,11 +155,18 @@ export const useCustomDeckDetails = () => {
   const { allClasses, allClassesLoading, errorAllClasses, refetchAllClasses } =
     useAllClassesQuery(cookies);
 
+  const {
+    customClasses,
+    customClassesLoading,
+    errorCustomClasses,
+    refetchCustomClasses,
+  } = useCustomAllClassesQuery(cookies);
+
   // const { allDecks, allDecksLoading, errorAllDecks, refetchAllDecks } =
   //   useAllDecksQuery(cookies?.student?.token);
 
   const {
-    data: { data: { classes: allCustomDecks = [] } = {} } = {},
+    data: { data: { deck: allCustomDecks = [] } = {} } = {},
     isLoading: allCustomDecksLoading,
     error: errorallCustomDecks,
     refetch: refetchallCustomDecks,
@@ -140,7 +180,7 @@ export const useCustomDeckDetails = () => {
     ],
 
     async () => {
-      return getCustomClassDecksApi(cookies?.student?.token);
+      return getCustomClassDecksApi(deckData?._id, cookies?.student?.token);
     },
     {
       enabled: !!cookies?.student?.token && !!deckData?._id,
@@ -194,11 +234,40 @@ export const useCustomDeckDetails = () => {
   console.log("classDecks", classDecks);
   // console.log("classDetails", classDetails);
 
+  const onSubmitClassEdit = async (data: any) => {
+    // console.log("onSubmitCreate", data);
+
+    const params = {
+      title: data?.title,
+    };
+
+    try {
+      setEditLoading(true);
+      let response;
+      response = await updateCustomClassApi(
+        params,
+        deckData?._id,
+        cookies?.student?.token
+      );
+      console.log("response", response);
+      // refetchClassDetails();
+      // refetchclassDecks();
+      refetchCustomClasses();
+      showSuccessToast(localeSuccess?.SUCCESS_CLASS_EDITED);
+    } catch (error: any) {
+      console.log("error", error);
+      showErrorToast(error?.response?.data?.message);
+    } finally {
+      setEditLoading(false);
+      handleCloseEditClass();
+    }
+  };
+
   const onSubmitCreate = async (data: any) => {
     console.log("onSubmitCreate", data);
 
     const params = {
-      title: data?.title,
+      title: data?.deckTitle,
     };
 
     try {
@@ -211,7 +280,7 @@ export const useCustomDeckDetails = () => {
       );
       console.log("response", response);
       // refetchClassDetails();
-      // refetchclassDecks();
+      refetchallCustomDecks();
       showSuccessToast(localeSuccess?.SUCCESS_DECK_CREATED);
     } catch (error: any) {
       console.log("error", error);
@@ -222,16 +291,44 @@ export const useCustomDeckDetails = () => {
     }
   };
 
+  const onSubmitEditDeck = async (data: any) => {
+    // console.log("onSubmitCreate", data);
+
+    const params = {
+      title: data?.deckTitle,
+    };
+
+    try {
+      setCreateLoading(true);
+      let response;
+      response = await editCustomDecksApi(
+        params,
+        selectedDeckId as string,
+        cookies?.student?.token
+      );
+      console.log("response", response);
+      // refetchClassDetails();
+      refetchallCustomDecks();
+      showSuccessToast(localeSuccess?.SUCCESS_DECK_UPDATED);
+    } catch (error: any) {
+      console.log("error", error);
+      showErrorToast(error?.response?.data?.message);
+    } finally {
+      setCreateLoading(false);
+      handleCloseEditDeck();
+    }
+  };
+
   const onDeleteClassConfirm = async () => {
     try {
       setDeleteLoading(true);
       let response;
-      response = await deleteClassApi(
-        classDetails?._id,
+      response = await deleteCustomClassApi(
+        deckData?._id,
         cookies?.student?.token
       );
       console.log("response", response);
-      refetchAllClasses();
+      refetchCustomClasses();
       showSuccessToast(localeSuccess?.SUCCESS_CLASS_DELETED);
       navigate(-1);
     } catch (error: any) {
@@ -247,13 +344,12 @@ export const useCustomDeckDetails = () => {
     try {
       setDeleteLoading(true);
       let response;
-      response = await deleteClassDeckApi(
-        selectedDeckId,
+      response = await deleteCustomDecksApi(
+        selectedDeckId as string,
         cookies?.student?.token
       );
       console.log("response", response);
-      refetchClassDetails();
-      refetchclassDecks();
+      refetchallCustomDecks();
       showSuccessToast(localeSuccess?.SUCCESS_DECK_DELETED);
     } catch (error: any) {
       console.log("error", error);
@@ -316,5 +412,14 @@ export const useCustomDeckDetails = () => {
     handleCheckboxDecks,
     selectedDecks,
     handleAllSelect,
+    handleOpenEditClass,
+    handleCloseEditClass,
+    editClassModal,
+    onSubmitClassEdit,
+    editLoading,
+    handleOpenEditDeck,
+    handleCloseEditDeck,
+    editDeckModal,
+    onSubmitEditDeck,
   };
 };

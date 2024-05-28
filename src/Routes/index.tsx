@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import fontF from "../assets/Fonts/static/Inter-Regular.ttf";
+import CreateCustomFlashcardServices from "../pages/Professor/CreateCustomFlashcard/CreateCustomFlashcard";
 
 const LoadingScreen = React.lazy(
   () => import("../pages/LoadingScreen/LoadingScreen")
@@ -210,6 +211,10 @@ const ProjectRoutes = () => {
             <Route
               path="/student/flashcard/deck/flashcard/:deckId"
               element={<StudentAllFlashCardsServices />}
+            />
+            <Route
+              path="/student/classes/custom/flashcard"
+              element={<CreateCustomFlashcardServices />}
             />
 
             <Route path="*" element={<NotFound />} />

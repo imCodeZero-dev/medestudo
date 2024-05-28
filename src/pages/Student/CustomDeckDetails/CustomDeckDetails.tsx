@@ -35,6 +35,8 @@ import {
 } from "../StudentDashboard/StudentDashboard";
 import { handleImageURL } from "../../../utils/constants/constants";
 import { Controller } from "react-hook-form";
+import { DropdownMenu } from "../../../components/LVL3_Cells/ExpandableFlashcard/ExpandableFlashcard";
+import { useDropdown } from "../../../utils/hooks/helper";
 
 const CustomDeckDetails = ({}: CustomDeckDetailsProps) => {
   const { localeTitles, localeButtons, localeLables } = useLocale();
@@ -77,16 +79,31 @@ const CustomDeckDetails = ({}: CustomDeckDetailsProps) => {
     handleCheckboxDecks,
     selectedDecks,
     handleAllSelect,
+    handleOpenEditClass,
+    handleCloseEditClass,
+    editClassModal,
+    onSubmitClassEdit,
+    editLoading,
+    handleOpenEditDeck,
+    handleCloseEditDeck,
+    editDeckModal,
+    onSubmitEditDeck,
   } = useCustomDeckDetails();
   console.log("specificDecks", specificDecks);
   const navigate = useNavigate();
   const { localeText } = useLocale();
+  const { isDropdownOpen, toggleDropdown, dropdownRef } = useDropdown();
 
   const navigateToViewFlashcard = (deck: any) => {
     console.log("navigateToViewFlashcard", deck);
     navigate(`/student/flashcard/deck/flashcard/${deck?._id}`, {
       state: { ...deck, mode },
     });
+  };
+
+  const navigateToCreateFlashcard = (deck: any) => {
+    // console.log("navigateToCreateFlashcard", deck);
+    navigate("/student/classes/custom/flashcard", { state: deck });
   };
 
   return (
@@ -135,10 +152,32 @@ const CustomDeckDetails = ({}: CustomDeckDetailsProps) => {
               </div>
 
               <div className={styles["head-right"]}>
-                <div className="flex ml-auto">
+                <div
+                  className="flex ml-auto space-x-3 items-center relative"
+                  ref={dropdownRef}
+                >
                   <Text className={styles["levelTag"]}>
                     {localeLables.LABEL_BENINNER}
                   </Text>
+                  <BiSolidPencil
+                    size={20}
+                    color="#2A2D31"
+                    className="cursor-pointer"
+                    onClick={handleOpenEditClass}
+                  />
+                  <IoEllipsisHorizontal
+                    size={20}
+                    color="#2A2D31"
+                    className="cursor-pointer"
+                    // onClick={handleClickOptions as any}
+                    onClick={toggleDropdown}
+                  />
+                  {isDropdownOpen && (
+                    <DropdownMenu
+                      openDeleteModal={openDeleteClassModal}
+                      data={deckData}
+                    />
+                  )}
                 </div>
 
                 {/* <div className="flex ">
@@ -248,7 +287,7 @@ const CustomDeckDetails = ({}: CustomDeckDetailsProps) => {
                         <div className={styles["deckBody-right"]}>
                           <div
                             className="flex items-center space-x-1 cursor-pointer"
-                            // onClick={() => navigateToCreateFlashcard(deck)}
+                            onClick={() => navigateToCreateFlashcard(deck)}
                           >
                             <FaCirclePlus size={24} fill="#FF900E" />
                             <Text className={styles.addDeckText}>
@@ -274,15 +313,25 @@ const CustomDeckDetails = ({}: CustomDeckDetailsProps) => {
                                 color="#2A2D31"
                                 className="cursor-pointer"
                               /> */}
+                          <BiSolidPencil
+                            size={20}
+                            color="#2A2D31"
+                            className="cursor-pointer"
+                            onClick={() => handleOpenEditDeck(deck)}
+                          />
                           {deck?._id && (
                             <div>
                               <IoEllipsisHorizontal
                                 size={25}
                                 color="#2A2D31"
                                 className="cursor-pointer"
-                                onClick={(event) =>
-                                  handleClickOptions(event as any)
+                                onClick={(event: any) =>
+                                  handleClickOptions(event, deck)
                                 }
+
+                                // onClick={(event) =>
+                                //   handleClickOptions(event as any)
+                                // }
                               />
                               <Menu
                                 anchorEl={anchorEl}
@@ -290,9 +339,7 @@ const CustomDeckDetails = ({}: CustomDeckDetailsProps) => {
                                 onClose={handleCloseOptions}
                                 keepMounted
                               >
-                                <MenuItem
-                                  onClick={() => openDeleteModal(deck?._id)}
-                                >
+                                <MenuItem onClick={() => openDeleteModal()}>
                                   Delete
                                 </MenuItem>
                               </Menu>
@@ -347,13 +394,14 @@ const CustomDeckDetails = ({}: CustomDeckDetailsProps) => {
         setValue={setValue}
         watch={watch}
         control={control}
-        handleClose={handleCloseCreate}
+        handleClose={editDeckModal ? handleCloseEditDeck : handleCloseCreate}
         handleSubmit={handleSubmit}
-        onSubmit={onSubmitCreate}
-        open={createModal}
+        onSubmit={editDeckModal ? onSubmitEditDeck : onSubmitCreate}
+        open={editDeckModal ? editDeckModal : createModal}
         loading={createLoading}
         filteredDecks={specificDecks?.[0]}
         custom
+        edit={editDeckModal}
       />
 
       <ConfirmationModal
@@ -375,6 +423,17 @@ const CustomDeckDetails = ({}: CustomDeckDetailsProps) => {
         title={localeTitles.TITLE_ARE_YOU_SURE_DELETE}
         handleClose={handleDeleteClose}
         loading={deleteLoading}
+      />
+
+      <CreateClassModal
+        control={control}
+        handleClose={handleCloseEditClass}
+        handleSubmit={handleSubmit}
+        onSubmit={onSubmitClassEdit}
+        open={editClassModal}
+        loading={editLoading}
+        custom
+        edit
       />
     </HomeLayout>
   );

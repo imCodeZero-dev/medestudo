@@ -9,4 +9,5 @@ export type CreateClassModalProps = {
   control: Control<any>;
   filteredDecks?: { name: string; _id: string }[];
   custom?: boolean;
+  edit?: boolean;
 };

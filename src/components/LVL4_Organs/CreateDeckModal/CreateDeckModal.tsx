@@ -25,6 +25,7 @@ const CreateDeckModal = ({
   setValue,
   watch,
   custom,
+  edit,
 }: CreateDeckModalProps) => {
   const {
     localeTitles,
@@ -48,7 +49,9 @@ const CreateDeckModal = ({
       <CustomModal open={open} onClose={handleClose}>
         <div className="text-center">
           <Text className={styles["title"]}>
-            {localeTitles?.TITLE_CREATE_NEW_DECK}
+            {edit
+              ? localeTitles.TITLE_EDIT_DECK
+              : localeTitles?.TITLE_CREATE_NEW_DECK}
           </Text>
           <Text className={styles["basic"]}>
             {localeText?.TEXT_A_DECK_IS_A_SUBSET_MSG}
@@ -58,7 +61,7 @@ const CreateDeckModal = ({
           {custom ? (
             <Input
               control={control}
-              name="title"
+              name="deckTitle"
               placeholder={localePlaceholders.PLACEHOLDER_ENTER_DECK_TITLE}
               preDefinedClassName="lesserHeight"
               preDefinedWrapClassName="inputField-wrap"
