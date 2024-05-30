@@ -67,13 +67,40 @@ export const useStudentFlashcardsExplore = () => {
     defaultValues: {},
   });
   const handleCheckboxChange = (isChecked: boolean, deck: any) => {
+    console.log("handleCheckboxChange", deck, "isChecked", isChecked);
     if (isChecked) {
-      setSelectedClasses([...selectedClasses, deck]);
+      // const checked = deck?.reduce((dck: any) => dck?.subdeck);
+      deck.forEach((dck: any) => {
+        selectedClasses.push(dck);
+      });
+      // const checked = deck?.flatMap((dck: any) => dck?.subdeck);
+      // console.log("handleCheckboxChange", checked);
+      // for (var i = 0; i < deck?.length; i++) {
+      //   const checked = deck[i].subdeck;
+      // }
+      // setSelectedClasses([...selectedClasses, checked]);
+      setSelectedClasses([...selectedClasses]);
     } else {
-      const remove = selectedClasses?.filter((d: any) => d._id !== deck?._id);
-      setSelectedClasses(remove);
+      // const updatedClasses = selectedClasses.filter((d: any) => {
+      //   console.log("Comparing with ID:", d._id, "deck", deck[0]?.subdeck?._id);
+      //   return d._id !== deck.subdeck._id;
+      // });
+      const updatedSelectedClasses = selectedClasses.filter(
+        (selectedClass: any) =>
+          !deck.some((d: any) => d._id === selectedClass._id)
+      );
+
+      setSelectedClasses([...updatedSelectedClasses]);
     }
   };
+  useEffect(() => {
+    console.log("selectedClasses", selectedClasses);
+  }, [selectedClasses]);
+  useEffect(() => {
+    console.log("selectedDecks", selectedDecks);
+  }, [selectedDecks]);
+  // setSelectedDecks([...selectedDecks, selected]);
+
   const handleCheckboxDecks = (isChecked: boolean, deck: any) => {
     if (isChecked) {
       setSelectedDecks([...selectedDecks, deck]);
@@ -86,8 +113,8 @@ export const useStudentFlashcardsExplore = () => {
   useEffect(() => {
     if (selectedClasses?.length > 0) {
       setSelectedDecks((prevState: any) => [
-        ...prevState,
-        ...selectedClasses.flatMap((deck: any) => deck.subDeck?.subDeck || []),
+        // ...prevState,
+        ...selectedClasses.flatMap((deck: any) => deck || []),
       ]);
     }
   }, [selectedClasses]);

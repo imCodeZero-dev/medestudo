@@ -87,6 +87,13 @@ const StudentDeckDetails = ({}: StudentDeckDetailsProps) => {
     });
   };
 
+  const navigateToViewFlashcardCustom = (deck: any) => {
+    console.log("navigateToViewFlashcard", deck);
+    navigate(`/student/flashcard/deck/flashcard/combine`, {
+      state: { ids: deck, mode },
+    });
+  };
+
   return (
     <HomeLayout>
       <div className={styles["StudentDeckDetails"]}>
@@ -128,6 +135,9 @@ const StudentDeckDetails = ({}: StudentDeckDetailsProps) => {
                       disabled={selectedDecks?.length === 0}
                       className="primaryRounded"
                       rightIcon={<BiChevronRight size={24} />}
+                      onClick={() =>
+                        navigateToViewFlashcardCustom(selectedDecks)
+                      }
                     >
                       {localeButtons.BUTTON_START_STUDYING}
                     </Button>
@@ -160,9 +170,7 @@ const StudentDeckDetails = ({}: StudentDeckDetailsProps) => {
                     <div className="flex items-center">
                       <input
                         type="checkbox"
-                        checked={
-                          selectedDecks?.length === allDecks?.subDeck?.length
-                        }
+                        checked={selectedDecks?.length === allDecks?.length}
                         onChange={(e) => {
                           const isChecked = e.target.checked;
                           onChange(isChecked);
@@ -177,7 +185,7 @@ const StudentDeckDetails = ({}: StudentDeckDetailsProps) => {
                   )}
                 />
                 <Text className={styles["allLabel"]}>
-                  {`${selectedDecks?.length} ${localeText.TEXT_SELECTED_OF} ${allDecks?.subDeck?.length}`}
+                  {`${selectedDecks?.length} ${localeText.TEXT_SELECTED_OF} ${allDecks?.length}`}
                 </Text>
               </div>
               <div className={styles["StudentDeckDetails-actions"]}>
@@ -198,63 +206,58 @@ const StudentDeckDetails = ({}: StudentDeckDetailsProps) => {
                 </div>
               ) : (
                 <div className={styles["StudentDeckDetails-decks"]}>
-                  {classDecks[0]?.deckId?.subDeck?.length < 1 ? (
+                  {allDecks?.length < 1 ? (
                     <Text>No Deck Created</Text>
                   ) : (
                     <>
-                      {classDecks[0]?.deckId?.subDeck?.map(
-                        (deck: any, i: number) => (
-                          <div key={deck?._id} className={styles["deckBody"]}>
-                            <Controller
-                              name={`class-${deck._id}`}
-                              control={control}
-                              render={({
-                                field: { onChange, value },
-                                fieldState: { error },
-                              }) => (
-                                <>
-                                  <input
-                                    type="checkbox"
-                                    checked={selectedDecks?.find(
-                                      (d: any) => d?._id === deck?._id
-                                    )}
-                                    onChange={(e) => {
-                                      const isChecked = e.target.checked;
-                                      onChange(isChecked);
-                                      handleCheckboxDecks &&
-                                        handleCheckboxDecks(isChecked, deck);
-                                    }}
-                                    className={` form-checkbox h-5 w-5 text-indigo-600 transition duration-150 ease-in-out rounded-full mr-3`}
-                                  />
-                                </>
-                              )}
-                            />
-                            <div
-                              className={styles["deckBody-left"]}
-                              onClick={() =>
-                                navigateToViewFlashcard(classDecks[0])
-                              }
-                            >
-                              {/* <SiRundeck /> */}
-                              <div>
-                                <Text className={styles.deckName}>
-                                  {deck?.name}
+                      {allDecks?.map((deck: any, i: number) => (
+                        <div key={deck?._id} className={styles["deckBody"]}>
+                          <Controller
+                            name={`class-${deck._id}`}
+                            control={control}
+                            render={({
+                              field: { onChange, value },
+                              fieldState: { error },
+                            }) => (
+                              <>
+                                <input
+                                  type="checkbox"
+                                  checked={selectedDecks?.find(
+                                    (d: any) => d?._id === deck?._id
+                                  )}
+                                  onChange={(e) => {
+                                    const isChecked = e.target.checked;
+                                    onChange(isChecked);
+                                    handleCheckboxDecks &&
+                                      handleCheckboxDecks(isChecked, deck);
+                                  }}
+                                  className={` form-checkbox h-5 w-5 text-indigo-600 transition duration-150 ease-in-out rounded-full mr-3`}
+                                />
+                              </>
+                            )}
+                          />
+                          <div className={styles["deckBody-left"]}>
+                            {/* <SiRundeck /> */}
+                            <div>
+                              <Text className={styles.deckName}>
+                                {deck?.subdeck?.name}
+                              </Text>
+                              <div className="flex items-center space-x-1 my-2">
+                                <TbCards size={20} fill="#2A2D31" />
+                                <Text className={styles.totalCardsText}>
+                                  {` ${deck?.cardCount} Cards`}
                                 </Text>
-                                <div className="flex items-center space-x-1 my-2">
-                                  <TbCards size={20} fill="#2A2D31" />
-                                  <Text className={styles.totalCardsText}>
-                                    {` ${deck?.cardCount} Cards`}
-                                  </Text>
-                                </div>
                               </div>
                             </div>
-                            <div className={styles["deckBody-right"]}>
-                              <IoIosPlayCircle
-                                size={32}
-                                color="#FF900E"
-                                className="cursor-pointer"
-                              />
-                              {/* <div
+                          </div>
+                          <div className={styles["deckBody-right"]}>
+                            <IoIosPlayCircle
+                              size={32}
+                              color="#FF900E"
+                              className="cursor-pointer"
+                              onClick={() => navigateToViewFlashcard(deck)}
+                            />
+                            {/* <div
                             className="flex items-center space-x-1 cursor-pointer"
                             onClick={() => navigateToCreateFlashcard(deck)}
                           >
@@ -263,39 +266,38 @@ const StudentDeckDetails = ({}: StudentDeckDetailsProps) => {
                               {localeButtons.BUTTON_ADD_CARD}
                             </Text>
                           </div> */}
-                              {/* <BiSolidPencil
+                            {/* <BiSolidPencil
                                 size={25}
                                 color="#2A2D31"
                                 className="cursor-pointer"
                               /> */}
-                              {deck?._id && (
-                                <div>
-                                  <IoEllipsisHorizontal
-                                    size={25}
-                                    color="#2A2D31"
-                                    className="cursor-pointer"
-                                    onClick={(event) =>
-                                      handleClickOptions(event as any)
-                                    }
-                                  />
-                                  <Menu
-                                    anchorEl={anchorEl}
-                                    open={Boolean(anchorEl)}
-                                    onClose={handleCloseOptions}
-                                    keepMounted
+                            {deck?._id && (
+                              <div>
+                                <IoEllipsisHorizontal
+                                  size={25}
+                                  color="#2A2D31"
+                                  className="cursor-pointer"
+                                  onClick={(event) =>
+                                    handleClickOptions(event as any)
+                                  }
+                                />
+                                <Menu
+                                  anchorEl={anchorEl}
+                                  open={Boolean(anchorEl)}
+                                  onClose={handleCloseOptions}
+                                  keepMounted
+                                >
+                                  <MenuItem
+                                    onClick={() => openDeleteModal(deck?._id)}
                                   >
-                                    <MenuItem
-                                      onClick={() => openDeleteModal(deck?._id)}
-                                    >
-                                      Delete
-                                    </MenuItem>
-                                  </Menu>
-                                </div>
-                              )}
-                            </div>
+                                    Delete
+                                  </MenuItem>
+                                </Menu>
+                              </div>
+                            )}
                           </div>
-                        )
-                      )}
+                        </div>
+                      ))}
                     </>
                   )}
                 </div>

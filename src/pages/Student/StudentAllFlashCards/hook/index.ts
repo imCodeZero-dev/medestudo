@@ -37,8 +37,12 @@ import {
 import { Flashcard, Tag } from "../../../../utils/constants/DataTypes";
 import { uploadImageToCloudinary } from "../../../../utils/hooks/helper";
 import {
+  deleteCustomFlashcardApi,
+  editCustomFlashcardApi,
   getAllCardsByIdApi,
+  getAllCustomCardsByIdApi,
   provideRateToCardApi,
+  startStudyingApi,
 } from "../../../../utils/api/Students";
 
 export const useStudentAllFlashCards = () => {
@@ -51,8 +55,15 @@ export const useStudentAllFlashCards = () => {
   const location = useLocation();
 
   const mode = location?.state?.mode;
+  const combine = location?.pathname?.includes("combine");
+  const custom = location?.pathname?.includes("custom");
+  const customId = location?.state?._id;
+  console.log("customVariable", custom, "customId", customId);
 
   console.log("AllFlashCards mode", mode);
+  console.log("AllFlashCards location", location);
+  const deckIds = location?.state?.ids?.map((deck: any) => deck?._id);
+  console.log("deckIds", deckIds);
   const {
     handleSubmit,
     control,
@@ -132,26 +143,78 @@ export const useStudentAllFlashCards = () => {
   // } = useAllFlashcardsQuery(cookies, deckId as string);
 
   const {
-    data: { data: { cards: allFlashcards = [] } = {} } = {},
+    data: allFlashcardsData = {} as any,
     isLoading: allFlashcardsLoading,
     error: errorAllFlashcards,
     refetch: refetchAllFlashcards,
   } = useQuery(
-    [
-      "allFlashcards",
-      {
-        cookies,
-        deckId,
-      },
-    ],
-
+    ["allFlashcards", { cookies, deckIds, deckId, combine, custom }],
     async () => {
-      return getAllCardsByIdApi(deckId as string, cookies?.student?.token);
+      if (combine) {
+        return startStudyingApi(deckIds as string, cookies?.student?.token);
+      } else if (custom) {
+        return getAllCustomCardsByIdApi(
+          customId as string,
+          cookies?.student?.token
+        ); // Assuming a custom API exists
+      } else {
+        // Call the default API when neither combine nor custom is true
+        return getAllCardsByIdApi(deckId as string, cookies?.student?.token);
+      }
     },
     {
-      enabled: !!cookies?.student?.token && !!deckId,
+      enabled: !!cookies?.student?.token && (combine ? !!deckIds : !!deckId),
     }
   );
+
+  const allFlashcards = combine
+    ? allFlashcardsData?.data?.combinedCards || []
+    : custom
+    ? allFlashcardsData?.data?.cards || []
+    : allFlashcardsData?.data?.cards || [];
+
+  // const {
+  //   data: { data: { combinedCards: allFlashcards = [] } = {} } = {},
+  //   isLoading: allFlashcardsLoading,
+  //   error: errorAllFlashcards,
+  //   refetch: refetchAllFlashcards,
+  // } = useQuery(
+  //   [
+  //     "allFlashcards",
+  //     {
+  //       cookies,
+  //       deckIds,
+  //     },
+  //   ],
+
+  //   async () => {
+  //     return startStudyingApi(deckIds as string, cookies?.student?.token);
+  //   },
+  //   {
+  //     enabled: !!cookies?.student?.token && !!deckIds,
+  //   }
+  // );
+  // const {
+  //   data: { data: { cards: allFlashcards = [] } = {} } = {},
+  //   isLoading: allFlashcardsLoading,
+  //   error: errorAllFlashcards,
+  //   refetch: refetchAllFlashcards,
+  // } = useQuery(
+  //   [
+  //     "allFlashcards",
+  //     {
+  //       cookies,
+  //       deckId,
+  //     },
+  //   ],
+
+  //   async () => {
+  //     return getAllCardsByIdApi(deckId as string, cookies?.student?.token);
+  //   },
+  //   {
+  //     enabled: !!cookies?.student?.token && !!deckId,
+  //   }
+  // );
 
   console.log("allFlashcards", allFlashcards);
 
@@ -221,65 +284,65 @@ export const useStudentAllFlashCards = () => {
   };
 
   const onDeleteConfirm = async () => {
-    // try {
-    //   setDeleteLoading(true);
-    //   let response;
-    //   response = await deleteFlashcardApi(
-    //     flashcardData?._id,
-    //     cookies?.student?.token
-    //   );
-    //   console.log("response", response);
-    //   showSuccessToast(localeSuccess?.SUCCESS_FLASH_DELETED);
-    //   refetchallFlashcards();
-    //   navigate(-1);
-    // } catch (error: any) {
-    //   console.log("error", error);
-    //   showErrorToast(error?.response?.data?.message);
-    // } finally {
-    //   setDeleteLoading(false);
-    //   handleDeleteClose();
-    // }
+    try {
+      setDeleteLoading(true);
+      let response;
+      response = await deleteCustomFlashcardApi(
+        flashcardData?._id,
+        cookies?.student?.token
+      );
+      console.log("response", response);
+      showSuccessToast(localeSuccess?.SUCCESS_FLASH_DELETED);
+      refetchAllFlashcards();
+      navigate(-1);
+    } catch (error: any) {
+      console.log("error", error);
+      showErrorToast(error?.response?.data?.message);
+    } finally {
+      setDeleteLoading(false);
+      handleDeleteClose();
+    }
   };
 
   const onSubmitEdit = async (data: any) => {
-    // try {
-    //   let questionImgUrl = data?.questionImage;
-    //   if (data?.questionImage !== data?.new_questionImage) {
-    //     questionImgUrl = await uploadImageToCloudinary(data?.new_questionImage);
-    //   }
-    //   let answerImgUrl = data?.answerImage;
-    //   if (data?.answerImage !== data?.new_answerImage) {
-    //     answerImgUrl = await uploadImageToCloudinary(data?.new_answerImage);
-    //   }
-    //   const tagsLabels = data?.tags?.map(
-    //     (tag: { value: string; label: string }) => tag.label
-    //   );
-    //   const base64Question = btoa(data.question);
-    //   const base64Answer = btoa(data.answer);
-    //   const payload = {
-    //     question: base64Question,
-    //     questionImage: questionImgUrl,
-    //     answerImage: answerImgUrl,
-    //     answer: base64Answer,
-    //     tags: tagsLabels,
-    //   };
-    //   setEditLoading(true);
-    //   const response = await editFlashcardApi(
-    //     payload,
-    //     flashcardData?._id,
-    //     cookies?.student?.token
-    //   );
-    //   console.log("response", response);
-    //   showSuccessToast(localeSuccess?.SUCCESS_FLASH_EDIT);
-    //   refetchallFlashcards();
-    // } catch (error: any) {
-    //   console.log("error", error);
-    //   showErrorToast(error?.response?.data?.message);
-    // } finally {
-    //   setEditLoading(false);
-    //   reset();
-    //   // navigate(-1);
-    // }
+    try {
+      let questionImgUrl = data?.questionImage;
+      if (data?.questionImage !== data?.new_questionImage) {
+        questionImgUrl = await uploadImageToCloudinary(data?.new_questionImage);
+      }
+      let answerImgUrl = data?.answerImage;
+      if (data?.answerImage !== data?.new_answerImage) {
+        answerImgUrl = await uploadImageToCloudinary(data?.new_answerImage);
+      }
+      const tagsLabels = data?.tags?.map(
+        (tag: { value: string; label: string }) => tag.label
+      );
+      const base64Question = btoa(data.question);
+      const base64Answer = btoa(data.answer);
+      const payload = {
+        question: base64Question,
+        questionImage: questionImgUrl,
+        answerImage: answerImgUrl,
+        answer: base64Answer,
+        tags: tagsLabels,
+      };
+      setEditLoading(true);
+      const response = await editCustomFlashcardApi(
+        payload,
+        flashcardData?._id,
+        cookies?.student?.token
+      );
+      console.log("response", response);
+      showSuccessToast(localeSuccess?.SUCCESS_FLASH_EDIT);
+      refetchAllFlashcards();
+    } catch (error: any) {
+      console.log("error", error);
+      showErrorToast(error?.response?.data?.message);
+    } finally {
+      setEditLoading(false);
+      reset();
+      // navigate(-1);
+    }
   };
 
   useEffect(() => {
@@ -349,5 +412,6 @@ export const useStudentAllFlashCards = () => {
     handleViewCardModalOpen,
     allSetModal,
     handleAllSetModalClose,
+    custom,
   };
 };

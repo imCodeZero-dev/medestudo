@@ -133,3 +133,9 @@ export const getDecodedText = (data: any) => {
   const textContents = Array.from(paragraphs).map((p) => p.textContent);
   return textContents;
 };
+
+
+ export const constructUrlWithParams = (baseUrl:string, array:string[]) => {
+  const params = array.map(item => `data=${item}`).join('&');
+  return `${baseUrl}?${params}`;
+};

@@ -104,7 +104,7 @@ export const useStudentDeckDetails = () => {
   //   useAllDecksQuery(cookies?.student?.token);
 
   const {
-    data: { data: { deck: allDecks = [] } = {} } = {},
+    data: { data: { decks: allDecks = [] } = {} } = {},
     isLoading: allDecksLoading,
     error: errorallDecks,
     refetch: refetchallDecks,
@@ -118,7 +118,7 @@ export const useStudentDeckDetails = () => {
     ],
 
     async () => {
-      return getAllDecksByIdApi(deckId?.deckId?._id, cookies?.student?.token);
+      return getAllDecksByIdApi(deckId?._id, cookies?.student?.token);
     },
     {
       enabled: !!cookies?.student?.token && !!deckId?.deckId?._id,
@@ -184,7 +184,7 @@ export const useStudentDeckDetails = () => {
   const handleAllSelect = (isChecked: boolean) => {
     console.log("handleAllSelect", isChecked);
     if (isChecked) {
-      const getAll = allDecks?.subDeck?.flatMap((deck: any) => deck || []);
+      const getAll = allDecks?.flatMap((deck: any) => deck || []);
       setSelectedDecks(getAll);
     } else {
       // const remove = selectedDecks?.filter((d: any) => d._id !== deck?._id);

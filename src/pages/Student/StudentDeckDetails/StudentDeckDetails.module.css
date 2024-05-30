@@ -148,7 +148,7 @@
   align-items: center;
   column-gap: 16px;
   flex: 1;
-  cursor: pointer;
+  /* cursor: pointer; */
 }
 .deckBody-right {
   display: flex;

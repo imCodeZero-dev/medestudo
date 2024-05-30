@@ -37,7 +37,6 @@ const StudentFlashcardsExplore = ({}: StudentFlashcardsExploreProps) => {
     onSubmitCreate,
     openCreate,
     createLoading,
-  
 
     allClasses,
     getDetails,
@@ -57,6 +56,11 @@ const StudentFlashcardsExplore = ({}: StudentFlashcardsExploreProps) => {
   } = useStudentFlashcardsExplore();
 
   const navigate = useNavigate();
+  const navigateToStudy = (ids: any) => {
+    navigate(`/student/flashcard/deck/flashcard/combine`, {
+      state: { ids },
+    });
+  };
 
   return (
     <HomeLayout>
@@ -67,8 +71,10 @@ const StudentFlashcardsExplore = ({}: StudentFlashcardsExploreProps) => {
               <ModeDropdown setMode={setModeType} mode={modeType} />
               <div>
                 <Button
+                  disabled={selectedDecks?.length < 1}
                   rightIcon={<FaChevronRight />}
                   className="yellowButton-lessHeight"
+                  onClick={() => navigateToStudy(selectedDecks)}
                 >
                   {localeButtons?.BUTTON_START_STUDYING}
                 </Button>

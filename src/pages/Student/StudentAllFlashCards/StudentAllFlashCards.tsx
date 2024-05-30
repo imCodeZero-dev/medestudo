@@ -53,7 +53,7 @@ const StudentAllFlashCards = ({}: StudentAllFlashCardsProps) => {
     allFlashcardsLoading,
     allTags,
     currentFlashcardIndex,
-    // onDeleteConfirm,
+    onDeleteConfirm,
     deleteModal,
     deleteLoading,
     handleDeleteOpen,
@@ -76,6 +76,7 @@ const StudentAllFlashCards = ({}: StudentAllFlashCardsProps) => {
     handleViewCardModalOpen,
     allSetModal,
     handleAllSetModalClose,
+    custom,
   } = useStudentAllFlashCards();
   // console.log("allDecks", allDecks);
   const navigate = useNavigate();
@@ -123,6 +124,7 @@ const StudentAllFlashCards = ({}: StudentAllFlashCardsProps) => {
             editLoading={editLoading}
             revealAnswer={revealAnswer}
             setRevealAnswer={setRevealAnswer}
+            custom={custom}
           />
         </div>
         {/* ))} */}
@@ -218,7 +220,7 @@ const StudentAllFlashCards = ({}: StudentAllFlashCardsProps) => {
           </div>
         </div>
 
-        {/* <ConfirmationModal
+        <ConfirmationModal
           open={deleteModal}
           cancelButtonText={localeButtons?.BUTTON_CANCEL}
           confirmButtonText={localeButtons?.BUTTON_DELETE}
@@ -227,7 +229,7 @@ const StudentAllFlashCards = ({}: StudentAllFlashCardsProps) => {
           title={localeTitles.TITLE_ARE_YOU_SURE_DELETE}
           handleClose={handleDeleteClose}
           loading={deleteLoading}
-        /> */}
+        />
 
         <AllSetModal handleClose={handleAllSetModalClose} open={allSetModal} />
 

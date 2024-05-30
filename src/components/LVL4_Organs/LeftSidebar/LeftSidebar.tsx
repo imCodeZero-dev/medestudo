@@ -59,13 +59,15 @@ const LeftSidebar = ({ options }: LeftSidebarProps) => {
           <div
             key={index}
             className={` ${
-              location?.pathname === option?.url ? styles.activeTab : styles.tab
+              location?.pathname.includes(option?.url)
+                ? styles.activeTab
+                : styles.tab
               // activeTab === option.title ? styles.activeTab : styles.tab
             }`}
           >
             <div
               className={
-                location?.pathname === option?.url
+                location?.pathname.includes(option?.url)
                   ? styles.tabSectionActive
                   : styles.tabSection
               }
@@ -74,7 +76,7 @@ const LeftSidebar = ({ options }: LeftSidebarProps) => {
               {option?.image}
               <span
                 className={` ${
-                  location?.pathname === option?.url
+                  location?.pathname.includes(option?.url)
                     ? styles.active
                     : styles.inactive
                 }`}
@@ -94,13 +96,13 @@ const LeftSidebar = ({ options }: LeftSidebarProps) => {
                 </div>
               )} */}
             </div>
-            {location?.pathname === option?.url && option.submenu && (
+            {(location?.pathname.includes(option?.url) || option.submenu) && (
               <div className={styles.submenu}>
-                {option.submenu.map(
+                {option?.submenu?.map(
                   (subItem: SidebarOption, subIndex: number) => (
                     <div
                       className={
-                        location?.pathname === subItem?.url
+                        location?.pathname.includes(subItem?.url)
                           ? styles.tabSectionActive
                           : styles.tabSection
                       }
@@ -109,7 +111,7 @@ const LeftSidebar = ({ options }: LeftSidebarProps) => {
                       {subItem?.image}{" "}
                       <span
                         className={` ${
-                          location?.pathname === subItem?.url
+                          location?.pathname.includes(subItem?.url)
                             ? styles.active
                             : styles.inactive
                         }`}

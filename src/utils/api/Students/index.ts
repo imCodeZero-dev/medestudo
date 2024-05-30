@@ -1,5 +1,6 @@
 import apiRequest from "../../../config/axios";
 import { examForm } from "../../constants/DataTypes";
+import { constructUrlWithParams } from "../../hooks/helper";
 
 export const studentRegistrationApi = async (data: any) => {
   // console.log("studentRegistrationApi", data);
@@ -43,7 +44,7 @@ export const studentGetAllClassesApi = async (token: string) => {
 };
 
 export const getAllDecksByIdApi = async (classId: string, token: string) => {
-  // console.log("getAllDecksByIdApi", classId);
+  console.log("getAllDecksByIdApi", classId);
   const response = await apiRequest({
     method: "Get",
     url: `/user/allDecks/${classId}`,
@@ -57,6 +58,19 @@ export const getAllCardsByIdApi = async (id: string, token: string) => {
   const response = await apiRequest({
     method: "Get",
     url: `/user/allCards/${id}`,
+    token,
+  });
+  return response;
+};
+
+export const getAllCustomCardsByIdApi = async (
+  deckId: string,
+  token: string
+) => {
+  console.log("getAllCustomCardsByIdApi", deckId);
+  const response = await apiRequest({
+    method: "Get",
+    url: `/user/getAllFlashCard/${deckId}`,
     token,
   });
   return response;
@@ -147,26 +161,68 @@ export const deleteCustomDecksApi = async (deckId: string, token: string) => {
 };
 
 export const startStudyingApi = async (data: any, token: string) => {
-  console.log("startStudyingApi", token);
+  console.log("startStudyingApi", data, token);
+  const fullUrl = constructUrlWithParams("/user/startStudyingDecks", data);
+  console.log("startStudyingApi, fullUrl", fullUrl);
   const response = await apiRequest({
     method: "Get",
-    url: `/user/startStudying`,
-    data,
+    url: fullUrl,
+    // url: `/user/startStudyingDecks`,
     token,
   });
   return response;
 };
+
+// export const startStudyingApi = async (data: any, token: string) => {
+//   console.log("startStudyingApi", token);
+//   const response = await apiRequest({
+//     method: "Get",
+//     url: `/user/startStudying`,
+//     data,
+//     token,
+//   });
+//   return response;
+// };
 
 export const createCustomFlashcardApi = async (
   data: any,
   deckId: string,
   token: string
 ) => {
-  console.log("createCustomFlashcardApi", data, "deckId", deckId);
+  // console.log("createCustomFlashcardApi", data, "deckId", deckId);
   const response = await apiRequest({
     method: "Post",
     url: `/user/createFlashCard/${deckId}`,
     data,
+    token,
+  });
+  return response;
+};
+
+export const editCustomFlashcardApi = async (
+  data: any,
+  flashCardId: string,
+  token: string
+) => {
+  // console.log("editCustomFlashcardApi", data, "id", flashCardId);
+  const response = await apiRequest({
+    method: "Put",
+    url: `/user/updateFlashCard/${flashCardId}`,
+    data,
+    token,
+  });
+  return response;
+};
+
+
+export const deleteCustomFlashcardApi = async (
+  flashCardId: string | null,
+  token: string
+) => {
+  console.log("deleteCustomFlashcardApi", flashCardId);
+  const response = await apiRequest({
+    method: "Delete",
+    url: `/user/deleteFlashCard/${flashCardId}`,
     token,
   });
   return response;

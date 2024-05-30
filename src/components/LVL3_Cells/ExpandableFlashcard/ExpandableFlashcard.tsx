@@ -61,7 +61,10 @@ const ExpandableFlashcard: React.FC<ExpandableFlashcardProps> = ({
   const { localeText, localeLables } = useLocale();
   const { isDropdownOpen, toggleDropdown, dropdownRef } = useDropdown();
 
-  const subDecks = data?.subDeck?.subDeck || [];
+  const subDecks = data?.subDeck || [];
+  // console.log("subDecks", subDecks);
+  // console.log("selectedData", data);
+  // console.log("selectedDecks", selectedDecks);
 
   return (
     <motion.div
@@ -79,16 +82,18 @@ const ExpandableFlashcard: React.FC<ExpandableFlashcardProps> = ({
             <>
               <input
                 type="checkbox"
-                checked={subDecks.every((subDeck: any) =>
+                checked={subDecks?.every((subDeck: any) =>
+                  // checked={data?.every((subDeck: any) =>
                   selectedDecks?.some(
-                    (selectedDeck: any) => selectedDeck._id === subDeck._id
+                    (selectedDeck: any) => selectedDeck._id === subDeck?._id
                   )
                 )}
                 // id={data?.deckId?._id}
                 onChange={(e) => {
                   const isChecked = e.target.checked;
                   onChange(isChecked);
-                  onCheckboxChange && onCheckboxChange(isChecked, data); // Pass the checkbox state and deckId to the parent
+                  onCheckboxChange &&
+                    onCheckboxChange(isChecked, data?.subDeck);
                 }}
                 className={` form-checkbox h-5 w-5 text-indigo-600 transition duration-150 ease-in-out rounded-full mr-3`}
               />
@@ -184,7 +189,9 @@ const ExpandableFlashcard: React.FC<ExpandableFlashcardProps> = ({
                   onClick={() => getDetails && getDetails(data)}
                 >
                   <div>
-                    <Text className={styles["title"]}>{dcks?.name}</Text>
+                    <Text className={styles["title"]}>
+                      {dcks?.subdeck?.name}
+                    </Text>
                   </div>
                 </div>
                 <div className={styles["expandedContent-right"]}>

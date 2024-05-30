@@ -45,6 +45,7 @@ const StudentViewFlashcard: React.FC<StudentViewFlashcardProps> = ({
   mode,
   handleRatingChange,
   handleViewCardModalOpen,
+  custom,
 }) => {
   const { localeTitles, localePlaceholders, localeButtons, localeText } =
     useLocale();
@@ -106,37 +107,41 @@ const StudentViewFlashcard: React.FC<StudentViewFlashcardProps> = ({
                     allFlashcards?.length
                   }`}
                 </div>
-                {/* {!enableEdit ? (
-                <div
-                  className={`${styles["StudentViewFlashcard-option"]} cursor-pointer`}
-                  onClick={() =>
-                    handleEdit(allFlashcards[currentFlashcardIndex])
-                  }
-                >
-                  <IoPencil size={16} fill="#2A2D31" />
-                </div>
-              ) : (
-                <div
-                  className={`${styles["StudentViewFlashcard-option"]} cursor-pointer`}
-                  onClick={() => handleClose()}
-                >
-                  <GiReturnArrow size={16} fill="#2A2D31" />
-                </div>
-              )}
-              <div
-                className={`${styles["StudentViewFlashcard-option"]} cursor-pointer`}
-                onClick={() =>
-                  handleDeleteOpen(allFlashcards[currentFlashcardIndex])
-                }
-              >
-                <FaRegTrashAlt size={16} fill="#CC5200" />
-              </div> */}
-
+                {custom && (
+                  <>
+                    {!enableEdit ? (
+                      <div
+                        className={`${styles["StudentViewFlashcard-option"]} cursor-pointer`}
+                        onClick={() =>
+                          handleEdit(allFlashcards[currentFlashcardIndex])
+                        }
+                      >
+                        <IoPencil size={16} fill="#2A2D31" />
+                      </div>
+                    ) : (
+                      <div
+                        className={`${styles["StudentViewFlashcard-option"]} cursor-pointer`}
+                        onClick={() => handleClose()}
+                      >
+                        <GiReturnArrow size={16} fill="#2A2D31" />
+                      </div>
+                    )}
+                  </>
+                )}
                 <div
                   className={`${styles["StudentViewFlashcard-option"]} cursor-pointer`}
                   onClick={() =>
                     handleDeleteOpen(allFlashcards[currentFlashcardIndex])
                   }
+                >
+                  <FaRegTrashAlt size={16} fill="#CC5200" />
+                </div>
+
+                <div
+                  className={`${styles["StudentViewFlashcard-option"]} cursor-pointer`}
+                  // onClick={() =>
+                  //   handleDeleteOpen(allFlashcards[currentFlashcardIndex])
+                  // }
                 >
                   <BsBookmark size={16} fill="#1D1F22" />
                 </div>
@@ -147,11 +152,13 @@ const StudentViewFlashcard: React.FC<StudentViewFlashcardProps> = ({
                   <MdOutlineZoomOutMap size={16} fill="#1D1F22" />
                 </div>
               </div>
-              <div className={styles["StudentViewFlashcard-mainHead-right"]}>
-                <Button className="primary-lessHeight">
-                  {localeButtons.BUTTON_SKIP_CARD}
-                </Button>
-              </div>
+              {!custom && (
+                <div className={styles["StudentViewFlashcard-mainHead-right"]}>
+                  <Button className="primary-lessHeight">
+                    {localeButtons.BUTTON_SKIP_CARD}
+                  </Button>
+                </div>
+              )}
             </div>
 
             <div className={styles["StudentViewFlashcard-body"]}>
@@ -213,7 +220,7 @@ const StudentViewFlashcard: React.FC<StudentViewFlashcardProps> = ({
                   )}
                 </div>
                 <div className={styles["StudentViewFlashcard-section"]}>
-                  {!revealAnswer ? (
+                  {!custom && !revealAnswer ? (
                     <Button
                       type="button"
                       className={"primaryActive"}

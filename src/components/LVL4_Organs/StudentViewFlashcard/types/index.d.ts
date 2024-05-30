@@ -37,6 +37,7 @@ export type StudentViewFlashcardProps = {
     undefined
   >;
   revealAnswer: boolean;
+  custom: boolean;
   setRevealAnswer: SetStateAction;
   mode: "free" | "test" | "exam";
   handleRatingChange: (data: number) => void;

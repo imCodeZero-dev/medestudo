@@ -96,7 +96,7 @@ const CustomDeckDetails = ({}: CustomDeckDetailsProps) => {
 
   const navigateToViewFlashcard = (deck: any) => {
     console.log("navigateToViewFlashcard", deck);
-    navigate(`/student/flashcard/deck/flashcard/${deck?._id}`, {
+    navigate(`/student/flashcard/deck/flashcard/custom`, {
       state: { ...deck, mode },
     });
   };
@@ -104,6 +104,13 @@ const CustomDeckDetails = ({}: CustomDeckDetailsProps) => {
   const navigateToCreateFlashcard = (deck: any) => {
     // console.log("navigateToCreateFlashcard", deck);
     navigate("/student/classes/custom/flashcard", { state: deck });
+  };
+
+  const navigateToViewFlashcardCustom = (deck: any) => {
+    console.log("navigateToViewFlashcard", deck);
+    navigate(`/student/flashcard/deck/flashcard/combine`, {
+      state: { ids: deck, mode },
+    });
   };
 
   return (
@@ -144,6 +151,7 @@ const CustomDeckDetails = ({}: CustomDeckDetailsProps) => {
                   <Button
                     className="primaryRounded"
                     rightIcon={<BiChevronRight size={24} />}
+                    onClick={() => navigateToViewFlashcardCustom(selectedDecks)}
                   >
                     {localeButtons.BUTTON_START_STUDYING}
                   </Button>
@@ -268,11 +276,7 @@ const CustomDeckDetails = ({}: CustomDeckDetailsProps) => {
                               </>
                             )}
                           />
-                          <div
-                            onClick={() =>
-                              navigateToViewFlashcard(classDecks[0])
-                            }
-                          >
+                          <div>
                             <Text className={styles.deckName}>
                               {deck?.title}
                             </Text>
@@ -298,6 +302,7 @@ const CustomDeckDetails = ({}: CustomDeckDetailsProps) => {
                             size={32}
                             color="#FF900E"
                             className="cursor-pointer"
+                            onClick={() => navigateToViewFlashcard(deck)}
                           />
                           {/* <div
                             className="flex items-center space-x-1 cursor-pointer"
