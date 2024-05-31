@@ -64,28 +64,28 @@ const StudentCustomClasses = ({}: StudentCustomClassesProps) => {
         {viewClass && (
           <div className={styles["StudentCustomClasses-main"]}>
             <div className={styles["StudentCustomClasses-head"]}>
-              <ModeDropdown setMode={setModeType} mode={modeType} />
-              <div>
+              {/* <ModeDropdown setMode={setModeType} mode={modeType} /> */}
+              {/* <div>
                 <Button
                   rightIcon={<FaChevronRight />}
                   className="yellowButton-lessHeight"
                 >
                   {localeButtons?.BUTTON_START_STUDYING}
                 </Button>
-              </div>
+              </div> */}
             </div>
             {customClasses?.slice(0, 8)?.map((data: any, i: number) => (
-              <ExpandableFlashcard
-                custom
-                control={control}
+              <DashboardFlashcard
+                // custom
+                // control={control}
                 key={data?._id}
                 data={data}
                 // play
-                getDetails={getDetails}
+                getDetailsCustom={getDetails}
                 openDeleteModal={openDeleteModal}
-                onCheckboxChange={handleCheckboxChange}
-                handleCheckboxDecks={handleCheckboxDecks}
-                selectedDecks={selectedDecks}
+                // onCheckboxChange={handleCheckboxChange}
+                // handleCheckboxDecks={handleCheckboxDecks}
+                // selectedDecks={selectedDecks}
               />
             ))}
           </div>

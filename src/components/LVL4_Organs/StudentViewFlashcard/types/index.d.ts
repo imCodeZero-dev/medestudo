@@ -9,25 +9,23 @@ import { SetStateAction } from "react";
 
 export type StudentViewFlashcardProps = {
   loading: boolean;
-  editLoading: boolean;
+  editLoading?: boolean;
   currentFlashcardIndex: number;
-  // handleSubmit: any;
-  // onSubmit: (data: any) => void;
-  // setCreateFlashcard: (data: boolean) => void;
+
   setValue: any;
   control: Control<any>;
-  tags: string[];
+  tags?: string[];
   allTags: string[];
   allFlashcards: string[];
   handleNextFlashcard: () => void;
   handlePreviousFlashcard: () => void;
-  handleDeleteOpen: (data: any) => void;
-  handleEditOpen: (data: any) => void;
-  handleEditClose: () => void;
-  enableEdit: boolean;
-  deckDetails: DeckDetailType;
+  handleDeleteOpen?: (data: any) => void;
+  handleEditOpen?: (data: any) => void;
+  handleEditClose?: () => void;
+  enableEdit?: boolean;
+  deckDetails?: DeckDetailType;
 
-  onSubmitEdit: (data: any) => Promise<void>;
+  onSubmitEdit?: (data?: any) => Promise<void>;
   handleSubmit: UseFormHandleSubmit<
     {
       question: string;
@@ -36,10 +34,11 @@ export type StudentViewFlashcardProps = {
     },
     undefined
   >;
-  revealAnswer: boolean;
-  custom: boolean;
-  setRevealAnswer: SetStateAction;
-  mode: "free" | "test" | "exam";
-  handleRatingChange: (data: number) => void;
+  revealAnswer?: boolean;
+  custom?: boolean;
+  setRevealAnswer?: SetStateAction;
+  mode?: "free" | "test" | "exam";
+  handleRatingChange?: (data: number) => void;
   handleViewCardModalOpen: () => void;
+  toggleBookmark: (data: any) => void;
 };

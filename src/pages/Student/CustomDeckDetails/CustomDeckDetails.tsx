@@ -148,13 +148,13 @@ const CustomDeckDetails = ({}: CustomDeckDetailsProps) => {
                       </div>
                     </div>
                   </div>
-                  <Button
+                  {/* <Button
                     className="primaryRounded"
                     rightIcon={<BiChevronRight size={24} />}
                     onClick={() => navigateToViewFlashcardCustom(selectedDecks)}
                   >
                     {localeButtons.BUTTON_START_STUDYING}
-                  </Button>
+                  </Button> */}
                   <div className={styles["estTimeDiv"]}></div>
                 </div>
               </div>
@@ -197,7 +197,7 @@ const CustomDeckDetails = ({}: CustomDeckDetailsProps) => {
             </div>
             <div className={styles["CustomDeckDetails-actions"]}>
               <div className={styles["CustomDeckDetails-actions-left"]}>
-                <Controller
+                {/* <Controller
                   name={`customSelect`}
                   control={control}
                   render={({
@@ -225,7 +225,7 @@ const CustomDeckDetails = ({}: CustomDeckDetailsProps) => {
                 />
                 <Text className={styles["allLabel"]}>
                   {`${selectedDecks?.length} ${localeText.TEXT_SELECTED_OF} ${allCustomDecks?.length}`}
-                </Text>
+                </Text> */}
               </div>
               <div
                 className="flex items-center space-x-1 cursor-pointer"
@@ -252,7 +252,7 @@ const CustomDeckDetails = ({}: CustomDeckDetailsProps) => {
                       <div key={deck?._id} className={styles["deckBody"]}>
                         <div className={styles["deckBody-left"]}>
                           {/* <SiRundeck /> */}
-                          <Controller
+                          {/* <Controller
                             name={`class-${deck._id}`}
                             control={control}
                             render={({
@@ -275,7 +275,7 @@ const CustomDeckDetails = ({}: CustomDeckDetailsProps) => {
                                 />
                               </>
                             )}
-                          />
+                          /> */}
                           <div>
                             <Text className={styles.deckName}>
                               {deck?.title}

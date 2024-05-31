@@ -89,6 +89,9 @@ const StudentCustomClassesServices = React.lazy(
 const CustomDeckDetailsServices = React.lazy(
   () => import("../pages/Student/CustomDeckDetails/CustomDeckDetails")
 );
+const StudentFavoritesServices = React.lazy(
+  () => import("../pages/Student/StudentFavorites/StudentFavorites")
+);
 const App = React.lazy(() => import("../App"));
 
 const ProjectRoutes = () => {
@@ -215,6 +218,10 @@ const ProjectRoutes = () => {
             <Route
               path="/student/classes/custom/flashcard"
               element={<CreateCustomFlashcardServices />}
+            />
+            <Route
+              path="/student/flashcards/favorite"
+              element={<StudentFavoritesServices />}
             />
 
             <Route path="*" element={<NotFound />} />

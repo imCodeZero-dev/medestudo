@@ -41,6 +41,8 @@ export const SUCCESS = {
     SUCCESS_GENERAL_INFO_UPDATED: "General Info Updated Successfully",
     SUCCESS_PROFILE_PICTURE_UPDATED: "Profile Picture Updated Successfully",
     SUCCESS_RATE: "Rate successfully",
+    SUCCESS_BOOKMARK_ADDED: "Bookmark added successfully",
+    SUCCESS_BOOKMARK_REMOVED: "Bookmark removed successfully",
   },
   es: {
     SUCCESS_PROFESSOR_CREATED: "Professor Created Successfully",
@@ -85,5 +87,7 @@ export const SUCCESS = {
     SUCCESS_GENERAL_INFO_UPDATED: "General Info Updated Successfully",
     SUCCESS_PROFILE_PICTURE_UPDATED: "Profile Picture Updated Successfully",
     SUCCESS_RATE: "Rate successfully",
+    SUCCESS_BOOKMARK_ADDED: "Bookmark added successfully",
+    SUCCESS_BOOKMARK_REMOVED: "Bookmark removed successfully",
   },
 };

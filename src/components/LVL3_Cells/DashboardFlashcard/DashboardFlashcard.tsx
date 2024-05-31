@@ -12,6 +12,7 @@ import { Flashcard } from "../../../utils/constants/DataTypes";
 import { TiDeleteOutline } from "react-icons/ti";
 import { useDropdown } from "../../../utils/hooks/helper";
 import { examCardData } from "../DashboardExams/@types";
+import { handleImageURL } from "../../../utils/constants/constants";
 
 export const DropdownMenu: React.FC<{
   openDeleteModal: ((data: string) => void) | undefined;
@@ -43,6 +44,7 @@ const DashboardFlashcard: React.FC<DashboardFlashcardProps> = ({
   minView,
   getDetails,
   openDeleteModal,
+  getDetailsCustom,
 }) => {
   // const { localeText, localeDropdowns } = useLocale();
   const { localeText } = useLocale();
@@ -52,10 +54,22 @@ const DashboardFlashcard: React.FC<DashboardFlashcardProps> = ({
     <div className={styles["DashboardFlashcard"]}>
       <div
         className={styles["DashboardFlashcard-left"]}
-        onClick={() => getDetails && getDetails(data?._id)}
+        onClick={() =>
+          getDetails
+            ? getDetails(data?._id)
+            : getDetailsCustom && getDetailsCustom(data)
+        }
       >
-        <img className={styles["image"]} src={data?.deckId?.image} />
-        <Text className={styles["title"]}>{data?.deckId?.name}</Text>
+        <img
+          className={styles["image"]}
+          src={handleImageURL(data?.deckId?.image)}
+        />
+        {data?.title ? (
+          <Text className={styles["title"]}>{data?.title}</Text>
+        ) : (
+          <Text className={styles["title"]}>{data?.deckId?.name}</Text>
+        )}
+
         {!minView && (
           <Text className={styles["date"]}>
             {" "}

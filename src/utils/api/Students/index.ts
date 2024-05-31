@@ -214,15 +214,35 @@ export const editCustomFlashcardApi = async (
   return response;
 };
 
-
 export const deleteCustomFlashcardApi = async (
   flashCardId: string | null,
   token: string
 ) => {
-  console.log("deleteCustomFlashcardApi", flashCardId);
+  // console.log("deleteCustomFlashcardApi", flashCardId);
   const response = await apiRequest({
     method: "Delete",
     url: `/user/deleteFlashCard/${flashCardId}`,
+    token,
+  });
+  return response;
+};
+
+export const toogleBookmarkApi = async (data: any, token: string) => {
+  // console.log("toogleBookmarkApi", data);
+  const response = await apiRequest({
+    method: "Post",
+    url: `/user/bookmark`,
+    token,
+    data,
+  });
+  return response;
+};
+
+export const getBookmarkCardsApi = async (studentId: any, token: string) => {
+  // console.log("toogleBookmarkApi", studentId);
+  const response = await apiRequest({
+    method: "Get",
+    url: `/user/getStudentsBookmarks/${studentId}`,
     token,
   });
   return response;

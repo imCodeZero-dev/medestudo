@@ -43,6 +43,7 @@ import {
   getAllCustomCardsByIdApi,
   provideRateToCardApi,
   startStudyingApi,
+  toogleBookmarkApi,
 } from "../../../../utils/api/Students";
 
 export const useStudentAllFlashCards = () => {
@@ -87,6 +88,7 @@ export const useStudentAllFlashCards = () => {
 
   const tags = watch("tags");
 
+  const [bookmarkLoading, setBookmarkLoading] = useState<boolean>(false);
   const [deleteLoading, setDeleteLoading] = useState<boolean>(false);
   const [openViewCardModal, setOpenViewCardModal] = useState<boolean>(false);
   const [allSetModal, setAllSetModal] = useState<boolean>(false);
@@ -344,6 +346,28 @@ export const useStudentAllFlashCards = () => {
       // navigate(-1);
     }
   };
+  const toggleBookmark = async (data: any) => {
+    console.log("toggleBookmark", data);
+    const params = {
+      studentId: cookies?.student?.student?._id,
+      cardId: data?._id,
+    };
+    try {
+      setBookmarkLoading(true);
+      let response;
+      response = await toogleBookmarkApi(params, cookies?.student?.token);
+      console.log("response", response);
+      showSuccessToast(localeSuccess?.SUCCESS_BOOKMARK_ADDED);
+      refetchAllFlashcards();
+      // navigate(-1);
+    } catch (error: any) {
+      console.log("error", error);
+      showErrorToast(error?.response?.data?.message);
+    } finally {
+      setBookmarkLoading(false);
+      // handleDeleteClose();
+    }
+  };
 
   useEffect(() => {
     // Set initial values when component mounts or currentFlashcardIndex changes
@@ -413,5 +437,6 @@ export const useStudentAllFlashCards = () => {
     allSetModal,
     handleAllSetModalClose,
     custom,
+    toggleBookmark,
   };
 };

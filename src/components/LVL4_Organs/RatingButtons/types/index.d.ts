@@ -1,4 +1,4 @@
 export type RatingButtonsProps = {
   totalRatings: number;
-  onRatingChange: (rating: number) => void;
+  onRatingChange?: (rating: number) => void;
 };

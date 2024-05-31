@@ -77,12 +77,12 @@ const HomeLayout = ({ children, createButton }: HomeLayoutProps) => {
         },
         {
           title: localeLables?.LABEL_REVIEW_DECK,
-          url: "/student/flashcards",
+          url: "/student/flashcards/review",
           image: <BsQuestionCircle />,
         },
         {
           title: localeLables?.LABEL_FAVORITE,
-          url: "/student/flashcards",
+          url: "/student/flashcards/favorite",
           image: <IoBookmarkOutline />,
         },
       ],

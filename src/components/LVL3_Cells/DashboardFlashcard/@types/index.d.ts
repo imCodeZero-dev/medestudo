@@ -6,6 +6,7 @@ export interface DashboardFlashcardProps {
   play?: boolean;
   minView?: boolean;
   getDetails?: (data: string) => void;
+  getDetailsCustom?: (data: any) => void;
   openDeleteModal?: (data: string) => void;
 }
 

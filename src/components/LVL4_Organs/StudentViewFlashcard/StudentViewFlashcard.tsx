@@ -46,19 +46,20 @@ const StudentViewFlashcard: React.FC<StudentViewFlashcardProps> = ({
   handleRatingChange,
   handleViewCardModalOpen,
   custom,
+  toggleBookmark,
 }) => {
   const { localeTitles, localePlaceholders, localeButtons, localeText } =
     useLocale();
-  // console.log("allFlashcards", allFlashcards);
+  console.log("allFlashcards", allFlashcards);
   const filteredTags = allTags?.map((item: any) => item.title);
   const [key, setKey] = useState(0);
 
   const handleEdit = (data: any) => {
-    handleEditOpen(data);
+    handleEditOpen && handleEditOpen(data);
     setKey((prevKey) => prevKey + 1);
   };
   const handleClose = () => {
-    handleEditClose();
+    handleEditClose && handleEditClose();
     setKey((prevKey) => prevKey + 1);
   };
   // console.log("filteredTags", filteredTags);
@@ -69,7 +70,10 @@ const StudentViewFlashcard: React.FC<StudentViewFlashcardProps> = ({
           <Loader />
         </div>
       ) : (
-        <form onSubmit={handleSubmit(onSubmitEdit)} className={styles["form"]}>
+        <form
+          onSubmit={onSubmitEdit && handleSubmit(onSubmitEdit)}
+          className={styles["form"]}
+        >
           <div className={styles["StudentViewFlashcard-head"]}>
             <div className={styles["headLeft"]}>
               <Text className={styles.title}>
@@ -128,23 +132,30 @@ const StudentViewFlashcard: React.FC<StudentViewFlashcardProps> = ({
                     )}
                   </>
                 )}
-                <div
-                  className={`${styles["StudentViewFlashcard-option"]} cursor-pointer`}
-                  onClick={() =>
-                    handleDeleteOpen(allFlashcards[currentFlashcardIndex])
-                  }
-                >
-                  <FaRegTrashAlt size={16} fill="#CC5200" />
-                </div>
+                {custom && (
+                  <>
+                    <div
+                      className={`${styles["StudentViewFlashcard-option"]} cursor-pointer`}
+                      onClick={() =>
+                        handleDeleteOpen &&
+                        handleDeleteOpen(allFlashcards[currentFlashcardIndex])
+                      }
+                    >
+                      <FaRegTrashAlt size={16} fill="#CC5200" />
+                    </div>
+                  </>
+                )}
 
-                <div
-                  className={`${styles["StudentViewFlashcard-option"]} cursor-pointer`}
-                  // onClick={() =>
-                  //   handleDeleteOpen(allFlashcards[currentFlashcardIndex])
-                  // }
-                >
-                  <BsBookmark size={16} fill="#1D1F22" />
-                </div>
+                {!custom && (
+                  <div
+                    className={`${styles["StudentViewFlashcard-option"]} cursor-pointer`}
+                    onClick={() =>
+                      toggleBookmark(allFlashcards[currentFlashcardIndex])
+                    }
+                  >
+                    <BsBookmark size={16} fill="#1D1F22" />
+                  </div>
+                )}
                 <div
                   className={`${styles["StudentViewFlashcard-option"]} cursor-pointer`}
                   onClick={() => handleViewCardModalOpen()}
@@ -152,13 +163,13 @@ const StudentViewFlashcard: React.FC<StudentViewFlashcardProps> = ({
                   <MdOutlineZoomOutMap size={16} fill="#1D1F22" />
                 </div>
               </div>
-              {!custom && (
+              {/* {!custom && (
                 <div className={styles["StudentViewFlashcard-mainHead-right"]}>
                   <Button className="primary-lessHeight">
                     {localeButtons.BUTTON_SKIP_CARD}
                   </Button>
                 </div>
-              )}
+              )} */}
             </div>
 
             <div className={styles["StudentViewFlashcard-body"]}>

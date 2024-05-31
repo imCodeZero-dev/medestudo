@@ -77,6 +77,7 @@ const StudentAllFlashCards = ({}: StudentAllFlashCardsProps) => {
     allSetModal,
     handleAllSetModalClose,
     custom,
+    toggleBookmark,
   } = useStudentAllFlashCards();
   // console.log("allDecks", allDecks);
   const navigate = useNavigate();
@@ -125,101 +126,129 @@ const StudentAllFlashCards = ({}: StudentAllFlashCardsProps) => {
             revealAnswer={revealAnswer}
             setRevealAnswer={setRevealAnswer}
             custom={custom}
+            toggleBookmark={toggleBookmark}
           />
         </div>
         {/* ))} */}
 
-        <div className={styles["StudentAllFlashCards-right"]}>
-          <div className={styles["right-section-main"]}>
-            <div className="mb-6">
-              <div className="flex space-x-3 mb-4">
-                <img
-                  className={styles["classImg"]}
-                  src={dummyFlashcardDetails[0]?.image}
+        {custom ? (
+          <div className={styles["StudentAllFlashCards-right"]}>
+            <div className={styles["right-section-main"]}>
+              <div className="flex justify-between items-center">
+                <Text className={styles["sectionHeading"]}>
+                  {localeTitles?.TITLE_RECENT_FLASHCARDS_CREATED}
+                </Text>
+                <Text
+                  className={styles["viewMore"]}
+                  onClick={() => navigate("/professor/classes")}
+                >
+                  {localeTitles?.TITLE_VIEW_MORE}
+                </Text>
+              </div>
+
+              {allClasses?.slice(0, 8)?.map((data: Class, i: number) => (
+                <DashboardFlashcard
+                  key={i}
+                  data={data}
+                  play
+                  minView
+                  getDetails={getDetails}
                 />
-                <div className="flex flex-col justify-center">
-                  <Text className={styles["classTitle"]}>
-                    {dummyFlashcardDetails[0]?.title}
-                  </Text>
-                  <div className="flex items-center space-x-1">
-                    <IoIosCheckmarkCircle fill="#1DB954" />
-                    <Text className={styles.certifiedText}>
-                      {localeLables.LABEL_MEDESTUDIO_CERTIFIED}
+              ))}
+            </div>
+          </div>
+        ) : (
+          <div className={styles["StudentAllFlashCards-right"]}>
+            <div className={styles["right-section-main"]}>
+              <div className="mb-6">
+                <div className="flex space-x-3 mb-4">
+                  <img
+                    className={styles["classImg"]}
+                    src={dummyFlashcardDetails[0]?.image}
+                  />
+                  <div className="flex flex-col justify-center">
+                    <Text className={styles["classTitle"]}>
+                      {dummyFlashcardDetails[0]?.title}
                     </Text>
+                    <div className="flex items-center space-x-1">
+                      <IoIosCheckmarkCircle fill="#1DB954" />
+                      <Text className={styles.certifiedText}>
+                        {localeLables.LABEL_MEDESTUDIO_CERTIFIED}
+                      </Text>
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <div className="flex">
-                <ButtonGroup
-                  variant="contained"
-                  aria-label="Basic button group"
-                >
-                  <Button
-                    className={
-                      styles[
-                        activeSection === "thisRound"
-                          ? "yellowButton"
-                          : "secondaryBtn"
-                      ]
-                    }
-                    onClick={() => setActiveSection("thisRound")}
+                <div className="flex">
+                  <ButtonGroup
+                    variant="contained"
+                    aria-label="Basic button group"
                   >
-                    {localeButtons.BUTTON_THIS_ROUND}
-                  </Button>
-                  <Button
-                    className={
-                      styles[
-                        activeSection === "overall"
-                          ? "yellowButton"
-                          : "secondaryBtn"
-                      ]
-                    }
-                    onClick={() => setActiveSection("overall")}
-                  >
-                    {localeButtons.BUTTON_OVERALL}
-                  </Button>
-                </ButtonGroup>
+                    <Button
+                      className={
+                        styles[
+                          activeSection === "thisRound"
+                            ? "yellowButton"
+                            : "secondaryBtn"
+                        ]
+                      }
+                      onClick={() => setActiveSection("thisRound")}
+                    >
+                      {localeButtons.BUTTON_THIS_ROUND}
+                    </Button>
+                    <Button
+                      className={
+                        styles[
+                          activeSection === "overall"
+                            ? "yellowButton"
+                            : "secondaryBtn"
+                        ]
+                      }
+                      onClick={() => setActiveSection("overall")}
+                    >
+                      {localeButtons.BUTTON_OVERALL}
+                    </Button>
+                  </ButtonGroup>
+                </div>
               </div>
+              {activeSection === "thisRound" ? (
+                <>
+                  <div className={styles["guageBox"]}>
+                    <GuageChart colors={["#FF900E", "#ca6b89", "#9747FF"]} />
+                  </div>
+
+                  <div>
+                    <ProgressIndicator
+                      totalSteps={totalSteps}
+                      currentStep={currentStep}
+                    />
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className={styles["circularProgress"]}>
+                    <CircularProgressChart
+                      percentage={85}
+                      size={177}
+                      strokeWidth={16}
+                    />
+                  </div>
+                  <RatingBars
+                    ratings={ratings}
+                    heading={localeTitles.TITLE_CONFIDENCE_GAINED}
+                  />
+                </>
+              )}
             </div>
-            {activeSection === "thisRound" ? (
-              <>
-                <div className={styles["guageBox"]}>
-                  <GuageChart colors={["#FF900E", "#ca6b89", "#9747FF"]} />
-                </div>
-
-                <div>
-                  <ProgressIndicator
-                    totalSteps={totalSteps}
-                    currentStep={currentStep}
-                  />
-                </div>
-              </>
-            ) : (
-              <>
-                <div className={styles["circularProgress"]}>
-                  <CircularProgressChart
-                    percentage={85}
-                    size={177}
-                    strokeWidth={16}
-                  />
-                </div>
-                <RatingBars
-                  ratings={ratings}
-                  heading={localeTitles.TITLE_CONFIDENCE_GAINED}
-                />
-              </>
-            )}
+            <div className="flex flex-col items-center">
+              <Text className={styles["thisRound"]}>
+                {localeText.TEXT_THIS_ROUND}
+              </Text>
+              {/* <Text className={styles["timer"]}> {formatTime(seconds)}</Text> */}
+              <TimerComponent />
+            </div>
           </div>
-          <div className="flex flex-col items-center">
-            <Text className={styles["thisRound"]}>
-              {localeText.TEXT_THIS_ROUND}
-            </Text>
-            {/* <Text className={styles["timer"]}> {formatTime(seconds)}</Text> */}
-            <TimerComponent />
-          </div>
-        </div>
-
+        )}
         <ConfirmationModal
           open={deleteModal}
           cancelButtonText={localeButtons?.BUTTON_CANCEL}

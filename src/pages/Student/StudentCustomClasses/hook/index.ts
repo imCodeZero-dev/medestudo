@@ -25,6 +25,7 @@ import {
 import { createInstituteApi } from "../../../../utils/api/admin";
 import {
   createCustomClassApi,
+  deleteCustomClassApi,
   getAllCustomClassesApi,
 } from "../../../../utils/api/Students";
 import { getDashboardDataApi } from "../../../../utils/api/professors";
@@ -144,7 +145,25 @@ export const useStudentCustomClasses = () => {
       handleCloseCreate();
     }
   };
-  const onDeleteConfirm = async () => {};
+  const onDeleteConfirm = async () => {
+    try {
+      setDeleteLoading(true);
+      let response;
+      response = await deleteCustomClassApi(
+        selecteClassId as string,
+        cookies?.student?.token
+      );
+      console.log("response", response);
+      refetchCustomClasses();
+      showSuccessToast(localeSuccess?.SUCCESS_CLASS_DELETED);
+    } catch (error: any) {
+      console.log("error", error);
+      showErrorToast(error?.response?.data?.message);
+    } finally {
+      setDeleteLoading(false);
+      handleDeleteClose();
+    }
+  };
 
   const getDetails = (data: any) => {
     navigate(`/student/flashcard/custom/${data?._id}`, {

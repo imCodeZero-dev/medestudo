@@ -14,10 +14,9 @@ import RatingButtons from "../RatingButtons/RatingButtons";
 const ViewCardModal = ({
   open,
   handleClose,
-  // handleSubmit,
-  // onSubmit,
+
   control,
-  // loading,
+
   currentFlashcardIndex,
   handlePreviousFlashcard,
   revealAnswer,
@@ -37,7 +36,12 @@ const ViewCardModal = ({
   } = useLocale();
   return (
     <div className={styles["ViewCardModal"]}>
-      <CustomModal open={open}  onClose={handleClose} width={"80vw"} title="Flashcard">
+      <CustomModal
+        open={open}
+        onClose={handleClose}
+        width={"80vw"}
+        title="Flashcard"
+      >
         <div className={styles["ViewCardModal-body"]}>
           <BiSolidLeftArrow
             onClick={
@@ -48,9 +52,7 @@ const ViewCardModal = ({
             className="cursor-pointer"
           />
           <div className={styles["ViewCardModal-body-main"]}>
-            <div
-              className={`${styles["ViewCardModal-section"]} border-b pb-2`}
-            >
+            <div className={`${styles["ViewCardModal-section"]} border-b pb-2`}>
               <Text className={styles.heading2}>Q</Text>
               <QuillEditor
                 // key={key}
@@ -141,21 +143,23 @@ const ViewCardModal = ({
             </div>
           </div>
 
-          <div>
-            <BiSolidRightArrow
-              onClick={
-                currentFlashcardIndex !== allFlashcards?.length - 1 &&
-                (handleNextFlashcard as any)
-              }
-              size={42}
-              fill={
-                currentFlashcardIndex !== allFlashcards?.length - 1
-                  ? "#3359E4"
-                  : "gray"
-              }
-              className="cursor-pointer"
-            />
-          </div>
+          {allFlashcards && (
+            <div>
+              <BiSolidRightArrow
+                onClick={
+                  currentFlashcardIndex !== allFlashcards?.length - 1 &&
+                  (handleNextFlashcard as any)
+                }
+                size={42}
+                fill={
+                  currentFlashcardIndex !== allFlashcards?.length - 1
+                    ? "#3359E4"
+                    : "gray"
+                }
+                className="cursor-pointer"
+              />
+            </div>
+          )}
         </div>
       </CustomModal>
     </div>
