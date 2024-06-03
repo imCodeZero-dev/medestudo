@@ -1,0 +1,87 @@
+.StudentReviewDecks {
+  display: flex;
+  max-height: 88vh;
+  overflow-y: auto;
+}
+.StudentReviewDecks-main {
+  background-color: #f8fbff;
+  flex: 0 0 65%;
+  padding: 32px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+
+.StudentReviewDecks-right {
+  background-color: inherit;
+  justify-content: space-between;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 0;
+}
+
+.right-section-main {
+  padding: 24px;
+}
+
+.guageBox {
+  background-color: white;
+  height: 334px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+}
+
+.yellowButton {
+  width: 183.5px;
+  height: 44px;
+  border-radius: 8px;
+  background: #ff900e !important;
+  color: white;
+  font-weight: 400;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.secondaryBtn {
+  height: 44px;
+  width: 183.5px;
+  border-radius: 8px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  background-color: white !important;
+  color: #a2a9b3 !important;
+  border: 1px solid #d0d5dd !important;
+}
+
+
+
+
+.sectionHeading {
+  /* font-family: Inter; */
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 28px;
+  letter-spacing: 0em;
+  text-align: left;
+}
+
+.viewMore {
+   /* font-family: Poppins; */
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 18px;
+  /* text-align: left; */
+  text-transform: uppercase;
+  border-bottom: 1px solid #383c41;
+  cursor: pointer;
+  /* text-underline-offset: #383c41; */
+}

@@ -34,6 +34,7 @@ import ViewCardModal from "../../../components/LVL4_Organs/ViewCardModal/ViewCar
 import dayjs from "dayjs";
 import TimerComponent from "../../../components/LVL4_Organs/TimerComponent/TimerComponent";
 import AllSetModal from "../../../components/LVL4_Organs/CheckpointModal/AllSetModal";
+import CheckpointModal from "../../../components/LVL4_Organs/CheckpointModal/CheckpointModal";
 
 const StudentAllFlashCards = ({}: StudentAllFlashCardsProps) => {
   const { localeTitles, localeButtons, localeLables } = useLocale();
@@ -78,6 +79,15 @@ const StudentAllFlashCards = ({}: StudentAllFlashCardsProps) => {
     handleAllSetModalClose,
     custom,
     toggleBookmark,
+    flashcards,
+    currentBatchIndex,
+    checkpointModal,
+    handleCheckpointModalClose,
+    loadMoreFlashcards,
+    getTotalTime,
+    TotalTime,
+    stopTimer,
+    navigateToDashboard,
   } = useStudentAllFlashCards();
   // console.log("allDecks", allDecks);
   const navigate = useNavigate();
@@ -86,7 +96,7 @@ const StudentAllFlashCards = ({}: StudentAllFlashCardsProps) => {
   const [currentStep, setCurrentStep] = useState(2); // Example current step
   const totalSteps = allFlashcards?.length;
   const [revealAnswer, setRevealAnswer] = useState(false);
-  const [seconds, setSeconds] = useState(0);
+  // const [seconds, setSeconds] = useState(0);
   const ratings = [
     { label: "New", value: 15, maxValue: 20 },
     { label: "1", value: 3, maxValue: 20 },
@@ -106,7 +116,7 @@ const StudentAllFlashCards = ({}: StudentAllFlashCardsProps) => {
             mode={mode}
             handleViewCardModalOpen={handleViewCardModalOpen}
             currentFlashcardIndex={currentFlashcardIndex}
-            allFlashcards={allFlashcards}
+            allFlashcards={flashcards}
             // allFlashCards={allFlashCards}
             deckDetails={deckDetails}
             control={control}
@@ -219,8 +229,8 @@ const StudentAllFlashCards = ({}: StudentAllFlashCardsProps) => {
 
                   <div>
                     <ProgressIndicator
-                      totalSteps={totalSteps}
-                      currentStep={currentStep}
+                      totalSteps={flashcards?.length}
+                      currentStep={currentFlashcardIndex}
                     />
                   </div>
                 </>
@@ -245,7 +255,10 @@ const StudentAllFlashCards = ({}: StudentAllFlashCardsProps) => {
                 {localeText.TEXT_THIS_ROUND}
               </Text>
               {/* <Text className={styles["timer"]}> {formatTime(seconds)}</Text> */}
-              <TimerComponent />
+              <TimerComponent
+                getTotaltime={getTotalTime}
+                stopTimer={stopTimer}
+              />
             </div>
           </div>
         )}
@@ -261,6 +274,15 @@ const StudentAllFlashCards = ({}: StudentAllFlashCardsProps) => {
         />
 
         <AllSetModal handleClose={handleAllSetModalClose} open={allSetModal} />
+        <CheckpointModal
+          handleClose={handleCheckpointModalClose}
+          open={checkpointModal}
+          control={control}
+          loading={false}
+          loadMore={loadMoreFlashcards}
+          timeSpent={TotalTime}
+          navigateToDashboard={navigateToDashboard}
+        />
 
         <ViewCardModal
           handleClose={handleViewCardModalClose}

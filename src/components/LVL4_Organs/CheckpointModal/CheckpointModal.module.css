@@ -30,6 +30,38 @@
 .img {
   width: 219px;
   height: 219px;
-  justify-content: center;text-align: center;
+  justify-content: center;
+  text-align: center;
   margin: auto;
+}
+
+.chartDiv{
+  margin-top: 32px;
+}
+
+.timerSection{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 24px 0;
+}
+
+.timeSpentText {
+  /* //styleName: Caption/Semibold;
+font-family: Poppins; */
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 18px;
+  text-align: left;
+  color: #6f7680;
+}
+.totalTime {
+  /* //styleName: Body Large/Semibold;
+  font-family: Poppins; */
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  text-align: left;
+  color: #1d1f22;
 }

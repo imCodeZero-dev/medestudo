@@ -29,8 +29,10 @@ import { IoBookmarkOutline, IoSettingsOutline } from "react-icons/io5";
 import Input from "../../LVL1_Atoms/Input";
 import { BiSearch } from "react-icons/bi";
 import { useCookies } from "react-cookie";
-import { CiShare2 } from "react-icons/ci";
+import { CiFolderOn, CiShare2 } from "react-icons/ci";
 import { BsQuestionCircle } from "react-icons/bs";
+import { FaRegFileAlt, FaRegFolder } from "react-icons/fa";
+import { AiOutlineFileSync } from "react-icons/ai";
 
 const HomeLayout = ({ children, createButton }: HomeLayoutProps) => {
   const navigate = useNavigate();
@@ -89,18 +91,23 @@ const HomeLayout = ({ children, createButton }: HomeLayoutProps) => {
     },
     {
       title: localeLables?.LABEL_EXAMS,
-      url: "/student/exams",
+      url: "/student/exams/practice",
       image: <IoMdClipboard />,
       submenu: [
         {
-          title: localeLables?.LABEL_ALL_EXAMS,
-          url: "/student/exams",
-          image: <MdOutlineViewCarousel />,
+          title: localeLables?.LABEL_PRACTICE_EXAMS,
+          url: "/student/exams/practice",
+          image: <FaRegFolder />,
         },
         {
-          title: localeLables?.LABEL_CREATE_NEW,
-          url: "/student/exams/new",
-          image: <IoMdAddCircleOutline />,
+          title: localeLables?.LABEL_MOCK_EXAMS,
+          url: "/student/exams/mock",
+          image: <FaRegFileAlt />,
+        },
+        {
+          title: localeLables?.LABEL_ARCHIVE,
+          url: "/student/exams/archive",
+          image: <AiOutlineFileSync />,
         },
       ],
     },

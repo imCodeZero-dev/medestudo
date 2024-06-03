@@ -1,0 +1,72 @@
+.StudentPracticeExams {
+  display: flex;
+  max-height: 88vh;
+  min-height: 88vh;
+
+  overflow-y: auto;
+}
+.StudentPracticeExams-main {
+  background-color: #f8fbff;
+  flex: 0 0 65%;
+  padding: 0 32px;
+  height: 100%;
+}
+
+.StudentPracticeExams-right {
+  background-color: inherit;
+  flex: 1;
+}
+
+.StudentPracticeExams-section {
+  margin: 20px 0;
+}
+
+.sectionHeading {
+  /* font-family: Inter; */
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 28px;
+  letter-spacing: 0em;
+  text-align: left;
+}
+
+.viewMore {
+   /* font-family: Poppins; */
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 18px;
+  /* text-align: left; */
+  text-transform: uppercase;
+  border-bottom: 1px solid #383c41;
+  cursor: pointer;
+  /* text-underline-offset: #383c41; */
+}
+
+.right-section-main {
+  padding: 24px;
+}
+
+.headerText {
+   /* font-family: Poppins; */
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  text-align: left;
+  color: #1d1f22;
+}
+
+.StudentPracticeExams-main-head {
+  margin-top: 16px;
+  border-bottom: 1.5px solid #e8e9ec;
+  padding-bottom: 20px;
+  margin-bottom: 24px;
+}
+
+.label {
+   /* font-family: Poppins; */
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  text-align: left;
+  color: #1d1f22;
+}

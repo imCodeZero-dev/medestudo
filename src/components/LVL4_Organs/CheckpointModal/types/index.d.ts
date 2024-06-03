@@ -4,15 +4,13 @@ export type CheckpointModalProps = {
   open: boolean;
   loading: boolean;
   handleClose: () => void;
-  handleSubmit: any;
-  onSubmit: (data: any) => void;
+  handleSubmit?: any;
+  loadMore: (data?: any) => void;
+  navigateToDashboard: () => void;
   control: Control<any>;
-  filteredDecks?: { name: string; _id: string }[];
+  timeSpent?: string | number;
 };
 export type AllSetModalProps = {
   open: boolean;
   handleClose: () => void;
-
-
-
 };

@@ -134,8 +134,27 @@ export const getDecodedText = (data: any) => {
   return textContents;
 };
 
-
- export const constructUrlWithParams = (baseUrl:string, array:string[]) => {
-  const params = array.map(item => `data=${item}`).join('&');
+export const constructUrlWithParams = (baseUrl: string, array: string[]) => {
+  const params = array.map((item) => `data=${item}`).join("&");
   return `${baseUrl}?${params}`;
 };
+
+export function formattedTime(seconds: number) {
+  if (seconds < 60) {
+    return `${seconds} ${seconds === 1 ? "sec" : "secs"}`;
+  }
+
+  const hours = Math.floor(seconds / 3600);
+  const minutes = Math.floor((seconds % 3600) / 60);
+  const remainingSeconds = seconds % 60;
+
+  const hourStr = hours > 0 ? `${hours} ${hours > 1 ? "hours" : "hour"}` : "";
+  const minuteStr =
+    minutes > 0 ? `${minutes} ${minutes > 1 ? "mins" : "min"}` : "";
+  const secondStr =
+    remainingSeconds > 0
+      ? `${remainingSeconds} ${remainingSeconds > 1 ? "secs" : "sec"}`
+      : "";
+
+  return [hourStr, minuteStr, secondStr].filter(Boolean).join(", ");
+}

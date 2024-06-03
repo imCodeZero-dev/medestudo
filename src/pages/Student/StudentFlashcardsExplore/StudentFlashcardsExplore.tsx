@@ -58,7 +58,7 @@ const StudentFlashcardsExplore = ({}: StudentFlashcardsExploreProps) => {
   const navigate = useNavigate();
   const navigateToStudy = (ids: any) => {
     navigate(`/student/flashcard/deck/flashcard/combine`, {
-      state: { ids },
+      state: { ids: ids, mode: modeType },
     });
   };
 

@@ -1,0 +1,32 @@
+.root {
+  background-color: #f5f7fa; /* Background color */
+  border-radius: 8px; /* Rounded corners */
+  padding: 8px;
+  display: inline-flex;
+}
+
+.tab {
+  text-transform: none; /* Disable uppercase transformation */
+  font-weight: 500;
+  min-width: auto;
+  padding: 8px 16px;
+  cursor: pointer;
+  border-radius: 8px;
+  background-color: #f5f7fa; /* Same as root to blend */
+  color: #333;
+  transition: all 0.3s ease;
+}
+
+.tab:not(:last-child) {
+  margin-right: 8px; /* Space between tabs */
+}
+
+.tab:hover {
+  background-color: #e0e0e0; /* Hover color */
+}
+
+.tabSelected {
+  color: #0066cc; /* Selected tab text color */
+  background-color: #fff; /* Selected tab background color */
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Optional shadow for selected tab */
+}

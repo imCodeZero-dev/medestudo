@@ -1,5 +1,3 @@
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import {
@@ -8,21 +6,10 @@ import {
 } from "../../../../config/toastProvider/toastUtils";
 
 import useLocale from "../../../../locales";
-import { passwordRegex } from "../../../../utils/constants/constants";
 import { useCookies } from "react-cookie";
 import { useQuery } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
-import { closeModal } from "../../../../redux/slices/CreateClassModalSlice";
-
-import {
-  createFlashcardApi,
-  deleteFlashcardApi,
-  editFlashcardApi,
-  getAllClassesApi,
-  getAllFlashcardsByIdApi,
-  getClassByIdApi,
-  getDeckDetailsApi,
-} from "../../../../utils/api/professors";
+import { getDeckDetailsApi } from "../../../../utils/api/professors";
 import {
   useLocation,
   useNavigate,
@@ -59,12 +46,8 @@ export const useStudentAllFlashCards = () => {
   const combine = location?.pathname?.includes("combine");
   const custom = location?.pathname?.includes("custom");
   const customId = location?.state?._id;
-  console.log("customVariable", custom, "customId", customId);
 
-  console.log("AllFlashCards mode", mode);
-  console.log("AllFlashCards location", location);
   const deckIds = location?.state?.ids?.map((deck: any) => deck?._id);
-  console.log("deckIds", deckIds);
   const {
     handleSubmit,
     control,
@@ -89,15 +72,23 @@ export const useStudentAllFlashCards = () => {
   const tags = watch("tags");
 
   const [bookmarkLoading, setBookmarkLoading] = useState<boolean>(false);
+  const [stopTimer, setStopTimer] = useState<boolean>(false);
   const [deleteLoading, setDeleteLoading] = useState<boolean>(false);
   const [openViewCardModal, setOpenViewCardModal] = useState<boolean>(false);
   const [allSetModal, setAllSetModal] = useState<boolean>(false);
+  const [checkpointModal, setCheckpointModal] = useState<boolean>(false);
   const [deleteModal, setdeleteModal] = useState<boolean>(false);
   const [enableEdit, setEnableEdit] = useState<boolean>(false);
   const [editLoading, setEditLoading] = useState<boolean>(false);
   const [flashcardData, setFlashcardData] = useState<any>();
   const navigate = useNavigate();
   const [currentFlashcardIndex, setCurrentFlashcardIndex] = useState(0);
+  const [flashcards, setFlashcards] = useState<any>([]);
+  const [currentBatchIndex, setCurrentBatchIndex] = useState(0);
+  const BATCH_SIZE = 10;
+  const [allFlashcardsLoaded, setAllFlashcardsLoaded] = useState(false);
+
+  const [TotalTime, setTotalTime] = useState<number>(0);
 
   const { allTags, refetchAllTags, allTagsLoading, errorAllTags } =
     useAllTagsQuery(cookies);
@@ -113,6 +104,12 @@ export const useStudentAllFlashCards = () => {
   };
   const handleAllSetModalOpen = () => {
     setAllSetModal(true);
+  };
+  const handleCheckpointModalClose = () => {
+    setCheckpointModal(false);
+  };
+  const handleCheckpointModalOpen = () => {
+    setCheckpointModal(true);
   };
   const handleDeleteOpen = (data: any) => {
     setdeleteModal(true);
@@ -175,49 +172,6 @@ export const useStudentAllFlashCards = () => {
     ? allFlashcardsData?.data?.cards || []
     : allFlashcardsData?.data?.cards || [];
 
-  // const {
-  //   data: { data: { combinedCards: allFlashcards = [] } = {} } = {},
-  //   isLoading: allFlashcardsLoading,
-  //   error: errorAllFlashcards,
-  //   refetch: refetchAllFlashcards,
-  // } = useQuery(
-  //   [
-  //     "allFlashcards",
-  //     {
-  //       cookies,
-  //       deckIds,
-  //     },
-  //   ],
-
-  //   async () => {
-  //     return startStudyingApi(deckIds as string, cookies?.student?.token);
-  //   },
-  //   {
-  //     enabled: !!cookies?.student?.token && !!deckIds,
-  //   }
-  // );
-  // const {
-  //   data: { data: { cards: allFlashcards = [] } = {} } = {},
-  //   isLoading: allFlashcardsLoading,
-  //   error: errorAllFlashcards,
-  //   refetch: refetchAllFlashcards,
-  // } = useQuery(
-  //   [
-  //     "allFlashcards",
-  //     {
-  //       cookies,
-  //       deckId,
-  //     },
-  //   ],
-
-  //   async () => {
-  //     return getAllCardsByIdApi(deckId as string, cookies?.student?.token);
-  //   },
-  //   {
-  //     enabled: !!cookies?.student?.token && !!deckId,
-  //   }
-  // );
-
   console.log("allFlashcards", allFlashcards);
 
   const {
@@ -249,11 +203,44 @@ export const useStudentAllFlashCards = () => {
 
   // console.log("allFlashcards", allFlashcards);
 
+  // const handleNextFlashcard = () => {
+  //   setCurrentFlashcardIndex((prevIndex) =>
+  //     prevIndex < allFlashcards?.length - 1 ? prevIndex + 1 : prevIndex
+  //   );
+  // };
+
   const handleNextFlashcard = () => {
-    setCurrentFlashcardIndex((prevIndex) =>
-      prevIndex < allFlashcards?.length - 1 ? prevIndex + 1 : prevIndex
-    );
+    setCurrentFlashcardIndex((prevIndex) => {
+      const nextIndex = prevIndex + 1;
+
+      // if (nextIndex >= flashcards.length) {
+      //   if (allFlashcards.length > flashcards.length) {
+      //     loadMoreFlashcards();
+      //   } else {
+      //     handleAllSetModalOpen();
+      //   }
+      // }
+      console.log("nextIndex", nextIndex, "BATCH_SIZE", BATCH_SIZE);
+      if (nextIndex >= BATCH_SIZE) {
+        if (!allFlashcardsLoaded) {
+          loadMoreFlashcards();
+        } else {
+          handleAllSetModalOpen();
+        }
+      }
+
+      return nextIndex < flashcards.length ? nextIndex : prevIndex;
+    });
   };
+
+  useEffect(() => {
+    console.log(
+      "allFlashcardsLoaded",
+      allFlashcardsLoaded,
+      "BATCH_SIZE",
+      BATCH_SIZE
+    );
+  }, [allFlashcardsLoaded, BATCH_SIZE]);
 
   const handlePreviousFlashcard = () => {
     setCurrentFlashcardIndex((prevIndex) =>
@@ -273,7 +260,24 @@ export const useStudentAllFlashCards = () => {
       response = await provideRateToCardApi(params, cookies?.student?.token);
       console.log("response", response);
       // showSuccessToast(localeSuccess?.SUCCESS_RATE);
-      handleAllSetModalOpen();
+      // console.log(
+      //   "currentFlashcardIndex",
+      //   currentFlashcardIndex,
+      //   "flashcards length",
+      //   flashcards
+      // );
+
+      if (flashcards?.length - 1 === currentFlashcardIndex) {
+        if (flashcards?.length !== allFlashcards?.length) {
+          getTotalTime();
+          handleCheckpointModalOpen();
+        } else {
+          handleAllSetModalOpen();
+        }
+      } else {
+        handleNextFlashcard();
+      }
+
       // refetchallFlashcards();
       // navigate(-1);
     } catch (error: any) {
@@ -397,7 +401,56 @@ export const useStudentAllFlashCards = () => {
         console.error("Error decoding base64 string:", error);
       }
     }
-  }, [currentFlashcardIndex, allFlashcards]);
+  }, [currentFlashcardIndex, flashcards]);
+
+  useEffect(() => {
+    if (allFlashcards.length > 0) {
+      loadInitialFlashcards();
+    }
+  }, [allFlashcards]);
+
+  useEffect(() => {
+    if (flashcards.length > 0) {
+      console.log("flashcards current batch", flashcards);
+    }
+  }, [flashcards]);
+
+  const loadInitialFlashcards = () => {
+    const initialBatch = allFlashcards.slice(0, BATCH_SIZE);
+    setFlashcards(initialBatch);
+    setCurrentBatchIndex(0);
+    setCurrentFlashcardIndex(0);
+    setAllFlashcardsLoaded(allFlashcards.length <= BATCH_SIZE);
+  };
+
+  const loadMoreFlashcards = () => {
+    const startIndex = (currentBatchIndex + 1) * BATCH_SIZE;
+    const endIndex = startIndex + BATCH_SIZE;
+    const newBatch = allFlashcards.slice(startIndex, endIndex);
+
+    setFlashcards(newBatch);
+    setCurrentBatchIndex((prevIndex) => prevIndex + 1);
+    setCurrentFlashcardIndex(0); // Reset to the first card in the new batch
+    handleCheckpointModalClose();
+    setAllFlashcardsLoaded(newBatch.length < BATCH_SIZE);
+  };
+
+  const getTotalTime = (time?: number) => {
+    console.log("totaltime", time);
+    setStopTimer(true);
+    if (time) {
+      setTotalTime(time);
+    }
+  };
+
+  const navigateToDashboard = () => {
+    navigate("/student");
+    handleCheckpointModalClose();
+  };
+
+  useEffect(() => {
+    console.log("currentFlashcardIndex", currentFlashcardIndex);
+  }, [currentFlashcardIndex]);
 
   // console.log("allTags", allTags, "watchTags", tags);
 
@@ -438,5 +491,15 @@ export const useStudentAllFlashCards = () => {
     handleAllSetModalClose,
     custom,
     toggleBookmark,
+    flashcards,
+    currentBatchIndex,
+    checkpointModal,
+    handleCheckpointModalClose,
+    loadMoreFlashcards,
+    getTotalTime,
+    TotalTime,
+    stopTimer,
+    navigateToDashboard,
+    // setgetTotalTime,
   };
 };

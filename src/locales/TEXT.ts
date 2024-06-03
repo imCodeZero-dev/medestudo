@@ -48,6 +48,7 @@ export const TEXT = {
     TEXT_SELECTED_OF: "Selected of",
     TEXT_CLICK_ON_CONTINUE_TO_DASHBOARD:
       "Click on continue to navigate to your dashboard",
+    TEXT_TIME_SPENT_ON_THIS_ROUND: "Time Spent on this round",
   },
   es: {
     TEXT_ENTER_DETAILS: "Enter Details to continue using your account",
@@ -98,5 +99,6 @@ export const TEXT = {
     TEXT_SELECTED_OF: "Selected of",
     TEXT_CLICK_ON_CONTINUE_TO_DASHBOARD:
       "Click on continue to navigate to your dashboard",
+    TEXT_TIME_SPENT_ON_THIS_ROUND: "Time Spent on this round",
   },
 };

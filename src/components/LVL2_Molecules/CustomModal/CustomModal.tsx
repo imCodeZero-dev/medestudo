@@ -6,7 +6,7 @@ import { IoIosClose } from "react-icons/io";
 
 interface ModalProps {
   open: boolean;
-  onClose: () => void;
+  onClose?: () => void;
   title?: string;
   width?: number | string;
   children: ReactNode;

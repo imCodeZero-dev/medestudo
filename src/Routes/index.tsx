@@ -2,7 +2,6 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import fontF from "../assets/Fonts/static/Inter-Regular.ttf";
-import CreateCustomFlashcardServices from "../pages/Professor/CreateCustomFlashcard/CreateCustomFlashcard";
 
 const LoadingScreen = React.lazy(
   () => import("../pages/LoadingScreen/LoadingScreen")
@@ -91,6 +90,18 @@ const CustomDeckDetailsServices = React.lazy(
 );
 const StudentFavoritesServices = React.lazy(
   () => import("../pages/Student/StudentFavorites/StudentFavorites")
+);
+const CreateCustomFlashcardServices = React.lazy(
+  () => import("../pages/Professor/CreateCustomFlashcard/CreateCustomFlashcard")
+);
+const StudentReviewDecksServices = React.lazy(
+  () => import("../pages/Student/StudentReviewDecks/StudentReviewDecks")
+);
+const StudentPracticeExamsServices = React.lazy(
+  () => import("../pages/Student/StudentPracticeExams/StudentPracticeExams")
+);
+const StudentMockExamsServices = React.lazy(
+  () => import("../pages/Student/StudentMockExams/StudentMockExams")
 );
 const App = React.lazy(() => import("../App"));
 
@@ -220,8 +231,20 @@ const ProjectRoutes = () => {
               element={<CreateCustomFlashcardServices />}
             />
             <Route
+              path="/student/flashcards/review"
+              element={<StudentReviewDecksServices />}
+            />
+            <Route
               path="/student/flashcards/favorite"
               element={<StudentFavoritesServices />}
+            />
+            <Route
+              path="/student/exams/practice"
+              element={<StudentPracticeExamsServices />}
+            />
+            <Route
+              path="/student/exams/mock"
+              element={<StudentMockExamsServices />}
             />
 
             <Route path="*" element={<NotFound />} />
