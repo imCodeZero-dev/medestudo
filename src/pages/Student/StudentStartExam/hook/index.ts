@@ -356,7 +356,7 @@ export const useStudentStartExam = () => {
     const params = {
       title: data?.title,
       achievedMarks: totalMarks.toString(),
-      totalQuestions: (allQuestions?.length + 1).toString(),
+      totalQuestions: (allQuestions?.length).toString(),
     };
     try {
       setCreateLoading(true);
