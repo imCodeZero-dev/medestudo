@@ -73,6 +73,7 @@ const StudentStartExam = ({}: StudentStartExamProps) => {
     handleCloseCreateResult,
     createLoading,
     finishExam,
+    totalMarks,
   } = useStudentStartExam();
   // console.log("allDecks", allDecks);
   const navigate = useNavigate();
@@ -147,6 +148,8 @@ const StudentStartExam = ({}: StudentStartExamProps) => {
           timeSpent={totalTime}
           saveResult={handleOpenCreateResult}
           showDetails={showDetails}
+          totalMarks={totalMarks}
+          totalQuestion={allQuestions?.length}
         />
 
         <CreateResultModal

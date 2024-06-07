@@ -21,6 +21,8 @@ const MockResultModal = ({
   timeSpent,
   saveResult,
   showDetails,
+  totalMarks,
+  totalQuestion,
 }: MockResultModalProps) => {
   const {
     localeTitles,
@@ -41,7 +43,8 @@ const MockResultModal = ({
           </Text>
           <div className={styles["chartDiv"]}>
             <CircularProgressChart
-              percentage={95}
+              totalMarks={totalMarks}
+              outOf={totalQuestion}
               size={177}
               strokeWidth={16}
             />

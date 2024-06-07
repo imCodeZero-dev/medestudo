@@ -41,6 +41,7 @@ export const useDeckDetails = () => {
     formState: { errors },
     watch,
     setValue,
+    reset,
   } = useForm<any>({
     // resolver: yupResolver(validationSchema),
     defaultValues: {},
@@ -49,6 +50,7 @@ export const useDeckDetails = () => {
   const watchSubDeck = watch("subDeck");
   const watchnNestedSubDeck = watch("nestedSubDeck");
   const deepNestedsubDeck = watch("deepNestedsubDeck");
+  const lastNestedsubDeck = watch("lastNestedsubDeck");
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
@@ -175,7 +177,6 @@ export const useDeckDetails = () => {
       });
     }
 
-    const lastNestedsubDeck = watch("lastNestedsubDeck");
     if (lastNestedsubDeck) {
       requestData.subdeck.subDeck[
         requestData.subdeck.subDeck.length - 1
@@ -203,6 +204,7 @@ export const useDeckDetails = () => {
       console.log("response", response);
       refetchClassDetails();
       refetchclassDecks();
+      reset();
       showSuccessToast(localeSuccess?.SUCCESS_DECK_CREATED);
     } catch (error: any) {
       console.log("error", error);

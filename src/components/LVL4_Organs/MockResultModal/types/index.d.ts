@@ -11,6 +11,8 @@ export type MockResultModalProps = {
   timeSpent?: string | number;
   saveResult: () => void;
   showDetails: () => void;
+  totalMarks: number;
+  totalQuestion: number;
 };
 export type AllSetModalProps = {
   open: boolean;

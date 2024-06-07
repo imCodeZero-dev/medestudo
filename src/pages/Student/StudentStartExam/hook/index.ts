@@ -425,5 +425,6 @@ export const useStudentStartExam = () => {
     createLoading,
     handleOpenCreateResult,
     finishExam,
+    totalMarks,
   };
 };

@@ -3,11 +3,12 @@ import { CircularProgressChartProps } from "./@types";
 import styles from "./CircularProgressChart.module.css";
 import useLocale from "../../../locales";
 
-
 const CircularProgressChart: React.FC<CircularProgressChartProps> = ({
   percentage,
   size = 120,
   strokeWidth = 10,
+  outOf,
+  totalMarks,
 }) => {
   // const { localeText, localeDropdowns } = useLocale();
   const {
@@ -19,7 +20,18 @@ const CircularProgressChart: React.FC<CircularProgressChartProps> = ({
   } = useLocale();
   const radius = (size - strokeWidth) / 2;
   const circumference = 2 * Math.PI * radius;
-  const offset = circumference - (percentage / 100) * circumference;
+  const offset = (() => {
+    if (percentage !== undefined) {
+      return circumference - (percentage / 100) * circumference;
+    }
+
+    if (totalMarks !== undefined && outOf !== undefined) {
+      return circumference - (totalMarks / outOf) * circumference;
+    }
+
+    // Return a default value or handle the undefined case appropriately
+    return circumference;
+  })();
 
   return (
     <div className={styles.container} style={{ width: size, height: size }}>
@@ -54,8 +66,21 @@ const CircularProgressChart: React.FC<CircularProgressChartProps> = ({
         />
       </svg>
       <div className={styles.text}>
-        <div className={styles.label}>Mastery</div>
-        <div className={styles.percentage}>{percentage}%</div>
+        {percentage && (
+          <>
+            <div className={styles.label}>Mastery</div>
+            <div className={styles.percentage}>{percentage}%</div>
+          </>
+        )}
+
+        {outOf && (
+          <>
+            <div className={styles.label}>Correct</div>
+            <div
+              className={styles.percentage}
+            >{`${totalMarks} / ${outOf}`}</div>
+          </>
+        )}
       </div>
     </div>
   );
