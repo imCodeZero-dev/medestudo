@@ -32,6 +32,7 @@ const ViewQuestionsMock: React.FC<ViewQuestionsMockProps> = ({
   selectAnswer,
   selectedAnswer,
   respondToNext,
+  finishExam,
 }) => {
   // console.log("allQuestion", allQuestion[currentIndex]?.question);
   // console.log("allQuestion watch", watch("questionImage"));
@@ -80,9 +81,7 @@ const ViewQuestionsMock: React.FC<ViewQuestionsMockProps> = ({
                     type="button"
                     className="yellowButton-lessHeight"
                     // loading={loading}
-                    onClick={() =>
-                      navigateToEditQuestion(allQuestion[currentIndex])
-                    }
+                    onClick={() => finishExam()}
                   >
                     {localeButtons?.BUTTON_FINISH_EXAM}
                   </Button>
@@ -92,8 +91,9 @@ const ViewQuestionsMock: React.FC<ViewQuestionsMockProps> = ({
                     type="button"
                     className="primary-lessHeight"
                     // loading={loading}
-                    onClick={() =>
-                      navigateToEditQuestion(allQuestion[currentIndex])
+                    onClick={
+                      currentIndex !== allQuestion?.length - 1 &&
+                      (handleNext as any)
                     }
                   >
                     {localeButtons?.BUTTON_SKIP_QUESTION}

@@ -72,6 +72,7 @@ const StudentStartExam = ({}: StudentStartExamProps) => {
     handleOpenCreateResult,
     handleCloseCreateResult,
     createLoading,
+    finishExam,
   } = useStudentStartExam();
   // console.log("allDecks", allDecks);
   const navigate = useNavigate();
@@ -91,6 +92,7 @@ const StudentStartExam = ({}: StudentStartExamProps) => {
             stopTimer={stopTimer}
           />
           <ViewQuestionsMock
+            finishExam={finishExam}
             currentIndex={currentQuestionIndex}
             respondToNext={respondToNext}
             selectAnswer={selectAnswer}

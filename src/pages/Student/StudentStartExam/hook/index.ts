@@ -289,13 +289,12 @@ export const useStudentStartExam = () => {
 
   const respondToNext = () => {
     if (selectedAnswer?.isCorrect) {
-      setTotalMarks((prevMarks) => prevMarks + 10);
+      setTotalMarks((prevMarks) => prevMarks + 1);
     } else {
       setTotalMarks((prevMarks) => prevMarks + 0);
     }
     handleNextQuestion();
   };
-
   useEffect(() => {
     console.log("totalMarks", totalMarks);
   }, [totalMarks]);
@@ -425,5 +424,6 @@ export const useStudentStartExam = () => {
     handleCloseCreateResult,
     createLoading,
     handleOpenCreateResult,
+    finishExam,
   };
 };

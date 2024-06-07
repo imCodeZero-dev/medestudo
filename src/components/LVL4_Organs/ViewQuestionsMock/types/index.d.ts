@@ -22,7 +22,7 @@ export type ViewQuestionsMockProps = {
   selectAnswer: (data: any) => void;
   selectedAnswer: any;
   respondToNext: () => void;
-
+  finishExam: () => void;
   onSubmitEdit: (data: any) => Promise<void>;
   handleSubmit: UseFormHandleSubmit<any>;
 };
