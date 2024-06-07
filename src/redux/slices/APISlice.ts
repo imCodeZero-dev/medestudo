@@ -195,6 +195,7 @@ export const useAllExamsQuery = (cookies: any) => {
 };
 
 export const useAllFlashcardsQuery = (cookies: any, deckId: string) => {
+  console.log("useAllFlashcardsQuery", deckId, "cookies", cookies);
   const {
     data: { data: { cards: allFlashcards = [] } = {} } = {},
     isLoading: allFlashcardsLoading,

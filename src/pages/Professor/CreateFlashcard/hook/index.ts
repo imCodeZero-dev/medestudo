@@ -54,7 +54,7 @@ export const useCreateFlashcard = () => {
     allFlashcardsLoading,
     errorallFlashcards,
     refetchallFlashcards,
-  } = useAllFlashcardsQuery(cookies, deckData?.deckId?._id as string);
+  } = useAllFlashcardsQuery(cookies, deckData?._id as string);
 
   console.log("CreateDeckData", deckData);
 
@@ -79,6 +79,7 @@ export const useCreateFlashcard = () => {
 
   const onSubmitCreate = async (data: any) => {
     try {
+      setCreateLoading(true);
       let questionImgUrl;
       if (data?.questionImage) {
         questionImgUrl = await uploadImageToCloudinary(data?.questionImage);
@@ -104,7 +105,7 @@ export const useCreateFlashcard = () => {
       };
 
       // Make the API call with the modified payload
-      setCreateLoading(true);
+
       const response = await createFlashcardApi(
         payload,
         deckData?._id,
@@ -123,6 +124,9 @@ export const useCreateFlashcard = () => {
       navigate(-1);
     }
   };
+  useEffect(() => {
+    console.log("allFlashcards", allFlashcards);
+  }, [allFlashcards]);
 
   // console.log("filteredDecks", filteredDecks);
   return {
