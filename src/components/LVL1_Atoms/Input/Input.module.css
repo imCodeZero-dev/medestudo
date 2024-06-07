@@ -56,3 +56,72 @@
   text-align: left;
   margin-bottom: 4px;
 }
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Hide number input arrows in Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.inputContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 8px;
+  background-color: white;
+}
+
+.inputMain{
+  display: flex;
+}
+.inputDiv{
+  display: flex;
+}
+.label {
+  margin-right: 8px;
+}
+
+.button {
+  /* background-color: #e0e0e0; */
+  border: none;
+  padding: 0 8px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.input {
+  width: 60px;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin: 0 4px;
+}
+
+.maxValue {
+  color: blue;
+  margin-left: 8px;
+}
+
+.error {
+  color: red;
+  margin-left: 8px;
+}
+
+.unitText {
+  /* //styleName: Body Large/Semibold; */
+  /* font-family: Poppins; */
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  text-align: left;
+  color: #0030dd;
+}

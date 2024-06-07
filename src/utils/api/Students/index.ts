@@ -253,7 +253,7 @@ export const updateCustomClassApi = async (
   classId: string,
   token: string
 ) => {
-  console.log("updateCustomClassApi", data, "deckId", classId);
+  // console.log("updateCustomClassApi", data, "deckId", classId);
   const response = await apiRequest({
     method: "Put",
     url: `/user/updateClass/${classId}`,
@@ -264,7 +264,7 @@ export const updateCustomClassApi = async (
 };
 
 export const deleteCustomClassApi = async (classId: string, token: string) => {
-  console.log("deleteCustomClassApi", "deckId", classId);
+  // console.log("deleteCustomClassApi", "deckId", classId);
   const response = await apiRequest({
     method: "Delete",
     url: `/user/deleteClass/${classId}`,
@@ -275,11 +275,98 @@ export const deleteCustomClassApi = async (classId: string, token: string) => {
 };
 
 export const getReviewDecksApi = async (studentId: string, token: string) => {
-  console.log("getReviewDecksApi", "studentId", studentId);
+  // console.log("getReviewDecksApi", "studentId", studentId);
   const response = await apiRequest({
     method: "Get",
     url: `/user/reviewDecks/${studentId}`,
 
+    token,
+  });
+  return response;
+};
+
+export const getAllQuesitonsApi = async (data: any, token: string) => {
+  console.log("getAllQuesitonsApi", data);
+  const response = await apiRequest({
+    method: "Post",
+    url: `/user/getAllQuestions`,
+    data,
+    token,
+  });
+  return response;
+};
+
+export const getAllResultApi = async (token: string) => {
+  // console.log("getAllResultApi", );
+  const response = await apiRequest({
+    method: "Get",
+    url: `/user/getAllResult`,
+    token,
+  });
+  return response;
+};
+
+export const createResultApi = async (data: any, token: string) => {
+  console.log("getAllResultApi", data);
+  const response = await apiRequest({
+    method: "Post",
+    url: `/user/createResult`,
+    token,
+    data,
+  });
+  return response;
+};
+
+export const deleteResultByIDApi = async (id: string, token: string) => {
+  // console.log("getAllResultApi", );
+  const response = await apiRequest({
+    method: "Delete",
+    url: `/user/deleteResult/${id}`,
+    token,
+  });
+  return response;
+};
+
+export const updateStudentProfileApi = async (
+  data: any,
+  studentId: string,
+  token: string
+) => {
+  // console.log("getAllResultApi", );
+  const response = await apiRequest({
+    method: "Put",
+    url: `/user/updateSettings/${studentId}`,
+    data,
+    token,
+  });
+  return response;
+};
+
+export const updateStudentPictureApi = async (
+  data: any,
+  studentId: string,
+  token: string
+) => {
+  // console.log("getAllResultApi", );
+  const response = await apiRequest({
+    method: "Put",
+    url: `/user/updatePicture/${studentId}`,
+    data,
+    token,
+  });
+  return response;
+};
+
+export const resetStudentPasswordApi = async (
+  data: any,
+  studentId: string,
+  token: string
+) => {
+  // console.log("getAllResultApi", );
+  const response = await apiRequest({
+    method: "Put",
+    url: `/user/resetPassword/${studentId}`,
+    data,
     token,
   });
   return response;

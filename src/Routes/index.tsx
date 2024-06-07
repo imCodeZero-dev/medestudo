@@ -103,6 +103,12 @@ const StudentPracticeExamsServices = React.lazy(
 const StudentMockExamsServices = React.lazy(
   () => import("../pages/Student/StudentMockExams/StudentMockExams")
 );
+const StudentStartExamServices = React.lazy(
+  () => import("../pages/Student/StudentStartExam/StudentStartExam")
+);
+const StudentResultServices = React.lazy(
+  () => import("../pages/Student/StudentResult/StudentResult")
+);
 const App = React.lazy(() => import("../App"));
 
 const ProjectRoutes = () => {
@@ -245,6 +251,14 @@ const ProjectRoutes = () => {
             <Route
               path="/student/exams/mock"
               element={<StudentMockExamsServices />}
+            />
+            <Route
+              path="/student/exams/mock/study"
+              element={<StudentStartExamServices />}
+            />
+            <Route
+              path="/student/exams/result"
+              element={<StudentResultServices />}
             />
 
             <Route path="*" element={<NotFound />} />

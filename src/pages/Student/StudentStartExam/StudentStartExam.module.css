@@ -1,0 +1,161 @@
+.StudentStartExam {
+  display: flex;
+  max-height: 88vh;
+  overflow-y: auto;
+}
+.StudentStartExam-main {
+  /* background-color: #f8fbff; */
+  flex: 1;
+  padding: 32px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.StudentStartExam-right {
+  background-color: inherit;
+  flex: 1;
+}
+
+.StudentStartExam-head {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 16px;
+  margin-bottom: 16px;
+
+  border-bottom: 1px solid lightgray;
+}
+
+.head-left {
+  display: flex;
+  column-gap: 12px;
+}
+
+.leftDetails {
+  display: flex;
+  flex-direction: column;
+}
+
+.StudentStartExam-head {
+  display: flex;
+}
+
+.heading {
+   /* font-family: Poppins; */
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 36px;
+  color: #1d1f22;
+}
+.image {
+  width: 125px;
+  height: 125px;
+  border-radius: 12px;
+  object-fit: contain;
+}
+.createdText {
+   /* font-family: Poppins; */
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 21px;
+  color: #0026b1;
+}
+.estTime {
+   /* font-family: Poppins; */
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+  color: #6f7680;
+}
+.time {
+   /* font-family: Poppins; */
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 21px;
+  color: #2a2d31;
+}
+
+.head-right {
+  display: flex;
+  column-gap: 16px;
+}
+
+.addDeckText {
+   /* font-family: Poppins; */
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 21px;
+  color: #1d1f22;
+}
+
+.StudentStartExam-actions {
+  padding-bottom: 16px;
+  margin-bottom: 16px;
+
+  border-bottom: 1px solid lightgray;
+  display: flex;
+  justify-content: center;
+}
+
+.deckBody {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 4px;
+  margin: 16px 0;
+
+  border-bottom: 1px solid lightgray;
+  border-top: 1px solid lightgray;
+}
+
+.deckBody-left {
+  display: flex;
+  align-items: center;
+  column-gap: 16px;
+}
+.deckBody-right {
+  display: flex;
+  align-items: center;
+  column-gap: 16px;
+}
+
+.deckName {
+   /* font-family: Poppins; */
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 21px;
+  color: #0026b1;
+}
+
+.totalCardsText {
+   /* font-family: Poppins; */
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+  color: #6f7680;
+}
+
+.sectionHeading {
+  /* font-family: Inter; */
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 28px;
+  letter-spacing: 0em;
+  text-align: left;
+}
+
+.right-section-main {
+  padding: 24px;
+}
+
+.viewMore {
+   /* font-family: Poppins; */
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 18px;
+  /* text-align: left; */
+  text-transform: uppercase;
+  border-bottom: 1px solid #383c41;
+  cursor: pointer;
+  /* text-underline-offset: #383c41; */
+}

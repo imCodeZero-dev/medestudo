@@ -44,6 +44,10 @@
 
 .right-section-main {
   padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
 }
 
 .headerText {
@@ -76,4 +80,10 @@
   flex-wrap: wrap;
   column-gap: 12px;
   row-gap: 12px;
+}
+
+.instituteContainer {
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
 }

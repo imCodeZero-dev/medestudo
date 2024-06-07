@@ -1,0 +1,186 @@
+.drawer {
+  position: fixed;
+  top: 0;
+  right: -60vw;
+  /* width: 400px; */
+  width: 60vw;
+  height: 100%;
+  background-color: white;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+  transition: right 0.3s ease;
+  overflow-y: auto;
+}
+
+.open {
+  right: 0;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
+.headerIndicators {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1rem;
+}
+
+.viewBtn {
+  width: 144px;
+}
+
+/* .headerIndicators {
+  display: flex;
+  justify-content: space-between;
+} */
+.indicatorDiv {
+  display: flex;
+  align-items: center;
+  column-gap: 6px;
+}
+
+.indicators {
+  display: flex;
+  gap: 10px;
+}
+
+.indicatorText {
+  /* //styleName: Body Small/Regular;
+font-family: Poppins; */
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+  text-align: left;
+  color: #1d1f22;
+}
+
+.incorrect {
+  color: #cc5200;
+
+  padding: 10px;
+  border-radius: 50%;
+}
+
+.correct {
+  color: #4ac776;
+  padding: 10px;
+  border-radius: 50%;
+}
+
+.selected {
+  color: white;
+  border: 1px solid #0030dd;
+  padding: 10px;
+  border-radius: 50%;
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.main {
+  padding:  1rem;
+}
+
+.content {
+  padding: 1rem;
+  background-color: #f8fbff;
+}
+
+.questionBlock {
+  margin-bottom: 1.5rem;
+}
+
+.options {
+  margin-top: 0.5rem;
+}
+
+.option {
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.option span {
+  margin-right: 0.5rem;
+}
+
+.selected {
+  background-color: #e3f2fd;
+}
+
+.correct {
+  background-color: #d4edda;
+}
+
+.incorrect {
+  background-color: #f8d7da;
+}
+
+.viewScoreButton {
+  margin: 1rem;
+  padding: 0.5rem 1rem;
+  background-color: #2196f3;
+  color: white;
+  border: none;
+  cursor: pointer;
+  align-self: flex-end;
+}
+
+.heading {
+  /* //styleName: Heading5/Semibold;
+font-family: Poppins; */
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 36px;
+  text-align: left;
+  color: #1d1f22;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .drawer {
+    width: 100%;
+    right: -100%;
+  }
+
+  .open {
+    right: 0;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .indicators {
+    margin-top: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    padding: 0.5rem;
+  }
+
+  .indicators {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .viewScoreButton {
+    width: 100%;
+    text-align: center;
+    margin: 0;
+    padding: 1rem;
+    border-radius: 0;
+  }
+}

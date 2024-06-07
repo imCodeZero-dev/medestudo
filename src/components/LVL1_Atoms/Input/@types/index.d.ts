@@ -29,3 +29,12 @@ export type InputProps = {
   control: Control<any>;
   prefix?: any;
 } & React.InputHTMLAttributes<HTMLInputElement>;
+
+export type CustomInputProps = {
+  unit?: string;
+  label?: string;
+  name: string;
+  control: Control;
+  max?: number;
+  min?: number;
+};

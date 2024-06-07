@@ -6,6 +6,8 @@ export const TEXT = {
     TEXT_UPLOAD_IMAGE: "Upload Image",
     TEXT_CARDS: "Cards",
     TEXT_EST_TIME: "Est time",
+    TEXT_TIME_LEFT: "Time Left",
+    TEXT_TIME_TAKEN: "Time Taken",
     TEXT_UPDATE_TODAY: "Update today",
     TEXT_YOU_CAN_CHANGE_PASSWORD_NAME_AND_EMAIL:
       "you can change password, name and email.",
@@ -49,6 +51,11 @@ export const TEXT = {
     TEXT_CLICK_ON_CONTINUE_TO_DASHBOARD:
       "Click on continue to navigate to your dashboard",
     TEXT_TIME_SPENT_ON_THIS_ROUND: "Time Spent on this round",
+    TEXT_INCORRECT: "Incorrect",
+    TEXT_CORRECT: "Correct",
+    TEXT_SELECTED: "Selected",
+    TEXT_ENTER_UNIQUE_TITLE_TO_SAVE_RESULT:
+      "Enter a unique title to save mock exam result",
   },
   es: {
     TEXT_ENTER_DETAILS: "Enter Details to continue using your account",
@@ -57,6 +64,8 @@ export const TEXT = {
     TEXT_UPLOAD_IMAGE: "Upload Image",
     TEXT_CARDS: "Cards",
     TEXT_EST_TIME: "Est time",
+    TEXT_TIME_LEFT: "Time Left",
+    TEXT_TIME_TAKEN: "Time Taken",
     TEXT_UPDATE_TODAY: "Update today",
     TEXT_YOU_CAN_CHANGE_PASSWORD_NAME_AND_EMAIL:
       "you can change password, name and email.",
@@ -100,5 +109,10 @@ export const TEXT = {
     TEXT_CLICK_ON_CONTINUE_TO_DASHBOARD:
       "Click on continue to navigate to your dashboard",
     TEXT_TIME_SPENT_ON_THIS_ROUND: "Time Spent on this round",
+    TEXT_INCORRECT: "Incorrect",
+    TEXT_CORRECT: "Correct",
+    TEXT_SELECTED: "Selected",
+    TEXT_ENTER_UNIQUE_TITLE_TO_SAVE_RESULT:
+      "Enter a unique title to save mock exam result",
   },
 };

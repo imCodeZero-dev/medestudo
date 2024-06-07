@@ -158,3 +158,9 @@ export function formattedTime(seconds: number) {
 
   return [hourStr, minuteStr, secondStr].filter(Boolean).join(", ");
 }
+
+
+export const generateYearsArray = (numYears: number): string[] => {
+  const currentYear = new Date().getFullYear();
+  return Array.from({ length: numYears }, (_, index) => (currentYear - index).toString());
+};

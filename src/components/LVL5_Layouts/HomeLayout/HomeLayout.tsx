@@ -105,8 +105,8 @@ const HomeLayout = ({ children, createButton }: HomeLayoutProps) => {
           image: <FaRegFileAlt />,
         },
         {
-          title: localeLables?.LABEL_ARCHIVE,
-          url: "/student/exams/archive",
+          title: localeLables?.LABEL_RESULT,
+          url: "/student/exams/result",
           image: <AiOutlineFileSync />,
         },
       ],

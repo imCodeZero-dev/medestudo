@@ -3,16 +3,15 @@ import { useForm, Controller } from "react-hook-form";
 import Select from "react-select";
 import { selectProps } from "./@types";
 import { ErrorMessage } from "../../LVL1_Atoms/ErrorMessage";
-import styles from './Select.module.css'
+import styles from "./Select.module.css";
 const CustomSelect = ({
   control,
   name,
   options,
   placeholder,
   defaultValue,
+  isClearable,
 }: selectProps) => {
-  
-
   return (
     <div>
       <Controller
@@ -22,8 +21,8 @@ const CustomSelect = ({
         render={({ field, formState: { errors } }) => (
           <div>
             <Select
-            
-            classNamePrefix={styles.select}
+              isClearable={isClearable}
+              classNamePrefix={styles.select}
               // styles={{ height: "44px" }}
               {...field}
               // isOptionSelected={defa}

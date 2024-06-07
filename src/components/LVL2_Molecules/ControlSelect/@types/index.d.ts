@@ -6,6 +6,7 @@ export type selectProps = {
   options: any;
 
   hideLabel?: boolean;
+  isClearable?: boolean;
   label?: string;
   placeholder?: string;
   defaultValue?: string;
@@ -28,6 +29,13 @@ export type StateSelectProps = {
   items: any;
   labelKey: string;
   valueKey: string;
+};
+export type NonSelectProps = {
+  control: Control<any>;
+  name: string;
+  value: any;
+  placeholder?: string;
+  clearAll?: () => void;
 };
 
 // {
