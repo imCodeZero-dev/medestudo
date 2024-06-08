@@ -2,13 +2,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
-import {
-  showErrorToast,
-  showSuccessToast,
-} from "../../../../config/toastProvider/toastUtils";
-
 import useLocale from "../../../../locales";
-import { passwordRegex } from "../../../../utils/constants/constants";
 import { useCookies } from "react-cookie";
 import { useQuery } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
@@ -20,12 +14,7 @@ import {
   useAllSubjectsQuery,
   useallQuestionsQuery,
 } from "../../../../redux/slices/APISlice";
-import {
-  createClassApi,
-  createExamApi,
-  deleteExamApi,
-  editExamApi,
-} from "../../../../utils/api/professors";
+
 import { Tag, examForm } from "../../../../utils/constants/DataTypes";
 import { useNavigate } from "react-router-dom";
 import { examCardData } from "../../../../components/LVL3_Cells/DashboardExams/@types";
@@ -36,7 +25,7 @@ export const useStudentMockExams = () => {
   const [cookies] = useCookies(["student"]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [modifiedSubjects, setModifiedSubjects] = useState<Tag[]>();
+  const [modifiedSubjects, setModifiedSubjects] = useState<Tag[]>([]);
   const [filteredExamTitles, setFilteredExamTitles] = useState<examCardData[]>(
     []
   );
@@ -59,12 +48,10 @@ export const useStudentMockExams = () => {
       totalQuestions: 250,
       time: 3,
       filter: "",
-      // institute: "",
-      // year: "",
+    
     },
   });
   const tabs = ["Subject", "Year", "Institution", "Exam Type"];
-  // console.log("watchInst", watchInst);
 
   const {
     allInstitute,
@@ -73,7 +60,6 @@ export const useStudentMockExams = () => {
     refetchAllInstitute,
   } = useAllInstituteQuery();
 
-  // console.log("allInstitute", allInstitute);
 
   const {
     allSubjects,
@@ -85,7 +71,7 @@ export const useStudentMockExams = () => {
   useEffect(() => {
     if (allSubjects) {
       const transformedArray = allSubjects.map((item: string) => {
-        return { _id: item, name: item };
+        return item;
       });
       setModifiedSubjects(transformedArray);
     }
@@ -104,7 +90,6 @@ export const useStudentMockExams = () => {
     setFilteredExamTitles(filteredData);
   }, [allExams]);
 
-  console.log("filteredExamTitles", filteredExamTitles);
 
   const [updatedInstitutes, setUpdatedInstitutes] = useState<any[]>([]);
   const [selectedYears, setSelectedYears] = useState<string[]>([]);
@@ -128,7 +113,7 @@ export const useStudentMockExams = () => {
   useEffect(() => {
     if (allInstitute) {
       const transformedArray = allInstitute.map((item: any) => {
-        return { _id: item?._id, name: item?.title };
+        return item?.title;
       });
       setUpdatedInstitutes(transformedArray);
     }

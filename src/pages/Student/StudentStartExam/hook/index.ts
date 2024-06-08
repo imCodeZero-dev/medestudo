@@ -68,6 +68,7 @@ export const useStudentStartExam = () => {
 
   const [flashcardData, setFlashcardData] = useState<any>();
   const location = useLocation().state;
+  const pathName = useLocation().pathname;
   const navigate = useNavigate();
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
   const examDetails = location?.examsDetails;
@@ -81,7 +82,11 @@ export const useStudentStartExam = () => {
   const [createLoading, setCreateLoading] = useState<boolean>(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
 
-  console.log("AllQuestion Exams", location);
+  // console.log("AllQuestion Exams", location);
+  // console.log("pathName", pathName);
+
+  const practice = pathName?.includes("practice");
+  // console.log("practice", practice);
   // console.log("AllQuestion Exams", examDetails);
 
   const params = {
@@ -108,6 +113,8 @@ export const useStudentStartExam = () => {
   //   setValue("institute", data?.institute);
   //   setValue("year", data?.year);
   // };
+
+  const toggleReveal = () => [setRevealedAnswer(!revealedAnswer)];
 
   const handleOpenDrawer = () => {
     setIsDrawerOpen(true);
@@ -145,6 +152,8 @@ export const useStudentStartExam = () => {
   } = useExamQuestionsQuery(cookies, examId as string);
 
   const handleNextQuestion = () => {
+    setSelectedAnswer(null);
+    setRevealedAnswer(false);
     setCurrentQuestionIndex((prevIndex) =>
       prevIndex < allQuestions?.length - 1 ? prevIndex + 1 : prevIndex
     );
@@ -305,5 +314,7 @@ export const useStudentStartExam = () => {
     handleCloseDrawer,
     handleOpenDrawer,
     allQuestionControl,
+    practice,
+    toggleReveal,
   };
 };

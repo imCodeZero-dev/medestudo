@@ -12,10 +12,27 @@ const ResultDrawer = ({
   isOpen,
   onClose,
   control,
-}: ResultDrawerProps) => {
+}: // showReasoning,
+ResultDrawerProps) => {
+  const [showReasoning, setShowReasoning] = useState<boolean[]>(
+    Array(questions.length).fill(false)
+  );
+
+  const toggleReasoning = (index: number) => {
+    setShowReasoning((prev) => {
+      const newReasoning = [...prev];
+      newReasoning[index] = !newReasoning[index];
+      return newReasoning;
+    });
+  };
   console.log("ResultDrawer", questions);
-  const { localeButtons, localeTitles, localeText, localePlaceholders } =
-    useLocale();
+  const {
+    localeButtons,
+    localeTitles,
+    localeText,
+    localePlaceholders,
+    localeLables,
+  } = useLocale();
   return (
     <div className={`${styles.drawer} ${isOpen ? styles.open : ""}`}>
       <div className={styles.header}>
@@ -62,7 +79,20 @@ const ResultDrawer = ({
         <div className={styles.content}>
           {questions.map((question: any, index: number) => (
             <div key={index} className={styles.questionBlock}>
-              <h3>Q{index + 1}</h3>
+              <div className="flex justify-between items-center">
+                <h3>Q{index + 1}</h3>
+
+                <Button
+                  className={
+                    showReasoning[index] ? "purpleBtn" : "secondaryBtn"
+                  }
+                  onClick={() => toggleReasoning(index)}
+                >
+                  {showReasoning
+                    ? localeLables?.LABEL_HIDE_REASONING
+                    : localeLables?.LABEL_SHOW_REASONING}
+                </Button>
+              </div>
               <div className="my-6">
                 <QuillEditor
                   // name="question"
@@ -95,7 +125,7 @@ const ResultDrawer = ({
                   )}
                 />
               </div>
-              <div className={styles["mcq"]}>
+              {/* <div className={styles["mcq"]}>
                 {question?.answers?.map((answer: any, index: number) => (
                   <div className={styles["mcqsDiv"]} key={index}>
                     <p
@@ -116,9 +146,60 @@ const ResultDrawer = ({
                         />
                       )}
                     </div>
+                    <div
+                      className={
+                        answer.isCorrect
+                          ? styles.correctReason
+                          : styles.incorrectReason
+                      }
+                    >
+                      <p className={styles.optionTextLabe}>
+                        {`Option ${String.fromCharCode(65 + index)}`}
+                        <span className={styles.optionText}>
+                          {" "}
+                          {answer.reason}
+                        </span>
+                      </p>
+                    </div>
                   </div>
                 ))}
-              </div>
+              </div> */}
+
+              {showReasoning[index] && (
+                <div className={styles["mcq"]}>
+                  {question?.answers?.map((answer: any, index: number) => (
+                    <div className={styles["mcqsDiv"]} key={index}>
+                      <div className="flex items-center">
+                        <p
+                          className={
+                            answer.isCorrect
+                              ? styles.correctOption
+                              : styles.incorrectOption
+                          }
+                        >
+                          {String.fromCharCode(65 + index)}
+                        </p>
+                        <p className={styles.answer}>{answer.text}</p>
+                      </div>
+                      <div
+                        className={
+                          answer.isCorrect
+                            ? styles.correctReason
+                            : styles.incorrectReason
+                        }
+                      >
+                        <p className={styles.optionTextLabe}>
+                          {`Option ${String.fromCharCode(65 + index)}`}
+                          <span className={styles.optionText}>
+                            {" "}
+                            {answer.reason}
+                          </span>
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           ))}
         </div>

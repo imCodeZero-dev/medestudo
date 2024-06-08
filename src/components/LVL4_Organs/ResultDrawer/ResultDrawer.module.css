@@ -153,9 +153,11 @@ font-family: Poppins; */
 
 .mcqsDiv {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   row-gap: 12px;
   justify-content: center;
+  /* align-items: center; */
+  width: 100%;
 }
 
 .mcq {
@@ -165,6 +167,7 @@ font-family: Poppins; */
   row-gap: 16px;
   overflow-y: auto;
 }
+
 
 .answer {
   margin-left: 10px;

@@ -3,6 +3,7 @@ import { Control } from "react-hook-form";
 export type MockResultModalProps = {
   open: boolean;
   loading: boolean;
+  practice?: boolean;
   handleClose: () => void;
   handleSubmit?: any;
   // loadMore: (data?: any) => void;

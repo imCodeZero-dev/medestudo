@@ -3,6 +3,7 @@ import { Flashcard, Tag } from "../../../../utils/constants/DataTypes";
 
 export type ViewQuestionsMockProps = {
   loading: boolean;
+  practice?: boolean;
   editLoading?: boolean;
   currentIndex: number;
   control: Control<any>;
@@ -10,6 +11,7 @@ export type ViewQuestionsMockProps = {
   watch?: any;
   allQuestion: any;
   handleNext: () => void;
+  toggleReveal?: () => void;
   handlePrevious: () => void;
   handleDeleteOpen?: (data: any) => void;
   handleEditOpen?: (data: any) => void;

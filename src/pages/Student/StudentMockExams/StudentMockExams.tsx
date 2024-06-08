@@ -7,19 +7,9 @@ import { useCookies } from "react-cookie";
 import { useStudentMockExams } from "./hook";
 import { useNavigate } from "react-router-dom";
 import HomeLayout from "../../../components/LVL5_Layouts/HomeLayout/HomeLayout";
-import { useEffect, useState } from "react";
-import DashboardExams from "../../../components/LVL3_Cells/DashboardExams/DashboardExams";
-import CreateExamModal from "../../../components/LVL4_Organs/CreateExamModal/CreateExamModal";
-import { examCardData } from "../../../components/LVL3_Cells/DashboardExams/@types";
-import ConfirmationModal from "../../../components/LVL4_Organs/ConfirmationModal";
-import AlertIcon from "../../../assets/svgs/AlertIcon";
-import EditExamModal from "../../../components/LVL4_Organs/CreateExamModal/EditExamModal";
 import Input from "../../../components/LVL1_Atoms/Input";
 import { BiSearch } from "react-icons/bi";
-import CustomSelect from "../../../components/LVL2_Molecules/ControlSelect/CustomSelect";
-import { totalYears } from "../../../utils/constants/constants";
 import { useDispatch } from "react-redux";
-import { openCreateModalExam } from "../../../redux/actions/modalActions";
 import { StudentRoutes } from "../../../Routes/protectedRoutes/StudentRoutes";
 import CustomTabs from "../../../components/LVL3_Cells/CustomTabs/CustomTabs";
 import SelectableCards from "../../../components/LVL2_Molecules/SelectableCards/SelectableCards";
@@ -31,7 +21,6 @@ import CustomInput from "../../../components/LVL1_Atoms/Input/CustomInput";
 const StudentMockExams = ({}: StudentMockExamsProps) => {
   const { localeTitles, localeButtons, localeLables, localePlaceholders } =
     useLocale();
-  const [cookies] = useCookies(["admin"]);
 
   const {
     control,
@@ -61,19 +50,25 @@ const StudentMockExams = ({}: StudentMockExamsProps) => {
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
-  const handleCreateExamModal = () => {
-    dispatch(openCreateModalExam() as any);
-  };
-
-  const examType = ["Practice", "Mock"];
 
   const arrayOfYears = generateYearsArray(25);
   const watchFilter = watch("filter");
-  // console.log("watcFilter", watcFilter);
+
+  const filteredSubjects =
+    watchFilter !== ""
+      ? modifiedSubjects.filter((year: any) => year.includes(watchFilter))
+      : modifiedSubjects;
+
+  const filteredInstitutes =
+    watchFilter !== ""
+      ? updatedInstitutes.filter((year: any) => year.includes(watchFilter))
+      : updatedInstitutes;
+
   const filteredYears =
     watchFilter !== ""
       ? arrayOfYears.filter((year) => year.includes(watchFilter))
       : arrayOfYears;
+
   const filteredExamTypes =
     watchFilter !== ""
       ? filteredExamTitles.filter((year: any) => year.includes(watchFilter))
@@ -120,12 +115,12 @@ const StudentMockExams = ({}: StudentMockExamsProps) => {
 
           {selectedTab === 0 && (
             <div className={styles.checkboxContainer}>
-              {modifiedSubjects?.map((subject: any, index) => (
+              {filteredSubjects?.map((subject: any, index) => (
                 <SelectableCards
                   key={index}
                   control={control}
-                  label={subject?.name}
-                  name={subject?.name}
+                  label={subject}
+                  name={subject}
                   selectedCheckboxes={selectedSubjects}
                   setSelectedCheckboxes={setSelectedSubjects}
                 />
@@ -149,12 +144,12 @@ const StudentMockExams = ({}: StudentMockExamsProps) => {
           )}
           {selectedTab === 2 && (
             <div className={styles.instituteContainer}>
-              {updatedInstitutes?.map((itm, i) => (
+              {filteredInstitutes?.map((itm, i) => (
                 <Checkbox
                   key={i}
                   control={control}
-                  label={itm?.name}
-                  name={itm?.name}
+                  label={itm}
+                  name={itm}
                   selectedCheckboxes={selectedInstitutes}
                   setSelectedCheckboxes={setSelectedInstitutes}
                 />

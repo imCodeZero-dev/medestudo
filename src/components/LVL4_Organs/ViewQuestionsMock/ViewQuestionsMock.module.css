@@ -131,6 +131,7 @@
 }
 
 .selectedOption {
+  cursor: pointer;
   background-color: #0026b1;
   border-radius: 50%;
   padding: 8px;
@@ -143,6 +144,7 @@
   align-items: center;
 }
 .notSelectedOption {
+  cursor: pointer;
   background-color: #f2f7ff;
   border-radius: 50%;
   padding: 8px;

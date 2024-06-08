@@ -7,4 +7,5 @@ export interface MockExamHeadProps {
   handlePrevious: () => void;
   getTotalTime: (time?: number | undefined) => void;
   stopTimer: boolean;
+  practice?: boolean;
 }

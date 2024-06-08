@@ -13,17 +13,20 @@ const MockExamHead: React.FC<MockExamHeadProps> = ({
   handlePrevious,
   getTotalTime,
   stopTimer,
+  practice,
 }) => {
   // const { localeText, localeDropdowns } = useLocale();
   const { localeText, localeButtons } = useLocale();
   const { isDropdownOpen, toggleDropdown, dropdownRef } = useDropdown();
   const totalPages = totalQuestions;
-  const [timeLeft, setTimeLeft] = useState(30 * 60);
+  const [timeLeft, setTimeLeft] = useState(practice ? 0 : 30 * 60);
 
   useEffect(() => {
     if (!stopTimer) {
       const interval = setInterval(() => {
-        setTimeLeft((prevTime) => (prevTime > 0 ? prevTime - 1 : 0));
+        practice
+          ? setTimeLeft((prevTime) => prevTime + 1)
+          : setTimeLeft((prevTime) => (prevTime > 0 ? prevTime - 1 : 0));
       }, 1000);
 
       return () => clearInterval(interval);

@@ -22,6 +22,7 @@ const MockResultModal = ({
   showDetails,
   totalMarks,
   totalQuestion,
+  practice,
 }: MockResultModalProps) => {
   const {
     localeTitles,
@@ -38,7 +39,9 @@ const MockResultModal = ({
       <CustomModal open={open}>
         <div className={styles["modal-head"]}>
           <Text className={styles["title"]}>
-            {localeTitles?.TITLE_MOCK_EXAM_RESULT}
+            {practice
+              ? localeTitles?.TITLE_PRACTICE_EXAM_RESULT
+              : localeTitles?.TITLE_MOCK_EXAM_RESULT}
           </Text>
           <div className={styles["chartDiv"]}>
             <CircularProgressChart
@@ -62,9 +65,19 @@ const MockResultModal = ({
         )}
         {saveResult && showDetails ? (
           <div className="flex justify-between mt-4 space-x-4">
-            <Button type="button" className="primary" onClick={saveResult}>
-              {localeButtons.BUTTON_SAVE_RESULT}
-            </Button>
+            {practice ? (
+              <Button
+                type="button"
+                className="primary"
+                onClick={() => navigate("/student")}
+              >
+                {localeButtons.BUTTON_GO_TO_DASHBOARD}
+              </Button>
+            ) : (
+              <Button type="button" className="primary" onClick={saveResult}>
+                {localeButtons.BUTTON_SAVE_RESULT}
+              </Button>
+            )}
             <Button
               type="submit"
               className="primaryActive"

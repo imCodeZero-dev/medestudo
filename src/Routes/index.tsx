@@ -257,6 +257,10 @@ const ProjectRoutes = () => {
               element={<StudentStartExamServices />}
             />
             <Route
+              path="/student/exams/practice/study"
+              element={<StudentStartExamServices />}
+            />
+            <Route
               path="/student/exams/result"
               element={<StudentResultServices />}
             />
