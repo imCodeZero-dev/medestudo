@@ -9,12 +9,10 @@ import { useStudentResult } from "./hook";
 import { useNavigate } from "react-router-dom";
 import HomeLayout from "../../../components/LVL5_Layouts/HomeLayout/HomeLayout";
 import { useState } from "react";
-import DashboardExams from "../../../components/LVL3_Cells/DashboardExams/DashboardExams";
-import CreateExamModal from "../../../components/LVL4_Organs/CreateExamModal/CreateExamModal";
+
 import { examCardData } from "../../../components/LVL3_Cells/DashboardExams/@types";
 import ConfirmationModal from "../../../components/LVL4_Organs/ConfirmationModal";
 import AlertIcon from "../../../assets/svgs/AlertIcon";
-import EditExamModal from "../../../components/LVL4_Organs/CreateExamModal/EditExamModal";
 import Input from "../../../components/LVL1_Atoms/Input";
 import { BiSearch } from "react-icons/bi";
 import CustomSelect from "../../../components/LVL2_Molecules/ControlSelect/CustomSelect";
@@ -24,6 +22,7 @@ import { openCreateModalExam } from "../../../redux/actions/modalActions";
 import { StudentRoutes } from "../../../Routes/protectedRoutes/StudentRoutes";
 import ResultBar from "../../../components/LVL3_Cells/ResultBar/ResultBar";
 import ResultDrawer from "../../../components/LVL4_Organs/ResultDrawer/ResultDrawer";
+import MockResultModal from "../../../components/LVL4_Organs/MockResultModal/MockResultModal";
 
 const StudentResult = ({}: StudentResultProps) => {
   const { localeTitles, localeButtons, localeLables, localePlaceholders } =
@@ -33,36 +32,21 @@ const StudentResult = ({}: StudentResultProps) => {
 
   const {
     control,
-    handleSubmit,
-    watch,
-    handleCloseCreate,
-    // onSubmitCreate,
-    openCreate,
-    createLoading,
-    // allDecks,
-    // allExams,
-    // onDeleteConfirm,
-    errors,
     getDetails,
     openDeleteModal,
     deleteModal,
     handleDeleteClose,
     deleteLoading,
-    handleEditClose,
-    openEditModal,
-    editModal,
-    // onSubmitEdit,
     updatedInstitutes,
     filteredArray,
     clearFilter,
-    allResult,
-    isDrawerOpen,
-    questions,
-    handleOpenDrawer,
-    handleCloseDrawer,
+    onDeleteConfirm,
+    resultModal,
+    handleResultModalClose,
+    selecteResultData,
+    handleResultModalOpen,
   } = useStudentResult();
-  // console.log("cookies", cookies);
-  // console.log("allExams", allExams);
+
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
@@ -71,16 +55,7 @@ const StudentResult = ({}: StudentResultProps) => {
   };
 
   return (
-    <HomeLayout
-      createButton={
-        <Button
-          className="primaryActive-lessHeight"
-          onClick={handleCreateExamModal}
-        >
-          + {localeButtons.BUTTON_CREATE_NEW}
-        </Button>
-      }
-    >
+    <HomeLayout>
       <div className={styles["StudentResult"]}>
         <div className={styles["StudentResult-main"]}>
           <div className={styles["StudentResult-main-head"]}>
@@ -114,7 +89,6 @@ const StudentResult = ({}: StudentResultProps) => {
               data={data}
               getDetails={getDetails}
               openDeleteModal={openDeleteModal}
-              openEditModal={openEditModal}
             />
           ))}
         </div>
@@ -166,7 +140,7 @@ const StudentResult = ({}: StudentResultProps) => {
           loading={createLoading}
           filteredDecks={updatedInstitutes}
           watch={watch}
-        />
+        /> */}
 
         <ConfirmationModal
           open={deleteModal}
@@ -177,13 +151,14 @@ const StudentResult = ({}: StudentResultProps) => {
           title={localeTitles.TITLE_ARE_YOU_SURE_DELETE}
           handleClose={handleDeleteClose}
           loading={deleteLoading}
-        /> */}
+        />
 
-        <ResultDrawer
-          questions={questions}
-          isOpen={isDrawerOpen}
-          onClose={handleCloseDrawer}
-          control={control}
+        <MockResultModal
+          handleClose={handleResultModalClose}
+          open={resultModal}
+          loading={false}
+          totalMarks={Number(selecteResultData?.achievedMarks)}
+          totalQuestion={Number(selecteResultData?.totalQuestions)}
         />
       </div>
     </HomeLayout>

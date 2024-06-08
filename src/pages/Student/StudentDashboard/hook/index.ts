@@ -65,7 +65,7 @@ export const useStudentDashboard = () => {
   const { allClasses, allClassesLoading, errorAllClasses, refetchAllClasses } =
     useAllClassesQuery(cookies);
   const { allExams, allExamsLoading, errorAllExams, refetchAllExams } =
-    useAllExamsQuery(cookies);
+    useAllExamsQuery(cookies?.student);
 
   const {
     data: { data: { data: dashboardData = [] } = {} } = {},

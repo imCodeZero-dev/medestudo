@@ -143,7 +143,6 @@ export const useCreateExamQuestion = () => {
     setEditModal(false);
   };
 
-  const { refetchAllExams } = useAllExamsQuery(cookies);
 
   const { allTags, refetchAllTags, allTagsLoading, errorAllTags } =
     useAllTagsQuery(cookies);

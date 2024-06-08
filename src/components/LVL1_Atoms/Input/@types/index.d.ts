@@ -37,4 +37,5 @@ export type CustomInputProps = {
   control: Control;
   max?: number;
   min?: number;
+  readOnly?: boolean;
 };

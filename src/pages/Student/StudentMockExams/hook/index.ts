@@ -18,6 +18,7 @@ import {
   useAllExamsQuery,
   useAllInstituteQuery,
   useAllSubjectsQuery,
+  useallQuestionsQuery,
 } from "../../../../redux/slices/APISlice";
 import {
   createClassApi,
@@ -32,10 +33,13 @@ import { examCardData } from "../../../../components/LVL3_Cells/DashboardExams/@
 export const useStudentMockExams = () => {
   // const navigate = useNavigate();
   const { localeSuccess } = useLocale();
-  const [cookies] = useCookies(["professor"]);
+  const [cookies] = useCookies(["student"]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [modifiedSubjects, setModifiedSubjects] = useState<Tag[]>();
+  const [filteredExamTitles, setFilteredExamTitles] = useState<examCardData[]>(
+    []
+  );
   const [selectedTab, setSelectedTab] = useState(0);
 
   const validationSchema = yup.object().shape({
@@ -61,9 +65,6 @@ export const useStudentMockExams = () => {
   });
   const tabs = ["Subject", "Year", "Institution", "Exam Type"];
   // console.log("watchInst", watchInst);
-
-  const { allDecks, allDecksLoading, errorAllDecks, refetchAllDecks } =
-    useAllDecksQuery(cookies?.professor?.token);
 
   const {
     allInstitute,
@@ -95,7 +96,15 @@ export const useStudentMockExams = () => {
   }, [selectedTab]);
 
   const { allExams, allExamsLoading, errorAllExams, refetchAllExams } =
-    useAllExamsQuery(cookies);
+    useAllExamsQuery(cookies?.student);
+
+  useEffect(() => {
+    const filteredData = allExams?.map((item: any) => item.title);
+
+    setFilteredExamTitles(filteredData);
+  }, [allExams]);
+
+  console.log("filteredExamTitles", filteredExamTitles);
 
   const [updatedInstitutes, setUpdatedInstitutes] = useState<any[]>([]);
   const [selectedYears, setSelectedYears] = useState<string[]>([]);
@@ -167,5 +176,6 @@ export const useStudentMockExams = () => {
     tabs,
     selectedTab,
     setSelectedTab,
+    filteredExamTitles,
   };
 };

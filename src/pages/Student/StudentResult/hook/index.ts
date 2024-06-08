@@ -12,21 +12,13 @@ import { useCookies } from "react-cookie";
 import { useQuery } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
 import { closeModal2 } from "../../../../redux/slices/CreateExamModalSlice";
-import {
-  useAllDecksQuery,
-  useAllExamsQuery,
-  useAllInstituteQuery,
-} from "../../../../redux/slices/APISlice";
-import {
-  createClassApi,
-  createExamApi,
-  deleteExamApi,
-  editExamApi,
-} from "../../../../utils/api/professors";
-import { examForm } from "../../../../utils/constants/DataTypes";
 import { useNavigate } from "react-router-dom";
 import { examCardData } from "../../../../components/LVL3_Cells/DashboardExams/@types";
-import { getAllResultApi } from "../../../../utils/api/Students";
+import {
+  deleteResultByIDApi,
+  getAllResultApi,
+} from "../../../../utils/api/Students";
+import { ResultDataType } from "../../../../utils/constants/DataTypes";
 
 export const useStudentResult = () => {
   // const navigate = useNavigate();
@@ -55,28 +47,13 @@ export const useStudentResult = () => {
     },
   });
 
-  // console.log("watchInst", watchInst);
-
-  // const { allDecks, allDecksLoading, errorAllDecks, refetchAllDecks } =
-  //   useAllDecksQuery(cookies?.professor?.token);
-
-  // const {
-  //   allInstitute,
-  //   allInstituteLoading,
-  //   errorAllInstitute,
-  //   refetchAllInstitute,
-  // } = useAllInstituteQuery();
-
-  // console.log("allInstitute", allInstitute);
-
-  // const { allExams, allExamsLoading, errorAllExams, refetchAllExams } =
-  //   useAllExamsQuery(cookies);
-
   const [createLoading, setCreateLoading] = useState<boolean>(false);
+  const [resultModal, setResultModal] = useState<boolean>(false);
   const [deleteLoading, setDeleteLoading] = useState<boolean>(false);
-  const [selecteExamId, setSelecteExamId] = useState<null | string>(null);
+  const [selecteResultId, setSelecteResultId] = useState<null | string>(null);
+  const [selecteResultData, setSelecteResultData] =
+    useState<ResultDataType | null>(null);
   const [deleteModal, setDeleteModal] = useState(false);
-  const [editModal, setEditModal] = useState(false);
   const [updatedInstitutes, setUpdatedInstitutes] = useState<any[]>([]);
 
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -97,6 +74,20 @@ export const useStudentResult = () => {
     },
     // Add more questions as needed
   ];
+
+  useEffect(() => {
+    console.log("selecteResultData", selecteResultData);
+  }, [selecteResultData]);
+
+  const handleResultModalOpen = (data: any) => {
+    setSelecteResultData(data);
+    setResultModal(true);
+  };
+
+  const handleResultModalClose = () => {
+    setResultModal(false);
+    setSelecteResultData(null);
+  };
 
   const handleOpenDrawer = () => {
     setIsDrawerOpen(true);
@@ -131,118 +122,42 @@ export const useStudentResult = () => {
 
   console.log("allResult", allResult);
 
-  const handleCloseCreate = () => {
-    dispatch(closeModal2());
-  };
   const handleDeleteClose = () => {
     setDeleteModal(false);
   };
 
   const openDeleteModal = (id: string) => {
-    setSelecteExamId(id);
+    setSelecteResultId(id);
     setDeleteModal(true);
   };
-  const openEditModal = (data: examCardData) => {
-    setSelecteExamId(data?._id);
-    setEditModal(true);
-    setValue("title", data?.title);
-    setValue("institute", data?.institute);
-    setValue("year", data?.year);
+
+  const onDeleteConfirm = async () => {
+    try {
+      setDeleteLoading(true);
+      let response;
+      response = await deleteResultByIDApi(
+        selecteResultId as string,
+        cookies?.student?.token
+      );
+      console.log("response", response);
+      refetchAllResult();
+      showSuccessToast(localeSuccess?.SUCCESS_RESULT_DELETED);
+      setSelecteResultId(null);
+    } catch (error: any) {
+      console.log("error", error);
+      showErrorToast(error?.response?.data?.message);
+    } finally {
+      setDeleteLoading(false);
+      handleDeleteClose();
+    }
   };
 
-  const handleEditClose = () => {
-    setEditModal(false);
-  };
-
-  // const onSubmitEdit = async (data: any) => {
-  //   console.log("onSubmitEdit", data);
-  //   const params = {
-  //     title: data?.title,
-  //     institute: data?.institute?.label,
-  //     year: data?.year?.label,
-  //   };
-  //   try {
-  //     setCreateLoading(true);
-  //     let response;
-  //     response = await editExamApi(
-  //       params,
-  //       selecteExamId as string,
-  //       cookies?.student?.token
-  //     );
-  //     console.log("response", response);
-  //     refetchAllExams();
-  //     reset();
-  //     showSuccessToast(localeSuccess?.SUCCESS_EXAM_UPDATED);
-  //   } catch (error: any) {
-  //     console.log("error", error);
-  //     showErrorToast(error?.response?.data?.message);
-  //   } finally {
-  //     setCreateLoading(false);
-  //     handleEditClose();
-  //   }
-  // };
-
-  // const onSubmitCreate = async (data: any) => {
-  //   console.log("onSubmitCreate", data);
-  //   const params = {
-  //     title: data?.title,
-  //     institute: data?.institute?.label,
-  //     year: data?.year?.label,
-  //   };
-  //   try {
-  //     setCreateLoading(true);
-  //     let response;
-  //     response = await createExamApi(params, cookies?.student?.token);
-  //     console.log("response", response);
-  //     refetchAllExams();
-  //     reset();
-  //     showSuccessToast(localeSuccess?.SUCCESS_EXAM_CREATED);
-  //   } catch (error: any) {
-  //     console.log("error", error);
-  //     showErrorToast(error?.response?.data?.message);
-  //   } finally {
-  //     setCreateLoading(false);
-  //     handleCloseCreate();
-  //   }
-  // };
-
-  // const onDeleteConfirm = async () => {
-  //   try {
-  //     setDeleteLoading(true);
-  //     let response;
-  //     response = await deleteExamApi(
-  //       selecteExamId as string,
-  //       cookies?.student?.token
-  //     );
-  //     console.log("response", response);
-  //     refetchAllExams();
-  //     showSuccessToast(localeSuccess?.SUCCESS_EXAM_DELETED);
-  //     setSelecteExamId(null);
-  //   } catch (error: any) {
-  //     console.log("error", error);
-  //     showErrorToast(error?.response?.data?.message);
-  //   } finally {
-  //     setDeleteLoading(false);
-  //     handleDeleteClose();
-  //   }
-  // };
-
-  const getDetails = (data: string) => {
+  const getDetails = (data: ResultDataType) => {
     console.log("getDetails", data);
-    handleOpenDrawer()
+    handleResultModalOpen(data);
+    // handleOpenDrawer();
     // navigate(`/student/exams/exam?${data}`, { state: data });
   };
-
-  // useEffect(() => {
-  //   if (allInstitute) {
-  //     const updatedInstitutes = allInstitute.map((institute: any) => ({
-  //       ...institute,
-  //       name: institute.title,
-  //       title: undefined,
-  //     }));
-  //     setUpdatedInstitutes(updatedInstitutes);
-  //   }
-  // }, [allInstitute]);
 
   const clearFilter = () => {
     setValue("filter_year", "");
@@ -273,25 +188,14 @@ export const useStudentResult = () => {
     control,
     errors,
     handleSubmit,
-
     watch,
-
-    handleCloseCreate,
-    // onSubmitCreate,
     openCreate,
     createLoading,
-    // allDecks,
-    // onDeleteConfirm,
-    // allExams,
     deleteLoading,
     getDetails,
     openDeleteModal,
     deleteModal,
     handleDeleteClose,
-    handleEditClose,
-    openEditModal,
-    editModal,
-    // onSubmitEdit,
     updatedInstitutes,
     filteredArray,
     clearFilter,
@@ -300,5 +204,10 @@ export const useStudentResult = () => {
     questions,
     handleOpenDrawer,
     handleCloseDrawer,
+    onDeleteConfirm,
+    resultModal,
+    handleResultModalClose,
+    handleResultModalOpen,
+    selecteResultData,
   };
 };

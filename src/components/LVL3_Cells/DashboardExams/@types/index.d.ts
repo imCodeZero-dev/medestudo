@@ -15,3 +15,4 @@ interface examCardData {
   year: string;
   _id: string;
 }
+[];

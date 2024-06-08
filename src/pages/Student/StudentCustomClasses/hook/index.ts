@@ -114,7 +114,7 @@ export const useStudentCustomClasses = () => {
   const { allClasses, allClassesLoading, errorAllClasses, refetchAllClasses } =
     useStudentAllClassesQuery(cookies);
   const { allExams, allExamsLoading, errorAllExams, refetchAllExams } =
-    useAllExamsQuery(cookies);
+    useAllExamsQuery(cookies?.student);
   const {
     customClasses,
     customClassesLoading,

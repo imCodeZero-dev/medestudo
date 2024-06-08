@@ -1,9 +1,10 @@
 import { ReactNode } from "react";
+import { ResultDataType } from "../../../../utils/constants/DataTypes";
 
 export interface ResultBarProps {
   data: any;
   play?: boolean;
-  getDetails?: (data: string) => void;
+  getDetails?: (data: ResultDataType) => void;
   openDeleteModal?: (data: string) => void;
   openEditModal?: (data: examCardData) => void;
 }

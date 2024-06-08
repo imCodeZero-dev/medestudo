@@ -84,7 +84,7 @@ export const useProfessorClasses = () => {
   const { allClasses, allClassesLoading, errorAllClasses, refetchAllClasses } =
     useAllClassesQuery(cookies);
   const { allExams, allExamsLoading, errorAllExams, refetchAllExams } =
-    useAllExamsQuery(cookies);
+    useAllExamsQuery(cookies?.professor);
 
   const { allDecks, allDecksLoading, errorAllDecks, refetchAllDecks } =
     useAllDecksQuery(cookies?.professor?.token);

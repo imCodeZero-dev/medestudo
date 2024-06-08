@@ -13,6 +13,7 @@ const ResultDrawer = ({
   onClose,
   control,
 }: ResultDrawerProps) => {
+  console.log("ResultDrawer", questions);
   const { localeButtons, localeTitles, localeText, localePlaceholders } =
     useLocale();
   return (
@@ -20,7 +21,7 @@ const ResultDrawer = ({
       <div className={styles.header}>
         <Text className={styles.heading}>Test Details</Text>
 
-        <button onClick={onClose} className={styles.closeButton}>
+        <button onClick={() => onClose()} className={styles.closeButton}>
           ×
         </button>
       </div>
@@ -48,19 +49,25 @@ const ResultDrawer = ({
         </div>
 
         <div className={styles.viewBtn}>
-          <Button className="primary-lessHeight">
+          <Button
+            className="primary-lessHeight"
+            type="button"
+            onClick={() => onClose()}
+          >
             {localeButtons?.BUTTON_VIEW_SCORE}
           </Button>
         </div>
       </div>
       <div className={styles.main}>
         <div className={styles.content}>
-          {questions.map((question: any[], index: number) => (
+          {questions.map((question: any, index: number) => (
             <div key={index} className={styles.questionBlock}>
               <h3>Q{index + 1}</h3>
               <div className="my-6">
                 <QuillEditor
-                  name="question"
+                  // name="question"
+                  // name={question?.[index]?.question}
+                  name={`question-${index}`}
                   control={control}
                   noHeader
                   key={question[index]?.question}
@@ -70,23 +77,26 @@ const ResultDrawer = ({
                   }
                 />
                 <Controller
-                  name={"questionImage"}
+                  // name={"questionImage"}
+                  // name={question?.[index]?.questionImage}
+                  name={`questionImage-${index}`}
                   control={control}
                   defaultValue=""
                   key={question[index]?.question}
                   render={({ field }) => (
                     <>
-                      <img
-                        className={styles["questionImage"]}
-                        src={field.value}
-                      />
+                      {field.value !== "" && (
+                        <img
+                          className={styles["questionImage"]}
+                          src={field.value}
+                        />
+                      )}
                     </>
                   )}
                 />
               </div>
-
               <div className={styles["mcq"]}>
-                {question[index]?.answers?.map((answer: any, index: number) => (
+                {question?.answers?.map((answer: any, index: number) => (
                   <div className={styles["mcqsDiv"]} key={index}>
                     <p
                       className={

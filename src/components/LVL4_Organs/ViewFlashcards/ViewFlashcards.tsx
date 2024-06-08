@@ -172,10 +172,12 @@ const ViewFlashcards: React.FC<ViewFlashcardsProps> = ({
                       // key={allFlashcards[currentFlashcardIndex]?._id}
                       render={({ field }) => (
                         <>
-                          <img
-                            className={styles["questionImage"]}
-                            src={field.value}
-                          />
+                          {field.value !== "" && (
+                            <img
+                              className={styles["questionImage"]}
+                              src={field.value}
+                            />
+                          )}
                         </>
                       )}
                     />
@@ -218,10 +220,12 @@ const ViewFlashcards: React.FC<ViewFlashcardsProps> = ({
                       // key={allFlashcards[currentFlashcardIndex]?._id}
                       render={({ field }) => (
                         <>
-                          <img
-                            className={styles["questionImage"]}
-                            src={field.value}
-                          />
+                          {field.value !== "" && (
+                            <img
+                              className={styles["questionImage"]}
+                              src={field.value}
+                            />
+                          )}
                         </>
                       )}
                     />

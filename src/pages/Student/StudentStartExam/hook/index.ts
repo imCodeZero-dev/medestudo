@@ -8,17 +8,10 @@ import {
 } from "../../../../config/toastProvider/toastUtils";
 
 import useLocale from "../../../../locales";
-import { passwordRegex } from "../../../../utils/constants/constants";
 import { useCookies } from "react-cookie";
 import { useQuery } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
-import { closeModal } from "../../../../redux/slices/CreateClassModalSlice";
 
-import {
-  deleteExamApi,
-  deleteFlashcardApi,
-  editFlashcardApi,
-} from "../../../../utils/api/professors";
 import {
   useLocation,
   useNavigate,
@@ -26,11 +19,8 @@ import {
   useSearchParams,
 } from "react-router-dom";
 import {
-  useAllClassesQuery,
-  useAllExamsQuery,
-  useAllFlashcardsQuery,
-  useAllTagsQuery,
   useExamQuestionsQuery,
+  useallQuestionsQuery,
 } from "../../../../redux/slices/APISlice";
 import { Flashcard, Tag } from "../../../../utils/constants/DataTypes";
 import { examCardData } from "../../../../components/LVL3_Cells/DashboardExams/@types";
@@ -67,12 +57,15 @@ export const useStudentStartExam = () => {
     // resolver: yupResolver(validationSchema),
     defaultValues: {},
   });
+  const {
+    control: allQuestionControl,
+    watch: allQuestionWatch,
+    setValue: allQuestionSetValue,
+    getValues: allQuestionGetValues,
+  } = useForm<any>({
+    defaultValues: {},
+  });
 
-  const [deleteLoading, setDeleteLoading] = useState<boolean>(false);
-  const [deleteModal, setdeleteModal] = useState<boolean>(false);
-  const [deleteExamModal, setdeleteExamModal] = useState<boolean>(false);
-  const [enableEdit, setEnableEdit] = useState<boolean>(false);
-  const [editLoading, setEditLoading] = useState<boolean>(false);
   const [flashcardData, setFlashcardData] = useState<any>();
   const location = useLocation().state;
   const navigate = useNavigate();
@@ -86,11 +79,10 @@ export const useStudentStartExam = () => {
   const [stopTimer, setStopTimer] = useState<boolean>(false);
   const [createResultModal, setCreateResultModal] = useState<boolean>(false);
   const [createLoading, setCreateLoading] = useState<boolean>(false);
+  const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
 
   console.log("AllQuestion Exams", location);
   // console.log("AllQuestion Exams", examDetails);
-
-  const [editModal, setEditModal] = useState(false);
 
   const params = {
     totalQuestions: location?.totalQuestions,
@@ -101,34 +93,30 @@ export const useStudentStartExam = () => {
   };
 
   const {
-    data: { data: { questions: allQuestions = [] } = {} } = {},
-    isLoading: allQuestionsLoading,
-    error: errorallQuestions,
-    refetch: refetchallQuestions,
-  } = useQuery(
-    [
-      "allQuestions",
-      {
-        cookies,
-      },
-    ],
-
-    async () => {
-      return getAllQuesitonsApi(params, cookies?.student?.token);
-    },
-    {
-      enabled: !!cookies?.student?.token && !!location?.totalQuestions,
-    }
-  );
+    allQuestions,
+    allQuestionsLoading,
+    errorallQuestions,
+    refetchallQuestions,
+  } = useallQuestionsQuery(cookies, params, location);
 
   console.log("allQuestions", allQuestions);
 
-  const openEditModal = (data: examCardData) => {
-    // setSelectedExamId(data?._id);
-    setEditModal(true);
-    setValue("title", data?.title);
-    setValue("institute", data?.institute);
-    setValue("year", data?.year);
+  // const openEditModal = (data: examCardData) => {
+  //   // setSelectedExamId(data?._id);
+  //   setEditModal(true);
+  //   setValue("title", data?.title);
+  //   setValue("institute", data?.institute);
+  //   setValue("year", data?.year);
+  // };
+
+  const handleOpenDrawer = () => {
+    setIsDrawerOpen(true);
+    handleResultModalClose();
+  };
+
+  const handleCloseDrawer = () => {
+    setIsDrawerOpen(false);
+    handleResultModalOpen();
   };
 
   const handleCloseCreateResult = () => {
@@ -146,37 +134,8 @@ export const useStudentStartExam = () => {
 
   const handleResultModalClose = () => {
     setResultModal(false);
+    // navigate(-1);
   };
-
-  const handleEditClose = () => {
-    setEditModal(false);
-  };
-
-  const openDeleteExamModal = () => {
-    setdeleteExamModal(true);
-  };
-
-  const closeDeleteExamModal = () => {
-    setdeleteExamModal(false);
-  };
-
-  const handleDeleteOpen = (data: any) => {
-    setdeleteModal(true);
-    setFlashcardData(data);
-  };
-  const handleDeleteClose = () => {
-    setdeleteModal(false);
-  };
-
-  const handleEditOpen = (data: any) => {
-    setEnableEdit(true);
-    setFlashcardData(data);
-    // navigate("/professor/classes/deck/flashcard", { state: data });
-  };
-
-  // const handleEditClose = () => {
-  //   setEnableEdit(false);
-  // };
 
   const {
     examQuestions,
@@ -184,14 +143,6 @@ export const useStudentStartExam = () => {
     examQuestionsLoading,
     refetchexamQuestions,
   } = useExamQuestionsQuery(cookies, examId as string);
-
-  const { refetchAllExams } = useAllExamsQuery(cookies);
-
-  // console.log("examQuestions", examQuestions);
-
-  // const getDetails = (data: string) => {
-  //   navigate(`/professor/classes/deck?${data}`, { state: data });
-  // };
 
   const handleNextQuestion = () => {
     setCurrentQuestionIndex((prevIndex) =>
@@ -208,79 +159,6 @@ export const useStudentStartExam = () => {
     );
   };
 
-  const onDeleteConfirm = async () => {
-    try {
-      setDeleteLoading(true);
-      let response;
-      response = await deleteFlashcardApi(
-        flashcardData?._id,
-        cookies?.student?.token
-      );
-      console.log("response", response);
-
-      showSuccessToast(localeSuccess?.SUCCESS_FLASH_DELETED);
-      refetchexamQuestions();
-    } catch (error: any) {
-      console.log("error", error);
-      showErrorToast(error?.response?.data?.message);
-    } finally {
-      setDeleteLoading(false);
-      handleDeleteClose();
-    }
-  };
-
-  const onDeleteExamConfirm = async () => {
-    try {
-      setDeleteLoading(true);
-      let response;
-      response = await deleteExamApi(examId as string, cookies?.student?.token);
-      console.log("response", response);
-
-      showSuccessToast(localeSuccess?.SUCCESS_EXAM_DELETED);
-      navigate(-1);
-      refetchAllExams();
-    } catch (error: any) {
-      console.log("error", error);
-      showErrorToast(error?.response?.data?.message);
-    } finally {
-      setDeleteLoading(false);
-      closeDeleteExamModal();
-    }
-  };
-
-  const onSubmitEdit = async (data: any) => {
-    try {
-      const tagsLabels = data?.tags?.map(
-        (tag: { value: string; label: string }) => tag.label
-      );
-      const base64Question = btoa(data.question);
-      const base64Answer = btoa(data.answer);
-
-      const payload = {
-        question: base64Question,
-        answer: base64Answer,
-        tags: tagsLabels,
-      };
-
-      setEditLoading(true);
-      const response = await editFlashcardApi(
-        payload,
-        flashcardData?._id,
-        cookies?.student?.token
-      );
-      console.log("response", response);
-      showSuccessToast(localeSuccess?.SUCCESS_FLASH_EDIT);
-      refetchexamQuestions();
-    } catch (error: any) {
-      console.log("error", error);
-      showErrorToast(error?.response?.data?.message);
-    } finally {
-      setEditLoading(false);
-      reset();
-      // navigate(-1);
-    }
-  };
-
   const selectAnswer = (data: any) => {
     console.log("selectAnswers", data);
 
@@ -295,9 +173,6 @@ export const useStudentStartExam = () => {
     }
     handleNextQuestion();
   };
-  useEffect(() => {
-    console.log("totalMarks", totalMarks);
-  }, [totalMarks]);
 
   useEffect(() => {
     if (allQuestions[currentQuestionIndex]) {
@@ -331,6 +206,36 @@ export const useStudentStartExam = () => {
     }
     console.log("allQuestions useEffect", allQuestions[currentQuestionIndex]);
   }, [currentQuestionIndex, allQuestions]);
+  useEffect(() => {
+    allQuestions.forEach((deck: any, i: number) => {
+      // if (deck?.question) {
+      const { question, answer, tags, questionImage, answerImage } = deck;
+      console.log("allQuestions for Each", answer);
+      try {
+        const decodedQuestion = atob(question);
+        // const decodedAnswer = atob(answer);
+        allQuestionSetValue(`question-${i}`, decodedQuestion);
+        // allQuestionSetValue(`answer-${i}`, decodedAnswer);
+        allQuestionSetValue(`questionImage-${i}`, questionImage);
+        allQuestionSetValue(`answerImage-${i}`, answerImage);
+        allQuestionSetValue(`new_questionImage-${i}`, questionImage);
+        allQuestionSetValue(`new_answerImage-${i}`, answerImage);
+        if (tags && tags.length > 0) {
+          const filteredTags = tags.map((item: Tag) => ({
+            title: item,
+            value: item,
+            label: item,
+          }));
+          allQuestionSetValue("tags", filteredTags);
+        } else {
+          allQuestionSetValue("tags", []);
+        }
+      } catch (error) {
+        console.error("Error decoding base64 string:", error);
+      }
+      // }
+    });
+  }, [allQuestions]);
 
   const getTotalTime = (time?: number) => {
     console.log("totaltime", time);
@@ -338,13 +243,6 @@ export const useStudentStartExam = () => {
     if (time) {
       setTotalTime(time);
     }
-  };
-
-  const saveResult = () => {
-    console.log("object");
-  };
-  const showDetails = () => {
-    console.log("object");
   };
 
   const finishExam = () => {
@@ -376,55 +274,36 @@ export const useStudentStartExam = () => {
     }
   };
 
-  // console.log("allTags", allTags, "watchTags", tags);
-
   return {
     control,
     errors,
     handleSubmit,
-    setValue,
     watch,
-    getValues,
     handleNextQuestion,
     handlePreviousQuestion,
-    examQuestions,
     currentQuestionIndex,
-    onDeleteConfirm,
-    deleteModal,
-    deleteLoading,
-    handleDeleteOpen,
-    handleDeleteClose,
-    handleEditOpen,
-    handleEditClose,
-    enableEdit,
-    onSubmitEdit,
-    editLoading,
+
     examQuestionsLoading,
-    examDetails,
-    openEditModal,
-    deleteExamModal,
-    openDeleteExamModal,
-    onDeleteExamConfirm,
-    closeDeleteExamModal,
     allQuestions,
     selectAnswer,
     revealedAnswer,
     selectedAnswer,
     respondToNext,
     handleResultModalClose,
-    handleResultModalOpen,
     resultModal,
-    saveResult,
-    showDetails,
     totalTime,
     getTotalTime,
     stopTimer,
     onCreateResult,
     createResultModal,
+    handleOpenCreateResult,
     handleCloseCreateResult,
     createLoading,
-    handleOpenCreateResult,
     finishExam,
     totalMarks,
+    isDrawerOpen,
+    handleCloseDrawer,
+    handleOpenDrawer,
+    allQuestionControl,
   };
 };

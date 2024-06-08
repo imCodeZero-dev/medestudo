@@ -70,7 +70,7 @@ export const useProfessorExams = () => {
   // console.log("allInstitute", allInstitute);
 
   const { allExams, allExamsLoading, errorAllExams, refetchAllExams } =
-    useAllExamsQuery(cookies);
+    useAllExamsQuery(cookies?.professor);
 
   const [createLoading, setCreateLoading] = useState<boolean>(false);
   const [deleteLoading, setDeleteLoading] = useState<boolean>(false);

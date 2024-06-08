@@ -13,6 +13,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
   min = 1,
   label,
   unit,
+  readOnly,
 }) => {
   return (
     <Controller
@@ -23,34 +24,45 @@ const CustomInput: React.FC<CustomInputProps> = ({
         <>
           <div className={styles.inputContainer}>
             <label className={styles.label}>{label}</label>
-            <div className={styles.inputMain}>
-              <button
-                type="button"
-                className={styles.button}
-                onClick={() => onChange(Math.max(min, value - 1))}
-              >
-                -
-              </button>
-              <div className={styles.inputDiv}>
-                <input
-                  type="number"
-                  className={styles.input}
-                  value={value}
-                  onChange={(e) =>
-                    onChange(Math.max(min, Math.min(max, +e.target.value)))
-                  }
-                />
-                {unit && <Text className={styles.unitText}>{unit}</Text>}
-              </div>
+            {readOnly ? (
+              <>
+                {unit && (
+                  <Text className={styles.unitText}>
+                    {value} {unit}
+                  </Text>
+                )}
+              </>
+            ) : (
+              <div className={styles.inputMain}>
+                <button
+                  type="button"
+                  className={styles.button}
+                  onClick={() => onChange(Math.max(min, value - 1))}
+                >
+                  -
+                </button>
+                <div className={styles.inputDiv}>
+                  <input
+                    type="number"
+                    className={styles.input}
+                    value={value}
+                    onChange={(e) =>
+                      onChange(Math.max(min, Math.min(max, +e.target.value)))
+                    }
+                  />
+                  {unit && <Text className={styles.unitText}>{unit}</Text>}
+                </div>
 
-              <button
-                type="button"
-                className={styles.button}
-                onClick={() => onChange(Math.min(max, value + 1))}
-              >
-                +
-              </button>
-            </div>
+                <button
+                  type="button"
+                  className={styles.button}
+                  onClick={() => onChange(Math.min(max, value + 1))}
+                >
+                  +
+                </button>
+              </div>
+            )}
+
             {/* <span className={styles.maxValue}>{max}</span> */}
           </div>
           {errors && <ErrorMessage errors={`${errors?.[name]?.message}`} />}

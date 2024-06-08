@@ -56,9 +56,9 @@ const StudentMockExams = ({}: StudentMockExamsProps) => {
     tabs,
     selectedTab,
     setSelectedTab,
+    filteredExamTitles,
   } = useStudentMockExams();
   const dispatch = useDispatch();
-
 
   const navigate = useNavigate();
   const handleCreateExamModal = () => {
@@ -74,6 +74,10 @@ const StudentMockExams = ({}: StudentMockExamsProps) => {
     watchFilter !== ""
       ? arrayOfYears.filter((year) => year.includes(watchFilter))
       : arrayOfYears;
+  const filteredExamTypes =
+    watchFilter !== ""
+      ? filteredExamTitles.filter((year: any) => year.includes(watchFilter))
+      : filteredExamTitles;
 
   return (
     <HomeLayout>
@@ -160,7 +164,7 @@ const StudentMockExams = ({}: StudentMockExamsProps) => {
 
           {selectedTab === 3 && (
             <div className={styles.checkboxContainer}>
-              {examType.map((exam, index) => (
+              {filteredExamTypes.map((exam: any, index) => (
                 <SelectableCards
                   key={index}
                   control={control}
@@ -189,6 +193,7 @@ const StudentMockExams = ({}: StudentMockExamsProps) => {
                   label="Total Questions"
                 />
                 <CustomInput
+                  readOnly
                   name="time"
                   control={control}
                   max={5}

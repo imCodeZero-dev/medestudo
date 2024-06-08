@@ -7,10 +7,8 @@ import QuillEditor from "../../LVL3_Cells/QuillEditor/QuillEditor";
 import { Button } from "../../LVL1_Atoms/Button";
 import { Controller } from "react-hook-form";
 import Loader from "../../LVL1_Atoms/Loader";
-import Input from "../../LVL1_Atoms/Input";
 import { IoIosArrowRoundBack } from "react-icons/io";
 import { IoIosArrowRoundForward } from "react-icons/io";
-import ViewQuestionModal from "../ViewQuestionModal/ViewQuestionModal";
 import { useNavigate } from "react-router-dom";
 
 const ViewQuestionsMock: React.FC<ViewQuestionsMockProps> = ({
@@ -19,45 +17,18 @@ const ViewQuestionsMock: React.FC<ViewQuestionsMockProps> = ({
   handleNext,
   handlePrevious,
   currentIndex,
-  handleDeleteOpen,
-  enableEdit,
-  handleEditClose,
-  handleEditOpen,
-  onSubmitEdit,
-  handleSubmit,
+
   loading,
-  editLoading,
-  watch,
   revealedAnswer,
   selectAnswer,
   selectedAnswer,
   respondToNext,
   finishExam,
 }) => {
-  // console.log("allQuestion", allQuestion[currentIndex]?.question);
-  // console.log("allQuestion watch", watch("questionImage"));
   const { localeTitles, localePlaceholders, localeButtons, localeText } =
     useLocale();
-  // console.log("allTags", allTags);
   const navigate = useNavigate();
-  const [key, setKey] = useState(0);
 
-  const navigateToEditQuestion = (exam: any) => {
-    // console.log("navigateToEditQuestion", exam);
-    navigate(`/professor/exams/exam/question`, {
-      state: { ...exam, status: "edit" },
-    });
-  };
-
-  const [viewSeeSolution, setViewSeeSolution] = useState(false);
-  const handleOpenSeeSolution = () => {
-    setViewSeeSolution(true);
-  };
-
-  const handleCloseSeeSolution = () => {
-    setViewSeeSolution(false);
-  };
-  // console.log("filteredTags", filteredTags);
   return (
     <div className={styles["ViewQuestionsMock"]}>
       {loading ? (
@@ -65,7 +36,7 @@ const ViewQuestionsMock: React.FC<ViewQuestionsMockProps> = ({
           <Loader />
         </div>
       ) : (
-        <form onSubmit={handleSubmit(onSubmitEdit)} className={styles["form"]}>
+        // <form className={styles["form"]}>
           <div
             className={styles["ViewQuestionsMock-main"]}
             key={allQuestion[currentIndex]?._id}
@@ -207,14 +178,8 @@ const ViewQuestionsMock: React.FC<ViewQuestionsMockProps> = ({
               </div>
             </div>
           </div>
-        </form>
+        // </form>
       )}
-
-      <ViewQuestionModal
-        questionDetails={allQuestion[currentIndex]}
-        open={viewSeeSolution}
-        handleClose={handleCloseSeeSolution}
-      />
     </div>
   );
 };

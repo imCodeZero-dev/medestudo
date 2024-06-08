@@ -7,10 +7,10 @@ export type MockResultModalProps = {
   handleSubmit?: any;
   // loadMore: (data?: any) => void;
   // navigateToDashboard: () => void;
-  control: Control<any>;
+  control?: Control<any>;
   timeSpent?: string | number;
-  saveResult: () => void;
-  showDetails: () => void;
+  saveResult?: () => void;
+  showDetails?: () => void;
   totalMarks: number;
   totalQuestion: number;
 };

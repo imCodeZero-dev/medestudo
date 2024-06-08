@@ -17,6 +17,7 @@ import {
 import { getAllSubjectsApi } from "../../utils/api/all";
 import {
   getAllCustomClassesApi,
+  getAllQuesitonsApi,
   studentGetAllClassesApi,
 } from "../../utils/api/Students";
 
@@ -179,10 +180,10 @@ export const useAllExamsQuery = (cookies: any) => {
       },
     ],
     async () => {
-      return getAllExamsApi(cookies?.professor?.token);
+      return getAllExamsApi(cookies?.token);
     },
     {
-      enabled: !!cookies?.professor?.token,
+      enabled: !!cookies?.token,
     }
   );
 
@@ -367,5 +368,45 @@ export const useCustomAllClassesQuery = (cookies: any) => {
     customClassesLoading,
     errorCustomClasses,
     refetchCustomClasses,
+  };
+};
+
+export const useallQuestionsQuery = (
+  cookies: any,
+  params: any,
+  location: any
+) => {
+  console.log(
+    "useallQuestionsQuery",
+    cookies,
+    "parans",
+    params,
+    "location",
+    location
+  );
+  const {
+    data: { data: { questions: allQuestions = [] } = {} } = {},
+    isLoading: allQuestionsLoading,
+    error: errorallQuestions,
+    refetch: refetchallQuestions,
+  } = useQuery(
+    [
+      "allQuestions",
+      {
+        cookies,
+      },
+    ],
+    async () => {
+      return getAllQuesitonsApi(params, cookies?.student?.token);
+    },
+    {
+      enabled: !!cookies?.student?.token && !!location?.totalQuestions,
+    }
+  );
+  return {
+    allQuestions,
+    allQuestionsLoading,
+    errorallQuestions,
+    refetchallQuestions,
   };
 };

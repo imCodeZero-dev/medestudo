@@ -15,8 +15,7 @@ import { useNavigate } from "react-router-dom";
 const MockResultModal = ({
   open,
   handleClose,
-  handleSubmit,
-  control,
+
   loading,
   timeSpent,
   saveResult,
@@ -51,27 +50,42 @@ const MockResultModal = ({
           </div>
         </div>
 
-        <div className={styles["timerSection"]}>
-          <Text className={styles["timeSpentText"]}>
-            {localeText?.TEXT_TIME_TAKEN}
-          </Text>
-          <Text className={styles["totalTime"]}>
-            {formattedTime(timeSpent as number)}
-          </Text>
-        </div>
-        <div className="flex justify-between mt-4 space-x-4">
-          <Button type="button" className="primary" onClick={saveResult}>
-            {localeButtons.BUTTON_SAVE_RESULT}
-          </Button>
-          <Button
-            type="submit"
-            className="primaryActive"
-            onClick={showDetails}
-            loading={loading}
-          >
-            {localeButtons.BUTTON_SHOW_DETAILS}
-          </Button>
-        </div>
+        {timeSpent && (
+          <div className={styles["timerSection"]}>
+            <Text className={styles["timeSpentText"]}>
+              {localeText?.TEXT_TIME_TAKEN}
+            </Text>
+            <Text className={styles["totalTime"]}>
+              {formattedTime(timeSpent as number)}
+            </Text>
+          </div>
+        )}
+        {saveResult && showDetails ? (
+          <div className="flex justify-between mt-4 space-x-4">
+            <Button type="button" className="primary" onClick={saveResult}>
+              {localeButtons.BUTTON_SAVE_RESULT}
+            </Button>
+            <Button
+              type="submit"
+              className="primaryActive"
+              onClick={showDetails}
+              loading={loading}
+            >
+              {localeButtons.BUTTON_SHOW_DETAILS}
+            </Button>
+          </div>
+        ) : (
+          <div className="flex justify-between mt-4 space-x-4">
+            <Button
+              type="submit"
+              className="primaryActive"
+              onClick={handleClose}
+              loading={loading}
+            >
+              {localeButtons.BUTTON_CLOSE}
+            </Button>
+          </div>
+        )}
         {/* </form> */}
       </CustomModal>
     </div>

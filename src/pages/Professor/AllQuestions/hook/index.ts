@@ -126,7 +126,7 @@ export const useAllQuestions = () => {
     refetchexamQuestions,
   } = useExamQuestionsQuery(cookies, examId as string);
 
-  const { refetchAllExams } = useAllExamsQuery(cookies);
+  const { refetchAllExams } = useAllExamsQuery(cookies?.professor);
 
   // console.log("examQuestions", examQuestions);
 

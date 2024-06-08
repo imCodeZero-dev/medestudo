@@ -107,3 +107,12 @@ export interface ClassIdType {
   updatedAt: string;
   __v: number;
 }
+
+export interface ResultDataType {
+  _id: string;
+  totalQuestions: string;
+  achievedMarks: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+}

@@ -100,7 +100,7 @@ export const useExamsDetails = () => {
   };
 
   const { allExams, allExamsLoading, errorAllExams, refetchAllExams } =
-    useAllExamsQuery(cookies);
+    useAllExamsQuery(cookies?.professor);
 
   const {
     allInstitute,
