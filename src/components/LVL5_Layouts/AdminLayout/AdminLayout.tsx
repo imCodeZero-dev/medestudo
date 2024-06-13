@@ -77,9 +77,9 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
         </div>
         <div className={styles["AdminLayout-header-right"]}>
           <LanguageDropdown />
-          <div className={styles["iconDiv"]}>
+          {/* <div className={styles["iconDiv"]}>
             <SettingIcon onClick={() => navigate("/admin/profile")} />
-          </div>
+          </div> */}
           {/* <div className={styles["iconDiv"]}>
             <BellIcon />
           </div> */}

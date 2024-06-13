@@ -166,7 +166,7 @@ const AdminProfile = ({}: AdminProfileProps) => {
             className={styles["form"]}
           >
             <div className={styles["AdminProfile-section"]}>
-              <div className="grid grid-cols-2 space-x-6">
+              <div className="">
                 <Input
                   label={localeLables?.LABEL_CURRENT_PASSWORD}
                   control={controlPassword}
@@ -191,7 +191,9 @@ const AdminProfile = ({}: AdminProfileProps) => {
                     )
                   }
                 />
+              </div>
 
+              <div className="grid grid-cols-2 space-x-6 my-4">
                 <Input
                   label={localeLables?.LABEL_NEW_PASSWORD}
                   control={controlPassword}
@@ -216,9 +218,6 @@ const AdminProfile = ({}: AdminProfileProps) => {
                     )
                   }
                 />
-              </div>
-
-              <div className="my-4">
                 <Input
                   label={localeLables?.LABEL_CONFIRM_PASSWORD}
                   control={controlPassword}

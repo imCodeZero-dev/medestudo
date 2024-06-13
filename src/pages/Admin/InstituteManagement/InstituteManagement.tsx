@@ -45,6 +45,7 @@ const InstituteManagement = ({}: InstituteManagementProps) => {
     onDeleteConfirm,
     watch,
     allInstituteLoading,
+    statusLoading,
   } = useInstituteManagement();
   // console.log("cookies", cookies);
 
@@ -89,6 +90,7 @@ const InstituteManagement = ({}: InstituteManagementProps) => {
             handleStatusToggle={onChangeInstituteStatus}
             handleDelete={handleDeleteModalOpen}
             watch={watch}
+            statusLoading={statusLoading}
           />
         </div>
 

@@ -116,3 +116,11 @@ export interface ResultDataType {
   updatedAt: string;
   __v: number;
 }
+
+export interface dashboardDataType {
+  year: string;
+  month: string;
+  decks: number;
+  flashcards: number;
+  questions: number;
+}

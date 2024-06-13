@@ -14,6 +14,7 @@ import useLocale from "../../../../locales";
 import { passwordRegex } from "../../../../utils/constants/constants";
 import { useCookies } from "react-cookie";
 import { useQuery } from "react-query";
+import { useDashboardDataQuery } from "../../../../redux/slices/APISlice";
 // import { useLocation, useNavigate } from "react-router-dom";
 
 export const useQuestionsManagement = () => {
@@ -92,6 +93,12 @@ export const useQuestionsManagement = () => {
     }
   );
 
+  const {
+    dashboardData,
+    dashboardDataLoading,
+    errorDashboardData,
+    refetchDashboardData,
+  } = useDashboardDataQuery(cookies?.admin);
   const onSubmitCreateProfessor = async (data: any) => {
     const params = {
       name: data?.name,
@@ -152,5 +159,6 @@ export const useQuestionsManagement = () => {
     onSubmitEditProfessor,
     watch,
     allQuestions,
+    dashboardData,
   };
 };

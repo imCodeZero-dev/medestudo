@@ -189,6 +189,27 @@ const DecksManagement = ({}: DecksManagementProps) => {
                                       defaultValue={deepNestedDeck?.name}
                                       readOnly
                                     />
+
+                                    {deepNestedDeck.subDeck?.map(
+                                      (
+                                        lastNestedDeck: any,
+                                        lastNestedIndex: number
+                                      ) => (
+                                        <div
+                                          key={lastNestedIndex}
+                                          className={
+                                            styles["deepNestedDeckContainer"]
+                                          }
+                                        >
+                                          <InputDeck
+                                            control={control}
+                                            name={lastNestedDeck?.name}
+                                            defaultValue={lastNestedDeck?.name}
+                                            readOnly
+                                          />
+                                        </div>
+                                      )
+                                    )}
                                   </div>
                                 )
                               )}

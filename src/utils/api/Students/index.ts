@@ -332,7 +332,7 @@ export const updateStudentProfileApi = async (
   studentId: string,
   token: string
 ) => {
-  // console.log("getAllResultApi", );
+  console.log("updateStudentProfileApi", data, "id", studentId);
   const response = await apiRequest({
     method: "Put",
     url: `/user/updateSettings/${studentId}`,
@@ -347,7 +347,7 @@ export const updateStudentPictureApi = async (
   studentId: string,
   token: string
 ) => {
-  // console.log("getAllResultApi", );
+  console.log("updateStudentPictureApi", data, "id", studentId);
   const response = await apiRequest({
     method: "Put",
     url: `/user/updatePicture/${studentId}`,
@@ -362,7 +362,7 @@ export const resetStudentPasswordApi = async (
   studentId: string,
   token: string
 ) => {
-  // console.log("getAllResultApi", );
+  console.log("resetStudentPasswordApi", data, "id", studentId);
   const response = await apiRequest({
     method: "Put",
     url: `/user/resetPassword/${studentId}`,

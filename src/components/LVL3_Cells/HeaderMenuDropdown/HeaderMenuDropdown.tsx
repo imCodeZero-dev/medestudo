@@ -7,6 +7,7 @@ import styles from "./HeaderMenuDropdown.module.css";
 
 import { useNavigate } from "react-router-dom";
 import { IoMdMenu } from "react-icons/io";
+import Text from "../../LVL1_Atoms/Text/Text";
 
 const HeaderMenuDropdown: React.FC<HeaderMenuDropdownProps> = ({}) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -34,8 +35,9 @@ const HeaderMenuDropdown: React.FC<HeaderMenuDropdownProps> = ({}) => {
   return (
     <div className={styles["HeaderMenuDropdown"]}>
       <div className={styles["mainDiv"]} onClick={(e: any) => handleClick(e)}>
-        <div className="flex items-center space-x-1">
-          <IoMdMenu />
+        <div className="flex items-center space-x-2">
+          <IoMdMenu size={24} />
+          <Text>Menu</Text>
         </div>
 
         <FaCaretDown />

@@ -7,26 +7,15 @@ import {
   showSuccessToast,
 } from "../../../../config/toastProvider/toastUtils";
 import {
-  changeProfessorStatusApi,
-  createProfessorApi,
-  getAllProfessorApi,
+
   resetAdminPasswordApi,
   updateAdminProfileApi,
 } from "../../../../utils/api/admin";
 import useLocale from "../../../../locales";
-import {
-  CLOUDINARY_CLOUD_NAME,
-  CLOUDINARY_FOLDER,
-  CLOUDINARY_UPLOAD_PRESET,
-  passwordRegex,
-} from "../../../../utils/constants/constants";
+
 import { useCookies } from "react-cookie";
 import { useQuery } from "react-query";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  useProfessorsQuery,
-  useStudentsQuery,
-} from "../../../../redux/slices/APISlice";
+
 import dayjs from "dayjs";
 import { uploadImageToCloudinary } from "../../../../utils/hooks/helper";
 import { passwordValidationSchema } from "../../../../utils/hooks/inputValidation";
@@ -124,7 +113,7 @@ export const useAdminProfile = () => {
 
  
   const onSubmitResetPasswordAdmin = async (data: any) => {
-    console.log("onSubmitResetPasswordAdmin", data);
+    // console.log("onSubmitResetPasswordAdmin", data);
     try {
       setResetLoading(true);
 

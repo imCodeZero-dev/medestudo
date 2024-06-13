@@ -8,7 +8,6 @@ import {
 } from "../../../../config/toastProvider/toastUtils";
 
 import useLocale from "../../../../locales";
-import { passwordRegex } from "../../../../utils/constants/constants";
 import { useCookies } from "react-cookie";
 import { useQuery } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,19 +15,16 @@ import { closeModal } from "../../../../redux/slices/CreateClassModalSlice";
 
 import { useNavigate } from "react-router-dom";
 import {
-  useAllClassesQuery,
-  useAllDecksQuery,
+
   useAllExamsQuery,
   useCustomAllClassesQuery,
   useStudentAllClassesQuery,
 } from "../../../../redux/slices/APISlice";
-import { createInstituteApi } from "../../../../utils/api/admin";
 import {
   createCustomClassApi,
   deleteCustomClassApi,
   getAllCustomClassesApi,
 } from "../../../../utils/api/Students";
-import { getDashboardDataApi } from "../../../../utils/api/professors";
 
 export const useStudentCustomClasses = () => {
   // const navigate = useNavigate();
@@ -36,7 +32,6 @@ export const useStudentCustomClasses = () => {
   const [cookies] = useCookies(["student"]);
   const dispatch = useDispatch();
   const [viewClass, setViewClass] = useState<boolean>(true);
-  const [viewClassDetails, setViewClassDetails] = useState<boolean>(false);
   const [classId, setClassId] = useState<string>();
   const [modeType, setModeType] = useState<string>("free");
   const navigate = useNavigate();

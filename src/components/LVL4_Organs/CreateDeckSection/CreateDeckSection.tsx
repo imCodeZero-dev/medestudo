@@ -110,6 +110,13 @@ const CreateDeckSection = ({
 
   console.log("watchIndex", watch("deck"));
 
+  const onRemove = (data: any) => {
+    const currentDecks = getValues("deck") || [];
+    const filterDeck = currentDecks?.filter((deck: any) => deck !== data);
+
+    setValue("deck", [...filterDeck]);
+  };
+
   const onDelete = (
     parentIndex: number,
     index?: number,
@@ -184,6 +191,7 @@ const CreateDeckSection = ({
         parentDeck.subDeck &&
         index < parentDeck.subDeck.length
       ) {
+        debugger;
         parentDeck.subDeck.splice(index, 1);
         setValue("deck", [...currentDecks]);
       }
@@ -224,7 +232,8 @@ const CreateDeckSection = ({
                     name={`deck[${parentIndex}].subDeck[${index}].name`}
                     placeholder={localePlaceholders.PLACEHOLDER_ENTER_NAME}
                     onAdd={() => onAdd(index, 2)}
-                    onDelete={() => onDelete(parentIndex, index)} // Delete subDeck
+                    // onDelete={() => onDelete(parentIndex, index)} // Delete subDeck
+                    onDelete={() => onRemove(subDeck)} // Delete subDeck
                   />
 
                   {subDeck.subDeck?.map(
@@ -329,7 +338,7 @@ const CreateDeckSection = ({
           ))}
         </div>
 
-        <div className="flex justify-between mt-4">
+        <div className="flex space-x-4 justify-end mt-4">
           <Button
             type="button"
             className="secondaryBtn"

@@ -25,6 +25,9 @@ export const useTagsManagement = () => {
   // const navigate = useNavigate();
   const { localeSuccess } = useLocale();
   const [cookies] = useCookies(["admin"]);
+  const [statusLoading, setStatusLoading] = useState<{
+    [key: string]: boolean;
+  }>({});
 
   const validationSchema = yup.object().shape({
     title: yup.string().required("title is required"),
@@ -35,6 +38,7 @@ export const useTagsManagement = () => {
     formState: { errors },
     setValue,
     watch,
+    reset,
   } = useForm({
     resolver: yupResolver(validationSchema),
     defaultValues: {},
@@ -67,31 +71,8 @@ export const useTagsManagement = () => {
     setEditTagModal(false);
   };
 
-  // const {
-  //   data: { data: { tags: allTags = [] } = {} } = {},
-  //   isLoading: allTagsLoading,
-  //   error: errorAllTags,
-  //   refetch: refetchAllTags,
-  // } = useQuery(
-  //   [
-  //     "allTags",
-  //     {
-  //       cookies,
-  //     },
-  //   ],
-
-  //   async () => {
-  //     return getAllTagsApi(cookies?.admin?.token);
-  //   },
-  //   {
-  //     enabled: !!cookies?.admin?.token,
-  //   }
-  // );
-
   const { allTags, refetchAllTags, allTagsLoading, errorAllTags } =
     useAllTagsQuery(cookies);
-  // console.log("cookies", cookies);
-  // console.log("allTags", allTags);
 
   const onDeleteConfirm = async () => {
     try {
@@ -117,6 +98,7 @@ export const useTagsManagement = () => {
       response = await createTagApi(data, cookies?.admin?.token);
       console.log("response", response);
       refetchAllTags();
+      reset();
       showSuccessToast(localeSuccess?.SUCCESS_TAG_CREATED);
     } catch (error: any) {
       console.log("error", error);
@@ -134,6 +116,7 @@ export const useTagsManagement = () => {
       response = await editTagApi(data, tagData?._id, cookies?.admin?.token);
       console.log("response", response);
       refetchAllTags();
+      reset();
       showSuccessToast(localeSuccess?.SUCCESS_TAG_UPDATED);
     } catch (error: any) {
       console.log("error", error);
@@ -150,7 +133,8 @@ export const useTagsManagement = () => {
     };
     // console.log("params", params);
     try {
-      setCreateLoading(true);
+      setStatusLoading((prev) => ({ ...prev, [data._id]: true }));
+
       let response;
       response = await changeTagStatusApi(
         params,
@@ -164,7 +148,7 @@ export const useTagsManagement = () => {
       console.log("error", error);
       showErrorToast(error?.response?.data?.message);
     } finally {
-      setCreateLoading(false);
+      setStatusLoading((prev) => ({ ...prev, [data._id]: false }));
     }
   };
 
@@ -189,5 +173,6 @@ export const useTagsManagement = () => {
     onDeleteConfirm,
     watch,
     allTagsLoading,
+    statusLoading,
   };
 };

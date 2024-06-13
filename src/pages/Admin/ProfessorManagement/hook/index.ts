@@ -21,6 +21,18 @@ import { passwordRegex } from "../../../../utils/constants/constants";
 export const useProfessorManagement = () => {
   // const navigate = useNavigate();
   const { localeSuccess, localeErrors } = useLocale();
+  const [deleteModal, setDeleteModal] = useState<boolean>(false);
+  const [opneProfessorModal, setOpneProfessorModal] = useState<boolean>(false);
+  const [professorLoading, setProfessorLoading] = useState<boolean>(false);
+  const [deleteLoading, setDeleteLoading] = useState<boolean>(false);
+
+  const [editProfessorModal, setEditProfessorModal] = useState<boolean>(false);
+  const [professorData, setProfessorData] = useState<any>();
+  const [editLoading, setEditLoading] = useState<boolean>(false);
+
+  const [statusLoading, setStatusLoading] = useState<{
+    [key: string]: boolean;
+  }>({});
   const [cookies] = useCookies(["admin"]);
   const validationSchema = yup.object().shape({
     email: yup
@@ -38,6 +50,22 @@ export const useProfessorManagement = () => {
       .oneOf([yup.ref("password")], "Passwords must match"),
     phone: yup.string().required("Phone number is required"),
   });
+  const validationSchemaEdit = yup.object().shape({
+    // email: yup
+    //   .string()
+    //   .required(localeErrors.ERROR_EMAIL_REQUIRED)
+    //   .email(localeErrors.ERROR_INVALID_EMAIL),
+    password: yup
+      .string()
+      .required(localeErrors.ERROR_PASSWORD_REQUIRED)
+      .matches(passwordRegex, localeErrors.ERROR_INVALID_PASSWORD),
+    name: yup.string().required("Name is required"),
+    // confirmPassword: yup
+    //   .string()
+    //   .required("Confirm Password is required")
+    //   .oneOf([yup.ref("password")], "Passwords must match"),
+    phone: yup.string().required("Phone number is required"),
+  });
 
   const {
     handleSubmit,
@@ -45,22 +73,18 @@ export const useProfessorManagement = () => {
     formState: { errors },
     watch,
     setValue,
-  } = useForm({
-    resolver: yupResolver(validationSchema),
+    reset,
+  } = useForm<any>({
+    resolver: yupResolver(
+      editProfessorModal ? validationSchemaEdit : validationSchema
+    ),
     defaultValues: {
       name: "",
       email: "",
       phone: "",
     },
   });
-  const [deleteModal, setDeleteModal] = useState<boolean>(false);
-  const [opneProfessorModal, setOpneProfessorModal] = useState<boolean>(false);
-  const [professorLoading, setProfessorLoading] = useState<boolean>(false);
-  const [deleteLoading, setDeleteLoading] = useState<boolean>(false);
 
-  const [editProfessorModal, setEditProfessorModal] = useState<boolean>(false);
-  const [professorData, setProfessorData] = useState<any>();
-  const [editLoading, setEditLoading] = useState<boolean>(false);
   const handleOpenEdit = (data: any) => {
     setEditProfessorModal(true);
     setProfessorData(data);
@@ -70,6 +94,7 @@ export const useProfessorManagement = () => {
   };
   const handleCloseEdit = () => {
     setEditProfessorModal(false);
+    reset();
   };
 
   const handleOpenProfessor = () => {
@@ -106,6 +131,7 @@ export const useProfessorManagement = () => {
       setProfessorLoading(true);
       let response;
       response = await createProfessorApi(params, cookies?.admin?.token);
+      reset();
       console.log("response", response);
 
       showSuccessToast(localeSuccess?.SUCCESS_PROFESSOR_CREATED);
@@ -134,8 +160,9 @@ export const useProfessorManagement = () => {
         professorData?._id,
         cookies?.admin?.token
       );
+      reset();
       console.log("response", response);
-      showSuccessToast(localeSuccess?.SUCCESS_PROFESSOR_UPDATED);
+      // showSuccessToast(localeSuccess?.SUCCESS_PROFESSOR_UPDATED);
       refetchAllProfessors();
     } catch (error: any) {
       console.log("error", error);
@@ -152,7 +179,7 @@ export const useProfessorManagement = () => {
     };
     console.log("params", params);
     try {
-      setProfessorLoading(true);
+      setStatusLoading((prev) => ({ ...prev, [data._id]: true }));
       let response;
       response = await changeProfessorStatusApi(
         params,
@@ -161,12 +188,12 @@ export const useProfessorManagement = () => {
       );
       console.log("response", response);
       refetchAllProfessors();
-      showSuccessToast(localeSuccess?.SUCCESS_PROFESSOR_STATUS_CHANGED);
+      // showSuccessToast(localeSuccess?.SUCCESS_PROFESSOR_STATUS_CHANGED);
     } catch (error: any) {
       console.log("error", error);
       showErrorToast(error?.response?.data?.message);
     } finally {
-      setProfessorLoading(false);
+      setStatusLoading((prev) => ({ ...prev, [data._id]: false }));
     }
   };
 
@@ -180,7 +207,7 @@ export const useProfessorManagement = () => {
       );
       console.log("response", response);
       refetchAllProfessors();
-      showSuccessToast(localeSuccess?.SUCCESS_PROFESSOR_DELETED);
+      // showSuccessToast(localeSuccess?.SUCCESS_PROFESSOR_DELETED);
     } catch (error: any) {
       console.log("error", error);
       showErrorToast(error?.response?.data?.message);
@@ -216,5 +243,6 @@ export const useProfessorManagement = () => {
     handleDeleteClose,
     onDeleteConfirm,
     deleteLoading,
+    statusLoading,
   };
 };

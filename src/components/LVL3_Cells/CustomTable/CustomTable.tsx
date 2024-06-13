@@ -25,6 +25,7 @@ import dayjs from "dayjs";
 import styles from "./CustomTable.module.css";
 import { IOSSwitch, getDecodedText } from "../../../utils/hooks/helper";
 import Loader from "../../LVL1_Atoms/Loader";
+import Spinner from "../../LVL1_Atoms/Loader/Spinner";
 
 interface CustomTableProps {
   title?: string;
@@ -34,6 +35,7 @@ interface CustomTableProps {
   loading: boolean;
   showPagination?: boolean;
   showDeleteIcon?: boolean;
+  statusLoading?: { [key: string]: boolean };
   showHeader?: boolean;
   showEditIcon?: boolean;
   handleDelete?: (data: any) => void;
@@ -58,6 +60,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
   handleStatusToggle,
   watch,
   loading,
+  statusLoading,
 }) => {
   const [page, setPage] = useState(0);
   const { localePlaceholders, localeButtons } = useLocale();
@@ -93,7 +96,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
               <div className="flex space-x-2 items-center">
                 <Text className="font-bold text-[18px]">{title}</Text>
                 <Chip
-                  label={`${data?.length} ${title}`}
+                  label={`${filteredData?.length} ${title}`}
                   color="secondary"
                   variant="outlined"
                   style={{
@@ -204,25 +207,38 @@ const CustomTable: React.FC<CustomTableProps> = ({
                           )}
                           {header === "Status" && (
                             // <Text className="">{row?.status}</Text>
-
-                            <IOSSwitch
-                              checked={row.status === "active"}
-                              onChange={() =>
-                                handleStatusToggle && handleStatusToggle(row)
-                              }
-                              color="primary"
-                            />
+                            <>
+                              {statusLoading?.[row._id] ? (
+                                <div className="flex ">
+                                  <Spinner />
+                                </div>
+                              ) : (
+                                <IOSSwitch
+                                  checked={row.status === "active"}
+                                  onChange={() =>
+                                    handleStatusToggle &&
+                                    handleStatusToggle(row)
+                                  }
+                                  color="primary"
+                                />
+                              )}
+                            </>
                           )}
 
                           {header === "Email address" && (
                             <Text className="">{row?.email}</Text>
+                          )}
+
+                          {header === "Phone" && (
+                            <Text className="">{row?.phone}</Text>
                           )}
                           {header === "Last Activity" && (
                             <Text className="">
                               {dayjs(row?.updatedAt).format("DD MMM, YYYY")}
                             </Text>
                           )}
-                          {header === "Created On" && (
+                          {(header === "Created On" ||
+                            header === "Joined On") && (
                             <Text className="">
                               {dayjs(row?.createdAt).format("DD MMM, YYYY")}
                             </Text>
@@ -249,13 +265,24 @@ const CustomTable: React.FC<CustomTableProps> = ({
                           )}
                           {header === "Flashcard Title" && (
                             <Text className={styles[""]}>
-                              {row?.title.substring(0, 100) + "..."}
+                              {row?.title?.substring(0, 100) + "..."}
                             </Text>
                           )}
-                          {header === "Question Title" && (
+                          {(header === "Question" ||
+                            header === "Question Title") && (
+                            <Text className={styles[""]}>{row?.question}</Text>
+                          )}
+                          {header === "Correct Answer" && (
                             <Text className={styles[""]}>
-                              {getDecodedText(row?.question)}
+                              {
+                                row?.answers?.find(
+                                  (ans: { isCorrect: boolean }) => ans.isCorrect
+                                )?.text
+                              }
                             </Text>
+                          )}
+                          {header === "Answer" && (
+                            <Text className={styles[""]}>{row?.answer}</Text>
                           )}
                           {header === "Title" && (
                             <Text className={styles[""]}>{row?.title}</Text>

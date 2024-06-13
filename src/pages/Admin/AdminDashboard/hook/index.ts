@@ -8,6 +8,7 @@ import {
 } from "../../../../config/toastProvider/toastUtils";
 import {
   changeProfessorStatusApi,
+  changeStudentStatusApi,
   createProfessorApi,
   getAllProfessorApi,
 } from "../../../../utils/api/admin";
@@ -60,6 +61,9 @@ export const useAdminDashboard = () => {
   });
   const [opneProfessorModal, setOpneProfessorModal] = useState<boolean>(false);
   const [professorLoading, setProfessorLoading] = useState<boolean>(false);
+  const [statusLoading, setStatusLoading] = useState<{
+    [key: string]: boolean;
+  }>({});
   const handleOpenProfessor = () => {
     setOpneProfessorModal(true);
   };
@@ -118,7 +122,8 @@ export const useAdminDashboard = () => {
     };
     console.log("params", params);
     try {
-      setProfessorLoading(true);
+      // setProfessorLoading(true);
+      setStatusLoading((prev) => ({ ...prev, [data._id]: true }));
       let response;
       response = await changeProfessorStatusApi(
         params,
@@ -127,12 +132,38 @@ export const useAdminDashboard = () => {
       );
       console.log("response", response);
       refetchAllProfessors();
-      showSuccessToast(localeSuccess?.SUCCESS_PROFESSOR_STATUS_CHANGED);
+      // showSuccessToast(localeSuccess?.SUCCESS_PROFESSOR_STATUS_CHANGED);
     } catch (error: any) {
       console.log("error", error);
       showErrorToast(error?.response?.data?.message);
     } finally {
-      setProfessorLoading(false);
+      setStatusLoading((prev) => ({ ...prev, [data._id]: false }));
+
+      // setProfessorLoading(false);
+    }
+  };
+
+  const onChangeStudentStatus = async (data: any) => {
+    const params = {
+      status: data?.status === "active" ? "inactive" : "active",
+    };
+    console.log("params", params);
+    try {
+      setStatusLoading((prev) => ({ ...prev, [data._id]: true }));
+      let response;
+      response = await changeStudentStatusApi(
+        params,
+        data?._id,
+        cookies?.admin?.token
+      );
+      console.log("response", response);
+      refetchAllStudents();
+      // showSuccessToast(localeSuccess?.SUCCESS_STUDENT_STATUS_CHANGED);
+    } catch (error: any) {
+      console.log("error", error);
+      showErrorToast(error?.response?.data?.message);
+    } finally {
+      setStatusLoading((prev) => ({ ...prev, [data._id]: false }));
     }
   };
 
@@ -151,5 +182,7 @@ export const useAdminDashboard = () => {
     allStudents,
     allProfessorsLoading,
     allStudentsLoading,
+    statusLoading,
+    onChangeStudentStatus,
   };
 };

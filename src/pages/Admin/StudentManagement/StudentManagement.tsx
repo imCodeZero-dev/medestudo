@@ -30,8 +30,9 @@ const StudentManagement = ({}: StudentManagementProps) => {
     deleteModal,
     handleDeleteOpen,
     handleDeleteClose,
+    statusLoading,
   } = useStudentManagement();
-  // console.log("cookies", cookies);
+  // console.log("allStudents", allStudents);
 
   const cards = [
     {
@@ -60,15 +61,15 @@ const StudentManagement = ({}: StudentManagementProps) => {
   const headers = [
     "ID",
     "Name",
-    "Last Activity",
-    "Joined On",
-    "Joined VIA",
     "Email address",
+    // "Last Activity",
+    "Joined On",
+    // "Joined VIA",
     "Status",
     "Action",
   ];
 
-  console.log('allStudents',allStudents)
+  console.log("allStudents", allStudents);
   return (
     <AdminLayout>
       <div className={styles["StudentManagement"]}>
@@ -112,6 +113,7 @@ const StudentManagement = ({}: StudentManagementProps) => {
             showHeader
             handleStatusToggle={onChangeStudentStatus}
             watch={watch}
+            statusLoading={statusLoading}
           />
         </div>
 

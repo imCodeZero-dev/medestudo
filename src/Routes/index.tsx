@@ -1,7 +1,9 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import fontF from "../assets/Fonts/static/Inter-Regular.ttf";
+import fontF from "../assets/fonts/static/Inter-Regular.ttf";
+import Home from "../pages/Home/Home";
+// import "../index.css";
 
 const LoadingScreen = React.lazy(
   () => import("../pages/LoadingScreen/LoadingScreen")
@@ -108,6 +110,9 @@ const StudentStartExamServices = React.lazy(
 );
 const StudentResultServices = React.lazy(
   () => import("../pages/Student/StudentResult/StudentResult")
+);
+const StudentSettingsServices = React.lazy(
+  () => import("../pages/Student/StudentSettings/StudentSettings")
 );
 const App = React.lazy(() => import("../App"));
 
@@ -264,7 +269,11 @@ const ProjectRoutes = () => {
               path="/student/exams/result"
               element={<StudentResultServices />}
             />
-
+            <Route
+              path="/student/settings"
+              element={<StudentSettingsServices />}
+            />
+            <Route path="/home" element={<Home />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Router>

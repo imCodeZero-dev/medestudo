@@ -111,14 +111,14 @@ const HomeLayout = ({ children, createButton }: HomeLayoutProps) => {
         },
       ],
     },
-    {
-      title: localeLables?.LABEL_INVITE,
-      url: "/professor/invite",
-      image: <CiShare2 />,
-    },
+    // {
+    //   title: localeLables?.LABEL_INVITE,
+    //   url: "/student/invite",
+    //   image: <CiShare2 />,
+    // },
     {
       title: localeLables?.LABEL_SETTINGS,
-      url: "/professor/settings",
+      url: "/student/settings",
       image: <IoSettingsOutline />,
     },
   ];

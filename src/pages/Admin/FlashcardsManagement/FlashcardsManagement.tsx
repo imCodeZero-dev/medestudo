@@ -3,260 +3,82 @@ import { FlashcardsManagementProps } from "./types";
 import AdminLayout from "../../../components/LVL5_Layouts/AdminLayout/AdminLayout";
 import Text from "../../../components/LVL1_Atoms/Text/Text";
 import useLocale from "../../../locales";
-import { Button } from "../../../components/LVL1_Atoms/Button";
-import { IoMdAdd } from "react-icons/io";
+
 import DashboardCard from "../../../components/LVL3_Cells/DashboardCard/DashboardCard";
 import flashcardsImg from "../../../assets/Images/dashboard/flashcards.png";
 import CustomTable from "../../../components/LVL3_Cells/CustomTable/CustomTable";
 import { useFlashcardsManagement } from "./hook";
-import CreateProfessorModal from "../../../components/LVL4_Organs/CreateProfessorModal/CreateProfessorModal";
 import { AdminRoutes } from "../../../Routes/protectedRoutes/AdminRoutes";
-import EditProfessorModal from "../../../components/LVL4_Organs/CreateProfessorModal/EditProfessorModal";
+import {
+  countAllFlashcards,
+  getCurrentAndPreviousMonthData,
+  getDecodedText,
+} from "../../../utils/hooks/helper";
+import { useEffect, useState } from "react";
+import { dashboardDataType } from "../../../utils/constants/DataTypes";
 
 const FlashcardsManagement = ({}: FlashcardsManagementProps) => {
   const { localeTitles, localeButtons, localeLables } = useLocale();
-  const {
-    control,
-    opneProfessorModal,
-    handleOpenProfessor,
-    handleCloseProfessor,
-    handleSubmit,
-    onSubmitCreateProfessor,
-    editProfessorModal,
-    handleOpenEdit,
-    handleCloseEdit,
-    editLoading,
-    watch,
-    allFlashcards,
-    allFlashcardsLoading,
-  } = useFlashcardsManagement();
+  const [modifiedArray, setModifiedArray] = useState();
+  const [currentMonthData, setCurrentMonthData] = useState<dashboardDataType>();
+  const [prevMonthData, setPrevMonthData] = useState<dashboardDataType>();
+  const { control, watch, allFlashcards, allFlashcardsLoading, dashboardData } =
+    useFlashcardsManagement();
+
+  useEffect(() => {
+    if (allFlashcards?.length > 0) {
+      const modifiedFlashcards = allFlashcards?.map((card: any) => ({
+        ...card,
+        question: getDecodedText(card.question).join(" "),
+        answer: getDecodedText(card.answer).join(" "),
+      }));
+      setModifiedArray(modifiedFlashcards);
+    }
+  }, [allFlashcards]);
+  useEffect(() => {
+    if (dashboardData?.length > 0) {
+      const { currentMonthData, previousMonthData } =
+        getCurrentAndPreviousMonthData(dashboardData);
+
+      setCurrentMonthData(currentMonthData);
+      setPrevMonthData(previousMonthData);
+    }
+  }, [dashboardData]);
+
+  // console.log("modifiedArray", modifiedArray);
 
   const cards = [
     {
       title: localeTitles?.TITLE_TOTAL_FLASHCARDS,
-      value: "2420",
+      value: allFlashcards?.length,
+      // value: countAllFlashcards(dashboardData),
       img: flashcardsImg,
       text: localeLables.LABEL_UPLOADED,
     },
     {
-      title: localeTitles?.TITLE_ACTIVE_FLASHCARDS,
-      value: "2420",
+      title: `${localeTitles.TITLE_THIS_MONTH}: ${currentMonthData?.month}`,
+      value: currentMonthData?.flashcards,
       img: flashcardsImg,
-      text: localeLables.LABEL_OUT_OF,
-      outOf: "2420",
+      text: localeLables.LABEL_UPLOADED,
+      // text: localeLables.LABEL_OUT_OF,
+      // outOf: "2420",
     },
     {
-      title: localeTitles?.TITLE_INACTIVE_FLASHCARDS,
-      value: "2420",
+      title: `${localeTitles.TITLE_PREVIOUS_MONTH}: ${prevMonthData?.month}`,
+      value: prevMonthData?.flashcards,
       img: flashcardsImg,
-      text: localeLables.LABEL_OUT_OF,
-      outOf: "2420",
+      text: localeLables.LABEL_UPLOADED,
+      // text: localeLables.LABEL_OUT_OF,
+      // outOf: "2420",
     },
   ];
 
-  const headers = ["ID", "Flashcard Title", "Created On", "Status"];
-  const data = [
-    {
-      id: 1,
-      status: "active",
-      createdOn: "21 Dec,2022",
-      title:
-        "d ornare est congue. Phasellus quis sapien tempor massa congue vulputate et sed quam. Cras commodo imperdiet arcu non laoreet. Pellentesque fringilla mi in lacus viverra, et finibus lacus lobortis.",
-    },
-    {
-      id: 1,
-      status: "active",
-      createdOn: "21 Dec,2022",
-      title:
-        "d ornare est congue. Phasellus quis sapien tempor massa congue vulputate et sed quam. Cras commodo imperdiet arcu non laoreet. Pellentesque fringilla mi in lacus viverra, et finibus lacus lobortis.",
-    },
-    {
-      id: 1,
-      status: "active",
-      createdOn: "21 Dec,2022",
-      title:
-        "d ornare est congue. Phasellus quis sapien tempor massa congue vulputate et sed quam. Cras commodo imperdiet arcu non laoreet. Pellentesque fringilla mi in lacus viverra, et finibus lacus lobortis.",
-    },
-    {
-      id: 1,
-      status: "active",
-      createdOn: "21 Dec,2022",
-      title:
-        "d ornare est congue. Phasellus quis sapien tempor massa congue vulputate et sed quam. Cras commodo imperdiet arcu non laoreet. Pellentesque fringilla mi in lacus viverra, et finibus lacus lobortis.",
-    },
-    {
-      id: 1,
-      status: "active",
-      createdOn: "21 Dec,2022",
-      title:
-        "d ornare est congue. Phasellus quis sapien tempor massa congue vulputate et sed quam. Cras commodo imperdiet arcu non laoreet. Pellentesque fringilla mi in lacus viverra, et finibus lacus lobortis.",
-    },
-    {
-      id: 1,
-      status: "active",
-      createdOn: "21 Dec,2022",
-      title:
-        "d ornare est congue. Phasellus quis sapien tempor massa congue vulputate et sed quam. Cras commodo imperdiet arcu non laoreet. Pellentesque fringilla mi in lacus viverra, et finibus lacus lobortis.",
-    },
-    {
-      id: 1,
-      status: "active",
-      createdOn: "21 Dec,2022",
-      title:
-        "d ornare est congue. Phasellus quis sapien tempor massa congue vulputate et sed quam. Cras commodo imperdiet arcu non laoreet. Pellentesque fringilla mi in lacus viverra, et finibus lacus lobortis.",
-    },
-    {
-      id: 1,
-      status: "active",
-      createdOn: "21 Dec,2022",
-      title:
-        "d ornare est congue. Phasellus quis sapien tempor massa congue vulputate et sed quam. Cras commodo imperdiet arcu non laoreet. Pellentesque fringilla mi in lacus viverra, et finibus lacus lobortis.",
-    },
-    {
-      id: 1,
-      status: "active",
-      createdOn: "21 Dec,2022",
-      title:
-        "d ornare est congue. Phasellus quis sapien tempor massa congue vulputate et sed quam. Cras commodo imperdiet arcu non laoreet. Pellentesque fringilla mi in lacus viverra, et finibus lacus lobortis.",
-    },
-    {
-      id: 1,
-      status: "active",
-      createdOn: "21 Dec,2022",
-      title:
-        "d ornare est congue. Phasellus quis sapien tempor massa congue vulputate et sed quam. Cras commodo imperdiet arcu non laoreet. Pellentesque fringilla mi in lacus viverra, et finibus lacus lobortis.",
-    },
-    {
-      id: 1,
-      status: "active",
-      createdOn: "21 Dec,2022",
-      title:
-        "d ornare est congue. Phasellus quis sapien tempor massa congue vulputate et sed quam. Cras commodo imperdiet arcu non laoreet. Pellentesque fringilla mi in lacus viverra, et finibus lacus lobortis.",
-    },
-    {
-      id: 1,
-      status: "active",
-      createdOn: "21 Dec,2022",
-      title:
-        "d ornare est congue. Phasellus quis sapien tempor massa congue vulputate et sed quam. Cras commodo imperdiet arcu non laoreet. Pellentesque fringilla mi in lacus viverra, et finibus lacus lobortis.",
-    },
-    {
-      id: 1,
-      status: "active",
-      createdOn: "21 Dec,2022",
-      title:
-        "d ornare est congue. Phasellus quis sapien tempor massa congue vulputate et sed quam. Cras commodo imperdiet arcu non laoreet. Pellentesque fringilla mi in lacus viverra, et finibus lacus lobortis.",
-    },
-    {
-      id: 1,
-      status: "active",
-      createdOn: "21 Dec,2022",
-      title:
-        "d ornare est congue. Phasellus quis sapien tempor massa congue vulputate et sed quam. Cras commodo imperdiet arcu non laoreet. Pellentesque fringilla mi in lacus viverra, et finibus lacus lobortis.",
-    },
-    {
-      id: 1,
-      status: "active",
-      createdOn: "21 Dec,2022",
-      title:
-        "d ornare est congue. Phasellus quis sapien tempor massa congue vulputate et sed quam. Cras commodo imperdiet arcu non laoreet. Pellentesque fringilla mi in lacus viverra, et finibus lacus lobortis.",
-    },
-    {
-      id: 1,
-      status: "active",
-      createdOn: "21 Dec,2022",
-      title:
-        "d ornare est congue. Phasellus quis sapien tempor massa congue vulputate et sed quam. Cras commodo imperdiet arcu non laoreet. Pellentesque fringilla mi in lacus viverra, et finibus lacus lobortis.",
-    },
-    {
-      id: 1,
-      status: "active",
-      createdOn: "21 Dec,2022",
-      title:
-        "d ornare est congue. Phasellus quis sapien tempor massa congue vulputate et sed quam. Cras commodo imperdiet arcu non laoreet. Pellentesque fringilla mi in lacus viverra, et finibus lacus lobortis.",
-    },
-    {
-      id: 1,
-      status: "active",
-      createdOn: "21 Dec,2022",
-      title:
-        "d ornare est congue. Phasellus quis sapien tempor massa congue vulputate et sed quam. Cras commodo imperdiet arcu non laoreet. Pellentesque fringilla mi in lacus viverra, et finibus lacus lobortis.",
-    },
-    {
-      id: 1,
-      status: "active",
-      createdOn: "21 Dec,2022",
-      title:
-        "d ornare est congue. Phasellus quis sapien tempor massa congue vulputate et sed quam. Cras commodo imperdiet arcu non laoreet. Pellentesque fringilla mi in lacus viverra, et finibus lacus lobortis.",
-    },
-    {
-      id: 1,
-      status: "active",
-      createdOn: "21 Dec,2022",
-      title:
-        "d ornare est congue. Phasellus quis sapien tempor massa congue vulputate et sed quam. Cras commodo imperdiet arcu non laoreet. Pellentesque fringilla mi in lacus viverra, et finibus lacus lobortis.",
-    },
-    {
-      id: 1,
-      status: "active",
-      createdOn: "21 Dec,2022",
-      title:
-        "d ornare est congue. Phasellus quis sapien tempor massa congue vulputate et sed quam. Cras commodo imperdiet arcu non laoreet. Pellentesque fringilla mi in lacus viverra, et finibus lacus lobortis.",
-    },
-    {
-      id: 1,
-      status: "active",
-      createdOn: "21 Dec,2022",
-      title:
-        "d ornare est congue. Phasellus quis sapien tempor massa congue vulputate et sed quam. Cras commodo imperdiet arcu non laoreet. Pellentesque fringilla mi in lacus viverra, et finibus lacus lobortis.",
-    },
-    {
-      id: 1,
-      status: "active",
-      createdOn: "21 Dec,2022",
-      title:
-        "d ornare est congue. Phasellus quis sapien tempor massa congue vulputate et sed quam. Cras commodo imperdiet arcu non laoreet. Pellentesque fringilla mi in lacus viverra, et finibus lacus lobortis.",
-    },
-    {
-      id: 1,
-      status: "active",
-      createdOn: "21 Dec,2022",
-      title:
-        "d ornare est congue. Phasellus quis sapien tempor massa congue vulputate et sed quam. Cras commodo imperdiet arcu non laoreet. Pellentesque fringilla mi in lacus viverra, et finibus lacus lobortis.",
-    },
-    {
-      id: 1,
-      status: "active",
-      createdOn: "21 Dec,2022",
-      title:
-        "d ornare est congue. Phasellus quis sapien tempor massa congue vulputate et sed quam. Cras commodo imperdiet arcu non laoreet. Pellentesque fringilla mi in lacus viverra, et finibus lacus lobortis.",
-    },
-    {
-      id: 1,
-      status: "active",
-      createdOn: "21 Dec,2022",
-      title:
-        "d ornare est congue. Phasellus quis sapien tempor massa congue vulputate et sed quam. Cras commodo imperdiet arcu non laoreet. Pellentesque fringilla mi in lacus viverra, et finibus lacus lobortis.",
-    },
-    {
-      id: 1,
-      status: "active",
-      createdOn: "21 Dec,2022",
-      title:
-        "d ornare est congue. Phasellus quis sapien tempor massa congue vulputate et sed quam. Cras commodo imperdiet arcu non laoreet. Pellentesque fringilla mi in lacus viverra, et finibus lacus lobortis.",
-    },
-    {
-      id: 1,
-      status: "active",
-      createdOn: "21 Dec,2022",
-      title:
-        "d ornare est congue. Phasellus quis sapien tempor massa congue vulputate et sed quam. Cras commodo imperdiet arcu non laoreet. Pellentesque fringilla mi in lacus viverra, et finibus lacus lobortis.",
-    },
-  ];
+  const headers = ["ID", "Question", "Answer", "Created On"];
+
   const handleStatusToggle = (data: any) => {
     console.log("handleStatusToggle", data);
   };
-  console.log("allFlashcards", allFlashcards);
+  // console.log("allFlashcards", allFlashcards);
 
   return (
     <AdminLayout>
@@ -280,27 +102,26 @@ const FlashcardsManagement = ({}: FlashcardsManagementProps) => {
               value={val?.value}
               img={val?.img}
               text={val?.text}
-              outOf={val?.outOf}
+              // outOf={val?.outOf}
             />
           ))}
         </div>
 
         <div className={styles["FlashcardsManagement-section"]}>
           <CustomTable
-            loading={false}
+            loading={allFlashcardsLoading}
             headers={headers}
-            data={Array.isArray(data) ? data : []}
-            // data={allFlashcards}
+            // data={Array.isArray(data) ? data : []}
+            data={Array.isArray(modifiedArray) ? modifiedArray : []}
             control={control}
             // pagination={true}
             rowsPerPage={10}
             showPagination={true}
             showDeleteIcon={true}
-            handleEdit={handleOpenEdit}
             showEditIcon={true}
             title={localeTitles.TITLE_FLASHCARDS}
             showHeader
-            handleStatusToggle={handleStatusToggle}
+            // handleStatusToggle={handleStatusToggle}
             watch={watch}
           />
         </div>

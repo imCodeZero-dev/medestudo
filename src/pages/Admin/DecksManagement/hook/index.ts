@@ -137,7 +137,7 @@ export const useDecksManagement = () => {
     }
   );
 
-  // console.log("allDecks", allDecks);
+  console.log("allDecks", allDecks);
 
   const onCreateSubmission = async (data: any) => {
     console.log("onCreateSubmission", data);
@@ -155,7 +155,7 @@ export const useDecksManagement = () => {
         let response;
         response = await createDeckApi(params, cookies?.admin?.token);
         console.log("response", response);
-
+        reset();
         showSuccessToast(localeSuccess?.SUCCESS_DECK_CREATED);
         refetchAllDecks();
       } catch (error: any) {

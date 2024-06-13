@@ -23,6 +23,10 @@ export const useInstituteManagement = () => {
   const { localeSuccess } = useLocale();
   const [cookies] = useCookies(["admin"]);
 
+  const [statusLoading, setStatusLoading] = useState<{
+    [key: string]: boolean;
+  }>({});
+
   const validationSchema = yup.object().shape({
     title: yup.string().required("title is required"),
   });
@@ -32,6 +36,7 @@ export const useInstituteManagement = () => {
     formState: { errors },
     setValue,
     watch,
+    reset,
   } = useForm({
     resolver: yupResolver(validationSchema),
     defaultValues: {},
@@ -100,6 +105,7 @@ export const useInstituteManagement = () => {
       response = await createInstituteApi(data, cookies?.admin?.token);
       console.log("response", response);
       refetchAllInstitute();
+      reset();
       showSuccessToast(localeSuccess?.SUCCESS_INSTITUTE_CREATED);
     } catch (error: any) {
       console.log("error", error);
@@ -121,6 +127,7 @@ export const useInstituteManagement = () => {
       );
       console.log("response", response);
       refetchAllInstitute();
+      reset();
       showSuccessToast(localeSuccess?.SUCCESS_INSTITUTE_UPDATED);
     } catch (error: any) {
       console.log("error", error);
@@ -137,7 +144,8 @@ export const useInstituteManagement = () => {
     };
     // console.log("params", params);
     try {
-      setCreateLoading(true);
+      setStatusLoading((prev) => ({ ...prev, [data._id]: true }));
+
       let response;
       response = await changeInstituteStatusApi(
         params,
@@ -151,7 +159,7 @@ export const useInstituteManagement = () => {
       console.log("error", error);
       showErrorToast(error?.response?.data?.message);
     } finally {
-      setCreateLoading(false);
+      setStatusLoading((prev) => ({ ...prev, [data._id]: false }));
     }
   };
 
@@ -176,5 +184,6 @@ export const useInstituteManagement = () => {
     onDeleteConfirm,
     watch,
     allInstituteLoading,
+    statusLoading,
   };
 };

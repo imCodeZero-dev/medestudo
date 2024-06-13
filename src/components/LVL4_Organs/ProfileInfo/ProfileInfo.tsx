@@ -12,6 +12,7 @@ import AvatarUploader from "../../LVL2_Molecules/ImageUploader/AvatarUploader";
 import { Country, City } from "country-state-city";
 import CountrySelectDropDown from "../../LVL2_Molecules/ControlSelect/CountrySelectDropDown";
 import { useCookies } from "react-cookie";
+import StateSelectDropDown from "../../LVL2_Molecules/ControlSelect/StateSelectDropDown";
 
 const ProfileInfo = ({
   control,
@@ -62,12 +63,24 @@ const ProfileInfo = ({
                 preDefinedWrapClassName="inputField-wrap"
                 type="text"
               />
-              <CountrySelectDropDown
+              {/* <CountrySelectDropDown
                 items={Country?.getAllCountries()}
                 name="location"
                 control={control}
                 label="Location"
-              />
+              /> */}
+
+              <div>
+                <Text className={styles["label14"]}>Location</Text>
+                <StateSelectDropDown
+                  items={Country?.getAllCountries()}
+                  name="location"
+                  control={control}
+                  labelKey="name"
+                  valueKey="isoCode"
+                  hideLabel
+                />
+              </div>
             </div>
             <Button
               type="submit"
@@ -90,11 +103,7 @@ const ProfileInfo = ({
                 {localeTitles.TITLE_PROFILE_IMAGE}
               </Text>
 
-              <AvatarUploader
-                control={controlImage}
-                name="pic"
-                watch={watch}
-              />
+              <AvatarUploader control={controlImage} name="pic" watch={watch} />
               <Button
                 className="purpleBtn"
                 type="submit"

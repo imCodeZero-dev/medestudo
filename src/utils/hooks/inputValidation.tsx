@@ -6,11 +6,17 @@ export const passwordValidationSchema = yup.object().shape({
   currentPassword: yup
     .string()
     .required("Password is required")
-    .matches(passwordRegex, "Invalid password format"),
+    .matches(
+      passwordRegex,
+      "Must be 8+ chars, include uppercase, lowercase, number, and special character."
+    ),
   newPassword: yup
     .string()
     .required("Password is required")
-    .matches(passwordRegex, "Invalid password format"),
+    .matches(
+      passwordRegex,
+      "Must be 8+ chars, include uppercase, lowercase, number, and special character."
+    ),
   confirmPassword: yup
     .string()
     .required("Confirm Password is required")

@@ -42,7 +42,9 @@ const ProfessorManagement = ({}: ProfessorManagementProps) => {
     handleDeleteClose,
     onDeleteConfirm,
     deleteLoading,
+    statusLoading,
   } = useProfessorManagement();
+  console.log("allProfessors", allProfessors);
 
   const cards = [
     {
@@ -73,7 +75,7 @@ const ProfessorManagement = ({}: ProfessorManagementProps) => {
     "ID",
     "Name",
     "Email address",
-    "Last Activity",
+    "Phone",
     "Created On",
     "Flashcards Created",
     "Past Exams Created",
@@ -127,13 +129,15 @@ const ProfessorManagement = ({}: ProfessorManagementProps) => {
             rowsPerPage={10}
             showPagination={true}
             showDeleteIcon={true}
-            // handleEdit={handleOpenEdit}
+            handleEdit={handleOpenEdit}
             handleDelete={handleDeleteOpen}
-            // showEditIcon={true}
+            showEditIcon={true}
             title={localeTitles?.TITLE_PROFESSORS}
             showHeader
             handleStatusToggle={onChangeProfessorStatus}
             watch={watch}
+            statusLoading={statusLoading}
+            
           />
         </div>
 

@@ -10,12 +10,7 @@ import { useNavigate } from "react-router-dom";
 import HomeLayout from "../../../components/LVL5_Layouts/HomeLayout/HomeLayout";
 import { ProfessorRoutes } from "../../../Routes/protectedRoutes/ProfessorRoutes";
 
-import DashboardFlashcard from "../../../components/LVL3_Cells/DashboardFlashcard/DashboardFlashcard";
-
-import CreateClassModal from "../../../components/LVL4_Organs/CreateClassModal/CreateClassModal";
-import { dummyFlashCards } from "../ProfessorDashboard/ProfessorDashboard";
 import ProfileInfo from "../../../components/LVL4_Organs/ProfileInfo/ProfileInfo";
-import { Tab, Tabs } from "@mui/material";
 import { useState } from "react";
 import DynamicTabs from "../../../components/LVL3_Cells/Tabs/Tabs";
 import SettingsSecurity from "../../../components/LVL4_Organs/SettingsSecurity/SettingsSecurity";

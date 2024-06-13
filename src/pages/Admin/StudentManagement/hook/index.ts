@@ -45,6 +45,9 @@ export const useStudentManagement = () => {
   const [deleteLoading, setDeleteLoading] = useState<boolean>(false);
   const [deleteModal, setDeleteModal] = useState<boolean>(false);
   const [studentData, setStudentData] = useState<any>();
+  const [statusLoading, setStatusLoading] = useState<{
+    [key: string]: boolean;
+  }>({});
 
   const handleOpenProfessor = () => {
     setOpneProfessorModal(true);
@@ -67,7 +70,8 @@ export const useStudentManagement = () => {
     };
     console.log("params", params);
     try {
-      setStudentLoading(true);
+      setStatusLoading((prev) => ({ ...prev, [data._id]: true }));
+
       let response;
       response = await changeStudentStatusApi(
         params,
@@ -76,12 +80,12 @@ export const useStudentManagement = () => {
       );
       console.log("response", response);
       refetchAllStudents();
-      showSuccessToast(localeSuccess?.SUCCESS_STUDENT_STATUS_CHANGED);
+      // showSuccessToast(localeSuccess?.SUCCESS_STUDENT_STATUS_CHANGED);
     } catch (error: any) {
       console.log("error", error);
       showErrorToast(error?.response?.data?.message);
     } finally {
-      setStudentLoading(false);
+      setStatusLoading((prev) => ({ ...prev, [data._id]: false }));
     }
   };
 
@@ -95,7 +99,7 @@ export const useStudentManagement = () => {
       );
       console.log("response", response);
       refetchAllStudents();
-      showSuccessToast(localeSuccess?.SUCCESS_STUDENT_DELETED);
+      // showSuccessToast(localeSuccess?.SUCCESS_STUDENT_DELETED);
     } catch (error: any) {
       console.log("error", error);
       showErrorToast(error?.response?.data?.message);
@@ -123,5 +127,6 @@ export const useStudentManagement = () => {
     deleteModal,
     handleDeleteOpen,
     handleDeleteClose,
+    statusLoading,
   };
 };

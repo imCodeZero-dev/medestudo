@@ -12,6 +12,7 @@ import {
   getAllClassesApi,
   getAllExamsApi,
   getAllFlashcardsByIdApi,
+  getDashboardDataApi,
   getExamQuestionsApi,
 } from "../../utils/api/professors";
 import { getAllSubjectsApi } from "../../utils/api/all";
@@ -376,14 +377,6 @@ export const useallQuestionsQuery = (
   params: any,
   location: any
 ) => {
-  console.log(
-    "useallQuestionsQuery",
-    cookies,
-    "parans",
-    params,
-    "location",
-    location
-  );
   const {
     data: { data: { questions: allQuestions = [] } = {} } = {},
     isLoading: allQuestionsLoading,
@@ -408,5 +401,34 @@ export const useallQuestionsQuery = (
     allQuestionsLoading,
     errorallQuestions,
     refetchallQuestions,
+  };
+};
+
+export const useDashboardDataQuery = (cookies: { token: string }) => {
+  const {
+    data: { data: { data: dashboardData = [] } = {} } = {},
+    isLoading: dashboardDataLoading,
+    error: errorDashboardData,
+    refetch: refetchDashboardData,
+  } = useQuery(
+    [
+      "dashboardData",
+      {
+        cookies,
+      },
+    ],
+    async () => {
+      return getDashboardDataApi(cookies?.token);
+    },
+    {
+      enabled: !!cookies,
+    }
+  );
+
+  return {
+    dashboardData,
+    dashboardDataLoading,
+    errorDashboardData,
+    refetchDashboardData,
   };
 };

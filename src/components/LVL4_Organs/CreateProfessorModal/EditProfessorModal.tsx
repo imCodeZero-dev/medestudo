@@ -47,13 +47,13 @@ const EditProfessorModal = ({
           </div>
           <div className={styles["inputDiv"]}>
             <Input
-              label={localeLables?.LABEL_USERNAME}
+              label={localeLables?.LABEL_PASSWORD}
               control={control}
-              name="email"
-              placeholder={localePlaceholders.PLACEHOLDER_ENTER_USERNAME}
+              name="password"
+              placeholder={localePlaceholders.PLACEHOLDER_NEW_PASSWORD}
               preDefinedClassName="lesserHeight"
               preDefinedWrapClassName="inputField-wrap"
-              type="email"
+              type="password"
             />
           </div>
 

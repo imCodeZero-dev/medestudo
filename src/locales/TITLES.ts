@@ -85,6 +85,8 @@ export const TITLES = {
     TITLE_MOCK_EXAM_RESULT: "Mock Exam result",
     TITLE_PRACTICE_EXAM_RESULT: "Practice Exam result",
     TITLE_CONFIDENCE_GAINED: "Confidence Gained",
+    TITLE_THIS_MONTH: "This Month",
+    TITLE_PREVIOUS_MONTH: "Previous Month",
     TITLE_YOU_ARE_ALL_SET_UP: "You are all set up!",
   },
   es: {
@@ -173,6 +175,8 @@ export const TITLES = {
     TITLE_MOCK_EXAM_RESULT: "Mock Exam result",
     TITLE_PRACTICE_EXAM_RESULT: "Practice Exam result",
     TITLE_CONFIDENCE_GAINED: "Confidence Gained",
+    TITLE_THIS_MONTH: "This Month",
+    TITLE_PREVIOUS_MONTH: "Previous Month",
     TITLE_YOU_ARE_ALL_SET_UP: "You are all set up!",
   },
 };

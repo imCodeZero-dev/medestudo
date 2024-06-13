@@ -15,9 +15,9 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   useAllClassesQuery,
   useAllExamsQuery,
+  useDashboardDataQuery,
 } from "../../../../redux/slices/APISlice";
 import { useNavigate } from "react-router-dom";
-import { getDashboardDataApi } from "../../../../utils/api/professors";
 
 export const useStudentDashboard = () => {
   // const navigate = useNavigate();
@@ -68,25 +68,11 @@ export const useStudentDashboard = () => {
     useAllExamsQuery(cookies?.student);
 
   const {
-    data: { data: { data: dashboardData = [] } = {} } = {},
-    isLoading: dashboardDataLoading,
-    error: errorDashboardData,
-    refetch: refetchDashboardData,
-  } = useQuery(
-    [
-      "dashboardData",
-      {
-        cookies,
-      },
-    ],
-
-    async () => {
-      return getDashboardDataApi(cookies?.student?.token);
-    },
-    {
-      enabled: !!cookies?.student?.token,
-    }
-  );
+    dashboardData,
+    dashboardDataLoading,
+    errorDashboardData,
+    refetchDashboardData,
+  } = useDashboardDataQuery(cookies?.student);
 
   console.log("dashboardData", dashboardData);
 

@@ -6,6 +6,7 @@ import ToastProvider from "./config/toastProvider/ToastProvider";
 import { Cloudinary } from "@cloudinary/url-gen";
 import { CLOUDINARY_CLOUD_NAME } from "./utils/constants/constants";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import "./App.css";
 
 function App() {
   // const cld = new Cloudinary({

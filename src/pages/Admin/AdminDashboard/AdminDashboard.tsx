@@ -35,6 +35,8 @@ const AdminDashboard = ({}: AdminDashboardProps) => {
     allProfessorsLoading,
     allStudentsLoading,
     professorLoading,
+    onChangeStudentStatus,
+    statusLoading,
   } = useAdminDashboard();
   console.log("cookies", cookies);
   const navigate = useNavigate();
@@ -58,8 +60,7 @@ const AdminDashboard = ({}: AdminDashboardProps) => {
       value: allStudents?.filter((obj: any) => obj.status === "active")?.length,
       img: studentsImg,
       text: localeLables.LABEL_OUT_OF,
-      outOf:allStudents?.length
-
+      outOf: allStudents?.length,
     },
     {
       title: localeTitles?.TITLE_INACTIVE_STUDENTS,
@@ -67,7 +68,7 @@ const AdminDashboard = ({}: AdminDashboardProps) => {
         ?.length,
       img: studentsImg,
       text: localeLables.LABEL_OUT_OF,
-      outOf:allStudents?.length
+      outOf: allStudents?.length,
     },
     {
       title: localeTitles?.TITLE_TOTAL_PROFESSORS,
@@ -81,7 +82,7 @@ const AdminDashboard = ({}: AdminDashboardProps) => {
         ?.length,
       img: professorsImg,
       text: localeLables.LABEL_OUT_OF,
-      outOf:allProfessors?.length
+      outOf: allProfessors?.length,
     },
     {
       title: localeTitles?.TITLE_INACTIVE_PROFESSOR,
@@ -89,7 +90,7 @@ const AdminDashboard = ({}: AdminDashboardProps) => {
         ?.length,
       img: professorsImg,
       text: localeLables.LABEL_OUT_OF,
-      outOf:allProfessors?.length
+      outOf: allProfessors?.length,
     },
     {
       title: localeTitles?.TITLE_TOTAL_FLASHCARDS,
@@ -109,7 +110,7 @@ const AdminDashboard = ({}: AdminDashboardProps) => {
     "ID",
     "Name",
     "Email address",
-    "Last Activity",
+    "Phone",
     "Created On",
     "Flashcards Created",
     "Past Exams Created",
@@ -117,6 +118,14 @@ const AdminDashboard = ({}: AdminDashboardProps) => {
     // "Action",
   ];
 
+  const StudentHeaders = [
+    "ID",
+    "Name",
+    "Email address",
+    "Joined On",
+    "Status",
+    // "Action",
+  ];
   return (
     <AdminLayout>
       <div className={styles["AdminDashboard"]}>
@@ -200,6 +209,7 @@ const AdminDashboard = ({}: AdminDashboardProps) => {
             title={"Professors"}
             handleStatusToggle={onChangeProfessorStatus}
             watch={watch}
+            statusLoading={statusLoading}
           />
         </div>
 
@@ -224,7 +234,7 @@ const AdminDashboard = ({}: AdminDashboardProps) => {
           </div>
           <CustomTable
             loading={allStudentsLoading}
-            headers={headers}
+            headers={StudentHeaders}
             data={Array.isArray(allStudents) ? allStudents : []}
             control={control}
             // pagination={true}
@@ -233,8 +243,9 @@ const AdminDashboard = ({}: AdminDashboardProps) => {
             showDeleteIcon={true}
             // showEditIcon={true}
             title={"Professors"}
-            handleStatusToggle={onChangeProfessorStatus}
+            handleStatusToggle={onChangeStudentStatus}
             watch={watch}
+            statusLoading={statusLoading}
           />
         </div>
 

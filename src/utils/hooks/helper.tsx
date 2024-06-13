@@ -7,6 +7,7 @@ import {
   CLOUDINARY_FOLDER,
   CLOUDINARY_UPLOAD_PRESET,
 } from "../constants/constants";
+import dayjs from "dayjs";
 
 export const IOSSwitch = styled((props: any) => (
   <Switch
@@ -123,14 +124,14 @@ export const uploadImageToCloudinary = async (image: File): Promise<string> => {
 export const getDecodedText = (data: any) => {
   const decodedQuestion = data ? atob(data) : "";
 
-  const tempElement = document.createElement("div");
+  const tempElement = document?.createElement("div");
   tempElement.innerHTML = decodedQuestion;
 
   // Get all <p> elements within the temporary element
-  const paragraphs = tempElement.querySelectorAll("p, h1, h2, h3,h4,h5,h6");
+  const paragraphs = tempElement?.querySelectorAll("p, h1, h2, h3,h4,h5,h6");
 
   // Extract text content from each <p> element
-  const textContents = Array.from(paragraphs).map((p) => p.textContent);
+  const textContents = Array?.from(paragraphs)?.map((p) => p?.textContent);
   return textContents;
 };
 
@@ -159,8 +160,43 @@ export function formattedTime(seconds: number) {
   return [hourStr, minuteStr, secondStr].filter(Boolean).join(", ");
 }
 
-
 export const generateYearsArray = (numYears: number): string[] => {
   const currentYear = new Date().getFullYear();
-  return Array.from({ length: numYears }, (_, index) => (currentYear - index).toString());
+  return Array.from({ length: numYears }, (_, index) =>
+    (currentYear - index).toString()
+  );
+};
+
+export const countAllQuestions = (questionsArray: any) =>
+  questionsArray.reduce(
+    (total: number, item: any) => total + item.questions,
+    0
+  );
+export const countAllFlashcards = (flashcardsArray: any) =>
+  flashcardsArray.reduce(
+    (total: number, item: any) => total + item.flashcards,
+    0
+  );
+
+export const getCurrentAndPreviousMonthData = (data: any) => {
+  const now = dayjs();
+
+  const currentMonth = now.format("MMMM");
+  const currentYear = now.format("YYYY");
+
+  const previousMonthDate = now.subtract(1, "month");
+  const previousMonth = previousMonthDate.format("MMMM");
+  const previousYear = previousMonthDate.format("YYYY");
+
+  const currentMonthData = data.find(
+    (item: any) => item.month === currentMonth && item.year === currentYear
+  );
+  const previousMonthData = data.find(
+    (item: any) => item.month === previousMonth && item.year === previousYear
+  );
+
+  return {
+    currentMonthData,
+    previousMonthData,
+  };
 };

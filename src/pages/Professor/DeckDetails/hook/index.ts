@@ -102,7 +102,7 @@ export const useDeckDetails = () => {
   const { allDecks, allDecksLoading, errorAllDecks, refetchAllDecks } =
     useAllDecksQuery(cookies?.professor?.token);
 
-  // console.log("allDecks in deckDetails", allDecks);
+  console.log("allDecks in deckDetails", allDecks);
 
   const {
     data: { data: { class: classDetails = [] } = {} } = {},
@@ -127,7 +127,7 @@ export const useDeckDetails = () => {
   );
 
   const {
-    data: { data: { decksWithCardCounts: classDecks = [] } = {} } = {},
+    data: { data: { decksWithCardCount: classDecks = [] } = {} } = {},
     isLoading: classDecksLoading,
     error: errorclassDecks,
     refetch: refetchclassDecks,
