@@ -110,9 +110,9 @@ const CreateDeckSection = ({
 
   console.log("watchIndex", watch("deck"));
 
-  const onRemove = (data: any) => {
+  const onRemove = (index: any) => {
     const currentDecks = getValues("deck") || [];
-    const filterDeck = currentDecks?.filter((deck: any) => deck !== data);
+    const filterDeck = currentDecks?.subDeck?.splice(index, 1);
 
     setValue("deck", [...filterDeck]);
   };
@@ -232,8 +232,8 @@ const CreateDeckSection = ({
                     name={`deck[${parentIndex}].subDeck[${index}].name`}
                     placeholder={localePlaceholders.PLACEHOLDER_ENTER_NAME}
                     onAdd={() => onAdd(index, 2)}
-                    // onDelete={() => onDelete(parentIndex, index)} // Delete subDeck
-                    onDelete={() => onRemove(subDeck)} // Delete subDeck
+                    onDelete={() => onDelete(parentIndex, index)} // Delete subDeck
+                    // onDelete={() => onRemove(index)} // Delete subDeck
                   />
 
                   {subDeck.subDeck?.map(

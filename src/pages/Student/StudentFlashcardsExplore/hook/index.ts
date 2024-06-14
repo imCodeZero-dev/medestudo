@@ -1,5 +1,3 @@
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import {
@@ -8,7 +6,6 @@ import {
 } from "../../../../config/toastProvider/toastUtils";
 
 import useLocale from "../../../../locales";
-import { passwordRegex } from "../../../../utils/constants/constants";
 import { useCookies } from "react-cookie";
 import { useQuery } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,13 +13,10 @@ import { closeModal } from "../../../../redux/slices/CreateClassModalSlice";
 
 import { useNavigate } from "react-router-dom";
 import {
-  useAllClassesQuery,
-  useAllDecksQuery,
   useAllExamsQuery,
   useCustomAllClassesQuery,
   useStudentAllClassesQuery,
 } from "../../../../redux/slices/APISlice";
-import { createInstituteApi } from "../../../../utils/api/admin";
 import { createCustomClassApi } from "../../../../utils/api/Students";
 
 export const useStudentFlashcardsExplore = () => {
@@ -69,22 +63,12 @@ export const useStudentFlashcardsExplore = () => {
   const handleCheckboxChange = (isChecked: boolean, deck: any) => {
     console.log("handleCheckboxChange", deck, "isChecked", isChecked);
     if (isChecked) {
-      // const checked = deck?.reduce((dck: any) => dck?.subdeck);
       deck.forEach((dck: any) => {
         selectedClasses.push(dck);
       });
-      // const checked = deck?.flatMap((dck: any) => dck?.subdeck);
-      // console.log("handleCheckboxChange", checked);
-      // for (var i = 0; i < deck?.length; i++) {
-      //   const checked = deck[i].subdeck;
-      // }
-      // setSelectedClasses([...selectedClasses, checked]);
+
       setSelectedClasses([...selectedClasses]);
     } else {
-      // const updatedClasses = selectedClasses.filter((d: any) => {
-      //   console.log("Comparing with ID:", d._id, "deck", deck[0]?.subdeck?._id);
-      //   return d._id !== deck.subdeck._id;
-      // });
       const updatedSelectedClasses = selectedClasses.filter(
         (selectedClass: any) =>
           !deck.some((d: any) => d._id === selectedClass._id)

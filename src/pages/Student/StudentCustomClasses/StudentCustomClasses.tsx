@@ -17,11 +17,7 @@ import AlertIcon from "../../../assets/svgs/AlertIcon";
 import { Flashcard } from "../../../utils/constants/DataTypes";
 import DashboardExams from "../../../components/LVL3_Cells/DashboardExams/DashboardExams";
 import { examCardData } from "../../../components/LVL3_Cells/DashboardExams/@types";
-import { FaChevronRight } from "react-icons/fa6";
 import { StudentRoutes } from "../../../Routes/protectedRoutes/StudentRoutes";
-import ModeDropdown from "../../../components/LVL3_Cells/ModeDropdown/ModeDropdown";
-import ExpandableFlashcard from "../../../components/LVL3_Cells/ExpandableFlashcard/ExpandableFlashcard";
-import { dummyFlashCards } from "../StudentDashboard/StudentDashboard";
 
 const StudentCustomClasses = ({}: StudentCustomClassesProps) => {
   const { localeTitles, localeButtons, localeLables } = useLocale();

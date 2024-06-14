@@ -245,16 +245,14 @@ const CustomTable: React.FC<CustomTableProps> = ({
                           )}
                           {header === "Flashcards Created" && (
                             <Text className="font-semibold">
-                              {row?.flashcardsCreated
-                                ? row?.flashcardsCreated
+                              {row?.professorFlashCards
+                                ? row?.professorFlashCards
                                 : 0}
                             </Text>
                           )}
-                          {header === "Past Exams Created" && (
+                          {header === "Questions Created" && (
                             <Text className="font-semibold">
-                              {row?.PastExamsCreated
-                                ? row?.PastExamsCreated
-                                : 0}
+                              {row?.questionCount ? row?.questionCount : 0}
                             </Text>
                           )}
                           {header === "Joined On" && (

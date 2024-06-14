@@ -275,7 +275,7 @@ export const deleteCustomClassApi = async (classId: string, token: string) => {
 };
 
 export const getReviewDecksApi = async (studentId: string, token: string) => {
-  // console.log("getReviewDecksApi", "studentId", studentId);
+  console.log("getReviewDecksApi", "studentId", studentId);
   const response = await apiRequest({
     method: "Get",
     url: `/user/reviewDecks/${studentId}`,

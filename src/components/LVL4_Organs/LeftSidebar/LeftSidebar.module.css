@@ -64,7 +64,7 @@
 }
 
 .active {
-   /* font-family: Poppins; */
+  /* font-family: Poppins; */
   font-size: 14px;
   font-weight: 400;
   line-height: 21px;
@@ -73,7 +73,7 @@
   padding: 5px;
 }
 .inactive {
-   /* font-family: Poppins; */
+  /* font-family: Poppins; */
   font-size: 14px;
   font-weight: 400;
   line-height: 21px;
@@ -92,9 +92,47 @@
 
 .text {
   /* //styleName: Body Small/Regular; */
-   /* font-family: Poppins; */
+  /* font-family: Poppins; */
   font-size: 14px;
   font-weight: 400;
   line-height: 21px;
   text-align: left;
+}
+
+/* Extra small devices (phones, 400px and down) */
+@media only screen and (max-height: 600px) {
+}
+/* Extra small devices (phones, 400px and down) */
+@media only screen and (max-width: 600px) {
+  .LeftSidebar {
+    width: auto;
+  }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+  .LeftSidebar {
+    width: auto;
+  }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  .LeftSidebar {
+    width: auto;
+  }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  .LeftSidebar {
+    width: auto;
+  }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+  .LeftSidebar {
+    width: 256px;
+  }
 }

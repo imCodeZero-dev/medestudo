@@ -6,8 +6,11 @@ import { FaCaretDown } from "react-icons/fa";
 import styles from "./HeaderMenuDropdown.module.css";
 
 import { useNavigate } from "react-router-dom";
-import { IoMdMenu } from "react-icons/io";
+import { IoMdMenu, IoMdPricetags } from "react-icons/io";
 import Text from "../../LVL1_Atoms/Text/Text";
+import { MdQuestionAnswer, MdSpaceDashboard } from "react-icons/md";
+import { FaUsers, FaUsersLine } from "react-icons/fa6";
+import { SiBookstack, SiRundeck } from "react-icons/si";
 
 const HeaderMenuDropdown: React.FC<HeaderMenuDropdownProps> = ({}) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -23,13 +26,25 @@ const HeaderMenuDropdown: React.FC<HeaderMenuDropdownProps> = ({}) => {
   };
 
   const menuButtons = [
-    { label: "Dashboard", route: "/admin" },
-    { label: "Students", route: "/admin/students" },
-    { label: "Professors", route: "/admin/professors" },
-    { label: "Flashcards", route: "/admin/flashcards" },
-    { label: "Questions", route: "/admin/questions" },
-    { label: "Decks", route: "/admin/decks" },
-    { label: "Tags", route: "/admin/tags" },
+    { icon: <MdSpaceDashboard />, label: "Dashboard", route: "/admin" },
+    { icon: <FaUsers />, label: "Students", route: "/admin/students" },
+    {
+      icon: <FaUsersLine />,
+      label: "Professors",
+      route: "/admin/professors",
+    },
+    {
+      icon: <SiRundeck />,
+      label: "Flashcards",
+      route: "/admin/flashcards",
+    },
+    {
+      icon: <MdQuestionAnswer />,
+      label: "Questions",
+      route: "/admin/questions",
+    },
+    { icon: <SiBookstack />, label: "Decks", route: "/admin/decks" },
+    { icon: <IoMdPricetags />, label: "Tags", route: "/admin/tags" },
   ];
 
   return (
@@ -53,7 +68,8 @@ const HeaderMenuDropdown: React.FC<HeaderMenuDropdownProps> = ({}) => {
               navigate(button.route);
             }}
           >
-            {button?.label}
+            {button?.icon}
+            <Text className={styles.label}>{button?.label}</Text>
           </MenuItem>
         ))}
       </Menu>

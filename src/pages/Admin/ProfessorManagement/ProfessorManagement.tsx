@@ -78,7 +78,7 @@ const ProfessorManagement = ({}: ProfessorManagementProps) => {
     "Phone",
     "Created On",
     "Flashcards Created",
-    "Past Exams Created",
+    "Questions Created",
     "Status",
     "Action",
   ];

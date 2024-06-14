@@ -7,7 +7,6 @@ import {
   showSuccessToast,
 } from "../../../../config/toastProvider/toastUtils";
 import {
-
   resetAdminPasswordApi,
   updateAdminProfileApi,
 } from "../../../../utils/api/admin";
@@ -34,7 +33,6 @@ export const useAdminProfile = () => {
     lastName: yup.string().required("Last name is required"),
     image: yup.string().required("Picture is required"),
   });
- 
 
   const {
     handleSubmit,
@@ -97,10 +95,11 @@ export const useAdminProfile = () => {
         pic: imageUrl,
       };
       // setCookie("admin", updatedAdmin, { maxAge: 86400 });
-      setCookie("admin", updatedAdmin, {
-        path: "/",
-        expires: new Date(dayjs().add(Number(30), "day").toString()),
-      });
+      // setCookie("admin", updatedAdmin, {
+      //   path: "/",
+      //   expires: new Date(dayjs().add(Number(30), "day").toString()),
+      // });
+      setCookie("admin", updatedAdmin, { maxAge: 86400 });
 
       showSuccessToast(localeSuccess?.SUCCESS_ADMIN_UPDATED);
     } catch (error: any) {
@@ -111,7 +110,6 @@ export const useAdminProfile = () => {
     }
   };
 
- 
   const onSubmitResetPasswordAdmin = async (data: any) => {
     // console.log("onSubmitResetPasswordAdmin", data);
     try {

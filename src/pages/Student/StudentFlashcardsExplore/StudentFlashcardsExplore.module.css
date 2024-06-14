@@ -2,6 +2,7 @@
   display: flex;
   max-height: 88vh;
   overflow-y: auto;
+  /* width: calc(100% - 256px); */
 }
 
 .StudentFlashcardsExplore-head {
@@ -12,15 +13,16 @@
 
 .StudentFlashcardsExplore-main {
   background-color: #f8fbff;
-  flex: 0 0 65%;
-  padding:24px 32px;
+  flex: 0 65%;
+  /* width: 65%; */
+  padding: 24px 32px;
   height: 100%;
-
 }
 
 .StudentFlashcardsExplore-right {
   background-color: inherit;
-  flex: 1;
+  flex: 0 35%;
+  /* width: 35%; */
 }
 
 .StudentFlashcardsExplore-section {
@@ -37,7 +39,7 @@
 }
 
 .viewMore {
-   /* font-family: Poppins; */
+  /* font-family: Poppins; */
   font-size: 12px;
   font-weight: 500;
   line-height: 18px;

@@ -1,6 +1,6 @@
 .mainDiv {
   display: flex;
-  width: 164px;
+  width: 134px;
   height: 40px;
   padding: 10px;
   border-radius: 6px;
@@ -12,4 +12,9 @@
   font-weight: 600;
   font-size: 14px;
   justify-content: space-between;
+}
+
+.label{
+  margin-left: 6px;
+
 }

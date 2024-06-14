@@ -39,16 +39,7 @@ const LeftSidebar = ({ options }: LeftSidebarProps) => {
     }
   };
 
-  // const handleTabClickCancel = () => {
-  //   console.log("handleTabClickCancel");
-  //   setActiveTab("");
-  // };
-
-  //   useEffect(() => {
-  // if(location?.pathname==='/professor'){
-  //   setActiveTab()
-  // }
-  //   },[location])
+  
 
   return (
     <div className={styles.LeftSidebar}>
@@ -62,7 +53,6 @@ const LeftSidebar = ({ options }: LeftSidebarProps) => {
               location?.pathname.includes(option?.url)
                 ? styles.activeTab
                 : styles.tab
-              // activeTab === option.title ? styles.activeTab : styles.tab
             }`}
           >
             <div
@@ -83,18 +73,7 @@ const LeftSidebar = ({ options }: LeftSidebarProps) => {
               >
                 {option.title}
               </span>
-              {/* {option.submenu && (
-                <div
-                  className={styles.chevron}
-                  // onClick={() => toggleSubmenu(option.title)}
-                >
-                  {activeTab === option.title ? (
-                    <FaAngleUp onClick={handleTabClickCancel} />
-                  ) : (
-                    <FaAngleDown />
-                  )}
-                </div>
-              )} */}
+            
             </div>
             {(location?.pathname.includes(option?.url) || option.submenu) && (
               <div className={styles.submenu}>

@@ -13,6 +13,8 @@ import { TiDeleteOutline } from "react-icons/ti";
 import { useDropdown } from "../../../utils/hooks/helper";
 import { examCardData } from "../DashboardExams/@types";
 import { handleImageURL } from "../../../utils/constants/constants";
+import { useWidth } from "../../../utils/hooks/responsiveHook";
+import { breakPoints } from "../../../utils/constants/ResponsiveDesignBreakPoints";
 
 export const DropdownMenu: React.FC<{
   openDeleteModal: ((data: string) => void) | undefined;
@@ -48,6 +50,7 @@ const DashboardFlashcard: React.FC<DashboardFlashcardProps> = ({
 }) => {
   // const { localeText, localeDropdowns } = useLocale();
   const { localeText } = useLocale();
+  const { width } = useWidth();
   const { isDropdownOpen, toggleDropdown, dropdownRef } = useDropdown();
 
   return (
@@ -64,18 +67,20 @@ const DashboardFlashcard: React.FC<DashboardFlashcardProps> = ({
           className={styles["image"]}
           src={handleImageURL(data?.deckId?.image)}
         />
-        {data?.title ? (
-          <Text className={styles["title"]}>{data?.title}</Text>
-        ) : (
-          <Text className={styles["title"]}>{data?.deckId?.name}</Text>
-        )}
+        <div className={styles["DashboardFlashcard-left-text"]}>
+          {data?.title ? (
+            <Text className={styles["title"]}>{data?.title}</Text>
+          ) : (
+            <Text className={styles["title"]}>{data?.deckId?.name}</Text>
+          )}
 
-        {!minView && (
-          <Text className={styles["date"]}>
-            {" "}
-            • {dayjs(data?.updatedAt).format("DD MMM, YYYY")}
-          </Text>
-        )}
+          {!minView && (
+            <Text className={styles["date"]}>
+              {" "}
+              • {dayjs(data?.updatedAt).format("DD MMM, YYYY")}
+            </Text>
+          )}
+        </div>
       </div>
       <div className={styles["DashboardFlashcard-right"]} ref={dropdownRef}>
         {/* <BiSolidPencil size={25} color="#2A2D31" className="cursor-pointer" /> */}
@@ -88,7 +93,7 @@ const DashboardFlashcard: React.FC<DashboardFlashcardProps> = ({
         ) : (
           <>
             <IoEllipsisHorizontal
-              size={25}
+              size={width > breakPoints.sm ? 25 : 18}
               color="#2A2D31"
               className="cursor-pointer"
               // onClick={handleClickOptions as any}

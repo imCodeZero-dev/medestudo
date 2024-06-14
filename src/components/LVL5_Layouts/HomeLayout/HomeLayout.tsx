@@ -27,12 +27,14 @@ import { IoMdAddCircleOutline } from "react-icons/io";
 import { IoMdClipboard } from "react-icons/io";
 import { IoBookmarkOutline, IoSettingsOutline } from "react-icons/io5";
 import Input from "../../LVL1_Atoms/Input";
-import { BiSearch } from "react-icons/bi";
+import { BiMenu, BiSearch } from "react-icons/bi";
 import { useCookies } from "react-cookie";
 import { CiFolderOn, CiShare2 } from "react-icons/ci";
 import { BsQuestionCircle } from "react-icons/bs";
 import { FaRegFileAlt, FaRegFolder } from "react-icons/fa";
 import { AiOutlineFileSync } from "react-icons/ai";
+import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
 const HomeLayout = ({ children, createButton }: HomeLayoutProps) => {
   const navigate = useNavigate();
@@ -41,6 +43,8 @@ const HomeLayout = ({ children, createButton }: HomeLayoutProps) => {
   let userData = cookies?.professor?.professor;
 
   const location = useLocation();
+  const [drawerOpen, setDrawerOpen] = useState(false);
+
   const { width } = useWidth();
   const { localeButtons, localeTitles, localeLables, localePlaceholders } =
     useLocale();
@@ -180,13 +184,42 @@ const HomeLayout = ({ children, createButton }: HomeLayoutProps) => {
     }
   };
 
+  
+
   return (
     <div className={styles["HomeLayout"]}>
-      <LeftSidebar
-        options={
-          location?.pathname.includes("/student") ? optionsStudent : options
-        }
-      />
+      {width > breakPoints.lg && (
+        <LeftSidebar
+          options={
+            location?.pathname.includes("/student") ? optionsStudent : options
+          }
+        />
+      )}
+
+      {width <= breakPoints.lg && (
+        <Button onClick={() => setDrawerOpen(true)}>
+          <BiMenu size={24} />
+        </Button>
+      )}
+
+      <motion.div
+        initial={{ x: "-100%" }}
+        animate={{ x: drawerOpen ? 0 : "-100%" }}
+        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+        className={styles["Drawer"]}
+      >
+        <div
+          className={styles["Drawer-overlay"]}
+          onClick={() => setDrawerOpen(false)}
+        ></div>
+        <div className={styles["Drawer-content"]}>
+          <LeftSidebar
+            options={
+              location?.pathname.includes("/student") ? optionsStudent : options
+            }
+          />
+        </div>
+      </motion.div>
       <div className={styles["HomeLayout-main"]}>
         <div className={styles["HomeLayout-header"]}>
           <div className="flex items-center space-x-3">
@@ -206,9 +239,9 @@ const HomeLayout = ({ children, createButton }: HomeLayoutProps) => {
           </div>
           <div className={styles["HomeLayout-header-right"]}>
             <LanguageDropdown />
-            <div className={styles["iconDiv"]}>
+            {/* <div className={styles["iconDiv"]}>
               <SettingIcon />
-            </div>
+            </div> */}
 
             <div className="ml-3 cursor-pointer">
               <UserDropdown
