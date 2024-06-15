@@ -55,7 +55,7 @@ const ResultBar: React.FC<ResultBarProps> = ({
           </div>
         </div>
       </div>
-      <div className="flex space-x-3 mr-3 items-center">
+      <div className={styles.bottomDiv}>
         <Text className={styles["CompletedTag"]}>Completed </Text>
         <Text
           className={
@@ -64,17 +64,17 @@ const ResultBar: React.FC<ResultBarProps> = ({
         >
           {data?.achievedMarks} /{data?.totalQuestions}{" "}
         </Text>
-      </div>
-      <div className={styles["ResultBar-right"]} ref={dropdownRef}>
-        <IoEllipsisHorizontal
-          size={25}
-          color="#2A2D31"
-          className="cursor-pointer"
-          onClick={toggleDropdown}
-        />
-        {isDropdownOpen && (
-          <DropdownMenu openDeleteModal={openDeleteModal} data={data} />
-        )}
+        <div className={styles["ResultBar-right"]} ref={dropdownRef}>
+          <IoEllipsisHorizontal
+            size={25}
+            color="#2A2D31"
+            className="cursor-pointer"
+            onClick={toggleDropdown}
+          />
+          {isDropdownOpen && (
+            <DropdownMenu openDeleteModal={openDeleteModal} data={data} />
+          )}
+        </div>
       </div>
     </div>
   );

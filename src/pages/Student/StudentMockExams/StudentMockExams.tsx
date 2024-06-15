@@ -91,7 +91,7 @@ const StudentMockExams = ({}: StudentMockExamsProps) => {
                   setSelectedTab={setSelectedTab}
                 />
               </div>
-              <div className="flex justify-between items-center mt-6">
+              <div className={styles.searchDiv}>
                 <div className={styles["HomeLayout-header-mid"]}>
                   <Input
                     control={control}
@@ -245,7 +245,7 @@ const StudentMockExams = ({}: StudentMockExamsProps) => {
                 />
               </div>
             </div>
-            <div className="">
+            <div className={styles.startBtnDiv}>
               <Button className="yellowButton" onClick={() => startExam()}>
                 {localeButtons.BUTTON_START_EXAM}
               </Button>

@@ -11,6 +11,8 @@ import CircularProgressChart from "../../LVL3_Cells/CircularProgressChart/Circul
 import { formatTime } from "../TimerComponent/TimerComponent";
 import { formattedTime } from "../../../utils/hooks/helper";
 import { useNavigate } from "react-router-dom";
+import { useWidth } from "../../../utils/hooks/responsiveHook";
+import { breakPoints } from "../../../utils/constants/ResponsiveDesignBreakPoints";
 
 const MockResultModal = ({
   open,
@@ -33,10 +35,10 @@ const MockResultModal = ({
   } = useLocale();
 
   const navigate = useNavigate();
-
+  const { width } = useWidth();
   return (
     <div className={styles["MockResultModal"]}>
-      <CustomModal open={open}>
+      <CustomModal open={open} width={width > breakPoints?.sm ? 600 : "auto"}>
         <div className={styles["modal-head"]}>
           <Text className={styles["title"]}>
             {practice

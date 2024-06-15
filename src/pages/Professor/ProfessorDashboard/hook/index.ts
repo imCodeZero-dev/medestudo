@@ -10,8 +10,7 @@ import {
 import useLocale from "../../../../locales";
 import { passwordRegex } from "../../../../utils/constants/constants";
 import { useCookies } from "react-cookie";
-import { useQuery } from "react-query";
-import { useDispatch, useSelector } from "react-redux";
+
 import {
   useAllClassesQuery,
   useAllExamsQuery,

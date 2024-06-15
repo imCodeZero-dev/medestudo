@@ -47,7 +47,7 @@ const StudentSettings = ({}: StudentSettingsProps) => {
   return (
     <HomeLayout>
       <div className={styles["StudentSettings"]}>
-        <div className="px-[24px]">
+        <div className="md:px-[24px]">
           <DynamicTabs
             value={value}
             onChange={handleChange}

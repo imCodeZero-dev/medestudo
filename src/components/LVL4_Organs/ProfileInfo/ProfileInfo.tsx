@@ -32,10 +32,10 @@ const ProfileInfo = ({
 
   return (
     <div className={styles.ProfileInfo}>
-      <div className="grid grid-cols-3 space-x-6 my-6">
+      <div className="grid grid-cols-3 lg:space-x-6 my-6 space-y-5 lg:space-y-0">
         <form
           onSubmit={handleSubmit(onSubmitGeneral)}
-          className={`${styles["form"]} col-span-2`}
+          className={`${styles["form"]} col-span-full  lg:col-span-2`}
         >
           <div className={styles["ProfileInfo-section-1"]}>
             <Text className={styles.heading}>
@@ -53,7 +53,7 @@ const ProfileInfo = ({
               />
             </div>
 
-            <div className="grid grid-cols-2 space-x-2 my-4">
+            <div className="grid md:grid-cols-2 md:space-x-2 my-4 space-y-3 md:space-y-0">
               <Input
                 label={localeLables?.LABEL_USERNAME}
                 control={control}
@@ -95,10 +95,11 @@ const ProfileInfo = ({
 
         <form
           onSubmit={handleSubmitImage(onSubmitImage)}
-          className={styles["form"]}
+          // className={styles["form"]}
+          className={`${styles["form"]} col-span-full  lg:col-span-1`}
         >
           <div className={styles["ProfileInfo-section-2"]}>
-            <div className="flex flex-col justify-between h-full items-start">
+            <div className="flex flex-col justify-between h-full items-center md:items-start space-y-3 lg:space-y-0">
               <Text className={styles.heading}>
                 {localeTitles.TITLE_PROFILE_IMAGE}
               </Text>

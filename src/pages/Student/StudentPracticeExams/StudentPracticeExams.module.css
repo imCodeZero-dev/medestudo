@@ -2,7 +2,7 @@
   display: flex;
   max-height: 88vh;
   min-height: 88vh;
-
+  row-gap: 16px;
   overflow-y: auto;
 }
 .StudentPracticeExams-main {
@@ -86,4 +86,61 @@
   display: flex;
   flex-direction: column;
   row-gap: 16px;
+}
+
+.startBtnDiv {
+  margin-top: 24px;
+}
+
+.searchDiv{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+  flex-wrap: wrap;
+  row-gap: 12px;
+}
+
+/* Extra small devices (phones, 400px and down) */
+@media only screen and (max-height: 600px) {
+}
+/* Extra small devices (phones, 400px and down) */
+@media only screen and (max-width: 600px) {
+  .StudentPracticeExams {
+    display: flex;
+    flex-direction: column;
+  }
+  .StudentPracticeExams-main {
+    flex: 1;
+    padding: 12px;
+  }
+  
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+  .StudentPracticeExams {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  .StudentPracticeExams {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  .StudentPracticeExams {
+    display: flex;
+    flex-direction: row;
+  }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
 }

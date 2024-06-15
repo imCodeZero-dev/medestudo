@@ -48,7 +48,7 @@ const ViewQuestionsMock: React.FC<ViewQuestionsMockProps> = ({
               currentIndex + 1
             }`}</Text>
 
-            <div className="flex space-x-4">
+            <div className={styles.headButtonDiv}>
               <div>
                 <Button
                   type="button"
@@ -136,7 +136,7 @@ const ViewQuestionsMock: React.FC<ViewQuestionsMockProps> = ({
             )}
           </div>
 
-          <div className="flex items-center w-96 m-auto space-x-4">
+          <div className={styles.buttonDiv}>
             <Button
               disabled={!selectedAnswer}
               className="primary"

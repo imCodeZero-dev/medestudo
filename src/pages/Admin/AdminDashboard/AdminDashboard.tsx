@@ -37,6 +37,8 @@ const AdminDashboard = ({}: AdminDashboardProps) => {
     professorLoading,
     onChangeStudentStatus,
     statusLoading,
+    allFlashcards,
+    allQuestions,
   } = useAdminDashboard();
   console.log("cookies", cookies);
   const navigate = useNavigate();
@@ -47,6 +49,8 @@ const AdminDashboard = ({}: AdminDashboardProps) => {
   const redirectToTags = () => {
     navigate("/admin/tags");
   };
+
+  console.log("allProfessors", allProfessors);
 
   const cards = [
     {
@@ -94,13 +98,13 @@ const AdminDashboard = ({}: AdminDashboardProps) => {
     },
     {
       title: localeTitles?.TITLE_TOTAL_FLASHCARDS,
-      value: "2420",
+      value: allFlashcards?.length,
       img: flashcardsImg,
       text: localeLables.LABEL_UPLOADED,
     },
     {
-      title: localeTitles?.TITLE_TOTAL_EXAMS,
-      value: "2420",
+      title: localeTitles?.TITLE_TOTAL_QUESTIONS,
+      value: allQuestions?.length,
       img: examsImgs,
       text: localeLables.LABEL_UPLOADED,
     },
@@ -113,7 +117,7 @@ const AdminDashboard = ({}: AdminDashboardProps) => {
     "Phone",
     "Created On",
     "Flashcards Created",
-    "Past Exams Created",
+    "Questions Created",
     "Status",
     // "Action",
   ];

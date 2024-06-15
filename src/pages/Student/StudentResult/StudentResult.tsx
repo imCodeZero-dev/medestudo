@@ -63,8 +63,8 @@ const StudentResult = ({}: StudentResultProps) => {
               {localeTitles?.TITLE_FILTERED_EXAMS_ARE_LISTED_BELOW}
             </Text>
 
-            <div className="flex justify-between items-center mt-6">
-              <div className={styles["HomeLayout-header-mid"]}>
+            <div className={styles["searchDiv"]}>
+            <div className={styles["HomeLayout-header-mid"]}>
                 <Input
                   control={control}
                   name="filter_title"

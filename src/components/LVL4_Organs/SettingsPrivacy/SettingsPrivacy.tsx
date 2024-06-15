@@ -29,29 +29,36 @@ const SettingsPrivacy = ({
 
   return (
     <div className={styles.SettingsPrivacy}>
-      <form onSubmit={handleSubmit(onSubmit)} className={`${styles["form"]} `}>
-        <div className={styles["SettingsPrivacy-section"]}>
-          <Text className={styles.heading}>{localeTitles.TITLE_PRIVACY}</Text>
-          <div className="mt-4">
-            {privacySettings(localeLables, localeText).map((option, index) => (
-              <SwitchController
-                name={option.value}
-                control={control}
-                label={option?.label}
-                text={option?.text}
-              />
-            ))}
+      <div className="my-6">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className={`${styles["form"]} `}
+        >
+          <div className={styles["SettingsPrivacy-section"]}>
+            <Text className={styles.heading}>{localeTitles.TITLE_PRIVACY}</Text>
+            <div className="mt-4">
+              {privacySettings(localeLables, localeText).map(
+                (option, index) => (
+                  <SwitchController
+                    name={option.value}
+                    control={control}
+                    label={option?.label}
+                    text={option?.text}
+                  />
+                )
+              )}
+            </div>
+            <Button
+              type="submit"
+              loading={loading}
+              className="purpleBtn"
+              onClick={handleSubmit(onSubmit)}
+            >
+              {localeButtons?.BUTTON_UPDATE}
+            </Button>
           </div>
-          <Button
-            type="submit"
-            loading={loading}
-            className="purpleBtn"
-            onClick={handleSubmit(onSubmit)}
-          >
-            {localeButtons?.BUTTON_UPDATE}
-          </Button>
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
   );
 };

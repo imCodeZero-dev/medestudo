@@ -18,6 +18,8 @@ import { useCookies } from "react-cookie";
 import { useQuery } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  useAllFlashcardsAdminQuery,
+  useAllQuestionsAdminQuery,
   useProfessorsQuery,
   useStudentsQuery,
 } from "../../../../redux/slices/APISlice";
@@ -50,6 +52,7 @@ export const useAdminDashboard = () => {
     control,
     formState: { errors },
     watch,
+    reset,
   } = useForm({
     resolver: yupResolver(validationSchema),
     defaultValues: {
@@ -75,6 +78,20 @@ export const useAdminDashboard = () => {
   // const { allProfessors, loading, error } = useSelector(
   //   (state: any) => state.professors
   // );
+
+  const {
+    allQuestions,
+    allQuestionsLoading,
+    errorAllQuestions,
+    refetchAllQuestions,
+  } = useAllQuestionsAdminQuery(cookies?.admin);
+
+  const {
+    allFlashcards,
+    allFlashcardsLoading,
+    errorAllFlashcards,
+    refetchAllFlashcards,
+  } = useAllFlashcardsAdminQuery(cookies?.admin);
 
   const {
     allProfessors,
@@ -105,7 +122,7 @@ export const useAdminDashboard = () => {
       response = await createProfessorApi(params, cookies?.admin?.token);
       console.log("response", response);
       refetchAllProfessors();
-
+      reset();
       showSuccessToast(localeSuccess?.SUCCESS_PROFESSOR_CREATED);
     } catch (error: any) {
       console.log("error", error);
@@ -167,6 +184,7 @@ export const useAdminDashboard = () => {
     }
   };
 
+
   return {
     control,
     errors,
@@ -184,5 +202,7 @@ export const useAdminDashboard = () => {
     allStudentsLoading,
     statusLoading,
     onChangeStudentStatus,
+    allFlashcards,
+    allQuestions,
   };
 };

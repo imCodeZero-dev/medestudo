@@ -2,8 +2,10 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { useQuery } from "react-query";
 import {
   getAllDecksApi,
+  getAllFlashcardsAdmindApi,
   getAllInstituteApi,
   getAllProfessorApi,
+  getAllQuestionsAdmindApi,
   getAllStudentsApi,
   getAllTagsApi,
 } from "../../utils/api/admin";
@@ -430,5 +432,63 @@ export const useDashboardDataQuery = (cookies: { token: string }) => {
     dashboardDataLoading,
     errorDashboardData,
     refetchDashboardData,
+  };
+};
+
+export const useAllFlashcardsAdminQuery = (cookies: { token: string }) => {
+  const {
+    data: { data: { cards: allFlashcards = [] } = {} } = {},
+    isLoading: allFlashcardsLoading,
+    error: errorAllFlashcards,
+    refetch: refetchAllFlashcards,
+  } = useQuery(
+    [
+      "allFlashcards",
+      {
+        cookies,
+      },
+    ],
+    async () => {
+      return getAllFlashcardsAdmindApi(cookies?.token);
+    },
+    {
+      enabled: !!cookies?.token,
+    }
+  );
+
+  return {
+    allFlashcards,
+    allFlashcardsLoading,
+    errorAllFlashcards,
+    refetchAllFlashcards,
+  };
+};
+
+export const useAllQuestionsAdminQuery = (cookies: { token: string }) => {
+  const {
+    data: { data: allQuestions = [] } = {},
+    isLoading: allQuestionsLoading,
+    error: errorAllQuestions,
+    refetch: refetchAllQuestions,
+  } = useQuery(
+    [
+      "allQuestions",
+      {
+        cookies,
+      },
+    ],
+    async () => {
+      return getAllQuestionsAdmindApi(cookies?.token);
+    },
+    {
+      enabled: !!cookies?.token,
+    }
+  );
+
+  return {
+    allQuestions,
+    allQuestionsLoading,
+    errorAllQuestions,
+    refetchAllQuestions,
   };
 };

@@ -14,7 +14,10 @@ import useLocale from "../../../../locales";
 import { passwordRegex } from "../../../../utils/constants/constants";
 import { useCookies } from "react-cookie";
 import { useQuery } from "react-query";
-import { useDashboardDataQuery } from "../../../../redux/slices/APISlice";
+import {
+  useAllQuestionsAdminQuery,
+  useDashboardDataQuery,
+} from "../../../../redux/slices/APISlice";
 // import { useLocation, useNavigate } from "react-router-dom";
 
 export const useQuestionsManagement = () => {
@@ -72,26 +75,13 @@ export const useQuestionsManagement = () => {
   };
   // const {
   //   data: { data: { cards: allQuestions = [] } = {} } = {},
-  const {
-    data: { data: allQuestions = [] } = {},
-    isLoading: allQuestionsLoading,
-    error: errorAllQuestions,
-    refetch: refetchAllQuestions,
-  } = useQuery(
-    [
-      "allQuestions",
-      {
-        cookies,
-      },
-    ],
 
-    async () => {
-      return getAllQuestionsAdmindApi(cookies?.admin?.token);
-    },
-    {
-      enabled: !!cookies?.admin?.token,
-    }
-  );
+  const {
+    allQuestions,
+    allQuestionsLoading,
+    errorAllQuestions,
+    refetchAllQuestions,
+  } = useAllQuestionsAdminQuery(cookies?.admin);
 
   const {
     dashboardData,
@@ -99,6 +89,7 @@ export const useQuestionsManagement = () => {
     errorDashboardData,
     refetchDashboardData,
   } = useDashboardDataQuery(cookies?.admin);
+
   const onSubmitCreateProfessor = async (data: any) => {
     const params = {
       name: data?.name,

@@ -70,3 +70,62 @@
   text-align: left;
   color: #1d1f22;
 }
+
+
+/* .startBtnDiv {
+  margin-top: 24px;
+} */
+
+.searchDiv{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+  flex-wrap: wrap;
+  row-gap: 12px;
+}
+
+
+/* Extra small devices (phones, 400px and down) */
+@media only screen and (max-height: 600px) {
+}
+/* Extra small devices (phones, 400px and down) */
+@media only screen and (max-width: 600px) {
+  .StudentResult {
+    display: flex;
+    flex-direction: column;
+  }
+  .StudentResult-main {
+    flex: 1;
+    padding: 12px;
+  }
+ 
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+  .StudentResult {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  .StudentResult {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  .StudentResult {
+    display: flex;
+    flex-direction: row;
+  }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+}

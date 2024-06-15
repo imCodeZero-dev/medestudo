@@ -74,7 +74,7 @@ const SettingsSecurity = ({
               />
             </div>
 
-            <div className="grid grid-cols-2 space-x-2 my-4">
+            <div className="grid md:grid-cols-2 md:space-x-2 space-y-3 md:space-y-0 my-4">
               <Input
                 label={localeLables?.LABEL_NEW_PASSWORD}
                 control={control}
