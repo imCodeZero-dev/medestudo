@@ -124,3 +124,12 @@ export interface dashboardDataType {
   flashcards: number;
   questions: number;
 }
+
+export interface studentDataType {
+  _id: string;
+  name: string;
+  email: string;
+  status: string;
+  pic: string;
+  createdAt: string;
+}

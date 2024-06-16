@@ -57,6 +57,7 @@ export const getAllProfessorApi = async (token: string) => {
 };
 
 export const getAllStudentsApi = async (token: string) => {
+  console.log("getAllStudentsApi", token);
   const response = await apiRequest({
     method: "Get",
     url: `/admin/student/getAll`,

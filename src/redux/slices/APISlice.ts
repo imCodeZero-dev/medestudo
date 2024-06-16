@@ -68,9 +68,9 @@ export const useStudentsQuery = (cookies: AdminCookies) => {
     async () => {
       return getAllStudentsApi(cookies?.admin?.token);
     },
-    {
-      enabled: !!cookies?.admin?.token,
-    }
+    // {
+    //   enabled: !!cookies?.admin?.token,
+    // }
   );
 
   return {
