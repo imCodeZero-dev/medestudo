@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+// import fontF from "../assets/fonts/static/Inter-Regular.ttf";
 import fontF from "../assets/fonts/static/Inter-Regular.ttf";
 import Home from "../pages/Home/Home";
 // import "../index.css";
