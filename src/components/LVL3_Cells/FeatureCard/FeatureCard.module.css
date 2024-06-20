@@ -1,0 +1,44 @@
+.FeatureCard {
+  color: white;
+  padding: 20px;
+  border-radius: 30px;
+  /* border: 1px solid #4b78bb; */
+  background-color: #254d87;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  /* max-width: 300px; */
+  /* width: 383px; */
+  margin: 10px;
+  /* height: 275px; */
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
+}
+
+.title {
+  font-family: Cabinet Grotesk;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 26px;
+  text-align: center;
+  color: #ffffff;
+  margin-top: 32px;
+}
+
+.text {
+  font-family: Cabinet Grotesk;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 34px;
+  text-align: center;
+  color: #f3f4f5;
+  opacity: 80%;
+  margin-top: 16px;
+  /* margin-bottom: 20px; */
+}
+
+.avatar {
+  width: 244px;
+  height: 183px;
+}

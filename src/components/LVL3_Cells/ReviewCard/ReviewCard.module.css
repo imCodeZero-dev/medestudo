@@ -1,0 +1,56 @@
+.card {
+  background-color: transparent;
+  color: white;
+  padding: 20px;
+  border-radius: 30px;
+  border: 1px solid #4b78bb;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  /* max-width: 300px; */
+  /* width: 383px; */
+  margin: 10px;
+  height: 275px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.stars {
+  color: gold;
+  margin-bottom: 10px;
+}
+
+.review {
+  font-family: Cabinet Grotesk;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 31.25px;
+  text-align: left;
+  color: #f3f4f5;
+  margin-bottom: 20px;
+}
+
+.author {
+  display: flex;
+  align-items: center;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.authorName {
+  font-weight: bold;
+}
+
+.authorRole {
+  font-family: Cabinet Grotesk;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 25px;
+  text-align: left;
+  opacity: 50%;
+  color: #ffffff;
+}

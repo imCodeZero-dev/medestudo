@@ -1,0 +1,85 @@
+.statsSection {
+  border-radius: 118px;
+  background: #254d87;
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  justify-items: center;
+  align-items: center;
+  height: 231px;
+}
+
+.value {
+  font-family: Cabinet Grotesk;
+  font-size: 64px;
+  font-weight: 700;
+  line-height: 100px;
+  text-align: left;
+  color: #ffbc6e;
+}
+
+.label {
+  font-family: Cabinet Grotesk;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 28.13px;
+  text-align: left;
+  opacity: 80%;
+  color: #ffffff;
+}
+
+.each {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Extra small devices (phones, 400px and down) */
+@media only screen and (max-height: 600px) {
+}
+/* Extra small devices (phones, 400px and down) */
+@media only screen and (max-width: 600px) {
+  .statsSection {
+    border-radius: 20px;
+    display: grid;
+    grid-template-columns: auto auto;
+    height: 335px;
+  }
+  .value {
+  
+    font-size: 48px;
+  
+  }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+  .statsSection {
+    border-radius: 20px;
+    display: grid;
+    grid-template-columns: auto auto;
+    height: 335px;
+  }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  .statsSection {
+    border-radius: 20px;
+    display: grid;
+    grid-template-columns: auto auto;
+    height: 335px;
+  }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  .statsSection {
+    border-radius: 118px;
+    grid-template-columns: auto auto auto auto;
+    height: 231px;
+  }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+}

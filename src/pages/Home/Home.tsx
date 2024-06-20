@@ -13,6 +13,13 @@ import { IoCardSharp, IoSettingsOutline } from "react-icons/io5";
 import { BiUser } from "react-icons/bi";
 import { SiRundeck } from "react-icons/si";
 import { CiLogin } from "react-icons/ci";
+import ReviewSection from "../../components/LVL4_Organs/ReviewSection/ReviewSection";
+import StatsSection from "../../components/LVL3_Cells/StatsSection/StatsSection";
+import ExploreFlashcards from "../../components/LVL4_Organs/ExploreFlashcards/ExploreFlashcards";
+import { allFlashcardsData, features } from "../../utils/constants/constants";
+import WhyMetEstudioSection from "../../components/LVL4_Organs/WhyMetEstudioSection/WhyMetEstudioSection";
+import MetEstudioFeatures from "../../components/LVL4_Organs/MetEstudioFeatures/MetEstudioFeatures";
+import MetEstudioGetStarted from "../../components/LVL4_Organs/MetEstudioGetStarted/MetEstudioGetStarted";
 
 type HomeProps = {};
 
@@ -42,6 +49,46 @@ const Home = ({}: HomeProps) => {
       image: <CiLogin />,
     },
   ];
+
+  const reviewData = [
+    {
+      rating: 5,
+      review:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sem lorem, tempus id condimentum.",
+      authorName: "Adam David",
+      authorRole: "Student",
+      authorAvatar:
+        "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
+    },
+    {
+      rating: 4,
+      review:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sem lorem, tempus id condimentum.",
+      authorName: "Mr David",
+      authorRole: "Student",
+      authorAvatar:
+        "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
+    },
+    {
+      rating: 2,
+      review:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sem lorem, tempus id condimentum.",
+      authorName: "John David",
+      authorRole: "Student",
+      authorAvatar:
+        "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
+    },
+    {
+      rating: 2,
+      review:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sem lorem, tempus id condimentum.",
+      authorName: "John David",
+      authorRole: "Student",
+      authorAvatar:
+        "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
+    },
+  ];
+
   return (
     <div className={styles.home}>
       {/* {width > breakPoints.lg && ( */}
@@ -65,6 +112,16 @@ const Home = ({}: HomeProps) => {
       </motion.div>
 
       <HeroSection allStudents={allStudents} />
+      <ReviewSection reviews={reviewData} />
+      <div className={styles.stats}>
+        <StatsSection />
+      </div>
+      <ExploreFlashcards allFlashcards={allFlashcardsData} />
+      <WhyMetEstudioSection />
+      <MetEstudioFeatures features={features(localeTitles)} />
+      <div  className={styles.whiteBgDiv}>
+        <MetEstudioGetStarted />
+      </div>
       {/* <StatsSection />
       <TestimonialsSection />
       <VideoSection />

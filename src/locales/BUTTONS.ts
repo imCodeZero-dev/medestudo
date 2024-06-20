@@ -60,6 +60,11 @@ export const BUTTONS = {
     BUTTON_VIEW_SCORE: "View Score",
     BUTTON_FINISH_EXAM: "Finish Exam",
     BUTTON_SKIP_QUESTION: "Skip Question",
+    BUTTON_SEE_ALL: "See All",
+    BUTTON_EXPLORE_FLASHCARDS: "Explore Flashcards",
+    BUTTON_WHY_MEDESTUDO: "Why Medestudo",
+    BUTTON_MEDESTUDO_FEATURES: "MEDESTUDO FEATURES",
+    BUTTON_LETS_BEGIN: "Let's Begin",
   },
   es: {
     submit: "Enviar",
@@ -122,5 +127,10 @@ export const BUTTONS = {
     BUTTON_VIEW_SCORE: "View Score",
     BUTTON_FINISH_EXAM: "Finish Exam",
     BUTTON_SKIP_QUESTION: "Skip Question",
+    BUTTON_SEE_ALL: "See All",
+    BUTTON_EXPLORE_FLASHCARDS: "Explore Flashcards",
+    BUTTON_WHY_MEDESTUDO: "Why Medestudo",
+    BUTTON_MEDESTUDO_FEATURES: "MEDESTUDO FEATURES",
+    BUTTON_LETS_BEGIN: "Let's Begin",
   },
 };

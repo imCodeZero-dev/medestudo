@@ -1,0 +1,200 @@
+.ReviewSection {
+  color: white;
+  display: flex;
+  padding: 40px 0px 40px 40px;
+  flex: 1;
+  justify-content: space-between;
+}
+
+.ReviewSection_goals {
+  flex: 0.45;
+  /* max-width: 579px; */
+}
+.ReviewSection_reviews {
+  flex: 0.45;
+  overflow: hidden;
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
+}
+
+.vectorImg {
+  width: 31.72px;
+  height: 29.7px;
+}
+
+.reviewCards {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+  width: calc(100% * 5); /* assuming 5 cards, adjust as necessary */
+}
+
+.reviewCard {
+  flex: 0 0 50%; /* each card takes up 50% of the container width */
+}
+
+.textsm {
+  font-family: Cabinet Grotesk;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 30.6px;
+  text-align: left;
+  opacity: 80%;
+}
+
+.text {
+  font-family: Cabinet Grotesk;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 34px;
+  text-align: left;
+  margin-top: 16px;
+  opacity: 80%;
+}
+
+.title {
+  font-family: Cabinet Grotesk;
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 52px;
+  text-align: left;
+}
+
+.percentage {
+  font-family: Cabinet Grotesk;
+  font-size: 36px;
+  font-weight: 800;
+  line-height: 56.25px;
+  text-align: left;
+}
+.ReviewSection_goals_top {
+  max-width: 519px;
+}
+
+.ReviewSection_goals_bottom {
+  display: flex;
+  margin-top: 64px;
+  /* column-gap: 16px; */
+  align-items: center;
+}
+
+.line {
+  /* height: 16px;
+  color: #ffffff;
+  width: 2px; */
+  border: 1px solid white;
+  height: 42px;
+  margin-left: 16px;
+  margin-right: 16px;
+}
+
+/* Extra small devices (phones, 400px and down) */
+@media only screen and (max-height: 600px) {
+}
+/* Extra small devices (phones, 400px and down) */
+@media only screen and (max-width: 600px) {
+  .ReviewSection {
+    padding: 40px 0px 40px 12px;
+    display: flex;
+    flex-direction: column;
+  }
+  .title {
+    font-size: 24px;
+    line-height: 26px;
+    max-width: 60%;
+  }
+  .text {
+    font-size: 14px;
+    line-height: 23.8px;
+  }
+
+  .textsm {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 23.8px;
+  }
+  .ReviewSection_goals_bottom {
+    margin-top: 40px;
+    margin-bottom: 40px;
+  }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+  .ReviewSection {
+    padding: 40px 0px 40px 40px;
+    display: flex;
+    flex-direction: column;
+  }
+  .title {
+    font-size: 24px;
+    line-height: 26px;
+    max-width: 60%;
+  }
+  .text {
+    font-size: 14px;
+    line-height: 23.8px;
+  }
+
+  .textsm {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 23.8px;
+  }
+ 
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  .ReviewSection {
+    padding: 40px 0px 40px 80px;
+    display: flex;
+    flex-direction: column;
+  }
+  .title {
+    font-size: 24px;
+    line-height: 26px;
+    max-width: 60%;
+  }
+  .text {
+    font-size: 14px;
+    line-height: 23.8px;
+  }
+
+  .textsm {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 23.8px;
+  }
+  .ReviewSection_goals_bottom {
+    margin-top: 40px;
+    margin-bottom: 40px;
+  }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  .ReviewSection {
+    flex-direction: row;
+  }
+
+  .textsm {
+    font-size: 18px;
+    line-height: 30.6px;
+  }
+
+  .text {
+    font-size: 20px;
+    line-height: 34px;
+  }
+
+  .title {
+    font-size: 48px;
+    line-height: 52px;
+    max-width: 100%;
+  }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+}

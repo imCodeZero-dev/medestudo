@@ -133,3 +133,22 @@ export interface studentDataType {
   pic: string;
   createdAt: string;
 }
+
+export interface studentDataType {
+  _id: string;
+  name: string;
+  email: string;
+  status: string;
+  pic: string;
+  createdAt: string;
+}
+
+export interface flashcardLandingType {
+  _id?: string;
+  image: string;
+  title: string;
+  createdBy: {
+    pic: string;
+    name: string;
+  };
+}
