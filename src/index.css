@@ -139,6 +139,7 @@ input:focus {
   font-display: fallback;
   font-style: normal;
   src: url("./assets/fonts/static/Inter-Regular.ttf");
+  /* src: url("./assets/fonts/static/Inter-Regular.ttf"); */
   font-family: "Inter";
   font-weight: 400;
 }
