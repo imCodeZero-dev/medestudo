@@ -5,6 +5,8 @@ import heartImg from "../../assets/Images/Landing/heart.png";
 import clumsy1 from "../../assets/Images/Landing/clumsy 1.png";
 import clumsy2 from "../../assets/Images/Landing/clumsy2.png";
 import clumsy3 from "../../assets/Images/Landing/clumsy3.png";
+import professor1 from "../../assets/Images/Landing/Professor1.png";
+import professor2 from "../../assets/Images/Landing/Professor2.png";
 
 export const baseURL = "https://medestudo.onrender.com/api/v1";
 export const CLOUDINARY_CLOUD_NAME = "dkzlc4bhv";
@@ -169,5 +171,18 @@ export const steps = [
     title: "Explore",
     description:
       "Lorem ipsum dolor sit amet, onsectetur adipiscing elit. Nunc sem lorem, tempus id condimentum",
+  },
+];
+
+export const dummyTestimonials = [
+  {
+    pic: professor1,
+    title: "Adam David",
+    msg: "Etiam sit amet imperdiet dolor. Maecenas lectus lectus, porttitor vel velit ut, interdum molestie nibh. Vivamus vulputate ut justo eget posuere. Etiam congue, dolor eget tristique finibus, nisi ex tincidunt nisl  vel semper sem sem et est. In arcu augue,",
+  },
+  {
+    pic: professor2,
+    title: "Adam David",
+    msg: "Etiam sit amet imperdiet dolor. Maecenas lectus lectus, porttitor vel velit ut, interdum molestie nibh. Vivamus vulputate ut justo eget posuere. Etiam congue, dolor eget tristique finibus, nisi ex tincidunt nisl  vel semper sem sem et est. In arcu augue,",
   },
 ];

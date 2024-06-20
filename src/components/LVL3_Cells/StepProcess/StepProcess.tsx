@@ -10,7 +10,10 @@ const StepProcess: React.FC<StepProcessProps> = ({ steps }) => {
   return (
     <div className={styles.stepContainer}>
       {steps?.map((step, index) => (
-        <div className={styles.step} key={index}>
+        <div
+          className={index === 0 ? styles.stepWithoutGap : styles.step}
+          key={index}
+        >
           <div className={styles.stepNumberContainer}>
             <div
               className={`${styles.stepNumber} ${
@@ -19,7 +22,9 @@ const StepProcess: React.FC<StepProcessProps> = ({ steps }) => {
             >
               {index + 1}
             </div>
-            {index !== steps.length - 1 && <div className={styles.line} />}
+            {index !== steps.length - 1 && (
+              <div className={index === 1 ? styles.activeline : styles.line} />
+            )}
           </div>
           <div className={styles.stepContent}>
             <h3 className={styles.stepTitle}>{step.title}</h3>

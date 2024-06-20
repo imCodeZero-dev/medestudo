@@ -126,7 +126,7 @@
 }
 
 /* CabinetGrotesk */
-/* @font-face {
+@font-face {
   font-display: fallback;
   font-style: normal;
   src: url("./assets/fonts/static/CabinetGrotesk-Black.woff");
@@ -160,7 +160,7 @@
   src: url("./assets/fonts/static/CabinetGrotesk-Regular.woff");
   font-family: "Cabinet Grotesk";
   font-weight: 400;
-} */
+}
 
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;

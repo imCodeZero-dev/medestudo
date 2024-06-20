@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 // import fontF from "../assets/fonts/static/Inter-Regular.ttf";
-import fontF from "../assets/fonts/static/Inter-Regular.ttf";
+// import fontF from "../assets/fonts/static/Inter-Regular.ttf";
 import Home from "../pages/Home/Home";
 // import "../index.css";
 
@@ -121,23 +121,23 @@ const ProjectRoutes = () => {
   // const { localeBasics } = useLocale();
   const theme = createTheme({
     components: {
-      MuiTableCell: {
-        styleOverrides: {
-          root: `
-          @font-face {
-            src:  url(${fontF}) format('ttf');
-          }
-        `,
-        },
-      },
-      MuiCssBaseline: {
-        styleOverrides: {
-          "@font-face": {
-            fontFamily: "Inter", // Use the same font family name as specified above
-            src: `url(${fontF}) format('ttf')`, // Update the format if needed
-          },
-        },
-      },
+      // MuiTableCell: {
+      //   styleOverrides: {
+      //     root: `
+      //     @font-face {
+      //       src:  url(${fontF}) format('ttf');
+      //     }
+      //   `,
+      //   },
+      // },
+      // MuiCssBaseline: {
+      //   styleOverrides: {
+      //     "@font-face": {
+      //       fontFamily: "Inter", // Use the same font family name as specified above
+      //       src: `url(${fontF}) format('ttf')`, // Update the format if needed
+      //     },
+      //   },
+      // },
     },
   });
   return (

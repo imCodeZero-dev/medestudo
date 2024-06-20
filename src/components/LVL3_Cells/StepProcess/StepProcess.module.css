@@ -1,4 +1,4 @@
-.stepContainer {
+/* .stepContainer {
   display: flex;
   flex-direction: column;
   position: relative;
@@ -8,7 +8,7 @@
 .step {
   display: flex;
   align-items: flex-start;
-  margin-bottom: 40px; /* Adjust as necessary */
+  margin-bottom: 40px; 
 }
 
 .stepNumberContainer {
@@ -41,10 +41,90 @@
 
 .line {
   width: 2px;
-  height: calc(100% - 32px); /* Adjust according to spacing */
+  height: calc(100% - 32px);
   background-color: blue;
   position: absolute;
   top: 32px;
+}
+
+.stepContent {
+  display: flex;
+  flex-direction: column;
+}
+
+.stepTitle {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.stepDescription {
+  font-size: 14px;
+  color: #666;
+  margin: 5px 0 0 0;
+} */
+
+.stepContainer {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding-left: 40px;
+}
+
+.step {
+  display: flex;
+  align-items: flex-start;
+  margin-top: 100px;
+  /* margin-bottom: 20px; */
+}
+
+.stepWithoutGap {
+  display: flex;
+  align-items: flex-start;
+}
+
+.stepNumberContainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 20px;
+}
+
+.stepNumber {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  background-color: white;
+  color: #333;
+  font-weight: bold;
+}
+
+.stepNumber.active {
+  border-color: #ff7a00;
+  color: #ff7a00;
+}
+
+.line {
+  width: 6px;
+  height: 100%;
+  background: linear-gradient(to bottom, #ff7a00, white);
+  position: absolute;
+  top: 56px;
+}
+.activeline {
+  width: 6px;
+  height: 100%;
+  /* background: linear-gradient(to bottom, #ff7a00, white); */
+  /* background: linear-gradient(180deg, #ffffff 0%, rgba(217, 217, 217, 0) 100%); */
+
+  background: linear-gradient(to bottom, white, #d9d9d9);
+  position: absolute;
+  top: 56px;
 }
 
 .stepContent {

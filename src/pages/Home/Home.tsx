@@ -20,6 +20,7 @@ import { allFlashcardsData, features } from "../../utils/constants/constants";
 import WhyMetEstudioSection from "../../components/LVL4_Organs/WhyMetEstudioSection/WhyMetEstudioSection";
 import MetEstudioFeatures from "../../components/LVL4_Organs/MetEstudioFeatures/MetEstudioFeatures";
 import MetEstudioGetStarted from "../../components/LVL4_Organs/MetEstudioGetStarted/MetEstudioGetStarted";
+import TestimonialSection from "../../components/LVL4_Organs/Testimonial/TestimonialSection";
 
 type HomeProps = {};
 
@@ -121,6 +122,7 @@ const Home = ({}: HomeProps) => {
       <MetEstudioFeatures features={features(localeTitles)} />
       <div  className={styles.whiteBgDiv}>
         <MetEstudioGetStarted />
+        <TestimonialSection />
       </div>
       {/* <StatsSection />
       <TestimonialsSection />

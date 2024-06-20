@@ -65,6 +65,7 @@ export const BUTTONS = {
     BUTTON_WHY_MEDESTUDO: "Why Medestudo",
     BUTTON_MEDESTUDO_FEATURES: "MEDESTUDO FEATURES",
     BUTTON_LETS_BEGIN: "Let's Begin",
+    BUTTON_TESTIMONIALS: "Testimonials",
   },
   es: {
     submit: "Enviar",
@@ -132,5 +133,6 @@ export const BUTTONS = {
     BUTTON_WHY_MEDESTUDO: "Why Medestudo",
     BUTTON_MEDESTUDO_FEATURES: "MEDESTUDO FEATURES",
     BUTTON_LETS_BEGIN: "Let's Begin",
+    BUTTON_TESTIMONIALS: "Testimonials",
   },
 };

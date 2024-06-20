@@ -1,0 +1,62 @@
+.Testimonial {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  padding-left: 40px;
+  width: 80%;
+  align-items: center;
+  column-gap: 84px;
+  justify-content: center;
+  margin: auto;
+
+}
+
+.Testimonial_left {
+  width: 362.85px;
+  height: 499.03px;
+  border-radius: 195px;
+  border: 1px solid black;
+  background-color: #ffbc6e;
+  /* flex: 0.3; */
+  position: relative;
+}
+.pic{
+  height: 100%;
+  position: absolute;
+  bottom: 0;
+}
+.Testimonial_right{
+  flex: 1;
+}
+
+.msg {
+  font-family: Cabinet Grotesk;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 40.8px;
+  text-align: left;
+  color: #080809;
+}
+
+.title {
+  font-family: Cabinet Grotesk;
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 31.25px;
+  text-align: left;
+  color: #1d1f22;
+}
+.role {
+  font-family: Cabinet Grotesk;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 25px;
+  text-align: left;
+  color: #1d1f22;
+  opacity: 50%;
+}
+
+.arrows{
+  display: flex;
+  column-gap: 8px;
+}
