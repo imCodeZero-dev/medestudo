@@ -24,6 +24,7 @@ import {
 } from "../../../../utils/api/professors";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import {
+  useAllClassDecksQuery,
   useAllClassesQuery,
   useAllDecksQuery,
 } from "../../../../redux/slices/APISlice";
@@ -126,27 +127,9 @@ export const useDeckDetails = () => {
     }
   );
 
-  const {
-    data: { data: { decksWithCardCount: classDecks = [] } = {} } = {},
-    isLoading: classDecksLoading,
-    error: errorclassDecks,
-    refetch: refetchclassDecks,
-  } = useQuery(
-    [
-      "classDecks",
-      {
-        cookies,
-        classDetails,
-      },
-    ],
+  const { classDecks, classDecksLoading, errorclassDecks, refetchclassDecks } =
+    useAllClassDecksQuery(classDetails?._id, cookies?.professor);
 
-    async () => {
-      return getClassDecksApi(classDetails?._id, cookies?.professor?.token);
-    },
-    {
-      enabled: !!cookies?.professor?.token && !!classDetails,
-    }
-  );
   console.log("classDecks", classDecks);
   // console.log("classDetails", classDetails);
 

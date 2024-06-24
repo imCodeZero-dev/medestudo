@@ -8,7 +8,6 @@
   column-gap: 84px;
   justify-content: center;
   margin: auto;
-
 }
 
 .Testimonial_left {
@@ -20,20 +19,26 @@
   /* flex: 0.3; */
   position: relative;
 }
-.pic{
-  height: 100%;
+.pic {
+  height: 550.03px;
+  width: 362.85px;
   position: absolute;
   bottom: 0;
 }
-.Testimonial_right{
+.Testimonial_right {
   flex: 1;
+}
+
+.roleDiv {
+  margin-top: 32px;
+  margin-bottom: 16px;
 }
 
 .msg {
   font-family: Cabinet Grotesk;
   font-size: 24px;
-  font-weight: 500;
   line-height: 40.8px;
+  font-weight: 500;
   text-align: left;
   color: #080809;
 }
@@ -41,22 +46,212 @@
 .title {
   font-family: Cabinet Grotesk;
   font-size: 20px;
-  font-weight: 800;
   line-height: 31.25px;
+  font-weight: 800;
   text-align: left;
   color: #1d1f22;
 }
 .role {
   font-family: Cabinet Grotesk;
   font-size: 16px;
-  font-weight: 500;
   line-height: 25px;
+  font-weight: 500;
   text-align: left;
   color: #1d1f22;
   opacity: 50%;
 }
 
-.arrows{
+.arrows {
   display: flex;
   column-gap: 8px;
+}
+
+/* Extra small devices (phones, 400px and down) */
+@media only screen and (max-height: 600px) {
+}
+/* Extra small devices (phones, 400px and down) */
+@media only screen and (max-width: 600px) {
+  .Testimonial {
+    display: flex;
+    flex-direction: column-reverse;
+    width: 100%;
+    align-items: center;
+  }
+  .msg {
+    font-size: 20px;
+    line-height: 34px;
+    text-align: center;
+  }
+  .title {
+    font-size: 20px;
+    font-weight: 800;
+    line-height: 31.25px;
+    text-align: left;
+  }
+  .role {
+    font-size: 16px;
+    line-height: 25px;
+    text-align: left;
+  }
+  .Testimonial_right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .roleDiv {
+    margin-top: 16px;
+    /* margin-bottom: 16px; */
+  }
+  .Testimonial_left {
+    width: 272.59px;
+    height: 374.9px;
+
+    border-radius: 195px;
+    margin-top: 100px;
+  }
+  .pic {
+    height: 447px;
+    width: auto;
+  }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+  .Testimonial {
+    display: flex;
+    flex-direction: column-reverse;
+    width: 100%;
+    align-items: center;
+  }
+  .msg {
+    font-size: 20px;
+    line-height: 34px;
+    text-align: center;
+  }
+  .title {
+    font-size: 20px;
+    font-weight: 800;
+    line-height: 31.25px;
+    text-align: left;
+  }
+  .role {
+    font-size: 16px;
+    line-height: 25px;
+    text-align: left;
+  }
+  .Testimonial_right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .roleDiv {
+    margin-top: 16px;
+    /* margin-bottom: 16px; */
+  }
+  .Testimonial_left {
+    width: 272.59px;
+    height: 374.9px;
+
+    border-radius: 195px;
+    margin-top: 100px;
+  }
+  .pic {
+    height: 447px;
+    width: auto;
+  }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  .Testimonial {
+    display: flex;
+    flex-direction: column-reverse;
+    width: 100%;
+    align-items: center;
+  }
+  .msg {
+    font-size: 20px;
+    line-height: 34px;
+    text-align: center;
+  }
+  .title {
+    font-size: 20px;
+    font-weight: 800;
+    line-height: 31.25px;
+    text-align: left;
+  }
+  .role {
+    font-size: 16px;
+    line-height: 25px;
+    text-align: left;
+  }
+  .Testimonial_right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .roleDiv {
+    margin-top: 16px;
+    /* margin-bottom: 16px; */
+  }
+  .Testimonial_left {
+    width: 272.59px;
+    height: 374.9px;
+
+    border-radius: 195px;
+    margin-top: 100px;
+  }
+  .pic {
+    height: 447px;
+    width: auto;
+  }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  .Testimonial {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    width: 80%;
+    align-items: center;
+  }
+  .msg {
+    font-size: 24px;
+    line-height: 40.8px;
+    text-align: left;
+  }
+  .title {
+    font-size: 20px;
+    line-height: 31.25px;
+  }
+  .role {
+    font-size: 16px;
+    line-height: 25px;
+    /* text-align: left; */
+  }
+  .Testimonial_right {
+    /* display: flex;
+    flex-direction: column;
+    align-items: center; */
+    flex: 1;
+    align-items: flex-start;
+  }
+  .roleDiv {
+    margin-top: 32px;
+    margin-bottom: 16px;
+  }
+  .Testimonial_left {
+    width: 362.85px;
+    height: 499.03px;
+    margin-top: 0px;
+  }
+  .pic {
+    height: 550.03px;
+    width: 362.85px;
+  }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
 }

@@ -34,6 +34,14 @@
 
 .whiteBgDiv {
   background-color: white;
+  /* border-bottom-left-radius: 200px;
+  border-bottom-right-radius: 200px; */
+  border-radius: 200px;
+  position: relative;
+  padding-bottom: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 /* Extra small devices (phones, 400px and down) */
@@ -44,18 +52,30 @@
   .stats {
     padding: 12px;
   }
+  .whiteBgDiv {
+    border-radius: 40px;
+  }
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
+  .whiteBgDiv {
+    border-radius: 40px;
+  }
 }
 
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
+  .whiteBgDiv {
+    border-radius: 40px;
+  }
 }
 
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
+  .whiteBgDiv {
+    border-radius: 200px;
+  }
 }
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */

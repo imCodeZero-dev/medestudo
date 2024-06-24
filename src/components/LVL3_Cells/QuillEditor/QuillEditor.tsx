@@ -70,8 +70,13 @@ const QuillEditor: React.FC<QuillEditorProps> = ({
 }) => {
   return (
     <div
-      className={`bg-white rounded-lg`}
-      style={{ borderRadius, border: 0, outline: 0 }}
+      className={`bg-white rounded-lg max-w-64 sm:max-w-72 md:max-w-96 lg:max-w-xl xl:max-w-2xl`}
+      style={{
+        borderRadius,
+        border: 0,
+        outline: 0,
+        // maxWidth: "700px",
+      }}
     >
       <Controller
         name={name}

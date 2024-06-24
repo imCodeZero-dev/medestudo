@@ -185,7 +185,7 @@ export const useDecksManagement = () => {
       );
       console.log("response", response);
 
-      showSuccessToast(localeSuccess?.SUCCESS_DECK_UPDATED);
+      // showSuccessToast(localeSuccess?.SUCCESS_DECK_UPDATED);
       refetchAllDecks();
     } catch (error: any) {
       console.log("error", error);
@@ -203,7 +203,7 @@ export const useDecksManagement = () => {
       response = await deleteDeckByIdApi(deckData?._id, cookies?.admin?.token);
       console.log("response", response);
 
-      showSuccessToast(localeSuccess?.SUCCESS_DECK_DELETED);
+      // showSuccessToast(localeSuccess?.SUCCESS_DECK_DELETED);
       refetchAllDecks();
     } catch (error: any) {
       console.log("error", error);

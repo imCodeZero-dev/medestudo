@@ -21,13 +21,13 @@ const UserDropdown: React.FC<UserDropdownProps> = ({
   const { localeDropdowns } = useLocale();
 
   const navigation = (link: string) => {
+    handleClose();
     if (link === "/logout") {
-      handleClose();
       handleOpenLogout && handleOpenLogout();
     } else {
-      handleClose();
-      navigate(link);
-      // setIsUserDropdownVisible(false);
+      setTimeout(() => {
+        navigate(link);
+      }, 0);
     }
   };
 
@@ -81,5 +81,4 @@ const UserDropdown: React.FC<UserDropdownProps> = ({
     </div>
   );
 };
-
 export default UserDropdown;

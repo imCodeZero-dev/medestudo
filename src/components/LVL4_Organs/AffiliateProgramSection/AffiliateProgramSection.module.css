@@ -1,0 +1,229 @@
+.AffiliateProgramSection {
+  display: flex;
+  flex-direction: row;
+  border-radius: 83px;
+  /* height: 606px; */
+  height: 100%;
+  background-color: #325c98;
+  align-items: center;
+  column-gap: 60px;
+  width: 90%;
+  /* border: 1px solid black; */
+  margin: 250px auto 24px auto;
+  padding: 64px;
+}
+.AffiliateProgramSection_left {
+  /* flex: 0.45; */
+  min-width: 40%;
+  height: 511px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  /* padding: 20px; */
+}
+
+.AffiliateProgramSection_right {
+  /* flex: 0.55; */
+  height: 511px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  /* height: 100%; */
+  justify-content: space-evenly;
+}
+.img {
+  /* width: 100%;
+  height: 100%; */
+  /* height: 511px; */
+  /* max-width: 574px; */
+  width: 100%;
+
+  /* max-width: 450px; */
+  height: 100%;
+  border-radius: 8px;
+}
+
+.heading {
+  font-family: Cabinet Grotesk;
+  font-size: 48px;
+  line-height: 52px;
+  font-weight: 700;
+  /* text-align: center; */
+  color: white;
+  margin-bottom: 20px;
+}
+.text {
+  font-family: Cabinet Grotesk;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 34px;
+  /* text-align: center; */
+  color: white;
+  opacity: 80%;
+  margin-bottom: 30px;
+}
+
+.welcomeButton {
+  padding: 10px 20px;
+  border: 1px solid white;
+  border-radius: 20px;
+  background-color: transparent;
+  cursor: pointer;
+  margin-bottom: 20px;
+  font-family: Cabinet Grotesk;
+  font-size: 16px;
+  line-height: 19.84px;
+  font-weight: 800;
+  text-align: left;
+  color: white;
+}
+
+/* Extra small devices (phones, 400px and down) */
+@media only screen and (max-height: 600px) {
+}
+/* Extra small devices (phones, 400px and down) */
+@media only screen and (max-width: 600px) {
+  .AffiliateProgramSection {
+    margin: 200px auto 24px auto;
+    padding: 16px;
+    border-radius: 40px;
+    display: flex;
+    flex-direction: column-reverse;
+    width: 93%;
+  }
+  .AffiliateProgramSection_left {
+    margin-top: 36px;
+    height: auto;
+  }
+  .AffiliateProgramSection_right {
+    align-items: center;
+    height: auto;
+  }
+  .heading {
+    font-size: 24px;
+    line-height: 26px;
+    text-align: center;
+  }
+  .text {
+    font-size: 16px;
+    line-height: 27px;
+    text-align: center;
+    margin-bottom: 0px;
+  }
+  .welcomeButton {
+    font-size: 14px;
+    line-height: 17.36px;
+  }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+  .AffiliateProgramSection {
+    margin: 200px auto 24px auto;
+    padding: 16px;
+    border-radius: 40px;
+    display: flex;
+    flex-direction: column-reverse;
+    width: 93%;
+  }
+  .AffiliateProgramSection_left {
+    margin-top: 36px;
+    height: auto;
+  }
+  .AffiliateProgramSection_right {
+    align-items: center;
+    height: auto;
+  }
+  .heading {
+    font-size: 24px;
+    line-height: 26px;
+    text-align: center;
+  }
+  .text {
+    font-size: 16px;
+    line-height: 27px;
+    text-align: center;
+    margin-bottom: 0px;
+  }
+  .welcomeButton {
+    font-size: 14px;
+    line-height: 17.36px;
+  }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  .AffiliateProgramSection {
+    margin: 200px auto 24px auto;
+    padding: 16px;
+    border-radius: 40px;
+    display: flex;
+    flex-direction: column-reverse;
+    width: 93%;
+  }
+  .AffiliateProgramSection_left {
+    margin-top: 36px;
+    height: auto;
+  }
+  .AffiliateProgramSection_right {
+    align-items: center;
+    height: auto;
+  }
+  .heading {
+    font-size: 24px;
+    line-height: 26px;
+    text-align: center;
+  }
+  .text {
+    font-size: 16px;
+    line-height: 27px;
+    text-align: center;
+    margin-bottom: 0px;
+  }
+  .welcomeButton {
+    font-size: 14px;
+    line-height: 17.36px;
+  }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  .AffiliateProgramSection {
+    display: flex;
+    flex-direction: row;
+    border-radius: 83px;
+    align-items: center;
+    width: 90%;
+    margin: 250px auto 24px auto;
+    padding: 64px;
+  }
+  .AffiliateProgramSection_left {
+    margin-top: 0px;
+    height: 511px;
+  }
+  .AffiliateProgramSection_right {
+    align-items: flex-start;
+    height: 511px;
+  }
+  .heading {
+    font-size: 48px;
+    line-height: 52px;
+    text-align: left;
+  }
+  .text {
+    font-size: 20px;
+    line-height: 34px;
+    margin-bottom: 30px;
+    text-align: left;
+  }
+  .welcomeButton {
+    font-size: 16px;
+    line-height: 19.84px;
+  }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+  /* .AffiliateProgramSection {
+  } */
+}

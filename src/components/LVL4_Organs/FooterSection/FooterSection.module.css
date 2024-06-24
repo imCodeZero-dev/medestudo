@@ -1,0 +1,136 @@
+/* FooterSection.module.css */
+
+.footer {
+  /* background-color: #1e3a8a; */
+  color: white;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  /* max-width: 90%; */
+  padding: 0 24px;
+}
+
+.column {
+  flex: 1;
+  margin: 0 20px;
+}
+
+.columnTitle {
+  font-weight: bold;
+  margin-bottom: 20px;
+
+  font-family: Cabinet Grotesk;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 40.8px;
+  text-align: left;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+}
+.listSocials {
+  list-style: none;
+  display: flex;
+  column-gap: 8px;
+}
+
+.list li {
+  margin-bottom: 10px;
+  cursor: pointer;
+
+  font-family: Cabinet Grotesk;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 34px;
+  text-align: left;
+  opacity: 80%;
+}
+
+.logoSection {
+  margin-top: 80px;
+  margin-bottom: 40px;
+  max-width: 90%;
+}
+
+.logo {
+  width: 100%;
+}
+
+.bottom {
+  background: #2e5082;
+  width: 100%;
+  /* max-width: 90%; */
+  display: flex;
+  justify-content: space-between;
+  border-radius: 22px;
+  padding: 20px;
+  height: 80px;
+  margin-top: 20px;
+  align-items: center;
+}
+
+.terms {
+  display: flex;
+  list-style: none;
+  padding: 0;
+}
+
+.terms li {
+  margin-left: 20px;
+}
+
+.text {
+  font-family: Cabinet Grotesk;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 34px;
+  /* text-align: left; */
+  opacity: 50%;
+}
+
+.iconDiv {
+  padding: 4px;
+  border-radius: 50%;
+  background-color: #2e5082;
+  /* opacity: 10%; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+    padding: 12px;
+  }
+
+  .column {
+    margin: 20px 0;
+    text-align: center;
+  }
+
+  .bottom {
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+  }
+
+  .terms {
+    /* margin-top: 20px; */
+    display: flex;
+    flex-direction: column;
+  }
+}

@@ -98,6 +98,10 @@ export const TITLES = {
     TITLE_START_ON_MEDESTUDO: "start on medEstudo",
     TITLE_MOCK_EXAMS: "Mock Exams",
     TITLE_WHAT_OUR_PREFESSOR_SAYS: "What our professor says",
+    TITLE_JOIN_OUR_PLATFORM: "Join Our Platform Today",
+    TITLE_AFFILIATE_PROGRAM: "Affiliate Program",
+    TITLE_TRY_OUR_WAY_OF_LEARNING: "Try our way of learning",
+    // TITLE_TODAY: "Today",
   },
   es: {
     TITLE_TEST: "Este es el título de la prueba",
@@ -198,5 +202,9 @@ export const TITLES = {
     TITLE_START_ON_MEDESTUDO: "start on medEstudo",
     TITLE_MOCK_EXAMS: "Mock Exams",
     TITLE_WHAT_OUR_PREFESSOR_SAYS: "What our professor says",
+    TITLE_JOIN_OUR_PLATFORM: "Join Our Platform Today",
+    TITLE_AFFILIATE_PROGRAM: "Affiliate Program",
+    TITLE_TRY_OUR_WAY_OF_LEARNING: "Try our way of learning",
+    // TITLE_TODAY: "Today",
   },
 };

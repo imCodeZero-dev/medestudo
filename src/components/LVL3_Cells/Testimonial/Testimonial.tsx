@@ -3,13 +3,26 @@ import { TestimonialProps } from "./@types";
 import styles from "./Testimonial.module.css";
 import Text from "../../LVL1_Atoms/Text/Text";
 import useLocale from "../../../locales";
-import { FiArrowLeftCircle, FiArrowRightCircle } from "react-icons/fi";
 import { SlArrowLeftCircle, SlArrowRightCircle } from "react-icons/sl";
 
 const Testimonial: React.FC<TestimonialProps> = ({ data }) => {
   const { localeTitles, localeText, localeButtons } = useLocale();
   const [activeIndex, setActiveIndex] = useState(0);
 
+  const handlePrev = () => {
+    if (activeIndex < 0) {
+      setActiveIndex((prevInd) => prevInd - 1);
+    } else {
+      setActiveIndex(1);
+    }
+  };
+  const handleNext = () => {
+    if (activeIndex === data?.length - 1) {
+      setActiveIndex(0);
+    } else {
+      setActiveIndex((prevInd) => prevInd + 1);
+    }
+  };
   return (
     <div className={styles.Testimonial}>
       <div className={styles.Testimonial_left}>
@@ -28,8 +41,8 @@ const Testimonial: React.FC<TestimonialProps> = ({ data }) => {
         </div>
 
         <div className={styles.arrows}>
-          <SlArrowLeftCircle size={40} />
-          <SlArrowRightCircle size={40} />
+          <SlArrowLeftCircle size={40} onClick={() => handlePrev()} />
+          <SlArrowRightCircle size={40} onClick={() => handleNext()} />
         </div>
       </div>
     </div>

@@ -46,6 +46,12 @@
 .laptop {
   margin-top: 64px;
 }
+
+.flashcardBody {
+  border: 25px solid #0000000a;
+  border-radius: 14px;
+  margin-top: 32px;
+}
 /* Extra small devices (phones, 400px and down) */
 @media only screen and (max-height: 600px) {
 }

@@ -9,16 +9,9 @@ import { useDeckDetails } from "./hook";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ProfessorRoutes } from "../../../Routes/protectedRoutes/ProfessorRoutes";
 
-import flashcard1 from "../../../assets/Images/dashboard/flashcard1.png";
-
 import DashboardFlashcard from "../../../components/LVL3_Cells/DashboardFlashcard/DashboardFlashcard";
 
-import CreateClassModal from "../../../components/LVL4_Organs/CreateClassModal/CreateClassModal";
-import { dummyFlashCards } from "../ProfessorDashboard/ProfessorDashboard";
-import { useState } from "react";
-import { IoIosCheckmarkCircle } from "react-icons/io";
 import { IoEllipsisHorizontal, IoTimeOutline } from "react-icons/io5";
-import { BiSolidPencil } from "react-icons/bi";
 import HomeLayout from "../../../components/LVL5_Layouts/HomeLayout/HomeLayout";
 import { FaCirclePlus, FaRegTrashCan } from "react-icons/fa6";
 import { SiRundeck } from "react-icons/si";
@@ -29,6 +22,8 @@ import ConfirmationModal from "../../../components/LVL4_Organs/ConfirmationModal
 import AlertIcon from "../../../assets/svgs/AlertIcon";
 import { Class, DecksWithCardCount } from "../../../utils/constants/DataTypes";
 import Loader from "../../../components/LVL1_Atoms/Loader";
+import { useState } from "react";
+import { IoIosCheckmarkCircle } from "react-icons/io";
 
 const DeckDetails = ({}: DeckDetailsProps) => {
   const { localeTitles, localeButtons, localeLables } = useLocale();

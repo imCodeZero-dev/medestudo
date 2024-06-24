@@ -213,13 +213,6 @@ export const useStudentAllFlashCards = () => {
     setCurrentFlashcardIndex((prevIndex) => {
       const nextIndex = prevIndex + 1;
 
-      // if (nextIndex >= flashcards.length) {
-      //   if (allFlashcards.length > flashcards.length) {
-      //     loadMoreFlashcards();
-      //   } else {
-      //     handleAllSetModalOpen();
-      //   }
-      // }
       console.log("nextIndex", nextIndex, "BATCH_SIZE", BATCH_SIZE);
       if (nextIndex >= BATCH_SIZE) {
         if (!allFlashcardsLoaded) {

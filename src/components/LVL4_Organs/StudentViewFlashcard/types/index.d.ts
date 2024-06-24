@@ -3,6 +3,7 @@ import {
   DeckDetailType,
   Flashcard,
   Tag,
+  flashcardData,
 } from "../../../../utils/constants/DataTypes";
 import { SetStateAction } from "react";
 // import { SetStateAction } from "react";
@@ -12,21 +13,22 @@ export type StudentViewFlashcardProps = {
   editLoading?: boolean;
   currentFlashcardIndex: number;
 
-  setValue: any;
+  setValue?: any;
   control: Control<any>;
-  tags?: string[];
+  tags?: { label?: string; title?: string }[];
   allTags: string[];
-  allFlashcards: string[];
+  allFlashcards: flashcardData[];
   handleNextFlashcard: () => void;
   handlePreviousFlashcard: () => void;
   handleDeleteOpen?: (data: any) => void;
   handleEditOpen?: (data: any) => void;
   handleEditClose?: () => void;
   enableEdit?: boolean;
+  showHeader?: boolean;
   deckDetails?: DeckDetailType;
 
   onSubmitEdit?: (data?: any) => Promise<void>;
-  handleSubmit: UseFormHandleSubmit<
+  handleSubmit?: UseFormHandleSubmit<
     {
       question: string;
       answer: string;
@@ -39,6 +41,6 @@ export type StudentViewFlashcardProps = {
   setRevealAnswer?: SetStateAction;
   mode?: "free" | "test" | "exam";
   handleRatingChange?: (data: number) => void;
-  handleViewCardModalOpen: () => void;
-  toggleBookmark: (data: any) => void;
+  handleViewCardModalOpen?: () => void;
+  toggleBookmark?: (data: any) => void;
 };

@@ -152,3 +152,18 @@ export interface flashcardLandingType {
     name: string;
   };
 }
+
+export interface flashcardData {
+  answer: string;
+  answerImage: string;
+  cardCount: number;
+  createdAt: string;
+  deckId: string;
+  professorId: string;
+  question: string;
+  questionImage: string;
+  tags: string[];
+  // tags?: { title?: string; value?: string; label?: string }[];
+  updatedAt?: string;
+  _id?: string;
+}

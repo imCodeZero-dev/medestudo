@@ -8,15 +8,14 @@ import {
 } from "../../../../config/toastProvider/toastUtils";
 
 import useLocale from "../../../../locales";
-import { passwordRegex } from "../../../../utils/constants/constants";
 import { useCookies } from "react-cookie";
 import { useQuery } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
-import { closeModal } from "../../../../redux/slices/CreateClassModalSlice";
 
 import { createFlashcardApi } from "../../../../utils/api/professors";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import {
+  useAllClassDecksQuery,
   useAllClassesQuery,
   useAllFlashcardsQuery,
   useAllTagsQuery,
@@ -55,6 +54,9 @@ export const useCreateFlashcard = () => {
     errorallFlashcards,
     refetchallFlashcards,
   } = useAllFlashcardsQuery(cookies, deckData?._id as string);
+
+  const { classDecks, classDecksLoading, errorclassDecks, refetchclassDecks } =
+    useAllClassDecksQuery(deckData?.classId, cookies?.professor);
 
   console.log("CreateDeckData", deckData);
 
@@ -115,6 +117,7 @@ export const useCreateFlashcard = () => {
       // refetchClassDetails();
       showSuccessToast(localeSuccess?.SUCCESS_FLASH_CREATED);
       refetchallFlashcards();
+      refetchclassDecks();
     } catch (error: any) {
       console.log("error", error);
       showErrorToast(error?.response?.data?.message);

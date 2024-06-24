@@ -15,7 +15,7 @@ const TestimonialSection = ({ features }: TestimonialSectionProps) => {
 
   return (
     <section className={styles.TestimonialSection}>
-      <div className={styles.TestimonialSection_left}>
+      <div className={styles.TestimonialSection_top}>
         <button className={styles.welcomeButton}>
           {localeButtons.BUTTON_TESTIMONIALS}
         </button>

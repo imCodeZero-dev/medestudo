@@ -14,6 +14,7 @@ import {
   getAllClassesApi,
   getAllExamsApi,
   getAllFlashcardsByIdApi,
+  getClassDecksApi,
   getDashboardDataApi,
   getExamQuestionsApi,
 } from "../../utils/api/professors";
@@ -67,7 +68,7 @@ export const useStudentsQuery = (cookies: AdminCookies) => {
     ],
     async () => {
       return getAllStudentsApi(cookies?.admin?.token);
-    },
+    }
     // {
     //   enabled: !!cookies?.admin?.token,
     // }
@@ -490,5 +491,39 @@ export const useAllQuestionsAdminQuery = (cookies: { token: string }) => {
     allQuestionsLoading,
     errorAllQuestions,
     refetchAllQuestions,
+  };
+};
+
+export const useAllClassDecksQuery = (
+  classId: string,
+  cookies: { token: string }
+) => {
+  console.log("useAllClassDecksQuery", classId, cookies);
+  const {
+    data: { data: { decksWithCardCount: classDecks = [] } = {} } = {},
+    isLoading: classDecksLoading,
+    error: errorclassDecks,
+    refetch: refetchclassDecks,
+  } = useQuery(
+    [
+      "classDecks",
+      {
+        cookies,
+        classId,
+      },
+    ],
+    async () => {
+      return getClassDecksApi(classId, cookies?.token);
+    },
+    {
+      enabled: !!cookies?.token && !!classId,
+    }
+  );
+
+  return {
+    classDecks,
+    classDecksLoading,
+    errorclassDecks,
+    refetchclassDecks,
   };
 };

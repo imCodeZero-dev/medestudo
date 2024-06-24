@@ -8,9 +8,12 @@ import FeatureCard from "../../LVL3_Cells/FeatureCard/FeatureCard";
 import StepProcess from "../../LVL3_Cells/StepProcess/StepProcess";
 import { steps } from "../../../utils/constants/constants";
 import { MdArrowRightAlt } from "react-icons/md";
+import { useWidth } from "../../../utils/hooks/responsiveHook";
+import { breakPoints } from "../../../utils/constants/ResponsiveDesignBreakPoints";
 
 const MetEstudioGetStarted = ({ features }: MetEstudioGetStartedProps) => {
   const { localeButtons, localeTitles } = useLocale();
+  const { width } = useWidth();
   const navigate = useNavigate();
 
   return (
@@ -25,12 +28,22 @@ const MetEstudioGetStarted = ({ features }: MetEstudioGetStartedProps) => {
           {localeTitles.TITLE_START_ON_MEDESTUDO}
         </Text>
 
-        <Button className={styles.startedBtn}>
-          {localeButtons.BUTTON_GET_STARTED} <MdArrowRightAlt />
-        </Button>
+        {width > breakPoints?.mlg && (
+          <Button className="startedBtn">
+            {localeButtons.BUTTON_GET_STARTED} <MdArrowRightAlt />
+          </Button>
+        )}
       </div>
-      <div className={styles.featureCards}>
-        <StepProcess steps={steps} />
+
+      <div className={styles.MetEstudioGetStarted_right}>
+        <div className={styles.featureCards}>
+          <StepProcess steps={steps} />
+        </div>
+        {width < breakPoints?.mlg && (
+          <Button className="startedBtn">
+            {localeButtons.BUTTON_GET_STARTED} <MdArrowRightAlt />
+          </Button>
+        )}
       </div>
     </section>
   );

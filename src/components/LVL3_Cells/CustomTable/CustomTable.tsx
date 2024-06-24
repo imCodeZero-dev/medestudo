@@ -263,12 +263,18 @@ const CustomTable: React.FC<CustomTableProps> = ({
                           )}
                           {header === "Flashcard Title" && (
                             <Text className={styles[""]}>
-                              {row?.title?.substring(0, 100) + "..."}
+                              {row?.title?.length < 60
+                                ? row?.title
+                                : row?.title?.substring(0, 60) + "..."}
                             </Text>
                           )}
                           {(header === "Question" ||
                             header === "Question Title") && (
-                            <Text className={styles[""]}>{row?.question}</Text>
+                            <Text className={styles[""]}>
+                              {row?.question?.length < 60
+                                ? row?.question
+                                : row?.question?.substring(0, 60) + "..."}
+                            </Text>
                           )}
                           {header === "Correct Answer" && (
                             <Text className={styles[""]}>
@@ -280,10 +286,20 @@ const CustomTable: React.FC<CustomTableProps> = ({
                             </Text>
                           )}
                           {header === "Answer" && (
-                            <Text className={styles[""]}>{row?.answer}</Text>
+                            <Text className={styles[""]}>
+                              {" "}
+                              {row?.answer?.length < 60
+                                ? row?.answer
+                                : row?.answer?.substring(0, 60) + "..."}
+                            </Text>
                           )}
                           {header === "Title" && (
-                            <Text className={styles[""]}>{row?.title}</Text>
+                            <Text className={styles[""]}>
+                              {" "}
+                              {row?.title?.length < 60
+                                ? row?.title
+                                : row?.title?.substring(0, 60) + "..."}
+                            </Text>
                           )}
                         </TableCell>
                       ))}

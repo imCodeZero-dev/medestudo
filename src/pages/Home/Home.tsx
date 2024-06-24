@@ -20,7 +20,10 @@ import { allFlashcardsData, features } from "../../utils/constants/constants";
 import WhyMetEstudioSection from "../../components/LVL4_Organs/WhyMetEstudioSection/WhyMetEstudioSection";
 import MetEstudioFeatures from "../../components/LVL4_Organs/MetEstudioFeatures/MetEstudioFeatures";
 import MetEstudioGetStarted from "../../components/LVL4_Organs/MetEstudioGetStarted/MetEstudioGetStarted";
-import TestimonialSection from "../../components/LVL4_Organs/Testimonial/TestimonialSection";
+import TestimonialSection from "../../components/LVL4_Organs/TestimonialSection/TestimonialSection";
+import JoinPlatformSection from "../../components/LVL4_Organs/JoinPlatformSection/JoinPlatformSection";
+import AffiliateProgramSection from "../../components/LVL4_Organs/AffiliateProgramSection/AffiliateProgramSection";
+import FooterSection from "../../components/LVL4_Organs/FooterSection/FooterSection";
 
 type HomeProps = {};
 
@@ -120,10 +123,14 @@ const Home = ({}: HomeProps) => {
       <ExploreFlashcards allFlashcards={allFlashcardsData} />
       <WhyMetEstudioSection />
       <MetEstudioFeatures features={features(localeTitles)} />
-      <div  className={styles.whiteBgDiv}>
+      <div className={styles.whiteBgDiv}>
         <MetEstudioGetStarted />
         <TestimonialSection />
+        <JoinPlatformSection />
       </div>
+
+      <AffiliateProgramSection />
+      <FooterSection />
       {/* <StatsSection />
       <TestimonialsSection />
       <VideoSection />

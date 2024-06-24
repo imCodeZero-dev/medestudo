@@ -47,10 +47,11 @@ const StudentViewFlashcard: React.FC<StudentViewFlashcardProps> = ({
   handleViewCardModalOpen,
   custom,
   toggleBookmark,
+  showHeader = true,
 }) => {
   const { localeTitles, localePlaceholders, localeButtons, localeText } =
     useLocale();
-  console.log("allFlashcards", allFlashcards);
+  console.log("allFlashcards tags", allTags);
   const filteredTags = allTags?.map((item: any) => item.title);
   const [key, setKey] = useState(0);
 
@@ -62,7 +63,7 @@ const StudentViewFlashcard: React.FC<StudentViewFlashcardProps> = ({
     handleEditClose && handleEditClose();
     setKey((prevKey) => prevKey + 1);
   };
-  // console.log("filteredTags", filteredTags);
+  console.log("filteredTags", filteredTags);
   return (
     <div className={styles["StudentViewFlashcard"]}>
       {loading ? (
@@ -71,32 +72,34 @@ const StudentViewFlashcard: React.FC<StudentViewFlashcardProps> = ({
         </div>
       ) : (
         <form
-          onSubmit={onSubmitEdit && handleSubmit(onSubmitEdit)}
+          onSubmit={onSubmitEdit && handleSubmit && handleSubmit(onSubmitEdit)}
           className={styles["form"]}
         >
-          <div className={styles["StudentViewFlashcard-head"]}>
-            <div className={styles["headLeft"]}>
-              <Text className={styles.title}>
-                {localeTitles.TITLE_FLASHCARD}
-              </Text>
-              <div>
-                <Text className={styles.heading}>
-                  {deckDetails?.classId?.deckId?.name}
+          {showHeader && (
+            <div className={styles["StudentViewFlashcard-head"]}>
+              <div className={styles["headLeft"]}>
+                <Text className={styles.title}>
+                  {localeTitles.TITLE_FLASHCARD}
                 </Text>
+                <div>
+                  <Text className={styles.heading}>
+                    {deckDetails?.classId?.deckId?.name}
+                  </Text>
+                </div>
+              </div>
+              <div className={styles["headRight"]}>
+                {enableEdit && (
+                  <Button
+                    type="submit"
+                    className="primaryTab"
+                    loading={editLoading}
+                  >
+                    {localeButtons?.BUTTON_SAVE}
+                  </Button>
+                )}
               </div>
             </div>
-            <div className={styles["headRight"]}>
-              {enableEdit && (
-                <Button
-                  type="submit"
-                  className="primaryTab"
-                  loading={editLoading}
-                >
-                  {localeButtons?.BUTTON_SAVE}
-                </Button>
-              )}
-            </div>
-          </div>
+          )}
 
           <div className={styles["StudentViewFlashcard-main"]}>
             <div className={styles["StudentViewFlashcard-mainHead"]}>
@@ -146,7 +149,7 @@ const StudentViewFlashcard: React.FC<StudentViewFlashcardProps> = ({
                   </>
                 )}
 
-                {!custom && (
+                {!custom && toggleBookmark && (
                   <div
                     className={`${styles["StudentViewFlashcard-option"]} cursor-pointer`}
                     onClick={() =>
@@ -156,12 +159,14 @@ const StudentViewFlashcard: React.FC<StudentViewFlashcardProps> = ({
                     <BsBookmark size={16} fill="#1D1F22" />
                   </div>
                 )}
-                <div
-                  className={`${styles["StudentViewFlashcard-option"]} cursor-pointer`}
-                  onClick={() => handleViewCardModalOpen()}
-                >
-                  <MdOutlineZoomOutMap size={16} fill="#1D1F22" />
-                </div>
+                {handleViewCardModalOpen && (
+                  <div
+                    className={`${styles["StudentViewFlashcard-option"]} cursor-pointer`}
+                    onClick={() => handleViewCardModalOpen()}
+                  >
+                    <MdOutlineZoomOutMap size={16} fill="#1D1F22" />
+                  </div>
+                )}
               </div>
               {/* {!custom && (
                 <div className={styles["StudentViewFlashcard-mainHead-right"]}>
@@ -257,7 +262,6 @@ const StudentViewFlashcard: React.FC<StudentViewFlashcardProps> = ({
                           name={"new_answerImage"}
                           control={control}
                           defaultValue=""
-                          // key={allFlashcards[currentFlashcardIndex]?._id}
                           render={({ field }) => (
                             <>
                               <ImageDropzone
@@ -274,7 +278,6 @@ const StudentViewFlashcard: React.FC<StudentViewFlashcardProps> = ({
                           name={"answerImage"}
                           control={control}
                           defaultValue=""
-                          // key={allFlashcards[currentFlashcardIndex]?._id}
                           render={({ field }) => (
                             <>
                               <img
