@@ -304,7 +304,7 @@ const StudentViewFlashcard: React.FC<StudentViewFlashcardProps> = ({
                 </div>
                 {!enableEdit ? (
                   <div className={styles["tags"]}>
-                    {tags?.map((tag: any, i) => (
+                    {tags?.map((tag: any, i: number) => (
                       <div
                         className="flex w-auto bg-slate-100 p-3 rounded-lg"
                         key={i}

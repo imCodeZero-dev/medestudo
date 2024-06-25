@@ -15,7 +15,8 @@ export type StudentViewFlashcardProps = {
 
   setValue?: any;
   control: Control<any>;
-  tags?: { label?: string; title?: string }[];
+  // tags?: { label?: string; title?: string }[];
+  tags?: any;
   allTags: string[];
   allFlashcards: flashcardData[];
   handleNextFlashcard: () => void;

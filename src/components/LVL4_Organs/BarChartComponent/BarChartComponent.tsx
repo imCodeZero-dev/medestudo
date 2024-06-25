@@ -39,54 +39,97 @@ const BarChartComponent: React.FC<BarChartComponentProps> = ({
     return () => window.removeEventListener("resize", updateContainerWidth);
   }, []);
 
-  const handle6MonthsClick = () => {
-    if (data?.length >= 12) {
-      const filteredData = data?.slice(-6);
-      setActiveButton("6M");
+  // const handle6MonthsClick = () => {
+  //   if (data?.length < 12) {
+  //     const filteredData = data?.slice(-6);
+  //     setActiveButton("6M");
 
+  //     setChartData(filteredData);
+  //   } else if (data?.length < 6) {
+  //     setChartData(data);
+  //   } else return;
+  // };
+
+  // const handle1YearClick = () => {
+  //   if (data?.length >= 12) {
+  //     const filteredData = data?.slice(-12);
+  //     setActiveButton("1Y");
+  //     setChartData(filteredData);
+  //   } else if (data?.length < 12) {
+  //     setChartData(data);
+  //   } else return;
+  // };
+  const handle6MonthsClick = () => {
+    if (data?.length <= 6) {
+      // If the array length is less than or equal to 6, return the entire array
+      setChartData(data);
+    } else {
+      // Otherwise, return the last 6 elements
+      const filteredData = data.slice(-6);
       setChartData(filteredData);
-    } else return;
+    }
+    setActiveButton("6M");
   };
 
   const handle1YearClick = () => {
-    if (data?.length >= 12) {
-      const filteredData = data?.slice(-12);
-      setActiveButton("1Y");
+    if (data?.length <= 12) {
+      // If the array length is less than or equal to 12, return the entire array
+      setChartData(data);
+    } else {
+      // Otherwise, return the last 12 elements
+      const filteredData = data.slice(-12);
       setChartData(filteredData);
-    } else return;
+    }
+    setActiveButton("1Y");
   };
+
+  // const calculatePercentageChange = (
+  //   currentValue: number,
+  //   lastValue: number
+  // ) => {
+  //   if (lastValue === 0) return 0;
+  //   return ((currentValue - lastValue) / lastValue) * 100;
+  // };
   const calculatePercentageChange = (
     currentValue: number,
     lastValue: number
   ) => {
-    if (lastValue === 0) return 0;
+    if (lastValue === 0) {
+      if (currentValue === 0) {
+        return 0;
+      } else {
+        return 100;
+      }
+    }
     return ((currentValue - lastValue) / lastValue) * 100;
   };
 
   useEffect(() => {
+    console.log("chartData", data);
     // Convert the new data format to match the format expected by Recharts
     const formattedData = data.map((item: any, index: number) => ({
       name: item.month,
-      Sales: item.decks,
-      Expenses: item.questions,
-      differenceSales: index > 0 ? item.decks - data[index - 1].decks : 0,
-      differenceExpenses:
+      Flashcards: item.decks,
+      Questions: item.questions,
+      differenceFlashcards: index > 0 ? item.decks - data[index - 1].decks : 0,
+      differenceQuestions:
         index > 0 ? item.questions - data[index - 1].questions : 0,
     }));
     setLastMonthData(formattedData[formattedData.length - 1]);
     setChartData(formattedData);
     var deckProgress = calculatePercentageChange(
-      formattedData[formattedData.length - 1]?.Sales,
-      formattedData[formattedData.length - 2]?.Sales
+      formattedData[formattedData.length - 1]?.Flashcards,
+      formattedData[formattedData.length - 2]?.Flashcards
     ).toFixed(2);
     var questionProgress = calculatePercentageChange(
-      formattedData[formattedData.length - 1]?.Expenses,
-      formattedData[formattedData.length - 2]?.Expenses
+      formattedData[formattedData.length - 1]?.Questions,
+      formattedData[formattedData.length - 2]?.Questions
     ).toFixed(2);
     setProgress({ questionProgress, deckProgress });
     // console.log("formattedData", formattedData);
-  }, [data]);
-  // console.log("lastMonthData", lastMonthData);
+    console.log("formattedData", formattedData);
+  }, [data, activeButton]);
+  console.log("progress", progress);
   // console.log("chartData", chartData[chartData?.length - 2]);
 
   return (
@@ -123,7 +166,7 @@ const BarChartComponent: React.FC<BarChartComponentProps> = ({
               )}
               {` ${progress.questionProgress}%`}
             </Text>
-            {/* <Text className={styles.increaseText}>{`${chartData[chartData.length - 1]?.differenceExpenses}`}</Text> */}
+            {/* <Text className={styles.increaseText}>{`${chartData[chartData.length - 1]?.differenceQuestions}`}</Text> */}
           </div>
 
           <div className="flex space-x-6">
@@ -172,8 +215,8 @@ const BarChartComponent: React.FC<BarChartComponentProps> = ({
           />
           <Tooltip />
           {/* <Legend className={styles.legend} verticalAlign="top" align="right" /> */}
-          <Bar dataKey="Sales" fill="#FF900E" barSize={20} />
-          <Bar dataKey="Expenses" fill="#0030DD" barSize={20} />
+          <Bar dataKey="Flashcards" fill="#FF900E" barSize={20} />
+          <Bar dataKey="Questions" fill="#0030DD" barSize={20} />
         </BarChart>
       </div>
     </div>

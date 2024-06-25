@@ -68,6 +68,7 @@ const StudentReviewDecks = ({}: StudentReviewDecksProps) => {
             custom={false}
             toggleBookmark={toggleBookmark}
             revealAnswer
+            
           />
         </div>
 
