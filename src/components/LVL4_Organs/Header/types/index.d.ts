@@ -4,5 +4,5 @@ import { SetStateAction } from "react";
 
 export type HeaderProps = {
   showSkip?: boolean;
-  setDrawerOpen: SetStateAction;
+  setDrawerOpen?: SetStateAction;
 };
