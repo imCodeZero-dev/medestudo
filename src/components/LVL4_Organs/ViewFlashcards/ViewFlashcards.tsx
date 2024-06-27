@@ -37,21 +37,22 @@ const ViewFlashcards: React.FC<ViewFlashcardsProps> = ({
   editLoading,
   setValue,
   deckDetails,
+  key,
 }) => {
   const { localeTitles, localePlaceholders, localeButtons, localeText } =
     useLocale();
   // console.log("allFlashcards", allFlashcards);
   const filteredTags = allTags?.map((item: any) => item.title);
-  const [key, setKey] = useState(0);
+  // const [key, setKey] = useState(0);
 
-  const handleEdit = (data: any) => {
-    handleEditOpen(data);
-    setKey((prevKey) => prevKey + 1);
-  };
-  const handleClose = () => {
-    handleEditClose();
-    setKey((prevKey) => prevKey + 1);
-  };
+  // const handleEdit = (data: any) => {
+  //   handleEditOpen(data);
+  //   setKey((prevKey) => prevKey + 1);
+  // };
+  // const handleClose = () => {
+  //   handleEditClose();
+  //   setKey((prevKey) => prevKey + 1);
+  // };
   // console.log("filteredTags", filteredTags);
   return (
     <div className={styles["ViewFlashcards"]}>
@@ -100,7 +101,7 @@ const ViewFlashcards: React.FC<ViewFlashcardsProps> = ({
                 <div
                   className={`${styles["ViewFlashcards-option"]} cursor-pointer`}
                   onClick={() =>
-                    handleEdit(allFlashcards[currentFlashcardIndex])
+                    handleEditOpen(allFlashcards[currentFlashcardIndex])
                   }
                 >
                   <IoPencil size={16} fill="#2A2D31" />
@@ -108,7 +109,7 @@ const ViewFlashcards: React.FC<ViewFlashcardsProps> = ({
               ) : (
                 <div
                   className={`${styles["ViewFlashcards-option"]} cursor-pointer`}
-                  onClick={() => handleClose()}
+                  onClick={() => handleEditClose()}
                 >
                   <GiReturnArrow size={16} fill="#2A2D31" />
                 </div>
@@ -133,6 +134,19 @@ const ViewFlashcards: React.FC<ViewFlashcardsProps> = ({
                 className="cursor-pointer"
               />
               <div className={styles["ViewFlashcards-body-main"]}>
+                {!enableEdit && (
+                  <div className={styles["tags"]}>
+                    {tags?.map((tag: any, i) => (
+                      <div
+                        className="flex w-auto bg-slate-200 p-3 rounded-lg"
+                        key={i}
+                      >
+                        <Text className={styles.tag}>#{tag?.label}</Text>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
                 <div
                   className={`${styles["ViewFlashcards-section"]} border-b pb-2`}
                 >
@@ -231,18 +245,7 @@ const ViewFlashcards: React.FC<ViewFlashcardsProps> = ({
                     />
                   )}
                 </div>
-                {!enableEdit ? (
-                  <div className={styles["tags"]}>
-                    {tags?.map((tag: any, i) => (
-                      <div
-                        className="flex w-auto bg-slate-200 p-3 rounded-lg"
-                        key={i}
-                      >
-                        <Text className={styles.tag}>{tag?.label}</Text>
-                      </div>
-                    ))}
-                  </div>
-                ) : (
+                {enableEdit && (
                   <div className={styles["inputDiv"]}>
                     <Controller
                       name="tags"

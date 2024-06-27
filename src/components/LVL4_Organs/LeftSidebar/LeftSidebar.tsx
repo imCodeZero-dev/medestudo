@@ -30,16 +30,18 @@ const LeftSidebar = ({ options }: LeftSidebarProps) => {
       opt?.url === "/professor/classes/new" ||
       opt?.url === "/student/flashcards/new"
     ) {
+      const newUrl = opt.url.replace("/new", "");
+      navigate(newUrl);
       handleOpenModal();
     } else if (opt?.url === "/professor/exams/new") {
+      const newUrl = opt.url.replace("/new", "");
+      navigate(newUrl);
       handleCreateExamModal();
     } else {
       navigate(opt?.url);
       setActiveTab(opt?.title);
     }
   };
-
-  
 
   return (
     <div className={styles.LeftSidebar}>
@@ -50,14 +52,12 @@ const LeftSidebar = ({ options }: LeftSidebarProps) => {
           <div
             key={index}
             className={` ${
-              location?.pathname.includes(option?.url)
-                ? styles.activeTab
-                : styles.tab
+              location?.pathname === option?.url ? styles.activeTab : styles.tab
             }`}
           >
             <div
               className={
-                location?.pathname.includes(option?.url)
+                location?.pathname === option?.url
                   ? styles.tabSectionActive
                   : styles.tabSection
               }
@@ -66,16 +66,15 @@ const LeftSidebar = ({ options }: LeftSidebarProps) => {
               {option?.image}
               <span
                 className={` ${
-                  location?.pathname.includes(option?.url)
+                  location?.pathname === option?.url
                     ? styles.active
                     : styles.inactive
                 }`}
               >
                 {option.title}
               </span>
-            
             </div>
-            {(location?.pathname.includes(option?.url) || option.submenu) && (
+            {location?.pathname.includes(option?.url) && option.submenu && (
               <div className={styles.submenu}>
                 {option?.submenu?.map(
                   (subItem: SidebarOption, subIndex: number) => (

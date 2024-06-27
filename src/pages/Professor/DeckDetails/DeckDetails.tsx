@@ -20,10 +20,15 @@ import CreateDeckModal from "../../../components/LVL4_Organs/CreateDeckModal/Cre
 import { IconButton, Menu, MenuItem } from "@mui/material";
 import ConfirmationModal from "../../../components/LVL4_Organs/ConfirmationModal";
 import AlertIcon from "../../../assets/svgs/AlertIcon";
-import { Class, DecksWithCardCount } from "../../../utils/constants/DataTypes";
+import {
+  Class,
+  DecksWithCardCount,
+  deckData,
+} from "../../../utils/constants/DataTypes";
 import Loader from "../../../components/LVL1_Atoms/Loader";
 import { useState } from "react";
 import { IoIosCheckmarkCircle } from "react-icons/io";
+import { formattedTime } from "../../../utils/hooks/helper";
 
 const DeckDetails = ({}: DeckDetailsProps) => {
   const { localeTitles, localeButtons, localeLables } = useLocale();
@@ -65,6 +70,11 @@ const DeckDetails = ({}: DeckDetailsProps) => {
   const navigate = useNavigate();
   const { localeText } = useLocale();
 
+  const totalCardCount = classDecks?.reduce(
+    (total: number, item: deckData) => total + item?.cardCount,
+    0
+  );
+  // console.log("totalCardCount", totalCardCount);
   const navigateToCreateFlashcard = (deck: any) => {
     // console.log("navigateToCreateFlashcard", deck);
     navigate("/professor/classes/deck/flashcard", { state: deck });
@@ -112,7 +122,9 @@ const DeckDetails = ({}: DeckDetailsProps) => {
                       <IoTimeOutline />
                       <Text className={styles.estTime}>
                         {localeText?.TEXT_EST_TIME} :{" "}
-                        <span className={styles.time}>2hrs</span>
+                        <span className={styles.time}>
+                          {formattedTime(totalCardCount * 5)}
+                        </span>
                       </Text>
                     </div>
                     {/* </Button> */}

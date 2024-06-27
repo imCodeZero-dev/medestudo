@@ -319,11 +319,12 @@ export const professorCreateGeneralProfileApi = async (
 
 export const professorEditGeneralProfileApi = async (
   data: any,
+  id: string,
   token: string
 ) => {
   const response = await apiRequest({
     method: "Put",
-    url: `/professor/updateSettings`,
+    url: `/professor/updateSettings/${id}`,
     data,
     token,
   });
@@ -332,21 +333,26 @@ export const professorEditGeneralProfileApi = async (
 
 export const professorUpdateProfilePictureApi = async (
   data: any,
+  id: string,
   token: string
 ) => {
   const response = await apiRequest({
     method: "Put",
-    url: `/professor/updatePicture`,
+    url: `/professor/updatePicture/${id}`,
     data,
     token,
   });
   return response;
 };
 
-export const professorResetPasswordApi = async (data: any, token: string) => {
+export const professorResetPasswordApi = async (
+  data: any,
+  id: string,
+  token: string
+) => {
   const response = await apiRequest({
     method: "Put",
-    url: `/professor/resetPassword`,
+    url: `/professor/resetPassword/${id}`,
     data,
     token,
   });

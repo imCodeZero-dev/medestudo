@@ -29,6 +29,8 @@ const ProfileInfo = ({
   const location = useLocation();
   const { localeTitles, localeLables, localePlaceholders, localeButtons } =
     useLocale();
+  const watchImg = watch("pic");
+  console.log("watchImg", watchImg);
 
   return (
     <div className={styles.ProfileInfo}>
@@ -106,6 +108,7 @@ const ProfileInfo = ({
 
               <AvatarUploader control={controlImage} name="pic" watch={watch} />
               <Button
+                disabled={!watchImg?.name}
                 className="purpleBtn"
                 type="submit"
                 loading={imageLoading}

@@ -167,3 +167,14 @@ export interface flashcardData {
   updatedAt?: string;
   _id?: string;
 }
+
+export interface deckData {
+  cardCount: number;
+  classId: string;
+  createdAt: string;
+  deckId: string;
+  subdeck: { name: string; _id: string };
+  updatedAt: string;
+  __v: number;
+  _id: string;
+}

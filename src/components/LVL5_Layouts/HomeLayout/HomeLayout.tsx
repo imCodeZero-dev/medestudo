@@ -36,7 +36,7 @@ import { AiOutlineFileSync } from "react-icons/ai";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
-const HomeLayout = ({ children, createButton }: HomeLayoutProps) => {
+const HomeLayout = ({ children, createButton, control }: HomeLayoutProps) => {
   const navigate = useNavigate();
   // const [activeButton, setActiveButton] = useState<string>("");
   const [cookies, removeCookie] = useCookies(["professor"]);
@@ -48,13 +48,8 @@ const HomeLayout = ({ children, createButton }: HomeLayoutProps) => {
   const { width } = useWidth();
   const { localeButtons, localeTitles, localeLables, localePlaceholders } =
     useLocale();
-  const {
-    logoutModal,
-    handleOpenLogout,
-    handleCloseLogout,
-    onLogoutConfirm,
-    control,
-  } = useHomeLayout();
+  const { logoutModal, handleOpenLogout, handleCloseLogout, onLogoutConfirm } =
+    useHomeLayout();
   const optionsStudent = [
     {
       title: localeLables?.LABEL_DASHBOARD,
@@ -184,8 +179,6 @@ const HomeLayout = ({ children, createButton }: HomeLayoutProps) => {
     }
   };
 
-  
-
   return (
     <div className={styles["HomeLayout"]}>
       {width > breakPoints.lg && (
@@ -226,17 +219,19 @@ const HomeLayout = ({ children, createButton }: HomeLayoutProps) => {
             <div className={styles["pathName"]}>{getName()}</div>
             <div>{createButton && createButton}</div>
           </div>
-          <div className={styles["HomeLayout-header-mid"]}>
-            <Input
-              control={control}
-              name="name"
-              prefix={<BiSearch size={24} />}
-              placeholder={localePlaceholders.PLACEHOLDER_SEARCH}
-              preDefinedClassName="lesserHeight"
-              preDefinedWrapClassName="inputField-wrap"
-              type="text"
-            />
-          </div>
+          {control && (
+            <div className={styles["HomeLayout-header-mid"]}>
+              <Input
+                control={control}
+                name="name"
+                prefix={<BiSearch size={24} />}
+                placeholder={localePlaceholders.PLACEHOLDER_SEARCH}
+                preDefinedClassName="lesserHeight"
+                preDefinedWrapClassName="inputField-wrap"
+                type="text"
+              />
+            </div>
+          )}
           <div className={styles["HomeLayout-header-right"]}>
             <LanguageDropdown />
             {/* <div className={styles["iconDiv"]}>

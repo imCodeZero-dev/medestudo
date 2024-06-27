@@ -58,6 +58,7 @@ const DashboardExams: React.FC<DashboardExamsProps> = ({
             size={32}
             color="#FF900E"
             className="cursor-pointer"
+            onClick={() => getDetails && getDetails(data?._id)}
           />
         ) : (
           <>

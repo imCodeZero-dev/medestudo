@@ -10,14 +10,6 @@ import { useNavigate } from "react-router-dom";
 import HomeLayout from "../../../components/LVL5_Layouts/HomeLayout/HomeLayout";
 import { ProfessorRoutes } from "../../../Routes/protectedRoutes/ProfessorRoutes";
 
-import DashboardFlashcard from "../../../components/LVL3_Cells/DashboardFlashcard/DashboardFlashcard";
-
-import { RiQuestionAnswerLine } from "react-icons/ri";
-import CreateClassModal from "../../../components/LVL4_Organs/CreateClassModal/CreateClassModal";
-import {
-  dummyExams,
-  dummyFlashCards,
-} from "../ProfessorDashboard/ProfessorDashboard";
 import { useState } from "react";
 import CreateQuestions from "../../../components/LVL4_Organs/CreateQuestions/CreateQuestions";
 import DashboardExams from "../../../components/LVL3_Cells/DashboardExams/DashboardExams";
@@ -65,7 +57,7 @@ const ProfessorExams = ({}: ProfessorExamsProps) => {
     clearFilter,
   } = useProfessorExams();
   // console.log("cookies", cookies);
-  console.log("allExams", allExams);
+  // console.log("allExams", allExams);
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
@@ -75,6 +67,7 @@ const ProfessorExams = ({}: ProfessorExamsProps) => {
 
   return (
     <HomeLayout
+      control={control}
       createButton={
         <Button
           className="primaryActive-lessHeight"

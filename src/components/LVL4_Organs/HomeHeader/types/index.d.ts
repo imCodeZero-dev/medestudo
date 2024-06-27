@@ -3,4 +3,5 @@ import { Control } from "react-hook-form";
 
 export type HomeHeaderProps = {
   setDrawerOpen: SetStateAction;
+  scrollToExploreFlashcards: () => void;
 };

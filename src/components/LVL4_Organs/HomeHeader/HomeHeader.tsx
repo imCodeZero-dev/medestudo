@@ -8,7 +8,10 @@ import { BiMenu } from "react-icons/bi";
 import { breakPoints } from "../../../utils/constants/ResponsiveDesignBreakPoints";
 import { useWidth } from "../../../utils/hooks/responsiveHook";
 
-const HomeHeader = ({ setDrawerOpen }: HomeHeaderProps) => {
+const HomeHeader = ({
+  setDrawerOpen,
+  scrollToExploreFlashcards,
+}: HomeHeaderProps) => {
   const { localeButtons } = useLocale();
   const navigate = useNavigate();
   const { width } = useWidth();
@@ -28,9 +31,10 @@ const HomeHeader = ({ setDrawerOpen }: HomeHeaderProps) => {
         </Button>
         <Button
           // className={getNavItemClassName(button.label)}
-          onClick={() => {
-            navigate("");
-          }}
+          // onClick={() => {
+          //   navigate("");
+          // }}
+          onClick={scrollToExploreFlashcards}
         >
           {localeButtons.BUTTON_FLASHCARDS}
         </Button>

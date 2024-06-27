@@ -202,22 +202,25 @@ export const useProfessorExams = () => {
   const year = watch("filter_year");
   const institute = watch("filter_institute");
   const title = watch("filter_title");
+  const watchSearch = watch("name");
   useEffect(() => {
     console.log("year", year, "institute", institute, "title", title);
     const filteredData = allExams?.filter((item: examCardData) => {
-      if (!year && !institute && !title) {
+      if (!year && !institute && !title && !watchSearch) {
         return true;
       }
       return (
         (!year || item?.year === year?.label) &&
         (!title || item?.title.toLowerCase().includes(title.toLowerCase())) &&
-        (!institute || item?.institute === institute?.label)
+        (!institute || item?.institute === institute?.label) &&
+        (!watchSearch ||
+          item?.title.toLowerCase().includes(watchSearch.toLowerCase()))
       );
     });
 
     setFilteredArray(filteredData);
-  }, [allExams, year, institute, title]);
-
+  }, [allExams, year, institute, title, watchSearch]);
+  console.log("filteredArray", filteredArray);
   return {
     control,
     errors,

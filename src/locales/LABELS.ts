@@ -1,6 +1,6 @@
 export const LABELS = {
   en: {
-    LABEL_USERNAME: "Username or Email",
+    LABEL_USERNAME: "Username",
     LABEL_EMAIL: "Email",
     LABEL_PASSWORD: "Password",
     LABEL_CURRENT_PASSWORD: "Current Password",
@@ -69,7 +69,7 @@ export const LABELS = {
     LABEL_BENINNER: "Beginner",
   },
   es: {
-    LABEL_USERNAME: "Username or Email",
+    LABEL_USERNAME: "Username",
     LABEL_EMAIL: "Email",
     LABEL_PASSWORD: "Password",
     LABEL_CURRENT_PASSWORD: "Current Password",

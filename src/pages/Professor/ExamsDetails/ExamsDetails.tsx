@@ -58,11 +58,20 @@ const ExamsDetails = ({}: ExamsDetailsProps) => {
     onSubmitEditExam,
     editExamLoading,
     errors,
-    examQuestions,updatedInstitutes
+    examQuestions,
+    updatedInstitutes,
   } = useExamsDetails();
   // console.log("allDecks", allDecks);
   const navigate = useNavigate();
   const { localeText } = useLocale();
+
+  console.log("examQuestions", examQuestions);
+  const watchSearch = watch("name");
+  const filteredExams = watchSearch
+    ? examQuestions?.filter((data: any) =>
+        atob(data?.question)?.includes(watchSearch.toLowerCase())
+      )
+    : examQuestions;
 
   // const examId = location?.state;
 
@@ -79,11 +88,10 @@ const ExamsDetails = ({}: ExamsDetailsProps) => {
     navigate(`/professor/exams/exam/question`, {
       state: { ...exam, status: "edit" },
     });
-    
   };
 
   return (
-    <HomeLayout>
+    <HomeLayout control={control}>
       <div className={styles["ExamsDetails"]}>
         <div className={styles["ExamsDetails-main"]}>
           {examsDetailsLoading ? (
@@ -155,7 +163,7 @@ const ExamsDetails = ({}: ExamsDetailsProps) => {
               </div> */}
               <div className={styles["ExamsDetails-main-questions"]}>
                 {Array.isArray(examQuestions) &&
-                  examQuestions?.map((data: any, i: number) => (
+                  filteredExams?.map((data: any, i: number) => (
                     <QuestionBar
                       key={i}
                       index={i}

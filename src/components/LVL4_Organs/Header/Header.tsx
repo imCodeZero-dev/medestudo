@@ -4,10 +4,14 @@ import useLocale from "../../../locales";
 import { Button } from "../../LVL1_Atoms/Button";
 import { useNavigate } from "react-router-dom";
 import logoImg from "../../../assets/MedEstudo-assets/MedEstudo-Final-Logos/Logo/medestudo-logo-horizontal-blue.png";
+import { BiMenu } from "react-icons/bi";
+import { useWidth } from "../../../utils/hooks/responsiveHook";
+import { breakPoints } from "../../../utils/constants/ResponsiveDesignBreakPoints";
 
-const Header = ({ showSkip }: HeaderProps) => {
+const Header = ({ showSkip, setDrawerOpen }: HeaderProps) => {
   const { localeButtons } = useLocale();
   const navigate = useNavigate();
+  const { width } = useWidth();
 
   return (
     <div className={styles["AuthLayout-header"]}>
@@ -25,33 +29,47 @@ const Header = ({ showSkip }: HeaderProps) => {
           </Button>
         </div>
       ) : (
-        <div className={styles["AuthLayout-header-buttons"]}>
-          <Button
-            // className={getNavItemClassName(button.label)}
-            onClick={() => {
-              navigate("");
-            }}
-          >
-            {localeButtons.BUTTON_HOME}
-          </Button>
-          <Button
-            // className={getNavItemClassName(button.label)}
-            onClick={() => {
-              navigate("");
-            }}
-          >
-            {localeButtons.BUTTON_FLASHCARDS}
-          </Button>
-          <Button
-            className="yellowButton"
-            // className={getNavItemClassName(button.label)}
-            onClick={() => {
-              navigate("");
-            }}
-          >
-            {localeButtons.BUTTON_GET_STARTED}
-          </Button>
-        </div>
+        <>
+          {width > breakPoints.mlg ? (
+            <div className={styles["AuthLayout-header-buttons"]}>
+              <Button
+                className={styles.button}
+                onClick={() => {
+                  navigate("/home");
+                }}
+              >
+                {localeButtons.BUTTON_HOME}
+              </Button>
+              <Button
+                className={styles.button}
+                onClick={() => {
+                  navigate("/home");
+                }}
+              >
+                {localeButtons.BUTTON_FLASHCARDS}
+              </Button>
+              <Button
+                className="yellowButton"
+                onClick={() => {
+                  navigate("");
+                }}
+              >
+                {localeButtons.BUTTON_GET_STARTED}
+              </Button>
+            </div>
+          ) : (
+            <div>
+              <Button
+                onClick={() => setDrawerOpen(true)}
+                // className={getNavItemClassName(button.label)}
+                className="roundedYellow"
+              >
+                <BiMenu size={24} />
+                {/* {localeButtons.BUTTON_GET_STARTED} */}
+              </Button>
+            </div>
+          )}
+        </>
       )}
     </div>
   );

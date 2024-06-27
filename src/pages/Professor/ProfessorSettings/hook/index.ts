@@ -8,14 +8,11 @@ import {
 } from "../../../../config/toastProvider/toastUtils";
 
 import useLocale from "../../../../locales";
-import { passwordRegex } from "../../../../utils/constants/constants";
 import { useCookies } from "react-cookie";
 import { useQuery } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
 import { closeModal } from "../../../../redux/slices/CreateClassModalSlice";
 import {
-  changeProfessorStatusApi,
-  professorCreateGeneralProfileApi,
   professorEditGeneralProfileApi,
   professorResetPasswordApi,
   professorUpdateProfilePictureApi,
@@ -83,19 +80,20 @@ export const useProfessorSettings = () => {
   };
 
   const onSubmitGeneral = async (data: any) => {
-    console.log("params", data);
+    // console.log("params", data);
     const params = {
       name: data?.name,
       username: data?.username,
       location: data?.location,
     };
-    console.log("params", params);
+    // console.log("params", params);
 
     try {
       setGeneralLoading(true);
       let response;
       response = await professorEditGeneralProfileApi(
         params,
+        cookies?.professor?.professor?._id,
         cookies?.professor?.token
       );
       console.log("response", response);
@@ -113,8 +111,10 @@ export const useProfessorSettings = () => {
       setGeneralLoading(false);
     }
   };
+
   const onSubmitImage = async (data: any) => {
     console.log("onSubmitImage params", data);
+    setProfilePicLoading(true);
     let imageUrl = "";
     imageUrl = await uploadImageToCloudinary(data?.pic);
     const params = {
@@ -122,10 +122,10 @@ export const useProfessorSettings = () => {
     };
     console.log("onSubmitImage params", params);
     try {
-      setProfilePicLoading(true);
       let response;
       response = await professorUpdateProfilePictureApi(
         params,
+        cookies?.professor?.professor?._id,
         cookies?.professor?.token
       );
       console.log("response", response);
@@ -156,6 +156,7 @@ export const useProfessorSettings = () => {
       let response;
       response = await professorResetPasswordApi(
         params,
+        cookies?.professor?.professor?._id,
         cookies?.professor?.token
       );
       console.log("response", response);

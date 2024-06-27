@@ -9,15 +9,10 @@ import { useProfessorClasses } from "./hook";
 import { useNavigate } from "react-router-dom";
 import HomeLayout from "../../../components/LVL5_Layouts/HomeLayout/HomeLayout";
 import { ProfessorRoutes } from "../../../Routes/protectedRoutes/ProfessorRoutes";
-
 import DashboardFlashcard from "../../../components/LVL3_Cells/DashboardFlashcard/DashboardFlashcard";
-
 import CreateClassModal from "../../../components/LVL4_Organs/CreateClassModal/CreateClassModal";
-import {
-  dummyExams,
-  dummyFlashCards,
-} from "../ProfessorDashboard/ProfessorDashboard";
-import { useState } from "react";
+
+import { useEffect, useState } from "react";
 import ConfirmationModal from "../../../components/LVL4_Organs/ConfirmationModal";
 import AlertIcon from "../../../assets/svgs/AlertIcon";
 import { Flashcard } from "../../../utils/constants/DataTypes";
@@ -51,15 +46,21 @@ const ProfessorClasses = ({}: ProfessorClassesProps) => {
     allExams,
     getDetailsExam,
   } = useProfessorClasses();
-  // console.log("allDecks", allDecks);
+  const watchSearch = watch("name");
+  const filteredClasses = watchSearch
+    ? allClasses?.filter((data: any) =>
+        data.deckId?.name?.toLowerCase().includes(watchSearch.toLowerCase())
+      )
+    : allClasses;
+
   const navigate = useNavigate();
 
   return (
-    <HomeLayout>
+    <HomeLayout control={control}>
       <div className={styles["ProfessorClasses"]}>
         {viewClass && (
           <div className={styles["ProfessorClasses-main"]}>
-            {allClasses?.slice(0, 8)?.map((data: any, i: number) => (
+            {filteredClasses?.map((data: any, i: number) => (
               <DashboardFlashcard
                 key={data?._id}
                 data={data}

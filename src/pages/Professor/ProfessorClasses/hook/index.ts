@@ -1,4 +1,3 @@
-import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
@@ -8,21 +7,14 @@ import {
 } from "../../../../config/toastProvider/toastUtils";
 
 import useLocale from "../../../../locales";
-import { passwordRegex } from "../../../../utils/constants/constants";
 import { useCookies } from "react-cookie";
 import { useQuery } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
 import { closeModal } from "../../../../redux/slices/CreateClassModalSlice";
-import {
-  changeProfessorStatusApi,
-  getAllDecksApi,
-} from "../../../../utils/api/admin";
+
 import {
   createClassApi,
   deleteClassApi,
-  deleteClassDeckApi,
-  getAllClassesApi,
-  getClassByIdApi,
 } from "../../../../utils/api/professors";
 import { useNavigate } from "react-router-dom";
 import {
@@ -37,8 +29,7 @@ export const useProfessorClasses = () => {
   const [cookies] = useCookies(["professor"]);
   const dispatch = useDispatch();
   const [viewClass, setViewClass] = useState<boolean>(true);
-  const [viewClassDetails, setViewClassDetails] = useState<boolean>(false);
-  const [classId, setClassId] = useState<string>();
+
   const navigate = useNavigate();
 
   const {
@@ -46,19 +37,20 @@ export const useProfessorClasses = () => {
     control,
     formState: { errors },
     watch,
-  } = useForm({
+    reset,
+  } = useForm<{ name: string }>({
     // resolver: yupResolver(validationSchema),
     defaultValues: {},
   });
-  const {
-    handleSubmit: handleSubmitFlashcard,
-    control: controlFlashcard,
-    formState: { errors: errorsFlashcard },
-    watch: watchFlashcard,
-  } = useForm({
-    // resolver: yupResolver(validationSchema),
-    defaultValues: {},
-  });
+  // const {
+  //   handleSubmit: handleSubmitFlashcard,
+  //   control: controlFlashcard,
+  //   formState: { errors: errorsFlashcard },
+  //   watch: watchFlashcard,
+  // } = useForm({
+  //   // resolver: yupResolver(validationSchema),
+  //   defaultValues: {},
+  // });
 
   const [createLoading, setCreateLoading] = useState<boolean>(false);
 
@@ -94,20 +86,30 @@ export const useProfessorClasses = () => {
     const params = {
       deckId: data?.class?.value?._id,
     };
-    console.log("onSubmitCreate", data);
-    try {
-      setCreateLoading(true);
-      let response;
-      response = await createClassApi(params, cookies?.professor?.token);
-      console.log("response", response);
-      refetchAllClasses();
-      showSuccessToast(localeSuccess?.SUCCESS_CLASS_CREATED);
-    } catch (error: any) {
-      console.log("error", error);
-      showErrorToast(error?.response?.data?.message);
-    } finally {
-      setCreateLoading(false);
-      handleCloseCreate();
+    const deckExists = allClasses.some(
+      (classItem: any) => classItem.deckId._id === params.deckId
+    );
+
+    if (deckExists) {
+      showErrorToast("This class already exists.");
+      return;
+    } else {
+      console.log("onSubmitCreate", data);
+      try {
+        setCreateLoading(true);
+        let response;
+        response = await createClassApi(params, cookies?.professor?.token);
+        console.log("response", response);
+        refetchAllClasses();
+        reset();
+        showSuccessToast(localeSuccess?.SUCCESS_CLASS_CREATED);
+      } catch (error: any) {
+        console.log("error", error);
+        showErrorToast(error?.response?.data?.message);
+      } finally {
+        setCreateLoading(false);
+        handleCloseCreate();
+      }
     }
   };
   const onDeleteConfirm = async () => {
@@ -120,6 +122,7 @@ export const useProfessorClasses = () => {
       );
       console.log("response", response);
       refetchAllClasses();
+
       showSuccessToast(localeSuccess?.SUCCESS_CLASS_DELETED);
     } catch (error: any) {
       console.log("error", error);
@@ -140,7 +143,6 @@ export const useProfessorClasses = () => {
   // console.log("filteredDecks", filteredDecks);
   return {
     control,
-    errors,
     handleSubmit,
     watch,
     handleCloseCreate,

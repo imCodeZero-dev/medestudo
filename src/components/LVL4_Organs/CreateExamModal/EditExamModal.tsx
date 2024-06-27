@@ -29,6 +29,9 @@ const EditExamModal = ({
     localePlaceholders,
     localeButtons,
   } = useLocale();
+
+  // const watchVal = watch("institute");
+  // console.log("watchVal", watchVal);
   return (
     <div className={styles[""]}>
       <CustomModal open={open} onClose={handleClose}>
@@ -59,7 +62,6 @@ const EditExamModal = ({
               control={control}
               options={filteredDecks}
               defaultValue={watch("institute")}
-              
             />
           </div>
           <div className={styles["inputDiv"]}>

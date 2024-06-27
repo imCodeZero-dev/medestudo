@@ -75,6 +75,7 @@ export const useAllFlashCards = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [currentFlashcardIndex, setCurrentFlashcardIndex] = useState(0);
+  const [key, setKey] = useState(0);
 
   const { allTags, refetchAllTags, allTagsLoading, errorAllTags } =
     useAllTagsQuery(cookies);
@@ -90,11 +91,13 @@ export const useAllFlashCards = () => {
   const handleEditOpen = (data: any) => {
     setEnableEdit(true);
     setFlashcardData(data);
+    setKey((prevKey) => prevKey + 1);
     // navigate("/professor/classes/deck/flashcard", { state: data });
   };
 
   const handleEditClose = () => {
     setEnableEdit(false);
+    setKey((prevKey) => prevKey + 1);
   };
 
   // console.log("flashcardData", flashcardData);
@@ -174,13 +177,30 @@ export const useAllFlashCards = () => {
 
   const onSubmitEdit = async (data: any) => {
     try {
+      setEditLoading(true);
       let questionImgUrl = data?.questionImage;
-      if (data?.questionImage !== data?.new_questionImage) {
-        questionImgUrl = await uploadImageToCloudinary(data?.new_questionImage);
+      if (data?.new_questionImage) {
+        if (data?.questionImage !== data?.new_questionImage) {
+          console.log(
+            "image uploader",
+            data?.new_questionImage,
+            data?.new_questionImage
+          );
+          questionImgUrl = await uploadImageToCloudinary(
+            data?.new_questionImage
+          );
+        }
       }
       let answerImgUrl = data?.answerImage;
-      if (data?.answerImage !== data?.new_answerImage) {
-        answerImgUrl = await uploadImageToCloudinary(data?.new_answerImage);
+      if (data?.new_answerImage) {
+        if (data?.answerImage !== data?.new_answerImage) {
+          console.log(
+            "image uploader answ",
+            data?.new_answerImage,
+            data?.new_questionImage
+          );
+          answerImgUrl = await uploadImageToCloudinary(data?.new_answerImage);
+        }
       }
 
       const tagsLabels = data?.tags?.map(
@@ -197,7 +217,6 @@ export const useAllFlashCards = () => {
         tags: tagsLabels,
       };
 
-      setEditLoading(true);
       const response = await editFlashcardApi(
         payload,
         flashcardData?._id,
@@ -206,6 +225,8 @@ export const useAllFlashCards = () => {
       console.log("response", response);
       showSuccessToast(localeSuccess?.SUCCESS_FLASH_EDIT);
       refetchallFlashcards();
+      handleEditClose();
+      // setEnableEdit(false);
     } catch (error: any) {
       console.log("error", error);
       showErrorToast(error?.response?.data?.message);
@@ -276,5 +297,6 @@ export const useAllFlashCards = () => {
     editLoading,
     allFlashcardsLoading,
     deckDetails,
+    key,
   };
 };

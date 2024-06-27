@@ -12,17 +12,7 @@ export const useHomeLayout = () => {
   // const navigate = useNavigate();
   const {} = useLocale();
   const [cookies, removeCookie] = useCookies(["professor", "student"]);
-  const {
-    handleSubmit,
-    control,
-    formState: { errors },
-    watch,
-  } = useForm({
-    // resolver: yupResolver(validationSchema),
-    defaultValues: {
-      search: "",
-    },
-  });
+
   const wipeTokens = () => {
     if (!cookies || (!cookies.professor && !cookies.student)) {
       return;
@@ -69,9 +59,6 @@ export const useHomeLayout = () => {
     logoutModal,
     handleOpenLogout,
     handleCloseLogout,
-    // logoutLoading,
     onLogoutConfirm,
-    control,
-    handleSubmit,
   };
 };

@@ -52,6 +52,7 @@ const AllFlashCards = ({}: AllFlashCardsProps) => {
     allFlashcardsLoading,
     setValue,
     deckDetails,
+    key,
   } = useAllFlashCards();
   // console.log("allDecks", allDecks);
   const navigate = useNavigate();
@@ -63,6 +64,7 @@ const AllFlashCards = ({}: AllFlashCardsProps) => {
         {/* {allFlashcards.map((flashcard) => ( */}
         <div className={styles["AllFlashCards-main"]}>
           <ViewFlashcards
+            key={key}
             currentFlashcardIndex={currentFlashcardIndex}
             allFlashcards={allFlashcards}
             deckDetails={deckDetails}
@@ -98,7 +100,7 @@ const AllFlashCards = ({}: AllFlashCardsProps) => {
               </Text>
             </div>
 
-            {allClasses?.slice(0, 8)?.map((data: Class, i: number) => (
+            {allClasses?.slice(0, 4)?.map((data: Class, i: number) => (
               <DashboardFlashcard
                 key={i}
                 data={data}

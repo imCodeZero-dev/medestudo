@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import HeroSection from "../../components/LVL4_Organs/HeroSection/HeroSection";
 import HomeHeader from "../../components/LVL4_Organs/HomeHeader/HomeHeader";
 import { breakPoints } from "../../utils/constants/ResponsiveDesignBreakPoints";
@@ -30,10 +30,17 @@ type HomeProps = {};
 const Home = ({}: HomeProps) => {
   const { width } = useWidth();
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const exploreFlashcardsRef = useRef<HTMLDivElement>(null);
 
   const { localeButtons, localeTitles, localeLables, localePlaceholders } =
     useLocale();
   const { allStudents } = useHome();
+
+  const scrollToExploreFlashcards = () => {
+    if (exploreFlashcardsRef.current) {
+      exploreFlashcardsRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   const options = [
     {
@@ -96,7 +103,10 @@ const Home = ({}: HomeProps) => {
   return (
     <div className={styles.home}>
       {/* {width > breakPoints.lg && ( */}
-      <HomeHeader setDrawerOpen={setDrawerOpen} />
+      <HomeHeader
+        setDrawerOpen={setDrawerOpen}
+        scrollToExploreFlashcards={scrollToExploreFlashcards}
+      />
 
       {/* )} */}
 
@@ -120,7 +130,9 @@ const Home = ({}: HomeProps) => {
       <div className={styles.stats}>
         <StatsSection />
       </div>
-      <ExploreFlashcards allFlashcards={allFlashcardsData} />
+      <div ref={exploreFlashcardsRef}>
+        <ExploreFlashcards allFlashcards={allFlashcardsData} />
+      </div>
       <WhyMetEstudioSection />
       <MetEstudioFeatures features={features(localeTitles)} />
       <div className={styles.whiteBgDiv}>

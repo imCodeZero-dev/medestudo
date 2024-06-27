@@ -4,7 +4,7 @@ import styles from "./ExamDetailsHead.module.css";
 import Text from "../../LVL1_Atoms/Text/Text";
 import useLocale from "../../../locales";
 import { BiSolidPencil } from "react-icons/bi";
-import { useDropdown } from "../../../utils/hooks/helper";
+import { formattedTime, useDropdown } from "../../../utils/hooks/helper";
 import { GoQuestion } from "react-icons/go";
 import { BsBuildings } from "react-icons/bs";
 import { FaRegCalendar, FaRegClock } from "react-icons/fa6";
@@ -46,7 +46,10 @@ const ExamDetailsHead: React.FC<ExamDetailsHeadProps> = ({
           </div>
           <div className={styles["details-section"]}>
             <FaRegClock size={12} color="#545961" />{" "}
-            <Text className={styles["detailText"]}> {examsDetails?.time}</Text>
+            <Text className={styles["detailText"]}>
+              {" "}
+              {formattedTime(totalQuestions * 5)}
+            </Text>
           </div>
           <div className={styles["details-section"]}>
             <FaRegCalendar size={12} color="#545961" />{" "}

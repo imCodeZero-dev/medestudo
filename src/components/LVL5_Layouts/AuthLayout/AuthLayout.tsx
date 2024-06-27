@@ -12,6 +12,12 @@ import { useNavigate } from "react-router-dom";
 import useLocale from "../../../locales";
 import HeaderMenuDropdown from "../../LVL3_Cells/HeaderMenuDropdown/HeaderMenuDropdown";
 import Header from "../../LVL4_Organs/Header/Header";
+import { motion } from "framer-motion";
+import { useState } from "react";
+import LeftSidebar from "../../LVL4_Organs/LeftSidebar/LeftSidebar";
+import { MdOutlineDashboard } from "react-icons/md";
+import { SiRundeck } from "react-icons/si";
+import { CiLogin } from "react-icons/ci";
 
 const dummyData = [
   {
@@ -32,43 +38,46 @@ const AuthLayout = ({ children }: AuthLayoutProps) => {
   const { width } = useWidth();
   const navigate = useNavigate();
   const { localeButtons, localeTitles } = useLocale();
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const options = [
+    {
+      title: localeButtons.BUTTON_HOME,
+      url: "/home",
+      image: <MdOutlineDashboard />,
+    },
+
+    {
+      title: localeButtons.BUTTON_FLASHCARDS,
+      url: "/home",
+      image: <SiRundeck />,
+    },
+    // {
+    //   title: localeButtons.BUTTON_GET_STARTED,
+    //   url: "/professor/login",
+    //   image: <CiLogin />,
+    // },
+  ];
 
   //   const navigate = useNavigate();
 
   return (
     <div>
-      {/* <div className={styles["AuthLayout-header"]}>
-        <img src={logoImg} className={styles["logo"]} />
+      <Header setDrawerOpen={setDrawerOpen} />
 
-        <div className={styles["AuthLayout-header-buttons"]}>
-          <Button
-            // className={getNavItemClassName(button.label)}
-            onClick={() => {
-              navigate("");
-            }}
-          >
-            {localeButtons.BUTTON_HOME}
-          </Button>
-          <Button
-            // className={getNavItemClassName(button.label)}
-            onClick={() => {
-              navigate("");
-            }}
-          >
-            {localeButtons.BUTTON_FLASHCARDS}
-          </Button>
-          <Button
-            className="yellowButton"
-            // className={getNavItemClassName(button.label)}
-            onClick={() => {
-              navigate("");
-            }}
-          >
-            {localeButtons.BUTTON_GET_STARTED}
-          </Button>
+      <motion.div
+        initial={{ x: "-100%" }}
+        animate={{ x: drawerOpen ? 0 : "-100%" }}
+        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+        className={styles["Drawer"]}
+      >
+        <div
+          className={styles["Drawer-overlay"]}
+          onClick={() => setDrawerOpen(false)}
+        ></div>
+        <div className={styles["Drawer-content"]}>
+          <LeftSidebar options={options} />
         </div>
-      </div> */}
-      <Header />
+      </motion.div>
       <div className={styles["AuthLayout-body"]}>
         <div className={styles["leftSection"]}>{children}</div>
         {/* <div style={{ flex: 1 }}><FormComponent /> </div> */}

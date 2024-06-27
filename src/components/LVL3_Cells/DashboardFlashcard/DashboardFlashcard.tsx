@@ -89,6 +89,11 @@ const DashboardFlashcard: React.FC<DashboardFlashcardProps> = ({
             size={32}
             color="#FF900E"
             className="cursor-pointer"
+            onClick={() =>
+              getDetails
+                ? getDetails(data?._id)
+                : getDetailsCustom && getDetailsCustom(data)
+            }
           />
         ) : (
           <>
