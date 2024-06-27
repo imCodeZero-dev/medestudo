@@ -200,3 +200,15 @@ export const getCurrentAndPreviousMonthData = (data: any) => {
     previousMonthData,
   };
 };
+
+export const scrollToExploreFlashcards = (navigate: any) => {
+  const currentPath = window.location.pathname;
+
+  if (currentPath !== "/home") {
+    navigate("/home", { state: { scrollTo: "exploreFlashcards" } });
+  } else {
+    document
+      .getElementById("exploreFlashcards")
+      ?.scrollIntoView({ behavior: "smooth" });
+  }
+};

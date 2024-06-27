@@ -22,7 +22,6 @@ const HomeHeader = ({
 
       <div className={styles["HomeHeader-buttons"]}>
         <Button
-          // className={getNavItemClassName(button.label)}
           onClick={() => {
             navigate("");
           }}
@@ -30,10 +29,7 @@ const HomeHeader = ({
           {localeButtons.BUTTON_HOME}
         </Button>
         <Button
-          // className={getNavItemClassName(button.label)}
-          // onClick={() => {
-          //   navigate("");
-          // }}
+      
           onClick={scrollToExploreFlashcards}
         >
           {localeButtons.BUTTON_FLASHCARDS}

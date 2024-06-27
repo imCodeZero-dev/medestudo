@@ -7,11 +7,16 @@ import logoImg from "../../../assets/MedEstudo-assets/MedEstudo-Final-Logos/Logo
 import { BiMenu } from "react-icons/bi";
 import { useWidth } from "../../../utils/hooks/responsiveHook";
 import { breakPoints } from "../../../utils/constants/ResponsiveDesignBreakPoints";
+import { scrollToExploreFlashcards } from "../../../utils/hooks/helper";
 
 const Header = ({ showSkip, setDrawerOpen }: HeaderProps) => {
   const { localeButtons } = useLocale();
   const navigate = useNavigate();
   const { width } = useWidth();
+
+  const navigateToFlashcards = () => {
+    scrollToExploreFlashcards(navigate);
+  };
 
   return (
     <div className={styles["AuthLayout-header"]}>
@@ -42,9 +47,10 @@ const Header = ({ showSkip, setDrawerOpen }: HeaderProps) => {
               </Button>
               <Button
                 className={styles.button}
-                onClick={() => {
-                  navigate("/home");
-                }}
+                // onClick={() => {
+                //   navigate("/home");
+                // }}
+                onClick={navigateToFlashcards}
               >
                 {localeButtons.BUTTON_FLASHCARDS}
               </Button>

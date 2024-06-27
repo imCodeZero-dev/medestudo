@@ -24,6 +24,7 @@ import TestimonialSection from "../../components/LVL4_Organs/TestimonialSection/
 import JoinPlatformSection from "../../components/LVL4_Organs/JoinPlatformSection/JoinPlatformSection";
 import AffiliateProgramSection from "../../components/LVL4_Organs/AffiliateProgramSection/AffiliateProgramSection";
 import FooterSection from "../../components/LVL4_Organs/FooterSection/FooterSection";
+import { scrollToExploreFlashcards } from "../../utils/hooks/helper";
 
 type HomeProps = {};
 
@@ -36,11 +37,11 @@ const Home = ({}: HomeProps) => {
     useLocale();
   const { allStudents } = useHome();
 
-  const scrollToExploreFlashcards = () => {
-    if (exploreFlashcardsRef.current) {
-      exploreFlashcardsRef.current.scrollIntoView({ behavior: "smooth" });
-    }
-  };
+  // const scrollToExploreFlashcards = () => {
+  //   if (exploreFlashcardsRef.current) {
+  //     exploreFlashcardsRef.current.scrollIntoView({ behavior: "smooth" });
+  //   }
+  // };
 
   const options = [
     {
@@ -130,7 +131,7 @@ const Home = ({}: HomeProps) => {
       <div className={styles.stats}>
         <StatsSection />
       </div>
-      <div ref={exploreFlashcardsRef}>
+      <div id="exploreFlashcards">
         <ExploreFlashcards allFlashcards={allFlashcardsData} />
       </div>
       <WhyMetEstudioSection />
