@@ -9,12 +9,8 @@ import { useAllFlashCards } from "./hook";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { ProfessorRoutes } from "../../../Routes/protectedRoutes/ProfessorRoutes";
 import DashboardFlashcard from "../../../components/LVL3_Cells/DashboardFlashcard/DashboardFlashcard";
-import { dummyFlashCards } from "../ProfessorDashboard/ProfessorDashboard";
 import { useState } from "react";
-
 import HomeLayout from "../../../components/LVL5_Layouts/HomeLayout/HomeLayout";
-
-import CreateQuestions from "../../../components/LVL4_Organs/CreateQuestions/CreateQuestions";
 import { Class, Flashcard } from "../../../utils/constants/DataTypes";
 import ViewFlashcards from "../../../components/LVL4_Organs/ViewFlashcards/ViewFlashcards";
 import ConfirmationModal from "../../../components/LVL4_Organs/ConfirmationModal";

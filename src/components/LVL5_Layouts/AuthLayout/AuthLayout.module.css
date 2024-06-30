@@ -23,12 +23,12 @@
 }
 .leftSection {
   width: 50%;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 .rightSection {
   width: 50%;
 }
-
-
 
 .Drawer {
   position: fixed;

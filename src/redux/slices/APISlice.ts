@@ -22,6 +22,7 @@ import { getAllSubjectsApi } from "../../utils/api/all";
 import {
   getAllCustomClassesApi,
   getAllQuesitonsApi,
+  getReviewDecksApi,
   studentGetAllClassesApi,
 } from "../../utils/api/Students";
 
@@ -525,5 +526,38 @@ export const useAllClassDecksQuery = (
     classDecksLoading,
     errorclassDecks,
     refetchclassDecks,
+  };
+};
+
+export const useAllReviewDecksQuery = (cookies: {
+  token: string;
+  student: { _id: string };
+}) => {
+  console.log("useAllReviewDecksQuery", cookies);
+  const {
+    data: { data: { ratings: reviewDecks = [] } = {} } = {},
+    isLoading: reviewDecksLoading,
+    error: errorReviewDecks,
+    refetch: refetchReviewDecks,
+  } = useQuery(
+    [
+      "reviewDecks",
+      {
+        cookies,
+      },
+    ],
+    async () => {
+      return getReviewDecksApi(cookies?.student?._id, cookies?.token);
+    },
+    {
+      enabled: !!cookies?.token,
+    }
+  );
+
+  return {
+    reviewDecks,
+    reviewDecksLoading,
+    errorReviewDecks,
+    refetchReviewDecks,
   };
 };

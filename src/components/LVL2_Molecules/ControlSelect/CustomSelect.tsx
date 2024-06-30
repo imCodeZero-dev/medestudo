@@ -12,6 +12,11 @@ const CustomSelect = ({
   defaultValue,
   isClearable,
 }: selectProps) => {
+    // const dummyoptions = [
+  //   { value: "chocolate", label: "Chocolate" },
+  //   { value: "strawberry", label: "Strawberry" },
+  //   { value: "vanilla", label: "Vanilla" },
+  // ];
   return (
     <div>
       <Controller
@@ -26,6 +31,7 @@ const CustomSelect = ({
               // styles={{ height: "44px" }}
               {...field}
               // isOptionSelected={defa}
+              
               defaultInputValue={defaultValue}
               defaultValue={defaultValue}
               placeholder={placeholder}

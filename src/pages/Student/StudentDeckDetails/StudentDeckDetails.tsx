@@ -25,7 +25,11 @@ import CreateDeckModal from "../../../components/LVL4_Organs/CreateDeckModal/Cre
 import { IconButton, Menu, MenuItem } from "@mui/material";
 import ConfirmationModal from "../../../components/LVL4_Organs/ConfirmationModal";
 import AlertIcon from "../../../assets/svgs/AlertIcon";
-import { Class, DecksWithCardCount } from "../../../utils/constants/DataTypes";
+import {
+  Class,
+  DecksWithCardCount,
+  deckData,
+} from "../../../utils/constants/DataTypes";
 import Loader from "../../../components/LVL1_Atoms/Loader";
 import { StudentRoutes } from "../../../Routes/protectedRoutes/StudentRoutes";
 import {
@@ -75,20 +79,21 @@ const StudentDeckDetails = ({}: StudentDeckDetailsProps) => {
     selectedDecks,
     handleAllSelect,
     handleCheckboxDecks,
+    totalCardCount,
   } = useStudentDeckDetails();
-  console.log("specificDecks", specificDecks);
+  // console.log("specificDecks", specificDecks);
   const navigate = useNavigate();
   const { localeText } = useLocale();
 
   const navigateToViewFlashcard = (deck: any) => {
-    console.log("navigateToViewFlashcard", deck);
+    // console.log("navigateToViewFlashcard", deck);
     navigate(`/student/flashcard/deck/flashcard/${deck?._id}`, {
       state: { ...deck, mode },
     });
   };
 
   const navigateToViewFlashcardCustom = (deck: any) => {
-    console.log("navigateToViewFlashcard", deck);
+    // console.log("navigateToViewFlashcard", deck);
     navigate(`/student/flashcard/deck/flashcard/combine`, {
       state: { ids: deck, mode },
     });
@@ -132,7 +137,7 @@ const StudentDeckDetails = ({}: StudentDeckDetailsProps) => {
                       </div>
                     </div>
                     <Button
-                      disabled={selectedDecks?.length === 0}
+                      disabled={totalCardCount == 0}
                       className="primaryRounded"
                       rightIcon={<BiChevronRight size={24} />}
                       onClick={() =>
@@ -210,7 +215,7 @@ const StudentDeckDetails = ({}: StudentDeckDetailsProps) => {
                     <Text>No Deck Created</Text>
                   ) : (
                     <>
-                      {allDecks?.map((deck: any, i: number) => (
+                      {allDecks?.map((deck: deckData) => (
                         <div key={deck?._id} className={styles["deckBody"]}>
                           <Controller
                             name={`class-${deck._id}`}
@@ -222,9 +227,11 @@ const StudentDeckDetails = ({}: StudentDeckDetailsProps) => {
                               <>
                                 <input
                                   type="checkbox"
-                                  checked={selectedDecks?.find(
-                                    (d: any) => d?._id === deck?._id
-                                  )}
+                                  checked={
+                                    selectedDecks?.find(
+                                      (d) => d?._id === deck?._id
+                                    ) as boolean | undefined
+                                  }
                                   onChange={(e) => {
                                     const isChecked = e.target.checked;
                                     onChange(isChecked);
@@ -251,12 +258,14 @@ const StudentDeckDetails = ({}: StudentDeckDetailsProps) => {
                             </div>
                           </div>
                           <div className={styles["deckBody-right"]}>
-                            <IoIosPlayCircle
-                              size={32}
-                              color="#FF900E"
-                              className="cursor-pointer"
-                              onClick={() => navigateToViewFlashcard(deck)}
-                            />
+                            {deck?.cardCount > 0 && (
+                              <IoIosPlayCircle
+                                size={32}
+                                color="#FF900E"
+                                className="cursor-pointer"
+                                onClick={() => navigateToViewFlashcard(deck)}
+                              />
+                            )}
                             {/* <div
                             className="flex items-center space-x-1 cursor-pointer"
                             onClick={() => navigateToCreateFlashcard(deck)}

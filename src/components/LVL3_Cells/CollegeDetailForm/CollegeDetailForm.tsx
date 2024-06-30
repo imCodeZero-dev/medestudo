@@ -64,8 +64,8 @@ const CollegeDetailForm: React.FC<CollegeDetailFormProps> = ({
           </div>
         </div>
 
-        <div className={styles["actionBtns"]} onClick={moveBack}>
-          <Button type="button" className="primary">
+        <div className={styles["actionBtns"]}>
+          <Button type="button" className="primary" onClick={moveBack}>
             {localeButtons.BUTTON_BACK}
           </Button>
           <Button

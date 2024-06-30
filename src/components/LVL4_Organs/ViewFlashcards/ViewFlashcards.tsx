@@ -43,17 +43,7 @@ const ViewFlashcards: React.FC<ViewFlashcardsProps> = ({
     useLocale();
   // console.log("allFlashcards", allFlashcards);
   const filteredTags = allTags?.map((item: any) => item.title);
-  // const [key, setKey] = useState(0);
 
-  // const handleEdit = (data: any) => {
-  //   handleEditOpen(data);
-  //   setKey((prevKey) => prevKey + 1);
-  // };
-  // const handleClose = () => {
-  //   handleEditClose();
-  //   setKey((prevKey) => prevKey + 1);
-  // };
-  // console.log("filteredTags", filteredTags);
   return (
     <div className={styles["ViewFlashcards"]}>
       {loading ? (

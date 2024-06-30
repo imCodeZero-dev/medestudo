@@ -49,6 +49,8 @@
   justify-content: flex-start;
   width: 100%;
   margin-left: 32px;
+  padding-top: 24px;
+  padding-bottom: 16px;
 }
 
 .alreadyTxt {
@@ -71,4 +73,5 @@
   text-align: left;
   color: #0030dd;
   padding-left: 4px;
+  cursor: pointer;
 }

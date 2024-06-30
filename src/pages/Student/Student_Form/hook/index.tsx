@@ -67,16 +67,9 @@ export const useStudentFormPage = () => {
     setMainInteresetArray([...mainInteresetArray]);
   };
 
-  // useEffect(() => {
-  //   // setArrayOfSubjects(selectedCheckboxes);
-
-  //   console.log("selectedCheckboxes", selectedCheckboxes);
-  // }, [selectedCheckboxes]);
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [cookies, setCookie] = useCookies(["student"]);
-  // const navigate = useNavigate();
 
   const {
     allInstitute,
@@ -95,8 +88,6 @@ export const useStudentFormPage = () => {
       setAllInstitutes(updatedInstitutes);
     }
   }, [allInstitute]);
-
-
 
   const {
     allSubjects,
@@ -120,19 +111,11 @@ export const useStudentFormPage = () => {
       if (!arrayOfSubjects.includes(watch("speciality").label)) {
         arrayOfSubjects.push(watch("speciality").label);
         setArrayOfSubjects([...arrayOfSubjects]);
+        setSelectedCheckboxes([...arrayOfSubjects]);
       }
     }
   }, [watch("speciality")]);
 
-  useEffect(() => {
-    console.log("selectedCheckboxes", selectedCheckboxes);
-  }, [selectedCheckboxes]);
-
-  // useEffect(() => {
-  //   if (watch("state")) {
-  //     console.log("watchState", watch("state"));
-  //   }
-  // }, [watch("state")]);
   const moveBack = () => {
     if (activeSection !== 0) {
       setActiveSection(activeSection - 1);

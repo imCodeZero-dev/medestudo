@@ -7,4 +7,5 @@ export interface RegistrationFormProps {
   onSubmit: any;
   loadingRegister: boolean;
   switchToLogin: () => void;
+  loginGoogle?: () => void;
 }

@@ -25,6 +25,7 @@ import JoinPlatformSection from "../../components/LVL4_Organs/JoinPlatformSectio
 import AffiliateProgramSection from "../../components/LVL4_Organs/AffiliateProgramSection/AffiliateProgramSection";
 import FooterSection from "../../components/LVL4_Organs/FooterSection/FooterSection";
 import { scrollToExploreFlashcards } from "../../utils/hooks/helper";
+import { useNavigate } from "react-router-dom";
 
 type HomeProps = {};
 
@@ -36,6 +37,7 @@ const Home = ({}: HomeProps) => {
   const { localeButtons, localeTitles, localeLables, localePlaceholders } =
     useLocale();
   const { allStudents } = useHome();
+  const navigate = useNavigate();
 
   // const scrollToExploreFlashcards = () => {
   //   if (exploreFlashcardsRef.current) {
@@ -106,7 +108,7 @@ const Home = ({}: HomeProps) => {
       {/* {width > breakPoints.lg && ( */}
       <HomeHeader
         setDrawerOpen={setDrawerOpen}
-        scrollToExploreFlashcards={scrollToExploreFlashcards}
+        scrollToExploreFlashcards={() => scrollToExploreFlashcards(navigate)}
       />
 
       {/* )} */}

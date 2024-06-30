@@ -233,7 +233,10 @@ const DeckDetails = ({}: DeckDetailsProps) => {
                           <div key={deck?._id} className={styles["deckBody"]}>
                             <div
                               className={styles["deckBody-left"]}
-                              onClick={() => navigateToViewFlashcard(deck)}
+                              onClick={() =>
+                                deck?.cardCount > 0 &&
+                                navigateToViewFlashcard(deck)
+                              }
                             >
                               <SiRundeck />
                               <div>

@@ -306,25 +306,13 @@ const StudentDashboard = ({}: StudentDashboardProps) => {
     allExams,
     dashboardData,
     totals,
+    reviewDecks,
   } = useStudentDashboard();
   console.log("cookies", cookies);
   console.log("totals", totals);
   const navigate = useNavigate();
 
-  const dummyData = [
-    { name: "Jan", Sales: 100, Expenses: 90 },
-    { name: "Feb", Sales: 120, Expenses: 95 },
-    { name: "Mar", Sales: 140, Expenses: 100 },
-    { name: "Apr", Sales: 160, Expenses: 110 },
-    { name: "May", Sales: 180, Expenses: 120 },
-    { name: "Jun", Sales: 200, Expenses: 130 },
-    { name: "Jul", Sales: 220, Expenses: 140 },
-    { name: "Aug", Sales: 240, Expenses: 150 },
-    { name: "Sep", Sales: 260, Expenses: 160 },
-    { name: "Oct", Sales: 280, Expenses: 170 },
-    { name: "Nov", Sales: 300, Expenses: 180 },
-    { name: "Dec", Sales: 320, Expenses: 190 },
-  ];
+  console.log("allExams", allExams);
 
   const dsahboardCards = [
     {
@@ -354,7 +342,10 @@ const StudentDashboard = ({}: StudentDashboardProps) => {
     <HomeLayout>
       <div className={styles["StudentDashboard"]}>
         <div className={styles["StudentDashboard-main"]}>
-          <DashboardReviewDeck />
+          <DashboardReviewDeck
+            redirectTo={"/student/flashcards/review"}
+            total={reviewDecks?.length}
+          />
           <div className={styles["StudentDashboard-cards"]}>
             {dsahboardCards?.map((data, i) => (
               <DashboardChartCard
@@ -438,13 +429,13 @@ const StudentDashboard = ({}: StudentDashboardProps) => {
               </Text>
               <Text
                 className={styles["viewMore"]}
-                onClick={() => navigate("/professor/classes")}
+                onClick={() => navigate("/student/flashcards/explore")}
               >
                 {localeTitles?.TITLE_VIEW_MORE}
               </Text>
             </div>
 
-            {dummyFlashCards?.slice(0, 3)?.map((data: any, i: number) => (
+            {allClasses?.slice(0, 3)?.map((data: any, i: number) => (
               <DashboardFlashcard
                 key={i}
                 data={data}
@@ -458,23 +449,22 @@ const StudentDashboard = ({}: StudentDashboardProps) => {
           <div className={styles["right-section-main"]}>
             <div className="flex justify-between items-center">
               <Text className={styles["sectionHeading"]}>
-                {localeTitles?.TITLE_SUGGESTIONS}
+                {localeTitles?.TITLE_RECENT_EXAMS_CREATED}
               </Text>
               <Text
                 className={styles["viewMore"]}
-                onClick={() => navigate("/professor/classes")}
+                onClick={() => navigate("/student/exams/mock")}
               >
                 {localeTitles?.TITLE_VIEW_MORE}
               </Text>
             </div>
 
-            {dummyFlashCards?.slice(0, 3)?.map((data: any, i: number) => (
-              <DashboardFlashcard
+            {allExams?.slice(0, 3)?.map((data: examCardData, i: number) => (
+              <DashboardExams
                 key={i}
                 data={data}
                 play
-                minView
-                getDetails={getDetails}
+                getDetails={getDetailsExam}
               />
             ))}
           </div>

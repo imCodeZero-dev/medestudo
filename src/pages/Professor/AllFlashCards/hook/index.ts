@@ -242,7 +242,9 @@ export const useAllFlashCards = () => {
     if (allFlashcards[currentFlashcardIndex]) {
       const { question, answer, tags, questionImage, answerImage } =
         allFlashcards[currentFlashcardIndex];
+      // console.log("questionImage", questionImage);
       try {
+        setKey((prevKey) => prevKey + 1);
         const decodedQuestion = atob(question);
         const decodedAnswer = atob(answer);
         setValue("question", decodedQuestion);
@@ -265,7 +267,7 @@ export const useAllFlashCards = () => {
         console.error("Error decoding base64 string:", error);
       }
     }
-  }, [currentFlashcardIndex, allFlashcards]);
+  }, [currentFlashcardIndex, allFlashcards, enableEdit]);
 
   // console.log("allTags", allTags, "watchTags", tags);
 

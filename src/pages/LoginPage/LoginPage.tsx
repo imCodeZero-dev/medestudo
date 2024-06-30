@@ -29,7 +29,7 @@ const LoginPage = (props: any) => {
     control,
     handleSubmit,
     onSubmit,
-    googleLoginBtn,
+
     loadingLogin,
     forgotLoading,
     forgotModal,
@@ -46,6 +46,7 @@ const LoginPage = (props: any) => {
     switchToLogin,
     authType,
     loadingRegister,
+    loginGoogle,
   } = useLoginPage();
 
   // console.log("pathName", pathName);
@@ -70,6 +71,7 @@ const LoginPage = (props: any) => {
           loadingLogin={loadingLogin}
           onSubmit={onSubmit}
           openForgotModal={openForgotModal}
+          loginGoogle={loginGoogle}
           // professorPanel
           switchToRegistration={switchToRegistration}
         />
@@ -80,6 +82,7 @@ const LoginPage = (props: any) => {
           loadingRegister={loadingRegister}
           onSubmit={onSubmitRegistration}
           switchToLogin={switchToLogin}
+          loginGoogle={loginGoogle}
         />
       )}
       {/* <div className={styles["login-main"]}>

@@ -12,6 +12,7 @@ import { useDispatch } from "react-redux";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import {
   useAllClassesQuery,
+  useAllReviewDecksQuery,
   useAllTagsQuery,
 } from "../../../../redux/slices/APISlice";
 import { Tag } from "../../../../utils/constants/DataTypes";
@@ -48,29 +49,11 @@ export const useStudentReviewDecks = () => {
   const [currentFlashcardIndex, setCurrentFlashcardIndex] = useState(0);
 
   const {
-    data: { data: { ratings: reviewDecks = [] } = {} } = {},
-    // data: { bookMarks = [], bookMarksCount = 0 } = {},
-    isLoading: reviewDecksLoading,
-    error: errorReviewDecks,
-    refetch: refetchReviewDecks,
-  } = useQuery(
-    [
-      "reviewDecks",
-      {
-        cookies,
-      },
-    ],
-
-    async () => {
-      return getReviewDecksApi(
-        cookies?.student?.student?._id,
-        cookies?.student?.token
-      );
-    },
-    {
-      enabled: !!cookies?.student?.token,
-    }
-  );
+    reviewDecks,
+    refetchReviewDecks,
+    reviewDecksLoading,
+    errorReviewDecks,
+  } = useAllReviewDecksQuery(cookies?.student);
 
   const { allTags, refetchAllTags, allTagsLoading, errorAllTags } =
     useAllTagsQuery(cookies);

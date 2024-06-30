@@ -5,7 +5,7 @@ import Text from "../../LVL1_Atoms/Text/Text";
 import useLocale from "../../../locales";
 import { GoogleLogin } from "@react-oauth/google";
 import Input from "../../LVL1_Atoms/Input";
-import { FaCircleUser } from "react-icons/fa6";
+import { FaCircleUser, FaGoogle } from "react-icons/fa6";
 import { MdEmail, MdOutlineKey } from "react-icons/md";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { Button } from "../../LVL1_Atoms/Button";
@@ -16,6 +16,7 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
   onSubmit,
   loadingRegister,
   switchToLogin,
+  loginGoogle,
 }) => {
   // const { localeText, localeDropdowns } = useLocale();
   const {
@@ -45,14 +46,20 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
         {localeText?.TEXT_ENTER_DETAILS_TO_CONTINUE}
       </Text>
       <div className="my-2">
-        <GoogleLogin
+        {/* <GoogleLogin
           onSuccess={(credentialResponse) => {
             console.log(credentialResponse);
           }}
           onError={() => {
             console.log("Login Failed");
           }}
-        />
+        /> */}
+        <Button
+          className="primary"
+          leftIcon={<FaGoogle size={20} onClick={loginGoogle} />}
+        >
+          {localeButtons.BUTTON_LOGIN_WITH_GOOGLE}
+        </Button>
         <Text className="text-[#6F7680] text-center mt-4">-OR-</Text>
       </div>
       <form onSubmit={handleSubmit(onSubmit)} className={styles["form"]}>

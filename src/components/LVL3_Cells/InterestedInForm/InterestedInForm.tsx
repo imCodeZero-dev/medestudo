@@ -108,7 +108,7 @@ const InterestedInForm: React.FC<InterestedInFormProps> = ({
               name="speciality"
               control={control}
               options={allSubjects}
-              placeholder="Select Year"
+              placeholder="Select Speciality"
             />
           </div>
 

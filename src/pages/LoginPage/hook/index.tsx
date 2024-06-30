@@ -24,6 +24,7 @@ import {
 import useLocale from "../../../locales";
 import { forgotSteps } from "../../../components/LVL4_Organs/ForgotPasswordModal/types";
 import {
+  googleLoginApi,
   studentLoginApi,
   studentRegistrationApi,
 } from "../../../utils/api/Students";
@@ -199,7 +200,11 @@ export const useLoginPage = () => {
         dispatch(loginProfessor(response?.data));
         setCookie("student", response?.data, { maxAge: 86400 });
         showSuccessToast("Login Successfully");
-        navigate("/student/survey");
+        if (response?.data?.student?.importantQuestions) {
+          navigate("/student/");
+        } else {
+          navigate("/student/survey");
+        }
       }
     } catch (error: any) {
       console.log("error", error);
@@ -234,14 +239,36 @@ export const useLoginPage = () => {
       setLoadingRegister(false);
     }
   };
-  const googleLoginBtn = async (data: any) => {};
+  const loginGoogle = async () => {
+    console.log("googleLogin");
+    const newWindow = window.open(
+      "https://medestudo.onrender.com/api/v1/auth/google",
+      "_blank",
+      "width=600,height=600,toolbar=no,scrollbars=no,resizable=no"
+    );
+
+    // const handleMessage = (event) => {
+    //   console.log("handleMessage", event);
+    //   if (event.origin !== "https://medestudo.onrender.com") {
+    //     return; // Ignore messages from unknown origins
+    //   }
+
+    //   if (event.data === "googleLoginSuccess") {
+    //     console.log("Login successful");
+    //     newWindow.close();
+    //     window.removeEventListener("message", handleMessage);
+    //   }
+    // };
+
+    // window.addEventListener("message", handleMessage);
+  };
 
   return {
     control,
     errors,
     handleSubmit,
     onSubmit,
-    googleLoginBtn,
+    loginGoogle,
     loadingLogin,
 
     forgotLoading,

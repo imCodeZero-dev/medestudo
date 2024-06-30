@@ -27,7 +27,7 @@ import {
   useAllClassesQuery,
   useAllDecksQuery,
 } from "../../../../redux/slices/APISlice";
-import { DeckId } from "../../../../utils/constants/DataTypes";
+import { DeckId, deckData } from "../../../../utils/constants/DataTypes";
 import { getAllDecksByIdApi } from "../../../../utils/api/Students";
 
 export const useStudentDeckDetails = () => {
@@ -52,7 +52,8 @@ export const useStudentDeckDetails = () => {
   const deepNestedsubDeck = watch("deepNestedsubDeck");
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const [selectedDecks, setSelectedDecks] = useState<any>([]);
+  const [totalCardCount, setTotalCardCount] = useState<Number>(0);
+  const [selectedDecks, setSelectedDecks] = useState<deckData[]>([]);
 
   const handleClickOptions = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -67,7 +68,7 @@ export const useStudentDeckDetails = () => {
   const deckId = location?.state;
   const mode = location?.state?.mode;
 
-  console.log("deckId in studente", deckId, mode);
+  // console.log("deckId in studente", deckId, mode);
 
   // const openCreate = useSelector((state: any) => state.modal.isOpen);
   const navigate = useNavigate();
@@ -124,7 +125,7 @@ export const useStudentDeckDetails = () => {
       enabled: !!cookies?.student?.token && !!deckId?.deckId?._id,
     }
   );
-  console.log("allDecks in deckDetails", allDecks);
+  // console.log("allDecks in deckDetails", allDecks);
 
   const {
     data: { data: { class: classDetails = [] } = {} } = {},
@@ -169,7 +170,7 @@ export const useStudentDeckDetails = () => {
       enabled: !!cookies?.student?.token && !!classDetails,
     }
   );
-  console.log("classDecks", classDecks);
+  // console.log("classDecks", classDecks);
   // console.log("classDetails", classDetails);
 
   const handleCheckboxDecks = (isChecked: boolean, deck: any) => {
@@ -192,7 +193,12 @@ export const useStudentDeckDetails = () => {
     }
   };
   useEffect(() => {
-    console.log("selectedDecks", selectedDecks);
+    // console.log("selectedDecks", selectedDecks);
+    const totalCards = selectedDecks?.reduce(
+      (acc, item) => acc + item?.cardCount,
+      0
+    );
+    setTotalCardCount(totalCards);
   }, [selectedDecks]);
 
   const onSubmitCreate = async (data: any) => {
@@ -353,5 +359,6 @@ export const useStudentDeckDetails = () => {
     handleAllSelect,
     selectedDecks,
     handleCheckboxDecks,
+    totalCardCount,
   };
 };

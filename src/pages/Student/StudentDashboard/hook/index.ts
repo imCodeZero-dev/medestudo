@@ -15,7 +15,9 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   useAllClassesQuery,
   useAllExamsQuery,
+  useAllReviewDecksQuery,
   useDashboardDataQuery,
+  useStudentAllClassesQuery,
 } from "../../../../redux/slices/APISlice";
 import { useNavigate } from "react-router-dom";
 
@@ -62,8 +64,11 @@ export const useStudentDashboard = () => {
     },
   });
 
+  // const { allClasses, allClassesLoading, errorAllClasses, refetchAllClasses } =
+  //   useAllClassesQuery(cookies);
+
   const { allClasses, allClassesLoading, errorAllClasses, refetchAllClasses } =
-    useAllClassesQuery(cookies);
+    useStudentAllClassesQuery(cookies);
   const { allExams, allExamsLoading, errorAllExams, refetchAllExams } =
     useAllExamsQuery(cookies?.student);
 
@@ -74,13 +79,20 @@ export const useStudentDashboard = () => {
     refetchDashboardData,
   } = useDashboardDataQuery(cookies?.student);
 
+  const {
+    reviewDecks,
+    refetchReviewDecks,
+    reviewDecksLoading,
+    errorReviewDecks,
+  } = useAllReviewDecksQuery(cookies?.student);
+
   console.log("dashboardData", dashboardData);
 
   const getDetails = (data: string) => {
-    navigate(`/professor/classes/deck?${data}`, { state: data });
+    navigate(`/student/classes/deck?${data}`, { state: data });
   };
   const getDetailsExam = (data: string) => {
-    navigate(`/professor/exams/exam?${data}`, { state: data });
+    navigate(`/student/exams/exam?${data}`, { state: data });
   };
 
   const onChangeProfessorStatus = async (data: any) => {
@@ -146,5 +158,6 @@ export const useStudentDashboard = () => {
     allExams,
     dashboardData,
     totals,
+    reviewDecks,
   };
 };

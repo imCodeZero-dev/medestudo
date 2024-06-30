@@ -69,6 +69,8 @@ export const BUTTONS = {
     BUTTON_TESTIMONIALS: "Testimonials",
     BUTTON_OUR_AFFILIATE_PROGRAM: "OUR AFFILIATE PROGRAM",
     BUTTON_JOIN_NOW: "Join Now",
+    BUTTON_LOGIN_WITH_GOOGLE: "Login with Google",
+    BUTTON_SIGNUP_WITH_GOOGLE: "Sign-up with Google",
   },
   es: {
     submit: "Enviar",
@@ -140,5 +142,7 @@ export const BUTTONS = {
     BUTTON_TESTIMONIALS: "Testimonials",
     BUTTON_OUR_AFFILIATE_PROGRAM: "OUR AFFILIATE PROGRAM",
     BUTTON_JOIN_NOW: "Join Now",
+    BUTTON_LOGIN_WITH_GOOGLE: "Login with Google",
+    BUTTON_SIGNUP_WITH_GOOGLE: "Sign-up with Google",
   },
 };

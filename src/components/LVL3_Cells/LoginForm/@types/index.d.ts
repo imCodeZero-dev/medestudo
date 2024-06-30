@@ -8,4 +8,5 @@ export interface LoginFormProps {
   loadingLogin: boolean;
   openForgotModal: () => void;
   switchToRegistration: () => void;
+  loginGoogle?: () => void;
 }
