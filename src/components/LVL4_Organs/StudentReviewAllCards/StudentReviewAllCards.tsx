@@ -4,41 +4,25 @@ import { StudentReviewAllCardsProps } from "./types";
 import Text from "../../LVL1_Atoms/Text/Text";
 import useLocale from "../../../locales";
 import QuillEditor from "../../LVL3_Cells/QuillEditor/QuillEditor";
-import TagInput from "../../LVL1_Atoms/Input/TagInput";
-import { IoCloseCircleOutline } from "react-icons/io5";
 import { Button } from "../../LVL1_Atoms/Button";
 import { TbCards } from "react-icons/tb";
-import { IoPencil } from "react-icons/io5";
-import { FaRegTrashAlt } from "react-icons/fa";
-import { BiSolidLeftArrow } from "react-icons/bi";
-import { BiSolidRightArrow } from "react-icons/bi";
-import { GiReturnArrow } from "react-icons/gi";
+
 import { Controller } from "react-hook-form";
-import Select from "react-select";
-import { Tag } from "../../../utils/constants/DataTypes";
+
 import Loader from "../../LVL1_Atoms/Loader";
-import ImageDropzone from "../../LVL2_Molecules/ImageUploader/ImageDropzone";
 import RatingButtons from "../RatingButtons/RatingButtons";
 import { BsBookmark } from "react-icons/bs";
 import { MdOutlineZoomOutMap } from "react-icons/md";
 
 const StudentReviewAllCards: React.FC<StudentReviewAllCardsProps> = ({
   control,
-  allTags,
   allFlashcards,
-  handleNextFlashcard,
-  handlePreviousFlashcard,
   currentFlashcardIndex,
-  handleDeleteOpen,
   enableEdit,
-  handleEditClose,
-  handleEditOpen,
   tags,
   onSubmitEdit,
   handleSubmit,
   loading,
-  editLoading,
-  setValue,
   deckDetails,
   revealAnswer,
   setRevealAnswer,
@@ -47,21 +31,13 @@ const StudentReviewAllCards: React.FC<StudentReviewAllCardsProps> = ({
   handleViewCardModalOpen,
   custom,
   toggleBookmark,
+  key,
 }) => {
   const { localeTitles, localePlaceholders, localeButtons, localeText } =
     useLocale();
   console.log("allFlashcards", allFlashcards);
-  const filteredTags = allTags?.map((item: any) => item.title);
-  const [key, setKey] = useState(0);
+ 
 
-  const handleEdit = (data: any) => {
-    handleEditOpen && handleEditOpen(data);
-    setKey((prevKey) => prevKey + 1);
-  };
-  const handleClose = () => {
-    handleEditClose && handleEditClose();
-    setKey((prevKey) => prevKey + 1);
-  };
   // console.log("filteredTags", filteredTags);
   return (
     <div className={styles["StudentReviewAllCards"]}>
@@ -76,7 +52,7 @@ const StudentReviewAllCards: React.FC<StudentReviewAllCardsProps> = ({
             className={styles["form"]}
           >
             <div className={styles["StudentReviewAllCards-main"]}>
-              {allFlashcards?.map((card:any, i) => (
+              {allFlashcards?.map((card: any, i) => (
                 <div className="">
                   <div className={styles["StudentReviewAllCards-mainHead"]}>
                     <div
@@ -92,40 +68,6 @@ const StudentReviewAllCards: React.FC<StudentReviewAllCardsProps> = ({
                           currentFlashcardIndex + 1
                         } / ${allFlashcards?.length}`}
                       </div>
-                      {/* {custom && (
-                    <>
-                      {!enableEdit ? (
-                        <div
-                          className={`${styles["StudentReviewAllCards-option"]} cursor-pointer`}
-                          onClick={() =>
-                            handleEdit(allFlashcards[currentFlashcardIndex])
-                          }
-                        >
-                          <IoPencil size={16} fill="#2A2D31" />
-                        </div>
-                      ) : (
-                        <div
-                          className={`${styles["StudentReviewAllCards-option"]} cursor-pointer`}
-                          onClick={() => handleClose()}
-                        >
-                          <GiReturnArrow size={16} fill="#2A2D31" />
-                        </div>
-                      )}
-                    </>
-                  )}
-                  {custom && (
-                    <>
-                      <div
-                        className={`${styles["StudentReviewAllCards-option"]} cursor-pointer`}
-                        onClick={() =>
-                          handleDeleteOpen &&
-                          handleDeleteOpen(allFlashcards[currentFlashcardIndex])
-                        }
-                      >
-                        <FaRegTrashAlt size={16} fill="#CC5200" />
-                      </div>
-                    </>
-                  )} */}
 
                       {!custom && (
                         <div
@@ -144,17 +86,20 @@ const StudentReviewAllCards: React.FC<StudentReviewAllCardsProps> = ({
                         <MdOutlineZoomOutMap size={16} fill="#1D1F22" />
                       </div>
                     </div>
-                    {/* {!custom && (
-                  <div className={styles["StudentReviewAllCards-mainHead-right"]}>
-                    <Button className="primary-lessHeight">
-                      {localeButtons.BUTTON_SKIP_CARD}
-                    </Button>
-                  </div>
-                )} */}
                   </div>
 
                   <div className={styles["StudentReviewAllCards-body"]}>
                     <div className={styles["StudentReviewAllCards-body-main"]}>
+                      <div className={styles["tags"]}>
+                        {tags?.map((tag: any, i) => (
+                          <div
+                            className="flex w-auto bg-slate-100 p-3 rounded-lg"
+                            key={i}
+                          >
+                            <Text className={styles.tag}>#{tag?.label}</Text>
+                          </div>
+                        ))}
+                      </div>
                       <div
                         className={`${styles["StudentReviewAllCards-section"]} border-b pb-2`}
                       >
@@ -178,10 +123,12 @@ const StudentReviewAllCards: React.FC<StudentReviewAllCardsProps> = ({
                           // key={allFlashcards[currentFlashcardIndex]?._id}
                           render={({ field }) => (
                             <>
-                              <img
-                                className={styles["questionImage"]}
-                                src={field.value}
-                              />
+                              {field.value && (
+                                <img
+                                  className={styles["questionImage"]}
+                                  src={field.value}
+                                />
+                              )}
                             </>
                           )}
                         />
@@ -216,10 +163,12 @@ const StudentReviewAllCards: React.FC<StudentReviewAllCardsProps> = ({
                               // key={allFlashcards[currentFlashcardIndex]?._id}
                               render={({ field }) => (
                                 <>
-                                  <img
-                                    className={styles["questionImage"]}
-                                    src={field.value}
-                                  />
+                                  {field.value && (
+                                    <img
+                                      className={styles["questionImage"]}
+                                      src={field.value}
+                                    />
+                                  )}
                                 </>
                               )}
                             />
@@ -230,7 +179,7 @@ const StudentReviewAllCards: React.FC<StudentReviewAllCardsProps> = ({
                                 {localeText.TEXT_HOW_WELL_DID_YOU_KNOW_ANS}
                               </Text>
                               <RatingButtons
-                              rated={card?.rating}
+                                rated={card?.rating}
                                 totalRatings={5}
                                 onRatingChange={handleRatingChange}
                               />
@@ -238,17 +187,6 @@ const StudentReviewAllCards: React.FC<StudentReviewAllCardsProps> = ({
                             {/* )} */}
                           </>
                         )}
-                      </div>
-
-                      <div className={styles["tags"]}>
-                        {tags?.map((tag: any, i) => (
-                          <div
-                            className="flex w-auto bg-slate-100 p-3 rounded-lg"
-                            key={i}
-                          >
-                            <Text className={styles.tag}>#{tag?.label}</Text>
-                          </div>
-                        ))}
                       </div>
                     </div>
                   </div>

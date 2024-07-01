@@ -53,6 +53,7 @@ export const useStudentFavorites = () => {
   const [openViewCardModal, setOpenViewCardModal] = useState<boolean>(false);
   const navigate = useNavigate();
   const [currentFlashcardIndex, setCurrentFlashcardIndex] = useState(0);
+  const [key, setKey] = useState(0);
 
   const {
     data: {
@@ -143,6 +144,7 @@ export const useStudentFavorites = () => {
       const { question, answer, tags, questionImage, answerImage } =
         bookmarkCards[currentFlashcardIndex]?.cardId;
       try {
+        setKey((prevKey) => prevKey + 1);
         const decodedQuestion = atob(question);
         const decodedAnswer = atob(answer);
         setValue("question", decodedQuestion);
@@ -165,6 +167,10 @@ export const useStudentFavorites = () => {
         console.error("Error decoding base64 string:", error);
       }
     }
+    console.log(
+      "bookmarkCards[currentFlashcardIndex]",
+      bookmarkCards[currentFlashcardIndex]
+    );
   }, [currentFlashcardIndex, bookmarkCards]);
 
   // console.log("bookmarkCards", bookmarkCards);
@@ -189,5 +195,6 @@ export const useStudentFavorites = () => {
     bookmarkCards,
     getDetails,
     bookmarkCardsLoading,
+    key,
   };
 };

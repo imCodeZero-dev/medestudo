@@ -26,6 +26,7 @@ const ViewCardModal = ({
   tags,
   allFlashcards,
   handleNextFlashcard,
+  key,
 }: ViewCardModalProps) => {
   const {
     localeTitles,
@@ -52,10 +53,20 @@ const ViewCardModal = ({
             className="cursor-pointer"
           />
           <div className={styles["ViewCardModal-body-main"]}>
+            <div className={styles["tags"]}>
+              {tags?.map((tag: any, i: number) => (
+                <div
+                  className="flex w-auto bg-slate-100 p-3 rounded-lg"
+                  key={i}
+                >
+                  <Text className={styles.tag}>{tag?.label}</Text>
+                </div>
+              ))}
+            </div>
             <div className={`${styles["ViewCardModal-section"]} border-b pb-2`}>
               <Text className={styles.heading2}>Q</Text>
               <QuillEditor
-                // key={key}
+                key={key}
                 readOnly={true}
                 noHeader={true}
                 name="question"
@@ -70,10 +81,12 @@ const ViewCardModal = ({
                 // key={allFlashcards[currentFlashcardIndex]?._id}
                 render={({ field }) => (
                   <>
-                    <img
-                      className={styles["questionImage"]}
-                      src={field.value}
-                    />
+                    {field?.value && (
+                      <img
+                        className={styles["questionImage"]}
+                        src={field.value}
+                      />
+                    )}
                   </>
                 )}
               />
@@ -91,7 +104,7 @@ const ViewCardModal = ({
                 <>
                   <Text className={styles.heading2}>A</Text>
                   <QuillEditor
-                    // key={key}
+                    key={key}
                     readOnly={true}
                     noHeader={true}
                     name="answer"
@@ -108,10 +121,12 @@ const ViewCardModal = ({
                     // key={allFlashcards[currentFlashcardIndex]?._id}
                     render={({ field }) => (
                       <>
-                        <img
-                          className={styles["questionImage"]}
-                          src={field.value}
-                        />
+                        {field?.value && (
+                          <img
+                            className={styles["questionImage"]}
+                            src={field.value}
+                          />
+                        )}
                       </>
                     )}
                   />
@@ -129,17 +144,6 @@ const ViewCardModal = ({
                   )}
                 </>
               )}
-            </div>
-
-            <div className={styles["tags"]}>
-              {tags?.map((tag: any, i: number) => (
-                <div
-                  className="flex w-auto bg-slate-100 p-3 rounded-lg"
-                  key={i}
-                >
-                  <Text className={styles.tag}>{tag?.label}</Text>
-                </div>
-              ))}
             </div>
           </div>
 

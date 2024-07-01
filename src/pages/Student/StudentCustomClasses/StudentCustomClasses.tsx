@@ -72,16 +72,10 @@ const StudentCustomClasses = ({}: StudentCustomClassesProps) => {
             </div>
             {customClasses?.slice(0, 8)?.map((data: any, i: number) => (
               <DashboardFlashcard
-                // custom
-                // control={control}
                 key={data?._id}
                 data={data}
-                // play
                 getDetailsCustom={getDetails}
                 openDeleteModal={openDeleteModal}
-                // onCheckboxChange={handleCheckboxChange}
-                // handleCheckboxDecks={handleCheckboxDecks}
-                // selectedDecks={selectedDecks}
               />
             ))}
           </div>
@@ -95,7 +89,7 @@ const StudentCustomClasses = ({}: StudentCustomClassesProps) => {
               </Text>
               <Text
                 className={styles["viewMore"]}
-                onClick={() => navigate("/professor/classes")}
+                onClick={() => navigate("/student/flashcards/explore")}
               >
                 {localeTitles?.TITLE_VIEW_MORE}
               </Text>
@@ -119,7 +113,7 @@ const StudentCustomClasses = ({}: StudentCustomClassesProps) => {
               </Text>
               <Text
                 className={styles["viewMore"]}
-                onClick={() => navigate("/professor/exams")}
+                onClick={() => navigate("/student/exams/mock")}
               >
                 {localeTitles?.TITLE_VIEW_MORE}
               </Text>

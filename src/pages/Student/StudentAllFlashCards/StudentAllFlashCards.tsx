@@ -88,6 +88,7 @@ const StudentAllFlashCards = ({}: StudentAllFlashCardsProps) => {
     TotalTime,
     stopTimer,
     navigateToDashboard,
+    key,
   } = useStudentAllFlashCards();
   // console.log("allDecks", allDecks);
   const navigate = useNavigate();
@@ -112,6 +113,7 @@ const StudentAllFlashCards = ({}: StudentAllFlashCardsProps) => {
         {/* {StudentAllFlashCards.map((flashcard) => ( */}
         <div className={styles["StudentAllFlashCards-main"]}>
           <StudentViewFlashcard
+            key={key}
             handleRatingChange={handleRatingChange}
             mode={mode}
             handleViewCardModalOpen={handleViewCardModalOpen}

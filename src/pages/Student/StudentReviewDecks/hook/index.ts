@@ -47,6 +47,7 @@ export const useStudentReviewDecks = () => {
   const [openViewCardModal, setOpenViewCardModal] = useState<boolean>(false);
   const navigate = useNavigate();
   const [currentFlashcardIndex, setCurrentFlashcardIndex] = useState(0);
+  const [key, setKey] = useState(0);
 
   const {
     reviewDecks,
@@ -118,6 +119,8 @@ export const useStudentReviewDecks = () => {
         const { question, answer, tags, questionImage, answerImage } =
           deck.cardId;
         try {
+          setKey((prevKey) => prevKey + 1);
+
           const decodedQuestion = atob(question);
           const decodedAnswer = atob(answer);
           setValue(`question-${i}`, decodedQuestion);
@@ -165,5 +168,6 @@ export const useStudentReviewDecks = () => {
     reviewDecks,
     getDetails,
     reviewDecksLoading,
+    key,
   };
 };

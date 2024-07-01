@@ -53,6 +53,7 @@ const StudentFlashcardsExplore = ({}: StudentFlashcardsExploreProps) => {
     handleCheckboxChange,
     handleCheckboxDecks,
     selectedDecks,
+    customClasses,
   } = useStudentFlashcardsExplore();
 
   const navigate = useNavigate();
@@ -100,23 +101,22 @@ const StudentFlashcardsExplore = ({}: StudentFlashcardsExploreProps) => {
           <div className={styles["right-section-main"]}>
             <div className="flex justify-between items-center">
               <Text className={styles["sectionHeading"]}>
-                {localeTitles?.TITLE_RECENT_FLASHCARDS_CREATED}
+                {localeTitles?.TITLE_RECENT_CUSTOM_FLASHCARDS}
               </Text>
               <Text
                 className={styles["viewMore"]}
-                onClick={() => navigate("/professor/classes")}
+                onClick={() => navigate("/student/flashcards/custom")}
               >
                 {localeTitles?.TITLE_VIEW_MORE}
               </Text>
             </div>
 
-            {allClasses?.slice(0, 4)?.map((data: Flashcard, i: number) => (
+            {customClasses?.slice(0, 4)?.map((data: any, i: number) => (
               <DashboardFlashcard
-                key={i}
+                key={data?._id}
                 data={data}
-                play
-                minView
-                getDetails={getDetails}
+                getDetailsCustom={getDetails}
+                openDeleteModal={openDeleteModal}
               />
             ))}
           </div>
@@ -128,7 +128,7 @@ const StudentFlashcardsExplore = ({}: StudentFlashcardsExploreProps) => {
               </Text>
               <Text
                 className={styles["viewMore"]}
-                onClick={() => navigate("/professor/exams")}
+                onClick={() => navigate("/student/exams/mock")}
               >
                 {localeTitles?.TITLE_VIEW_MORE}
               </Text>

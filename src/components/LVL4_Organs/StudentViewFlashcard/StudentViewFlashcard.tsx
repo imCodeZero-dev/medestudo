@@ -48,21 +48,21 @@ const StudentViewFlashcard: React.FC<StudentViewFlashcardProps> = ({
   custom,
   toggleBookmark,
   showHeader = true,
+  key,
 }) => {
   const { localeTitles, localePlaceholders, localeButtons, localeText } =
     useLocale();
   console.log("allFlashcards tags", allTags);
   const filteredTags = allTags?.map((item: any) => item.title);
-  const [key, setKey] = useState(0);
 
-  const handleEdit = (data: any) => {
-    handleEditOpen && handleEditOpen(data);
-    setKey((prevKey) => prevKey + 1);
-  };
-  const handleClose = () => {
-    handleEditClose && handleEditClose();
-    setKey((prevKey) => prevKey + 1);
-  };
+  // const handleEdit = (data: any) => {
+  //   handleEditOpen && handleEditOpen(data);
+  //   setKey((prevKey) => prevKey + 1);
+  // };
+  // const handleClose = () => {
+  //   handleEditClose && handleEditClose();
+  //   setKey((prevKey) => prevKey + 1);
+  // };
   console.log("filteredTags", filteredTags);
   return (
     <div className={styles["StudentViewFlashcard"]}>
@@ -120,7 +120,8 @@ const StudentViewFlashcard: React.FC<StudentViewFlashcardProps> = ({
                       <div
                         className={`${styles["StudentViewFlashcard-option"]} cursor-pointer`}
                         onClick={() =>
-                          handleEdit(allFlashcards[currentFlashcardIndex])
+                          handleEditOpen &&
+                          handleEditOpen(allFlashcards[currentFlashcardIndex])
                         }
                       >
                         <IoPencil size={16} fill="#2A2D31" />
@@ -128,7 +129,7 @@ const StudentViewFlashcard: React.FC<StudentViewFlashcardProps> = ({
                     ) : (
                       <div
                         className={`${styles["StudentViewFlashcard-option"]} cursor-pointer`}
-                        onClick={() => handleClose()}
+                        onClick={() => handleEditClose && handleEditClose()}
                       >
                         <GiReturnArrow size={16} fill="#2A2D31" />
                       </div>
@@ -187,6 +188,18 @@ const StudentViewFlashcard: React.FC<StudentViewFlashcardProps> = ({
                 className="cursor-pointer"
               />
               <div className={styles["StudentViewFlashcard-body-main"]}>
+                {!enableEdit && (
+                  <div className={styles["tags"]}>
+                    {tags?.map((tag: any, i: number) => (
+                      <div
+                        className="flex w-auto bg-slate-200 p-3 rounded-lg"
+                        key={i}
+                      >
+                        <Text className={styles.tag}>#{tag?.label}</Text>
+                      </div>
+                    ))}
+                  </div>
+                )}
                 <div
                   className={`${styles["StudentViewFlashcard-section"]} border-b pb-2`}
                 >
@@ -226,15 +239,18 @@ const StudentViewFlashcard: React.FC<StudentViewFlashcardProps> = ({
                       // key={allFlashcards[currentFlashcardIndex]?._id}
                       render={({ field }) => (
                         <>
-                          <img
-                            className={styles["questionImage"]}
-                            src={field.value}
-                          />
+                          {field.value && (
+                            <img
+                              className={styles["questionImage"]}
+                              src={field.value}
+                            />
+                          )}
                         </>
                       )}
                     />
                   )}
                 </div>
+
                 <div className={styles["StudentViewFlashcard-section"]}>
                   {!custom && !revealAnswer ? (
                     <Button
@@ -280,10 +296,12 @@ const StudentViewFlashcard: React.FC<StudentViewFlashcardProps> = ({
                           defaultValue=""
                           render={({ field }) => (
                             <>
-                              <img
-                                className={styles["questionImage"]}
-                                src={field.value}
-                              />
+                              {field.value && (
+                                <img
+                                  className={styles["questionImage"]}
+                                  src={field.value}
+                                />
+                              )}
                             </>
                           )}
                         />
@@ -302,18 +320,7 @@ const StudentViewFlashcard: React.FC<StudentViewFlashcardProps> = ({
                     </>
                   )}
                 </div>
-                {!enableEdit ? (
-                  <div className={styles["tags"]}>
-                    {tags?.map((tag: any, i: number) => (
-                      <div
-                        className="flex w-auto bg-slate-100 p-3 rounded-lg"
-                        key={i}
-                      >
-                        <Text className={styles.tag}>#{tag?.label}</Text>
-                      </div>
-                    ))}
-                  </div>
-                ) : (
+                {enableEdit && (
                   <div className={styles["inputDiv"]}>
                     <Controller
                       name="tags"

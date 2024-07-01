@@ -43,6 +43,7 @@ const StudentFavorites = ({}: StudentFavoritesProps) => {
     bookmarkCards,
     getDetails,
     bookmarkCardsLoading,
+    key,
   } = useStudentFavorites();
 
   const { localeText } = useLocale();
@@ -53,6 +54,7 @@ const StudentFavorites = ({}: StudentFavoritesProps) => {
       <div className={styles["StudentFavorites"]}>
         <div className={styles["StudentFavorites-main"]}>
           <StudentViewFlashcard
+            key={key}
             handleViewCardModalOpen={handleViewCardModalOpen}
             currentFlashcardIndex={currentFlashcardIndex}
             allFlashcards={bookmarkCards}
@@ -78,7 +80,7 @@ const StudentFavorites = ({}: StudentFavoritesProps) => {
               </Text>
               <Text
                 className={styles["viewMore"]}
-                onClick={() => navigate("/student/classes")}
+                onClick={() => navigate("/student/flashcards/explore")}
               >
                 {localeTitles?.TITLE_VIEW_MORE}
               </Text>

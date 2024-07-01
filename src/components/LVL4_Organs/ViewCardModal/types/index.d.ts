@@ -15,4 +15,5 @@ export type ViewCardModalProps = {
   tags: string[];
   allFlashcards?: string[];
   handleNextFlashcard: () => void;
+  key?: number;
 };

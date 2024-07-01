@@ -27,7 +27,7 @@ export type StudentViewFlashcardProps = {
   enableEdit?: boolean;
   showHeader?: boolean;
   deckDetails?: DeckDetailType;
-
+  key?: number;
   onSubmitEdit?: (data?: any) => Promise<void>;
   handleSubmit?: UseFormHandleSubmit<
     {

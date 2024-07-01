@@ -188,5 +188,6 @@ export const useStudentFlashcardsExplore = () => {
     handleCheckboxChange,
     handleCheckboxDecks,
     selectedDecks,
+    customClasses,
   };
 };

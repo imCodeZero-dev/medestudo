@@ -376,12 +376,12 @@ const StudentDashboard = ({}: StudentDashboardProps) => {
               <Text className={styles["sectionHeading"]}>
                 {localeTitles?.TITLE_FLASHCARDS_STUDIED}
               </Text>
-              <Text
+              {/* <Text
                 className={styles["viewMore"]}
                 onClick={() => navigate("/professor/exams")}
               >
                 {localeTitles?.TITLE_VIEW_MORE}
-              </Text>
+              </Text> */}
             </div>
             <div className="grid grid-cols-3 space-x-4">
               <div className="bg-white rounded-sm flex items-center justify-center">

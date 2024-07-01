@@ -24,7 +24,7 @@ export type StudentReviewAllCardsProps = {
   handleEditClose?: () => void;
   enableEdit?: boolean;
   deckDetails?: DeckDetailType;
-
+  key?: number;
   onSubmitEdit?: (data?: any) => Promise<void>;
   handleSubmit: UseFormHandleSubmit<
     {

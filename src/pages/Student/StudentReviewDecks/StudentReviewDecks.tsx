@@ -44,6 +44,7 @@ const StudentReviewDecks = ({}: StudentReviewDecksProps) => {
     reviewDecks,
     getDetails,
     reviewDecksLoading,
+    key,
   } = useStudentReviewDecks();
 
   const { localeText } = useLocale();
@@ -68,7 +69,7 @@ const StudentReviewDecks = ({}: StudentReviewDecksProps) => {
             custom={false}
             toggleBookmark={toggleBookmark}
             revealAnswer
-            
+            key={key}
           />
         </div>
 
@@ -80,7 +81,7 @@ const StudentReviewDecks = ({}: StudentReviewDecksProps) => {
               </Text>
               <Text
                 className={styles["viewMore"]}
-                onClick={() => navigate("/student/classes")}
+                onClick={() => navigate("/student/flashcards/explore")}
               >
                 {localeTitles?.TITLE_VIEW_MORE}
               </Text>
@@ -106,6 +107,7 @@ const StudentReviewDecks = ({}: StudentReviewDecksProps) => {
           handleNextFlashcard={handleNextFlashcard}
           handlePreviousFlashcard={handlePreviousFlashcard}
           currentFlashcardIndex={currentFlashcardIndex}
+          key={key}
         />
       </div>
     </HomeLayout>

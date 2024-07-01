@@ -87,6 +87,7 @@ export const useStudentAllFlashCards = () => {
   const [currentBatchIndex, setCurrentBatchIndex] = useState(0);
   const BATCH_SIZE = 10;
   const [allFlashcardsLoaded, setAllFlashcardsLoaded] = useState(false);
+  const [key, setKey] = useState(0);
 
   const [TotalTime, setTotalTime] = useState<number>(0);
 
@@ -122,11 +123,13 @@ export const useStudentAllFlashCards = () => {
   const handleEditOpen = (data: any) => {
     setEnableEdit(true);
     setFlashcardData(data);
+    setKey((prevKey) => prevKey + 1);
     // navigate("/professor/classes/deck/flashcard", { state: data });
   };
 
   const handleEditClose = () => {
     setEnableEdit(false);
+    setKey((prevKey) => prevKey + 1);
   };
 
   // console.log("flashcardData", flashcardData);
@@ -372,6 +375,7 @@ export const useStudentAllFlashCards = () => {
       const { question, answer, tags, questionImage, answerImage } =
         allFlashcards[currentFlashcardIndex];
       try {
+        setKey((prevKey) => prevKey + 1);
         const decodedQuestion = atob(question);
         const decodedAnswer = atob(answer);
         setValue("question", decodedQuestion);
@@ -493,6 +497,7 @@ export const useStudentAllFlashCards = () => {
     TotalTime,
     stopTimer,
     navigateToDashboard,
+    key,
     // setgetTotalTime,
   };
 };
