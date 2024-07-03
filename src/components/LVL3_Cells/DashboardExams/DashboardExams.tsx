@@ -20,6 +20,7 @@ const DashboardExams: React.FC<DashboardExamsProps> = ({
   getDetails,
   openDeleteModal,
   openEditModal,
+  getDetailsExam,
 }) => {
   const { localeText } = useLocale();
   const { isDropdownOpen, toggleDropdown, dropdownRef } = useDropdown();
@@ -29,7 +30,11 @@ const DashboardExams: React.FC<DashboardExamsProps> = ({
     <div className={styles["DashboardExams"]}>
       <div
         className={styles["DashboardExams-left"]}
-        onClick={() => getDetails && getDetails(data?._id)}
+        onClick={() =>
+          getDetails
+            ? getDetails(data?._id)
+            : getDetailsExam && getDetailsExam(data)
+        }
       >
         <div className={styles["icon"]}>
           <MdMenuBook color="#0030DD" size={24} />
@@ -58,7 +63,11 @@ const DashboardExams: React.FC<DashboardExamsProps> = ({
             size={32}
             color="#FF900E"
             className="cursor-pointer"
-            onClick={() => getDetails && getDetails(data?._id)}
+            onClick={() =>
+              getDetails
+                ? getDetails(data?._id)
+                : getDetailsExam && getDetailsExam(data)
+            }
           />
         ) : (
           <>

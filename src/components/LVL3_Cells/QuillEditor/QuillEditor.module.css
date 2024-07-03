@@ -10,4 +10,5 @@
 
 .editorReadonly > div {
   border: none !important;
+  min-width: 180px;
 }

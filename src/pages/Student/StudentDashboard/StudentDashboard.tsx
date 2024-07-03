@@ -441,7 +441,7 @@ const StudentDashboard = ({}: StudentDashboardProps) => {
                 data={data}
                 play
                 minView
-                getDetails={getDetails}
+                getDetailsCustom={getDetails}
               />
             ))}
           </div>

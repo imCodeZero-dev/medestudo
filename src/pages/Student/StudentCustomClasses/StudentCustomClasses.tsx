@@ -50,6 +50,8 @@ const StudentCustomClasses = ({}: StudentCustomClassesProps) => {
     handleCheckboxDecks,
     selectedDecks,
     customClasses,
+    getDetailsFlashcards,
+    startExam,
   } = useStudentCustomClasses();
 
   const navigate = useNavigate();
@@ -101,7 +103,7 @@ const StudentCustomClasses = ({}: StudentCustomClassesProps) => {
                 data={data}
                 play
                 minView
-                getDetails={getDetails}
+                getDetailsCustom={getDetailsFlashcards}
               />
             ))}
           </div>
@@ -124,7 +126,7 @@ const StudentCustomClasses = ({}: StudentCustomClassesProps) => {
                 key={i}
                 data={data}
                 play
-                getDetails={getDetailsExam}
+                getDetailsExam={startExam}
               />
             ))}
           </div>

@@ -16,11 +16,7 @@ import {
   useAllTagsQuery,
 } from "../../../../redux/slices/APISlice";
 import { Tag } from "../../../../utils/constants/DataTypes";
-import {
-  getBookmarkCardsApi,
-  getReviewDecksApi,
-  toogleBookmarkApi,
-} from "../../../../utils/api/Students";
+import { BookmarkApi } from "../../../../utils/api/Students";
 
 export const useStudentReviewDecks = () => {
   // const navigate = useNavigate();
@@ -98,7 +94,7 @@ export const useStudentReviewDecks = () => {
     try {
       setBookmarkLoading(true);
       let response;
-      response = await toogleBookmarkApi(params, cookies?.student?.token);
+      response = await BookmarkApi(params, cookies?.student?.token);
       console.log("response", response);
       showSuccessToast(localeSuccess?.SUCCESS_BOOKMARK_ADDED);
       // refetchAllFlashcards();

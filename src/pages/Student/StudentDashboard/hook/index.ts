@@ -88,8 +88,14 @@ export const useStudentDashboard = () => {
 
   console.log("dashboardData", dashboardData);
 
-  const getDetails = (data: string) => {
-    navigate(`/student/classes/deck?${data}`, { state: data });
+  // const getDetails = (data: string) => {
+  //   navigate(`/student/classes/deck?${data}`, { state: data });
+  // };
+  const getDetails = (data: any) => {
+    // console.log("getDetails", data);
+    navigate(`/student/flashcard/deck?${data?._id}`, {
+      state: { ...data, mode: "test" },
+    });
   };
   const getDetailsExam = (data: string) => {
     navigate(`/student/exams/exam?${data}`, { state: data });

@@ -9,7 +9,7 @@ import { IoCloseCircleOutline } from "react-icons/io5";
 import { Button } from "../../LVL1_Atoms/Button";
 import { TbCards } from "react-icons/tb";
 import { IoPencil } from "react-icons/io5";
-import { FaRegTrashAlt } from "react-icons/fa";
+import { FaBookmark, FaRegTrashAlt } from "react-icons/fa";
 import { BiSolidLeftArrow } from "react-icons/bi";
 import { BiSolidRightArrow } from "react-icons/bi";
 import { GiReturnArrow } from "react-icons/gi";
@@ -19,8 +19,8 @@ import { Tag } from "../../../utils/constants/DataTypes";
 import Loader from "../../LVL1_Atoms/Loader";
 import ImageDropzone from "../../LVL2_Molecules/ImageUploader/ImageDropzone";
 import RatingButtons from "../RatingButtons/RatingButtons";
-import { BsBookmark } from "react-icons/bs";
 import { MdOutlineZoomOutMap } from "react-icons/md";
+import { FaRegBookmark } from "react-icons/fa6";
 
 const StudentViewFlashcard: React.FC<StudentViewFlashcardProps> = ({
   control,
@@ -52,6 +52,7 @@ const StudentViewFlashcard: React.FC<StudentViewFlashcardProps> = ({
 }) => {
   const { localeTitles, localePlaceholders, localeButtons, localeText } =
     useLocale();
+
   console.log("allFlashcards tags", allTags);
   const filteredTags = allTags?.map((item: any) => item.title);
 
@@ -157,7 +158,27 @@ const StudentViewFlashcard: React.FC<StudentViewFlashcardProps> = ({
                       toggleBookmark(allFlashcards[currentFlashcardIndex])
                     }
                   >
-                    <BsBookmark size={16} fill="#1D1F22" />
+                    {allFlashcards[currentFlashcardIndex]?.bookmarked ? (
+                      <FaBookmark
+                        size={16}
+                        color="black"
+                        fill={
+                          allFlashcards[currentFlashcardIndex]?.bookmarked
+                            ? "primary"
+                            : "#1D1F22"
+                        }
+                      />
+                    ) : (
+                      <FaRegBookmark
+                        size={16}
+                        color="black"
+                        fill={
+                          allFlashcards[currentFlashcardIndex]?.bookmarked
+                            ? "primary"
+                            : "#1D1F22"
+                        }
+                      />
+                    )}
                   </div>
                 )}
                 {handleViewCardModalOpen && (

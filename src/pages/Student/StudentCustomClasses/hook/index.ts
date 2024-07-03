@@ -15,7 +15,6 @@ import { closeModal } from "../../../../redux/slices/CreateClassModalSlice";
 
 import { useNavigate } from "react-router-dom";
 import {
-
   useAllExamsQuery,
   useCustomAllClassesQuery,
   useStudentAllClassesQuery,
@@ -165,10 +164,31 @@ export const useStudentCustomClasses = () => {
       state: { ...data, mode: modeType, custom: true },
     });
   };
+
+  const getDetailsFlashcards = (data: any) => {
+    // console.log("getDetails", data);
+    navigate(`/student/flashcard/deck?${data?._id}`, {
+      state: { ...data, mode: "test" },
+    });
+  };
   const getDetailsExam = (data: string) => {
     // navigate(`/professor/exams/exam?${data}`, { state: data });
+    navigate(`/student/exams/mock`);
   };
 
+  const startExam = (data: any) => {
+    console.log("startExam", data);
+    navigate(`/student/exams/mock/study`, {
+      state: {
+        selectedYears: [data?.year],
+        selectedSubjects: [],
+        selectedInstitutes: [data?.institute],
+        selectedExamTypes: [data?.title],
+        totalQuestions: "",
+        time: "",
+      },
+    });
+  };
   // console.log("filteredDecks", filteredDecks);
   return {
     control,
@@ -196,5 +216,7 @@ export const useStudentCustomClasses = () => {
     handleCheckboxDecks,
     selectedDecks,
     customClasses,
+    getDetailsFlashcards,
+    startExam,
   };
 };

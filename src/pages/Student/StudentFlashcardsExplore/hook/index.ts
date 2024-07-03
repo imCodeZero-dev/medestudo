@@ -18,6 +18,7 @@ import {
   useStudentAllClassesQuery,
 } from "../../../../redux/slices/APISlice";
 import { createCustomClassApi } from "../../../../utils/api/Students";
+import { ModeType } from "../../../../components/LVL3_Cells/ModeDropdown/@types";
 
 export const useStudentFlashcardsExplore = () => {
   // const navigate = useNavigate();
@@ -27,7 +28,7 @@ export const useStudentFlashcardsExplore = () => {
   const [viewClass, setViewClass] = useState<boolean>(true);
   const [viewClassDetails, setViewClassDetails] = useState<boolean>(false);
   const [classId, setClassId] = useState<string>();
-  const [modeType, setModeType] = useState<string>("free");
+  const [modeType, setModeType] = useState<ModeType>("free");
   const navigate = useNavigate();
   const [selectedClasses, setSelectedClasses] = useState<any>([]);
   const [selectedDecks, setSelectedDecks] = useState<any>([]);
@@ -77,12 +78,12 @@ export const useStudentFlashcardsExplore = () => {
       setSelectedClasses([...updatedSelectedClasses]);
     }
   };
-  useEffect(() => {
-    console.log("selectedClasses", selectedClasses);
-  }, [selectedClasses]);
-  useEffect(() => {
-    console.log("selectedDecks", selectedDecks);
-  }, [selectedDecks]);
+  // useEffect(() => {
+  //   console.log("selectedClasses", selectedClasses);
+  // }, [selectedClasses]);
+  // useEffect(() => {
+  //   console.log("selectedDecks", selectedDecks);
+  // }, [selectedDecks]);
   // setSelectedDecks([...selectedDecks, selected]);
 
   const handleCheckboxDecks = (isChecked: boolean, deck: any) => {

@@ -154,6 +154,7 @@ export interface flashcardLandingType {
 }
 
 export interface flashcardData {
+  bookmarked?: boolean;
   answer: string;
   answerImage: string;
   cardCount: number;

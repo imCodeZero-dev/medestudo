@@ -4,6 +4,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 // import fontF from "../assets/Fonts/static/Inter-Regular.ttf";
 import fontF from "../assets/Fonts/static/Inter-Regular.ttf";
 import Home from "../pages/Home/Home";
+import AuthVerification from "../pages/AuthVerification";
 // import "../index.css";
 
 const LoadingScreen = React.lazy(
@@ -274,6 +275,11 @@ const ProjectRoutes = () => {
               path="/student/settings"
               element={<StudentSettingsServices />}
             />
+            {/* <Route
+              path="/authVerification:token"
+              element={<AuthVerification />}
+            /> */}
+            <Route path="/authVerification" element={<AuthVerification />} />
             <Route path="/home" element={<Home />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

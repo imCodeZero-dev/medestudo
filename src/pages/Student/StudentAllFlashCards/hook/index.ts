@@ -24,13 +24,13 @@ import {
 import { Flashcard, Tag } from "../../../../utils/constants/DataTypes";
 import { uploadImageToCloudinary } from "../../../../utils/hooks/helper";
 import {
+  BookmarkApi,
   deleteCustomFlashcardApi,
   editCustomFlashcardApi,
   getAllCardsByIdApi,
   getAllCustomCardsByIdApi,
   provideRateToCardApi,
   startStudyingApi,
-  toogleBookmarkApi,
 } from "../../../../utils/api/Students";
 
 export const useStudentAllFlashCards = () => {
@@ -355,7 +355,7 @@ export const useStudentAllFlashCards = () => {
     try {
       setBookmarkLoading(true);
       let response;
-      response = await toogleBookmarkApi(params, cookies?.student?.token);
+      response = await BookmarkApi(params, cookies?.student?.token);
       console.log("response", response);
       showSuccessToast(localeSuccess?.SUCCESS_BOOKMARK_ADDED);
       refetchAllFlashcards();

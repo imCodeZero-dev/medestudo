@@ -104,6 +104,7 @@ export const useStudentStartExam = () => {
     refetchallQuestions,
   } = useallQuestionsQuery(cookies, params, location);
 
+  console.log("allQuestions params", params);
   console.log("allQuestions", allQuestions);
 
   // const openEditModal = (data: examCardData) => {

@@ -4,6 +4,7 @@ export interface DashboardExamsProps {
   data: any;
   play?: boolean;
   getDetails?: (data: string) => void;
+  getDetailsExam?: (data: any) => void;
   openDeleteModal?: (data: string) => void;
   openEditModal?: (data: examCardData) => void;
 }

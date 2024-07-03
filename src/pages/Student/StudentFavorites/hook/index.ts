@@ -16,8 +16,9 @@ import {
 } from "../../../../redux/slices/APISlice";
 import { Tag } from "../../../../utils/constants/DataTypes";
 import {
+  BookmarkApi,
   getBookmarkCardsApi,
-  toogleBookmarkApi,
+  removeBookmarkApi,
 } from "../../../../utils/api/Students";
 
 export const useStudentFavorites = () => {
@@ -119,14 +120,20 @@ export const useStudentFavorites = () => {
     console.log("toggleBookmark", data);
     const params = {
       studentId: cookies?.student?.student?._id,
-      cardId: data?._id,
+      cardId: data?.cardId,
     };
     try {
       setBookmarkLoading(true);
       let response;
-      response = await toogleBookmarkApi(params, cookies?.student?.token);
+      if (data?.bookmarked) {
+        response = await removeBookmarkApi(params, cookies?.student?.token);
+        showSuccessToast(localeSuccess?.SUCCESS_BOOKMARK_REMOVED);
+      } else {
+        response = await BookmarkApi(params, cookies?.student?.token);
+        showSuccessToast(localeSuccess?.SUCCESS_BOOKMARK_ADDED);
+      }
       console.log("response", response);
-      showSuccessToast(localeSuccess?.SUCCESS_BOOKMARK_ADDED);
+      refetchbookmarkCards();
       // refetchAllFlashcards();
       // navigate(-1);
     } catch (error: any) {

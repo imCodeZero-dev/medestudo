@@ -236,11 +236,22 @@ export const deleteCustomFlashcardApi = async (
   return response;
 };
 
-export const toogleBookmarkApi = async (data: any, token: string) => {
-  // console.log("toogleBookmarkApi", data);
+export const BookmarkApi = async (data: any, token: string) => {
+  // console.log("addBookmarkApi", data);
   const response = await apiRequest({
     method: "Post",
     url: `/user/bookmark`,
+    token,
+    data,
+  });
+  return response;
+};
+
+export const removeBookmarkApi = async (data: any, token: string) => {
+  // console.log("removeBookmarkApi", data);
+  const response = await apiRequest({
+    method: "Post",
+    url: `/user/un-bookmark`,
     token,
     data,
   });

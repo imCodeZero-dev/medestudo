@@ -245,6 +245,7 @@ input:focus {
   padding: 8px;
 
 
+
   /* Add any additional styles you need */
 }
 
@@ -254,6 +255,7 @@ input:focus {
   border-bottom: none;
   border-right: none;
   /* min-height: 104px; */
+  
   
 
   font-family: Poppins, sans-serif !important; /* Set the font family to Poppins */
