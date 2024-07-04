@@ -42,7 +42,7 @@ const StudentViewFlashcard: React.FC<StudentViewFlashcardProps> = ({
   deckDetails,
   revealAnswer,
   setRevealAnswer,
-  mode,
+  mode = "free",
   handleRatingChange,
   handleViewCardModalOpen,
   custom,
@@ -53,7 +53,7 @@ const StudentViewFlashcard: React.FC<StudentViewFlashcardProps> = ({
   const { localeTitles, localePlaceholders, localeButtons, localeText } =
     useLocale();
 
-  console.log("allFlashcards tags", allTags);
+  console.log("allFlashcards mode", mode);
   const filteredTags = allTags?.map((item: any) => item.title);
 
   // const handleEdit = (data: any) => {
@@ -273,7 +273,7 @@ const StudentViewFlashcard: React.FC<StudentViewFlashcardProps> = ({
                 </div>
 
                 <div className={styles["StudentViewFlashcard-section"]}>
-                  {!custom && !revealAnswer ? (
+                  {!custom && !revealAnswer && mode !== "free" ? (
                     <Button
                       type="button"
                       className={"primaryActive"}

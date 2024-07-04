@@ -67,7 +67,7 @@ const StudentReviewDecks = ({}: StudentReviewDecksProps) => {
             handleSubmit={handleSubmit}
             loading={reviewDecksLoading}
             custom={false}
-            toggleBookmark={toggleBookmark}
+            // toggleBookmark={toggleBookmark}
             revealAnswer
             key={key}
           />

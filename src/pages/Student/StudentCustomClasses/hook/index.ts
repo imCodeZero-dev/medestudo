@@ -168,7 +168,7 @@ export const useStudentCustomClasses = () => {
   const getDetailsFlashcards = (data: any) => {
     // console.log("getDetails", data);
     navigate(`/student/flashcard/deck?${data?._id}`, {
-      state: { ...data, mode: "test" },
+      state: { ...data, mode: "free" },
     });
   };
   const getDetailsExam = (data: string) => {

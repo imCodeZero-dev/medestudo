@@ -89,6 +89,8 @@ const StudentAllFlashCards = ({}: StudentAllFlashCardsProps) => {
     stopTimer,
     navigateToDashboard,
     key,
+    revealAnswer,
+    setRevealAnswer,
   } = useStudentAllFlashCards();
   // console.log("allDecks", allDecks);
   const navigate = useNavigate();
@@ -96,7 +98,6 @@ const StudentAllFlashCards = ({}: StudentAllFlashCardsProps) => {
   const [activeSection, setActiveSection] = useState("thisRound");
   const [currentStep, setCurrentStep] = useState(2); // Example current step
   const totalSteps = allFlashcards?.length;
-  const [revealAnswer, setRevealAnswer] = useState(false);
   // const [seconds, setSeconds] = useState(0);
   const ratings = [
     { label: "New", value: 15, maxValue: 20 },

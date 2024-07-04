@@ -94,7 +94,7 @@ export const useStudentDashboard = () => {
   const getDetails = (data: any) => {
     // console.log("getDetails", data);
     navigate(`/student/flashcard/deck?${data?._id}`, {
-      state: { ...data, mode: "test" },
+      state: { ...data, mode: "free" },
     });
   };
   const getDetailsExam = (data: string) => {

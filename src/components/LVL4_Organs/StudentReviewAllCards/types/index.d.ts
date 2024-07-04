@@ -40,5 +40,5 @@ export type StudentReviewAllCardsProps = {
   mode?: "free" | "test" | "exam";
   handleRatingChange?: (data: number) => void;
   handleViewCardModalOpen: () => void;
-  toggleBookmark: (data: any) => void;
+  toggleBookmark?: (data: any) => void;
 };

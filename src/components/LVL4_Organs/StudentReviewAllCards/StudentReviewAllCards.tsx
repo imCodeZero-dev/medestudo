@@ -36,7 +36,6 @@ const StudentReviewAllCards: React.FC<StudentReviewAllCardsProps> = ({
   const { localeTitles, localePlaceholders, localeButtons, localeText } =
     useLocale();
   console.log("allFlashcards", allFlashcards);
- 
 
   // console.log("filteredTags", filteredTags);
   return (
@@ -69,7 +68,7 @@ const StudentReviewAllCards: React.FC<StudentReviewAllCardsProps> = ({
                         } / ${allFlashcards?.length}`}
                       </div>
 
-                      {!custom && (
+                      {!custom && toggleBookmark && (
                         <div
                           className={`${styles["StudentReviewAllCards-option"]} cursor-pointer`}
                           onClick={() =>

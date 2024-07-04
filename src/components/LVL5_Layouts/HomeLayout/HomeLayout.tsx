@@ -168,14 +168,38 @@ const HomeLayout = ({ children, createButton, control }: HomeLayoutProps) => {
     },
   ];
   const getName = () => {
-    if (location.pathname === "/professor") {
+    if (
+      location.pathname === "/professor" ||
+      location.pathname === "/student"
+    ) {
       return localeLables?.LABEL_DASHBOARD;
     } else if (location.pathname === "/professor/classes") {
       return localeLables?.LABEL_CLASSES;
     } else if (location.pathname === "/professor/exams") {
       return localeLables?.LABEL_EXAMS;
-    } else if (location.pathname === "/professor/settings") {
+    } else if (
+      location.pathname === "/professor/settings" ||
+      location.pathname === "/student/settings"
+    ) {
       return localeLables?.LABEL_SETTINGS;
+    } else if (location.pathname === "/student/flashcards/explore") {
+      return localeLables?.LABEL_EXPLORE_FLASHCARD;
+    } else if (location.pathname.includes("/custom")) {
+      return localeLables?.LABEL_CUSTOM_FLASHCARDS;
+    } else if (location.pathname === "/student/flashcards/review") {
+      return localeLables?.LABEL_REVIEW_DECK;
+    } else if (location.pathname === "/student/flashcards/favorite") {
+      return localeLables?.LABEL_FAVORITE;
+    } else if (
+      location.pathname === "/student/flashcard/deck/flashcard/combine"
+    ) {
+      return localeLables?.LABEL_FLASHCARDS;
+    } else if (location.pathname.includes("/student/exams/practice")) {
+      return localeLables?.LABEL_PRACTICE_EXAMS;
+    } else if (location.pathname.includes("/mock")) {
+      return localeLables?.LABEL_MOCK_EXAMS;
+    } else if (location.pathname.includes("/student/exams/result")) {
+      return localeLables?.LABEL_RESULT;
     }
   };
 

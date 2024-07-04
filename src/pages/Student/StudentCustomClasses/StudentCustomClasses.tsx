@@ -43,12 +43,7 @@ const StudentCustomClasses = ({}: StudentCustomClassesProps) => {
     handleDeleteClose,
     onDeleteConfirm,
     allExams,
-    getDetailsExam,
-    setModeType,
-    modeType,
-    handleCheckboxChange,
-    handleCheckboxDecks,
-    selectedDecks,
+
     customClasses,
     getDetailsFlashcards,
     startExam,
@@ -72,14 +67,22 @@ const StudentCustomClasses = ({}: StudentCustomClassesProps) => {
                 </Button>
               </div> */}
             </div>
-            {customClasses?.slice(0, 8)?.map((data: any, i: number) => (
-              <DashboardFlashcard
-                key={data?._id}
-                data={data}
-                getDetailsCustom={getDetails}
-                openDeleteModal={openDeleteModal}
-              />
-            ))}
+            {customClasses?.length > 0 ? (
+              <>
+                {customClasses?.map((data: any, i: number) => (
+                  <DashboardFlashcard
+                    key={data?._id}
+                    data={data}
+                    getDetailsCustom={getDetails}
+                    openDeleteModal={openDeleteModal}
+                  />
+                ))}
+              </>
+            ) : (
+              <Text className={styles["sectionHeading"]}>
+                {localeTitles?.TITLE_NO_CLASS_CREATED}
+              </Text>
+            )}
           </div>
         )}
 

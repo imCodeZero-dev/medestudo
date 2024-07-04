@@ -21,7 +21,11 @@ import {
   useAllFlashcardsQuery,
   useAllTagsQuery,
 } from "../../../../redux/slices/APISlice";
-import { Flashcard, Tag } from "../../../../utils/constants/DataTypes";
+import {
+  Flashcard,
+  Tag,
+  flashcardData,
+} from "../../../../utils/constants/DataTypes";
 import { uploadImageToCloudinary } from "../../../../utils/hooks/helper";
 import {
   BookmarkApi,
@@ -30,6 +34,7 @@ import {
   getAllCardsByIdApi,
   getAllCustomCardsByIdApi,
   provideRateToCardApi,
+  removeBookmarkApi,
   startStudyingApi,
 } from "../../../../utils/api/Students";
 
@@ -83,10 +88,12 @@ export const useStudentAllFlashCards = () => {
   const [flashcardData, setFlashcardData] = useState<any>();
   const navigate = useNavigate();
   const [currentFlashcardIndex, setCurrentFlashcardIndex] = useState(0);
-  const [flashcards, setFlashcards] = useState<any>([]);
+  const [flashcards, setFlashcards] = useState<flashcardData[]>([]);
   const [currentBatchIndex, setCurrentBatchIndex] = useState(0);
   const BATCH_SIZE = 10;
   const [allFlashcardsLoaded, setAllFlashcardsLoaded] = useState(false);
+  const [revealAnswer, setRevealAnswer] = useState(false);
+
   const [key, setKey] = useState(0);
 
   const [TotalTime, setTotalTime] = useState<number>(0);
@@ -169,13 +176,13 @@ export const useStudentAllFlashCards = () => {
     }
   );
 
-  const allFlashcards = combine
+  let allFlashcards = combine
     ? allFlashcardsData?.data?.combinedCards || []
     : custom
     ? allFlashcardsData?.data?.cards || []
     : allFlashcardsData?.data?.cards || [];
 
-  console.log("allFlashcards", allFlashcards);
+  // console.log("allFlashcards", allFlashcards);
 
   const {
     data: { data: { Deck: deckDetails = [] } = {} } = {},
@@ -227,21 +234,14 @@ export const useStudentAllFlashCards = () => {
 
       return nextIndex < flashcards.length ? nextIndex : prevIndex;
     });
+    setRevealAnswer(false);
   };
-
-  useEffect(() => {
-    console.log(
-      "allFlashcardsLoaded",
-      allFlashcardsLoaded,
-      "BATCH_SIZE",
-      BATCH_SIZE
-    );
-  }, [allFlashcardsLoaded, BATCH_SIZE]);
 
   const handlePreviousFlashcard = () => {
     setCurrentFlashcardIndex((prevIndex) =>
       prevIndex > 0 ? prevIndex - 1 : prevIndex
     );
+    setRevealAnswer(false);
   };
   const handleRatingChange = async (rating: number) => {
     console.log(`Selected Rating: ${rating}`);
@@ -352,29 +352,43 @@ export const useStudentAllFlashCards = () => {
       studentId: cookies?.student?.student?._id,
       cardId: data?._id,
     };
+
     try {
       setBookmarkLoading(true);
       let response;
-      response = await BookmarkApi(params, cookies?.student?.token);
-      console.log("response", response);
-      showSuccessToast(localeSuccess?.SUCCESS_BOOKMARK_ADDED);
-      refetchAllFlashcards();
-      // navigate(-1);
+      if (data?.bookmarked) {
+        response = await removeBookmarkApi(params, cookies?.student?.token);
+        showSuccessToast(localeSuccess?.SUCCESS_BOOKMARK_REMOVED);
+      } else {
+        response = await BookmarkApi(params, cookies?.student?.token);
+        showSuccessToast(localeSuccess?.SUCCESS_BOOKMARK_ADDED);
+      }
+
+      const updatedFlashcards = flashcards?.map((obj) => {
+        if (obj._id === data?._id) {
+          return { ...obj, bookmarked: !obj.bookmarked };
+        }
+        return obj;
+      });
+
+      setFlashcards(updatedFlashcards);
     } catch (error: any) {
       console.log("error", error);
       showErrorToast(error?.response?.data?.message);
     } finally {
       setBookmarkLoading(false);
-      // handleDeleteClose();
     }
   };
 
   useEffect(() => {
-    // Set initial values when component mounts or currentFlashcardIndex changes
     if (allFlashcards[currentFlashcardIndex]) {
       const { question, answer, tags, questionImage, answerImage } =
         allFlashcards[currentFlashcardIndex];
       try {
+        console.error(
+          "allFlashcardscurrentFlashcardIndex",
+          allFlashcards[currentFlashcardIndex]
+        );
         setKey((prevKey) => prevKey + 1);
         const decodedQuestion = atob(question);
         const decodedAnswer = atob(answer);
@@ -405,12 +419,6 @@ export const useStudentAllFlashCards = () => {
       loadInitialFlashcards();
     }
   }, [allFlashcards]);
-
-  useEffect(() => {
-    if (flashcards.length > 0) {
-      console.log("flashcards current batch", flashcards);
-    }
-  }, [flashcards]);
 
   const loadInitialFlashcards = () => {
     const initialBatch = allFlashcards.slice(0, BATCH_SIZE);
@@ -444,12 +452,6 @@ export const useStudentAllFlashCards = () => {
     navigate("/student");
     handleCheckpointModalClose();
   };
-
-  useEffect(() => {
-    console.log("currentFlashcardIndex", currentFlashcardIndex);
-  }, [currentFlashcardIndex]);
-
-  // console.log("allTags", allTags, "watchTags", tags);
 
   return {
     control,
@@ -498,6 +500,8 @@ export const useStudentAllFlashCards = () => {
     stopTimer,
     navigateToDashboard,
     key,
+    revealAnswer,
+    setRevealAnswer,
     // setgetTotalTime,
   };
 };

@@ -25,12 +25,13 @@ const LeftSidebar = ({ options }: LeftSidebarProps) => {
   };
 
   const handleTabClick = (opt: { title: string; url: string }) => {
-    console.log("handleTabClick", opt);
-    if (
-      opt?.url === "/professor/classes/new" ||
-      opt?.url === "/student/flashcards/new"
-    ) {
+    // console.log("handleTabClick", opt);
+    if (opt?.url === "/professor/classes/new") {
       const newUrl = opt.url.replace("/new", "");
+      navigate(newUrl);
+      handleOpenModal();
+    } else if (opt?.url === "/student/flashcards/new") {
+      const newUrl = opt.url.replace("/new", "/explore");
       navigate(newUrl);
       handleOpenModal();
     } else if (opt?.url === "/professor/exams/new") {

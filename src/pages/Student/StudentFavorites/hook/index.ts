@@ -144,6 +144,7 @@ export const useStudentFavorites = () => {
       // handleDeleteClose();
     }
   };
+  
 
   useEffect(() => {
     // Set initial values when component mounts or currentFlashcardIndex changes
