@@ -26,10 +26,10 @@ const AuthVerification = () => {
           };
           if (decodedToken?.user?.role === "student") {
             setCookie("student", updatedStudent, { maxAge: 86400 });
-            // navigate("/student");
+            navigate("/student");
           } else {
             setCookie("professor", updatedProfessor, { maxAge: 86400 });
-            // navigate("/professor");
+            navigate("/professor");
           }
         } else {
           console.error("Login failed: ", decodedToken.message);
