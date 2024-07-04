@@ -1,12 +1,14 @@
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 
 const AuthVerification = () => {
   const [searchParams] = useSearchParams();
   const token = searchParams.get("token");
   const navigate = useNavigate();
+  const [message, setMessage] = useState("Verifying...");
+
   const [cookies, setCookie, removeCookie] = useCookies([
     "professor",
     "student",
@@ -41,12 +43,18 @@ const AuthVerification = () => {
             setCookie("professor", updatedProfessor, { maxAge: 86400 });
             navigate("/professor");
           }
+          setMessage("Login successful! Redirecting...");
         } else {
           console.error("Login failed: ", decodedToken.message);
+          setMessage("Login failed. Please try again.");
+
+          navigate(-1);
           // Handle error message display here
         }
       } catch (error) {
         console.error("Invalid token: ", error);
+        setMessage("Invalid token. Please try again.");
+        navigate(-1);
         // Handle invalid token error display here
       }
     }
@@ -54,8 +62,7 @@ const AuthVerification = () => {
 
   return (
     <div className="h-full">
-      <h1>Successfully redirect to the Auth page</h1>
-      <p>Token: {token}</p>
+      <h1>{message}</h1>
     </div>
   );
 };
