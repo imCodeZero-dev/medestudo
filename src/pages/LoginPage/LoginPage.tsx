@@ -47,6 +47,7 @@ const LoginPage = (props: any) => {
     authType,
     loadingRegister,
     loginGoogle,
+    registerGoogle,
   } = useLoginPage();
 
   // console.log("pathName", pathName);
@@ -82,7 +83,7 @@ const LoginPage = (props: any) => {
           loadingRegister={loadingRegister}
           onSubmit={onSubmitRegistration}
           switchToLogin={switchToLogin}
-          loginGoogle={loginGoogle}
+          loginGoogle={registerGoogle}
         />
       )}
       {/* <div className={styles["login-main"]}>

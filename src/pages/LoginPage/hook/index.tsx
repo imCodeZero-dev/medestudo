@@ -239,28 +239,15 @@ export const useLoginPage = () => {
       setLoadingRegister(false);
     }
   };
+  const registerGoogle = async () => {
+    window.location.href =
+      "http://medestudo.onrender.com/api/v1/register/google";
+  };
   const loginGoogle = async () => {
-    console.log("googleLogin");
-    const newWindow = window.open(
-      "https://medestudo.onrender.com/api/v1/auth/google",
-      "_blank",
-      "width=600,height=600,toolbar=no,scrollbars=no,resizable=no"
-    );
-
-    // const handleMessage = (event) => {
-    //   console.log("handleMessage", event);
-    //   if (event.origin !== "https://medestudo.onrender.com") {
-    //     return; // Ignore messages from unknown origins
-    //   }
-
-    //   if (event.data === "googleLoginSuccess") {
-    //     console.log("Login successful");
-    //     newWindow.close();
-    //     window.removeEventListener("message", handleMessage);
-    //   }
-    // };
-
-    // window.addEventListener("message", handleMessage);
+    // const newWindow = window.open(
+    //   "https://medestudo.onrender.com/api/v1/auth/google"
+    // );
+    window.location.href = "https://medestudo.onrender.com/api/v1/auth/google";
   };
 
   return {
@@ -286,5 +273,6 @@ export const useLoginPage = () => {
     switchToLogin,
     authType,
     loadingRegister,
+    registerGoogle,
   };
 };
