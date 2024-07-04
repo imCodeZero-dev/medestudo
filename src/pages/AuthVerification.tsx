@@ -16,11 +16,19 @@ const AuthVerification = () => {
 
         if (decodedToken.message === "Login successful") {
           console.log("decodedToken", decodedToken);
+          const updatedStudent = {
+            token: decodedToken?.user?.token,
+            student: decodedToken?.user,
+          };
+          const updatedProfessor = {
+            token: decodedToken?.user?.token,
+            professor: decodedToken?.user,
+          };
           if (decodedToken?.user?.role === "student") {
-            setCookie("student", decodedToken, { maxAge: 86400 });
+            setCookie("student", updatedStudent, { maxAge: 86400 });
             // navigate("/student");
           } else {
-            setCookie("professor", decodedToken, { maxAge: 86400 });
+            setCookie("professor", updatedProfessor, { maxAge: 86400 });
             // navigate("/professor");
           }
         } else {
