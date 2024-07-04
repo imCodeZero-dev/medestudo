@@ -2,6 +2,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
+import Loader from "../components/LVL1_Atoms/Loader";
 
 const AuthVerification = () => {
   const [searchParams] = useSearchParams();
@@ -61,8 +62,10 @@ const AuthVerification = () => {
   }, [token, navigate]);
 
   return (
-    <div className="h-full">
-      <h1>{message}</h1>
+    <div className="h-lvh flex justify-between items-center flex-col py-8">
+      <h1 className="animate-bounce">{message}</h1>
+      <Loader />
+      <div></div>
     </div>
   );
 };
