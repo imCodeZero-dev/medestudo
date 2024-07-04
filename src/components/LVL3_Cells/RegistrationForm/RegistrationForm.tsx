@@ -56,7 +56,8 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
         /> */}
         <Button
           className="primary"
-          leftIcon={<FaGoogle size={20} onClick={loginGoogle} />}
+          onClick={loginGoogle}
+          leftIcon={<FaGoogle size={20} />}
         >
           {localeButtons.BUTTON_LOGIN_WITH_GOOGLE}
         </Button>
