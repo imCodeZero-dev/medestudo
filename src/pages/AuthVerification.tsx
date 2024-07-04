@@ -17,11 +17,11 @@ const AuthVerification = () => {
         if (decodedToken.message === "Login successful") {
           console.log("decodedToken", decodedToken);
           const updatedStudent = {
-            token: decodedToken?.user?.token,
+            token: decodedToken?.token,
             student: decodedToken?.user,
           };
           const updatedProfessor = {
-            token: decodedToken?.user?.token,
+            token: decodedToken?.token,
             professor: decodedToken?.user,
           };
           if (decodedToken?.user?.role === "student") {
