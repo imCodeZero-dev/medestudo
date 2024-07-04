@@ -27,11 +27,11 @@ const AuthVerification = () => {
         if (decodedToken.message === "Login successful") {
           console.log("decodedToken", decodedToken);
           const updatedStudent = {
-            token: decodedToken?.token,
+            token: `Bearer ${decodedToken?.token}`,
             student: decodedToken?.user,
           };
           const updatedProfessor = {
-            token: decodedToken?.token,
+            token: `Bearer ${decodedToken?.token}`,
             professor: decodedToken?.user,
           };
           if (decodedToken?.user?.role === "student") {
