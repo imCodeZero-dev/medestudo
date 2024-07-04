@@ -7,12 +7,22 @@ const AuthVerification = () => {
   const [searchParams] = useSearchParams();
   const token = searchParams.get("token");
   const navigate = useNavigate();
-  const [cookies, setCookie] = useCookies(["professor", "student"]);
+  const [cookies, setCookie, removeCookie] = useCookies([
+    "professor",
+    "student",
+    "admin",
+  ]);
 
   useEffect(() => {
     if (token) {
       try {
         const decodedToken: any = jwtDecode(token);
+
+        const cookieOptions = {};
+
+        removeCookie("professor", cookieOptions);
+        removeCookie("student", cookieOptions);
+        removeCookie("admin", cookieOptions);
 
         if (decodedToken.message === "Login successful") {
           console.log("decodedToken", decodedToken);
