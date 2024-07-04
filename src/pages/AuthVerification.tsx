@@ -15,9 +15,14 @@ const AuthVerification = () => {
         const decodedToken: any = jwtDecode(token);
 
         if (decodedToken.message === "Login successful") {
-          setCookie("student", decodedToken, { maxAge: 86400 });
-
-          navigate("/student");
+          console.log("decodedToken", decodedToken);
+          if (decodedToken?.user?.role === "student") {
+            setCookie("student", decodedToken, { maxAge: 86400 });
+            // navigate("/student");
+          } else {
+            setCookie("professor", decodedToken, { maxAge: 86400 });
+            // navigate("/professor");
+          }
         } else {
           console.error("Login failed: ", decodedToken.message);
           // Handle error message display here
