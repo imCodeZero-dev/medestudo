@@ -85,6 +85,15 @@ export interface examForm {
   year: string;
 }
 
+export interface examData {
+  institute: string;
+  questionCount: number;
+  title: string;
+  updatedAt: string;
+  year: string;
+  _id: string;
+}
+
 export interface DeckDetailType {
   _id: string;
   subdeck: SubdeckType;

@@ -120,7 +120,7 @@ export const getCustomClassDecksApi = async (
   classId: string,
   token: string
 ) => {
-  console.log("createCustomClassApi", classId, "token", token);
+  console.log("getCustomClassDecksApi", classId, "token", token);
   const response = await apiRequest({
     method: "get",
     url: `/user/getDeckByClassId/${classId}`,

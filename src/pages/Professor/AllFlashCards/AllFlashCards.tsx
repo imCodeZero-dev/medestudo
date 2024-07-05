@@ -19,7 +19,6 @@ import AlertIcon from "../../../assets/svgs/AlertIcon";
 const AllFlashCards = ({}: AllFlashCardsProps) => {
   const { localeTitles, localeButtons, localeLables } = useLocale();
   const [cookies] = useCookies(["admin"]);
-  const [AllFlashCards, setAllFlashCards] = useState<boolean>(false);
   const location = useLocation();
   // const { id } = useParams();
 

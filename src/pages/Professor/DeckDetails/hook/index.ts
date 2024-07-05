@@ -14,13 +14,10 @@ import { useQuery } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
-  createClassApi,
   createClassDeckApi,
   deleteClassApi,
   deleteClassDeckApi,
-  getAllClassesApi,
   getClassByIdApi,
-  getClassDecksApi,
 } from "../../../../utils/api/professors";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import {

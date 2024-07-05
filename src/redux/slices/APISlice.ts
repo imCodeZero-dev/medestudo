@@ -173,7 +173,6 @@ export const useAllDecksQuery = (token: any) => {
 export const useAllExamsQuery = (cookies: any) => {
   const {
     data: { data: allExams = [] } = {},
-    // data: { data: { decks: allExams = [] } = {} } = {},
     isLoading: allExamsLoading,
     error: errorAllExams,
     refetch: refetchAllExams,
@@ -391,6 +390,7 @@ export const useallQuestionsQuery = (
       "allQuestions",
       {
         cookies,
+        params,
       },
     ],
     async () => {

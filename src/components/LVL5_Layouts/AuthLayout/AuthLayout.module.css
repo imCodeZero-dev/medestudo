@@ -25,6 +25,10 @@
   width: 50%;
   overflow-y: auto;
   overflow-x: hidden;
+  scrollbar-width: none;
+}
+.leftSection::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
 }
 .rightSection {
   width: 50%;

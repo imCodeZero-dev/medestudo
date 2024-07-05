@@ -44,6 +44,8 @@ const StudentFavorites = ({}: StudentFavoritesProps) => {
     getDetails,
     bookmarkCardsLoading,
     key,
+    revealAnswer,
+    setRevealAnswer,
   } = useStudentFavorites();
 
   const { localeText } = useLocale();
@@ -101,11 +103,13 @@ const StudentFavorites = ({}: StudentFavoritesProps) => {
         <ViewCardModal
           handleClose={handleViewCardModalClose}
           open={openViewCardModal}
+          allFlashcards={bookmarkCards}
           control={control}
           tags={tags}
           handleNextFlashcard={handleNextFlashcard}
           handlePreviousFlashcard={handlePreviousFlashcard}
           currentFlashcardIndex={currentFlashcardIndex}
+          revealAnswer
         />
       </div>
     </HomeLayout>

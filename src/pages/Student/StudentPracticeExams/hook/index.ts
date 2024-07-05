@@ -6,18 +6,17 @@ import useLocale from "../../../../locales";
 import { useCookies } from "react-cookie";
 import { useQuery } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
-import { closeModal2 } from "../../../../redux/slices/CreateExamModalSlice";
 import {
-  useAllDecksQuery,
   useAllExamsQuery,
   useAllInstituteQuery,
   useAllSubjectsQuery,
   useallQuestionsQuery,
 } from "../../../../redux/slices/APISlice";
 
-import { Tag, examForm } from "../../../../utils/constants/DataTypes";
+import { Tag, examData, examForm } from "../../../../utils/constants/DataTypes";
 import { useNavigate } from "react-router-dom";
 import { examCardData } from "../../../../components/LVL3_Cells/DashboardExams/@types";
+import { formattedTime } from "../../../../utils/hooks/helper";
 
 export const useStudentPracticeExams = () => {
   // const navigate = useNavigate();
@@ -30,6 +29,7 @@ export const useStudentPracticeExams = () => {
     []
   );
   const [selectedTab, setSelectedTab] = useState(0);
+  const [questionsTime, setQuestionsTime] = useState(0);
 
   const validationSchema = yup.object().shape({
     title: yup.string().required("title is required"),
@@ -45,8 +45,8 @@ export const useStudentPracticeExams = () => {
     resolver: yupResolver(validationSchema),
     defaultValues: {
       title: "",
-      totalQuestions: 250,
-      time: 3,
+      totalQuestions: 0,
+      time: 0,
       filter: "",
     },
   });
@@ -81,11 +81,19 @@ export const useStudentPracticeExams = () => {
 
   const { allExams, allExamsLoading, errorAllExams, refetchAllExams } =
     useAllExamsQuery(cookies?.student);
+  console.log("allExams", allExams);
 
   useEffect(() => {
     const filteredData = allExams?.map((item: any) => item.title);
 
     setFilteredExamTitles(filteredData);
+    const getTotalTime = allExams?.reduce(
+      (total: number, item: examData) => total + item.questionCount,
+      0
+    );
+    setQuestionsTime(getTotalTime);
+    setValue("time", formattedTime(getTotalTime * 5));
+    setValue("totalQuestions", getTotalTime);
   }, [allExams]);
 
   const [updatedInstitutes, setUpdatedInstitutes] = useState<any[]>([]);
@@ -134,6 +142,10 @@ export const useStudentPracticeExams = () => {
   const clearAllExamTypes = () => {
     setSelectedExamTypes([]);
   };
+  const totalQuestionsNumbers = watch("totalQuestions");
+  useEffect(() => {
+    setValue("time", formattedTime(totalQuestionsNumbers * 5));
+  }, [totalQuestionsNumbers]);
 
   return {
     control,
@@ -159,5 +171,6 @@ export const useStudentPracticeExams = () => {
     selectedTab,
     setSelectedTab,
     filteredExamTitles,
+    questionsTime,
   };
 };

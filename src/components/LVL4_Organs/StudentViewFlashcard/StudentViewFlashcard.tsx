@@ -21,6 +21,7 @@ import ImageDropzone from "../../LVL2_Molecules/ImageUploader/ImageDropzone";
 import RatingButtons from "../RatingButtons/RatingButtons";
 import { MdOutlineZoomOutMap } from "react-icons/md";
 import { FaRegBookmark } from "react-icons/fa6";
+import ImageWithLoader from "../../LVL2_Molecules/ImageWithLoader/Image";
 
 const StudentViewFlashcard: React.FC<StudentViewFlashcardProps> = ({
   control,
@@ -261,9 +262,14 @@ const StudentViewFlashcard: React.FC<StudentViewFlashcardProps> = ({
                       render={({ field }) => (
                         <>
                           {field.value && (
-                            <img
-                              className={styles["questionImage"]}
+                            // <img
+                            //   className={styles["questionImage"]}
+                            //   src={field.value}
+                            // />
+                            <ImageWithLoader
                               src={field.value}
+                              alt="question Image"
+                              className={styles["questionImage"]}
                             />
                           )}
                         </>
@@ -318,9 +324,14 @@ const StudentViewFlashcard: React.FC<StudentViewFlashcardProps> = ({
                           render={({ field }) => (
                             <>
                               {field.value && (
-                                <img
-                                  className={styles["questionImage"]}
+                                // <img
+                                //   className={styles["questionImage"]}
+                                //   src={field.value}
+                                // />
+                                <ImageWithLoader
                                   src={field.value}
+                                  alt="answer Image"
+                                  className={styles["questionImage"]}
                                 />
                               )}
                             </>

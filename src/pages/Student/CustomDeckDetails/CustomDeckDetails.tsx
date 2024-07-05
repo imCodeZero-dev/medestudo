@@ -53,7 +53,6 @@ const CustomDeckDetails = ({}: CustomDeckDetailsProps) => {
     setCreateModal,
     createModal,
     createLoading,
-    classDetails,
     setValue,
     openDeleteModal,
     deleteModal,
@@ -67,8 +66,6 @@ const CustomDeckDetails = ({}: CustomDeckDetailsProps) => {
     allClassesLoading,
     getDetails,
     specificDecks,
-    classDecks,
-    classDecksLoading,
     handleDeleteClassClose,
     openDeleteClassModal,
     deleteClassModal,
@@ -88,6 +85,7 @@ const CustomDeckDetails = ({}: CustomDeckDetailsProps) => {
     handleCloseEditDeck,
     editDeckModal,
     onSubmitEditDeck,
+    allCustomDecksLoading,
   } = useCustomDeckDetails();
   console.log("specificDecks", specificDecks);
   const navigate = useNavigate();
@@ -238,7 +236,7 @@ const CustomDeckDetails = ({}: CustomDeckDetailsProps) => {
               </div>
             </div>
 
-            {classDecksLoading ? (
+            {allCustomDecksLoading ? (
               <div className="py-8">
                 <Loader />
               </div>

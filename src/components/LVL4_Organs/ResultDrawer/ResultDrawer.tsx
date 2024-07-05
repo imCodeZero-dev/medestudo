@@ -84,13 +84,13 @@ ResultDrawerProps) => {
 
                 <Button
                   className={
-                    showReasoning[index] ? "purpleBtn" : "secondaryBtn"
+                    showReasoning[index] ? "secondaryBtn" : "purpleBtn"
                   }
                   onClick={() => toggleReasoning(index)}
                 >
-                  {showReasoning
+                  {showReasoning[index]
                     ? localeLables?.LABEL_HIDE_REASONING
-                    : localeLables?.LABEL_SHOW_REASONING}
+                    : localeLables?.LABEL_VIEW_REASONING}
                 </Button>
               </div>
               <div className="my-6">

@@ -22,7 +22,10 @@ import {
   useAllTagsQuery,
 } from "../../../../redux/slices/APISlice";
 import { uploadImageToCloudinary } from "../../../../utils/hooks/helper";
-import { createCustomFlashcardApi } from "../../../../utils/api/Students";
+import {
+  createCustomFlashcardApi,
+  getAllCustomCardsByIdApi,
+} from "../../../../utils/api/Students";
 
 export const useCreateCustomFlashcard = () => {
   // const navigate = useNavigate();
@@ -57,6 +60,30 @@ export const useCreateCustomFlashcard = () => {
     refetchallFlashcards,
   } = useAllFlashcardsQuery(cookies, deckData?.deckId?._id as string);
 
+  const {
+    data: { data: { Deck: deckDetails = [] } = {} } = {},
+    isLoading: deckDetailsLoading,
+    error: errordeckDetails,
+    refetch: refetchdeckDetails,
+  } = useQuery(
+    [
+      "deckDetails",
+      {
+        cookies,
+      },
+    ],
+
+    async () => {
+      return getAllCustomCardsByIdApi(
+        deckData?._id as string,
+        cookies?.student?.token
+      );
+    },
+    {
+      enabled: !!cookies?.student?.token,
+    }
+  );
+
   console.log("CreateDeckData", deckData);
 
   useEffect(() => {
@@ -80,6 +107,7 @@ export const useCreateCustomFlashcard = () => {
 
   const onSubmitCreate = async (data: any) => {
     try {
+      setCreateLoading(true);
       let questionImgUrl;
       if (data?.questionImage) {
         questionImgUrl = await uploadImageToCloudinary(data?.questionImage);
@@ -105,7 +133,6 @@ export const useCreateCustomFlashcard = () => {
       };
 
       // Make the API call with the modified payload
-      setCreateLoading(true);
       const response = await createCustomFlashcardApi(
         payload,
         deckData?._id,
@@ -114,7 +141,8 @@ export const useCreateCustomFlashcard = () => {
       console.log("response", response);
       // refetchClassDetails();
       showSuccessToast(localeSuccess?.SUCCESS_FLASH_CREATED);
-      // refetchallFlashcards();
+      // this refetch is not working, 
+      refetchdeckDetails();
     } catch (error: any) {
       console.log("error", error);
       showErrorToast(error?.response?.data?.message);

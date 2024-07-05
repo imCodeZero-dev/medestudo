@@ -47,6 +47,7 @@ const StudentPracticeExams = ({}: StudentPracticeExamsProps) => {
     selectedTab,
     setSelectedTab,
     filteredExamTitles,
+    questionsTime,
   } = useStudentPracticeExams();
   const arrayOfYears = generateYearsArray(25);
   const watchFilter = watch("filter");
@@ -180,7 +181,7 @@ const StudentPracticeExams = ({}: StudentPracticeExamsProps) => {
                 <CustomInput
                   name="totalQuestions"
                   control={control}
-                  max={2510}
+                  max={questionsTime}
                   min={0}
                   label="Total Questions"
                 />
@@ -191,7 +192,7 @@ const StudentPracticeExams = ({}: StudentPracticeExamsProps) => {
                   max={5}
                   min={0}
                   label="Time"
-                  unit="hr"
+                  // unit="hr"
                 />
               </div>
               <div className="flex flex-col justify-between space-y-3 mt-6">

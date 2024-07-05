@@ -15,9 +15,10 @@ import {
   useallQuestionsQuery,
 } from "../../../../redux/slices/APISlice";
 
-import { Tag, examForm } from "../../../../utils/constants/DataTypes";
+import { Tag, examData, examForm } from "../../../../utils/constants/DataTypes";
 import { useNavigate } from "react-router-dom";
 import { examCardData } from "../../../../components/LVL3_Cells/DashboardExams/@types";
+import { formattedTime } from "../../../../utils/hooks/helper";
 
 export const useStudentMockExams = () => {
   // const navigate = useNavigate();
@@ -26,6 +27,8 @@ export const useStudentMockExams = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [modifiedSubjects, setModifiedSubjects] = useState<Tag[]>([]);
+  const [questionsTime, setQuestionsTime] = useState(0);
+
   const [filteredExamTitles, setFilteredExamTitles] = useState<examCardData[]>(
     []
   );
@@ -45,10 +48,9 @@ export const useStudentMockExams = () => {
     resolver: yupResolver(validationSchema),
     defaultValues: {
       title: "",
-      totalQuestions: 250,
-      time: 3,
+      totalQuestions: 0,
+      time: 0,
       filter: "",
-    
     },
   });
   const tabs = ["Subject", "Year", "Institution", "Exam Type"];
@@ -59,7 +61,6 @@ export const useStudentMockExams = () => {
     errorAllInstitute,
     refetchAllInstitute,
   } = useAllInstituteQuery();
-
 
   const {
     allSubjects,
@@ -88,8 +89,14 @@ export const useStudentMockExams = () => {
     const filteredData = allExams?.map((item: any) => item.title);
 
     setFilteredExamTitles(filteredData);
+    const getTotalTime = allExams?.reduce(
+      (total: number, item: examData) => total + item.questionCount,
+      0
+    );
+    setQuestionsTime(getTotalTime);
+    setValue("time", formattedTime(getTotalTime * 5));
+    setValue("totalQuestions", getTotalTime);
   }, [allExams]);
-
 
   const [updatedInstitutes, setUpdatedInstitutes] = useState<any[]>([]);
   const [selectedYears, setSelectedYears] = useState<string[]>([]);
@@ -137,6 +144,11 @@ export const useStudentMockExams = () => {
   const clearAllExamTypes = () => {
     setSelectedExamTypes([]);
   };
+  const totalQuestionsNumbers = watch("totalQuestions");
+
+  useEffect(() => {
+    setValue("time", formattedTime(totalQuestionsNumbers * 5));
+  }, [totalQuestionsNumbers]);
 
   return {
     control,
@@ -162,5 +174,6 @@ export const useStudentMockExams = () => {
     selectedTab,
     setSelectedTab,
     filteredExamTitles,
+    questionsTime,
   };
 };

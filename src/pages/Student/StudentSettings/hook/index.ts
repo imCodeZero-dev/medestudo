@@ -118,13 +118,13 @@ export const useStudentSettings = () => {
   const onSubmitImage = async (data: any) => {
     console.log("onSubmitImage params", data);
     let imageUrl = "";
+    setProfilePicLoading(true);
     imageUrl = await uploadImageToCloudinary(data?.pic);
     const params = {
       pic: imageUrl,
     };
     console.log("onSubmitImage params", params);
     try {
-      setProfilePicLoading(true);
       let response;
       response = await updateStudentPictureApi(
         params,

@@ -49,7 +49,7 @@ export const useStudentFavorites = () => {
   });
 
   const tags = watch("tags");
-
+  const [revealAnswer, setRevealAnswer] = useState(false);
   const [bookmarkLoading, setBookmarkLoading] = useState<boolean>(false);
   const [openViewCardModal, setOpenViewCardModal] = useState<boolean>(false);
   const navigate = useNavigate();
@@ -108,12 +108,14 @@ export const useStudentFavorites = () => {
     setCurrentFlashcardIndex((prevIndex) =>
       prevIndex < bookmarkCards?.length - 1 ? prevIndex + 1 : prevIndex
     );
+    setRevealAnswer(false);
   };
 
   const handlePreviousFlashcard = () => {
     setCurrentFlashcardIndex((prevIndex) =>
       prevIndex > 0 ? prevIndex - 1 : prevIndex
     );
+    setRevealAnswer(false);
   };
 
   const toggleBookmark = async (data: any) => {
@@ -144,13 +146,12 @@ export const useStudentFavorites = () => {
       // handleDeleteClose();
     }
   };
-  
 
   useEffect(() => {
     // Set initial values when component mounts or currentFlashcardIndex changes
-    if (bookmarkCards[currentFlashcardIndex]?.cardId) {
+    if (bookmarkCards[currentFlashcardIndex]?.card) {
       const { question, answer, tags, questionImage, answerImage } =
-        bookmarkCards[currentFlashcardIndex]?.cardId;
+        bookmarkCards[currentFlashcardIndex]?.card;
       try {
         setKey((prevKey) => prevKey + 1);
         const decodedQuestion = atob(question);
@@ -175,10 +176,7 @@ export const useStudentFavorites = () => {
         console.error("Error decoding base64 string:", error);
       }
     }
-    console.log(
-      "bookmarkCards[currentFlashcardIndex]",
-      bookmarkCards[currentFlashcardIndex]
-    );
+    // console.log("bookmarkCards[currentFlashcardIndex]", bookmarkCards);
   }, [currentFlashcardIndex, bookmarkCards]);
 
   // console.log("bookmarkCards", bookmarkCards);
@@ -204,5 +202,7 @@ export const useStudentFavorites = () => {
     getDetails,
     bookmarkCardsLoading,
     key,
+    revealAnswer,
+    setRevealAnswer,
   };
 };

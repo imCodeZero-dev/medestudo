@@ -165,9 +165,8 @@ export const useStudentAllFlashCards = () => {
         return getAllCustomCardsByIdApi(
           customId as string,
           cookies?.student?.token
-        ); // Assuming a custom API exists
+        );
       } else {
-        // Call the default API when neither combine nor custom is true
         return getAllCardsByIdApi(deckId as string, cookies?.student?.token);
       }
     },
@@ -308,6 +307,7 @@ export const useStudentAllFlashCards = () => {
 
   const onSubmitEdit = async (data: any) => {
     try {
+      setEditLoading(true);
       let questionImgUrl = data?.questionImage;
       if (data?.questionImage !== data?.new_questionImage) {
         questionImgUrl = await uploadImageToCloudinary(data?.new_questionImage);
@@ -328,13 +328,13 @@ export const useStudentAllFlashCards = () => {
         answer: base64Answer,
         tags: tagsLabels,
       };
-      setEditLoading(true);
       const response = await editCustomFlashcardApi(
         payload,
         flashcardData?._id,
         cookies?.student?.token
       );
       console.log("response", response);
+      handleEditClose();
       showSuccessToast(localeSuccess?.SUCCESS_FLASH_EDIT);
       refetchAllFlashcards();
     } catch (error: any) {
@@ -385,10 +385,6 @@ export const useStudentAllFlashCards = () => {
       const { question, answer, tags, questionImage, answerImage } =
         allFlashcards[currentFlashcardIndex];
       try {
-        console.error(
-          "allFlashcardscurrentFlashcardIndex",
-          allFlashcards[currentFlashcardIndex]
-        );
         setKey((prevKey) => prevKey + 1);
         const decodedQuestion = atob(question);
         const decodedAnswer = atob(answer);
@@ -412,7 +408,7 @@ export const useStudentAllFlashCards = () => {
         console.error("Error decoding base64 string:", error);
       }
     }
-  }, [currentFlashcardIndex, flashcards]);
+  }, [currentFlashcardIndex, flashcards, enableEdit]);
 
   useEffect(() => {
     if (allFlashcards.length > 0) {

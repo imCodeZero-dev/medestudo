@@ -1,5 +1,3 @@
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import {
@@ -8,17 +6,11 @@ import {
 } from "../../../../config/toastProvider/toastUtils";
 
 import useLocale from "../../../../locales";
-import { passwordRegex } from "../../../../utils/constants/constants";
 import { useCookies } from "react-cookie";
 import { useQuery } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
-  createClassApi,
-  createClassDeckApi,
-  deleteClassApi,
-  deleteClassDeckApi,
-  getAllClassesApi,
   getClassByIdApi,
   getClassDecksApi,
 } from "../../../../utils/api/professors";
@@ -58,8 +50,6 @@ export const useCustomDeckDetails = () => {
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [selectedDecks, setSelectedDecks] = useState<any>([]);
-
-
 
   const handleCheckboxDecks = (isChecked: boolean, deck: any) => {
     if (isChecked) {
@@ -144,7 +134,6 @@ export const useCustomDeckDetails = () => {
     setDeleteModal(true);
   };
 
-
   const handleDeleteClassClose = () => {
     setDeleteClassModal(false);
   };
@@ -166,7 +155,7 @@ export const useCustomDeckDetails = () => {
   //   useAllDecksQuery(cookies?.student?.token);
 
   const {
-    data: { data: { deck: allCustomDecks = [] } = {} } = {},
+    data: { data: { decks: allCustomDecks = [] } = {} } = {},
     isLoading: allCustomDecksLoading,
     error: errorallCustomDecks,
     refetch: refetchallCustomDecks,
@@ -188,50 +177,50 @@ export const useCustomDeckDetails = () => {
   );
   console.log("allCustomDecks in deckDetails", allCustomDecks);
 
-  const {
-    data: { data: { class: classDetails = [] } = {} } = {},
-    isLoading: classDetailsLoading,
-    error: errorClassDetails,
-    refetch: refetchClassDetails,
-  } = useQuery(
-    [
-      "classDetails",
-      {
-        cookies,
-        deckData,
-      },
-    ],
+  // const {
+  //   data: { data: { class: classDetails = [] } = {} } = {},
+  //   isLoading: classDetailsLoading,
+  //   error: errorClassDetails,
+  //   refetch: refetchClassDetails,
+  // } = useQuery(
+  //   [
+  //     "classDetails",
+  //     {
+  //       cookies,
+  //       deckData,
+  //     },
+  //   ],
 
-    async () => {
-      return getClassByIdApi(deckData?._id, cookies?.student?.token);
-    },
-    {
-      enabled: !!cookies?.student?.token && !!deckData?._id,
-    }
-  );
+  //   async () => {
+  //     return getClassByIdApi(deckData?._id, cookies?.student?.token);
+  //   },
+  //   {
+  //     enabled: !!cookies?.student?.token && !!deckData?._id,
+  //   }
+  // );
 
-  const {
-    data: { data: { decksWithCardCounts: classDecks = [] } = {} } = {},
-    isLoading: classDecksLoading,
-    error: errorclassDecks,
-    refetch: refetchclassDecks,
-  } = useQuery(
-    [
-      "classDecks",
-      {
-        cookies,
-        classDetails,
-      },
-    ],
+  // const {
+  //   data: { data: { decksWithCardCounts: classDecks = [] } = {} } = {},
+  //   isLoading: classDecksLoading,
+  //   error: errorclassDecks,
+  //   refetch: refetchclassDecks,
+  // } = useQuery(
+  //   [
+  //     "classDecks",
+  //     {
+  //       cookies,
+  //       classDetails,
+  //     },
+  //   ],
 
-    async () => {
-      return getClassDecksApi(classDetails?._id, cookies?.student?.token);
-    },
-    {
-      enabled: !!cookies?.student?.token && !!classDetails,
-    }
-  );
-  console.log("classDecks", classDecks);
+  //   async () => {
+  //     return getClassDecksApi(classDetails?._id, cookies?.student?.token);
+  //   },
+  //   {
+  //     enabled: !!cookies?.student?.token && !!classDetails,
+  //   }
+  // );
+  // console.log("classDecks", classDecks);
   // console.log("classDetails", classDetails);
 
   const onSubmitClassEdit = async (data: any) => {
@@ -387,7 +376,7 @@ export const useCustomDeckDetails = () => {
     setCreateModal,
     createModal,
 
-    classDetails,
+    // classDetails,
     openDeleteModal,
     onDeleteConfirm,
     deleteModal,
@@ -400,8 +389,8 @@ export const useCustomDeckDetails = () => {
     allClassesLoading,
     getDetails,
     specificDecks,
-    classDecks,
-    classDecksLoading,
+    // classDecks,
+    // classDecksLoading,
     handleDeleteClassClose,
     openDeleteClassModal,
     deleteClassModal,
@@ -421,5 +410,6 @@ export const useCustomDeckDetails = () => {
     handleCloseEditDeck,
     editDeckModal,
     onSubmitEditDeck,
+    allCustomDecksLoading,
   };
 };

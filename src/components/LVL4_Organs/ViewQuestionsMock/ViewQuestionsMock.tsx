@@ -10,6 +10,7 @@ import Loader from "../../LVL1_Atoms/Loader";
 import { IoIosArrowRoundBack } from "react-icons/io";
 import { IoIosArrowRoundForward } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
+import ImageWithLoader from "../../LVL2_Molecules/ImageWithLoader/Image";
 
 const ViewQuestionsMock: React.FC<ViewQuestionsMockProps> = ({
   control,
@@ -93,7 +94,18 @@ const ViewQuestionsMock: React.FC<ViewQuestionsMockProps> = ({
               key={allQuestion[currentIndex]?.question}
               render={({ field }) => (
                 <>
-                  <img className={styles["questionImage"]} src={field.value} />
+                  {/* <img
+                    className={styles["questionImage"]}
+                    src={field.value}
+                    loading="lazy"
+                  /> */}
+                  {field.value && (
+                    <ImageWithLoader
+                      src={field.value}
+                      alt="question Image"
+                      className={styles["questionImage"]}
+                    />
+                  )}
                 </>
               )}
             />
@@ -127,8 +139,19 @@ const ViewQuestionsMock: React.FC<ViewQuestionsMockProps> = ({
                   )}
                   <div className={styles["ansAndImg"]}>
                     <p className={styles.answer}>{answer.text}</p>
+                    {/* {answer?.image && (
+                      <img
+                        className={styles["answerImg"]}
+                        src={answer.image}
+                        loading="lazy"
+                      />
+                    )} */}
                     {answer?.image && (
-                      <img className={styles["answerImg"]} src={answer.image} />
+                      <ImageWithLoader
+                        src={answer.image}
+                        alt="Answer Image"
+                        className={styles["answerImg"]}
+                      />
                     )}
                   </div>
                 </div>

@@ -1,5 +1,3 @@
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import {
@@ -8,19 +6,13 @@ import {
 } from "../../../../config/toastProvider/toastUtils";
 
 import useLocale from "../../../../locales";
-import { passwordRegex } from "../../../../utils/constants/constants";
 import { useCookies } from "react-cookie";
 import { useQuery } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
-import { closeModal } from "../../../../redux/slices/CreateClassModalSlice";
 
 import {
-  createFlashcardApi,
   deleteFlashcardApi,
   editFlashcardApi,
-  getAllClassesApi,
-  getAllFlashcardsByIdApi,
-  getClassByIdApi,
   getDeckDetailsApi,
 } from "../../../../utils/api/professors";
 import {
@@ -181,11 +173,6 @@ export const useAllFlashCards = () => {
       let questionImgUrl = data?.questionImage;
       if (data?.new_questionImage) {
         if (data?.questionImage !== data?.new_questionImage) {
-          console.log(
-            "image uploader",
-            data?.new_questionImage,
-            data?.new_questionImage
-          );
           questionImgUrl = await uploadImageToCloudinary(
             data?.new_questionImage
           );
@@ -194,11 +181,6 @@ export const useAllFlashCards = () => {
       let answerImgUrl = data?.answerImage;
       if (data?.new_answerImage) {
         if (data?.answerImage !== data?.new_answerImage) {
-          console.log(
-            "image uploader answ",
-            data?.new_answerImage,
-            data?.new_questionImage
-          );
           answerImgUrl = await uploadImageToCloudinary(data?.new_answerImage);
         }
       }

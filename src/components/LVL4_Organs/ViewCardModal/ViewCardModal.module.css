@@ -87,11 +87,11 @@
   justify-content: space-between;
   align-items: center;
   column-gap: 16px;
-  max-height: 80vh;
-  overflow-y: auto;
 }
 .ViewCardModal-body-main {
   width: 100%;
+  max-height: 80vh;
+  overflow-y: auto;
 }
 
 .heading2 {
@@ -111,8 +111,9 @@
 }
 
 .questionImage {
-  width: 350px;
-  height: 350px;
+  /* max-width: 350px; */
+  /* max-height: 350px; */
+  object-fit: contain;
   /* margin: auto; */
   margin: 12px 0;
 }

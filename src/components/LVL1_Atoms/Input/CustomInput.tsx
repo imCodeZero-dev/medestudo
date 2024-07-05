@@ -26,11 +26,11 @@ const CustomInput: React.FC<CustomInputProps> = ({
             <label className={styles.label}>{label}</label>
             {readOnly ? (
               <>
-                {unit && (
-                  <Text className={styles.unitText}>
-                    {value} {unit}
-                  </Text>
-                )}
+                {/* {unit && ( */}
+                <Text className={styles.unitText}>
+                  {value} {unit}
+                </Text>
+                {/* )} */}
               </>
             ) : (
               <div className={styles.inputMain}>
