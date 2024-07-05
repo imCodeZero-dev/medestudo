@@ -4,15 +4,7 @@ import { ViewQuestionsProps } from "./types";
 import Text from "../../LVL1_Atoms/Text/Text";
 import useLocale from "../../../locales";
 import QuillEditor from "../../LVL3_Cells/QuillEditor/QuillEditor";
-import TagInput from "../../LVL1_Atoms/Input/TagInput";
-import { IoCloseCircleOutline } from "react-icons/io5";
 import { Button } from "../../LVL1_Atoms/Button";
-import { TbCards } from "react-icons/tb";
-import { IoPencil } from "react-icons/io5";
-import { FaRegTrashAlt } from "react-icons/fa";
-import { BiSolidLeftArrow } from "react-icons/bi";
-import { BiSolidRightArrow } from "react-icons/bi";
-import { GiReturnArrow } from "react-icons/gi";
 import { Controller } from "react-hook-form";
 import Select from "react-select";
 import { Tag } from "../../../utils/constants/DataTypes";
@@ -22,6 +14,7 @@ import { IoIosArrowRoundBack } from "react-icons/io";
 import { IoIosArrowRoundForward } from "react-icons/io";
 import ViewQuestionModal from "../ViewQuestionModal/ViewQuestionModal";
 import { useNavigate } from "react-router-dom";
+import ImageWithLoader from "../../LVL2_Molecules/ImageWithLoader/Image";
 
 const ViewQuestions: React.FC<ViewQuestionsProps> = ({
   control,
@@ -120,20 +113,34 @@ const ViewQuestions: React.FC<ViewQuestionsProps> = ({
                   localePlaceholders.PLACEHOLDER_ENTER_DETAILED_SOLUTION_HERE
                 }
               />
-              <Controller
-                name={"questionImage"}
-                control={control}
-                defaultValue=""
-                key={allQuestion[currentIndex]?.question}
-                render={({ field }) => (
-                  <>
-                    <img
-                      className={styles["questionImage"]}
-                      src={field.value}
-                    />
-                  </>
-                )}
-              />
+              {watch("questionImage") && (
+                <>
+                  <Controller
+                    name={"questionImage"}
+                    control={control}
+                    defaultValue=""
+                    key={allQuestion[currentIndex]?.questionImage}
+                    render={({ field }) => (
+                      <>
+                        {field?.value && (
+                          <ImageWithLoader
+                            src={field.value}
+                            alt="question Image"
+                            className={styles["questionImage"]}
+                          />
+                        )}
+                        {/* {field.value && (
+                      <ImageWithLoader
+                        src={field.value}
+                        alt="question Image"
+                        className={styles["questionImage"]}
+                      />
+                      )} */}
+                      </>
+                    )}
+                  />
+                </>
+              )}
               {/* <Input
                 control={control}
                 name="question"
@@ -160,9 +167,14 @@ const ViewQuestions: React.FC<ViewQuestionsProps> = ({
                     <div className={styles["ansAndImg"]}>
                       <p className={styles.answer}>{answer.text}</p>
                       {answer?.image && (
-                        <img
-                          className={styles["answerImg"]}
+                        // <img
+                        //   className={styles["answerImg"]}
+                        //   src={answer.image}
+                        // />
+                        <ImageWithLoader
                           src={answer.image}
+                          alt="answerImage"
+                          className={styles["answerImg"]}
                         />
                       )}
                     </div>

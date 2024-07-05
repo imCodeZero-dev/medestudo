@@ -32,6 +32,7 @@ const StudentReviewAllCards: React.FC<StudentReviewAllCardsProps> = ({
   custom,
   toggleBookmark,
   key,
+  ratingLoading,
 }) => {
   const { localeTitles, localePlaceholders, localeButtons, localeText } =
     useLocale();
@@ -177,10 +178,13 @@ const StudentReviewAllCards: React.FC<StudentReviewAllCardsProps> = ({
                               <Text className={styles["ratingText"]}>
                                 {localeText.TEXT_HOW_WELL_DID_YOU_KNOW_ANS}
                               </Text>
+                              {/* {console.log("RatingButtons", card)} */}
                               <RatingButtons
-                                rated={card?.rating}
+                                id={card?.data?.rated?._id}
+                                rated={card?.difficulty}
                                 totalRatings={5}
                                 onRatingChange={handleRatingChange}
+                                loading={ratingLoading}
                               />
                             </div>
                             {/* )} */}

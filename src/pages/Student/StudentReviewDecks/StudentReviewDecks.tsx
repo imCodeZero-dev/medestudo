@@ -8,14 +8,9 @@ import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import DashboardFlashcard from "../../../components/LVL3_Cells/DashboardFlashcard/DashboardFlashcard";
 import { useEffect, useState } from "react";
-
 import HomeLayout from "../../../components/LVL5_Layouts/HomeLayout/HomeLayout";
-
 import { Flashcard } from "../../../utils/constants/DataTypes";
-
 import { StudentRoutes } from "../../../Routes/protectedRoutes/StudentRoutes";
-
-import StudentViewFlashcard from "../../../components/LVL4_Organs/StudentViewFlashcard/StudentViewFlashcard";
 import ViewCardModal from "../../../components/LVL4_Organs/ViewCardModal/ViewCardModal";
 import { useStudentReviewDecks } from "./hook";
 import StudentReviewAllCards from "../../../components/LVL4_Organs/StudentReviewAllCards/StudentReviewAllCards";
@@ -45,6 +40,8 @@ const StudentReviewDecks = ({}: StudentReviewDecksProps) => {
     getDetails,
     reviewDecksLoading,
     key,
+    handleRatingChange,
+    ratingLoading,
   } = useStudentReviewDecks();
 
   const { localeText } = useLocale();
@@ -67,6 +64,8 @@ const StudentReviewDecks = ({}: StudentReviewDecksProps) => {
             handleSubmit={handleSubmit}
             loading={reviewDecksLoading}
             custom={false}
+            handleRatingChange={handleRatingChange}
+            ratingLoading={ratingLoading}
             // toggleBookmark={toggleBookmark}
             revealAnswer
             key={key}

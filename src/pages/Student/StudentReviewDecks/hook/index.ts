@@ -15,8 +15,11 @@ import {
   useAllReviewDecksQuery,
   useAllTagsQuery,
 } from "../../../../redux/slices/APISlice";
-import { Tag } from "../../../../utils/constants/DataTypes";
-import { BookmarkApi } from "../../../../utils/api/Students";
+import { reviewDeckType, Tag } from "../../../../utils/constants/DataTypes";
+import {
+  BookmarkApi,
+  provideRateToCardApi,
+} from "../../../../utils/api/Students";
 
 export const useStudentReviewDecks = () => {
   // const navigate = useNavigate();
@@ -40,6 +43,7 @@ export const useStudentReviewDecks = () => {
   const tags = watch("tags");
 
   const [bookmarkLoading, setBookmarkLoading] = useState<boolean>(false);
+  const [ratingLoading, setRatingLoading] = useState<boolean>(false);
   const [openViewCardModal, setOpenViewCardModal] = useState<boolean>(false);
   const navigate = useNavigate();
   const [currentFlashcardIndex, setCurrentFlashcardIndex] = useState(0);
@@ -110,7 +114,7 @@ export const useStudentReviewDecks = () => {
 
   useEffect(() => {
     // Set initial values when component mounts or currentFlashcardIndex changes
-    reviewDecks.forEach((deck: any, i: number) => {
+    reviewDecks.forEach((deck: reviewDeckType, i: number) => {
       if (deck?.data?.rated) {
         const { question, answer, tags, questionImage, answerImage } =
           deck?.data?.rated;
@@ -142,6 +146,27 @@ export const useStudentReviewDecks = () => {
     });
   }, [currentFlashcardIndex, reviewDecks]);
 
+  const handleRatingChange = async (rating: number, id: string) => {
+    console.log(`Selected Rating: ${rating}, id: ${id}`);
+    const params = {
+      rate: rating,
+      studentId: cookies?.student?.student?._id,
+      cardId: reviewDecks?.[0]?.data?.rated?._id,
+      // cardId: reviewDecks?.[0]?.rated?._id,
+    };
+    try {
+      setRatingLoading(true);
+      let response;
+      response = await provideRateToCardApi(params, cookies?.student?.token);
+      console.log("response", response);
+    } catch (error: any) {
+      console.log("error", error);
+      showErrorToast(error?.response?.data?.message);
+    } finally {
+      setRatingLoading(false);
+    }
+  };
+
   console.log("reviewDecks", reviewDecks);
 
   return {
@@ -165,5 +190,7 @@ export const useStudentReviewDecks = () => {
     getDetails,
     reviewDecksLoading,
     key,
+    handleRatingChange,
+    ratingLoading,
   };
 };

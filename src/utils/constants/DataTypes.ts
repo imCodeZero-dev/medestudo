@@ -188,3 +188,22 @@ export interface deckData {
   __v: number;
   _id: string;
 }
+
+export interface reviewDeckType {
+  data: Ratingflashcard;
+  difficulty: number;
+  id: string;
+}
+
+export interface Ratingflashcard {
+  flashCardId: string;
+  rated: {
+    _id: string;
+    question: string;
+    questionImage: string;
+    answerImage: string;
+    answer: string;
+    deckId: string;
+    tags: Tag[];
+  };
+}

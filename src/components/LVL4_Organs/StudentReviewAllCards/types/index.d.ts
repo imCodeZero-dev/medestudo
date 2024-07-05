@@ -34,11 +34,13 @@ export type StudentReviewAllCardsProps = {
     },
     undefined
   >;
+  ratingLoading?: boolean;
   revealAnswer?: boolean;
   custom?: boolean;
   setRevealAnswer?: SetStateAction;
   mode?: "free" | "test" | "exam";
-  handleRatingChange?: (data: number) => void;
+  handleRatingChange?: any;
+  // handleRatingChange?: (data: number, id?: string) => Promise<void>;
   handleViewCardModalOpen: () => void;
   toggleBookmark?: (data: any) => void;
 };

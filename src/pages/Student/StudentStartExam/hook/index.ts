@@ -292,7 +292,6 @@ export const useStudentStartExam = () => {
     handleNextQuestion,
     handlePreviousQuestion,
     currentQuestionIndex,
-
     examQuestionsLoading,
     allQuestions,
     selectAnswer,

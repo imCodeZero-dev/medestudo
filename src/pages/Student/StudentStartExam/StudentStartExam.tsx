@@ -73,12 +73,11 @@ const StudentStartExam = ({}: StudentStartExamProps) => {
             toggleReveal={toggleReveal}
             practice={practice}
             control={control}
+            watch={watch}
             allQuestion={allQuestions}
             handleNext={handleNextQuestion}
             handlePrevious={handlePreviousQuestion}
             currentIndex={currentQuestionIndex}
-            // onSubmitEdit={onSubmitEdit}
-            // handleSubmit={handleSubmit}
             loading={examQuestionsLoading}
             revealedAnswer={revealedAnswer}
             selectAnswer={selectAnswer}

@@ -27,6 +27,7 @@ const ViewQuestionsMock: React.FC<ViewQuestionsMockProps> = ({
   finishExam,
   practice,
   toggleReveal,
+  watch,
 }) => {
   const { localeTitles, localePlaceholders, localeButtons, localeText } =
     useLocale();
@@ -87,28 +88,25 @@ const ViewQuestionsMock: React.FC<ViewQuestionsMockProps> = ({
                 localePlaceholders.PLACEHOLDER_ENTER_DETAILED_SOLUTION_HERE
               }
             />
-            <Controller
-              name={"questionImage"}
-              control={control}
-              defaultValue=""
-              key={allQuestion[currentIndex]?.question}
-              render={({ field }) => (
-                <>
-                  {/* <img
-                    className={styles["questionImage"]}
-                    src={field.value}
-                    loading="lazy"
-                  /> */}
-                  {field.value && (
-                    <ImageWithLoader
-                      src={field.value}
-                      alt="question Image"
-                      className={styles["questionImage"]}
-                    />
-                  )}
-                </>
-              )}
-            />
+            {watch("questionImage") && (
+              <Controller
+                name={"questionImage"}
+                control={control}
+                defaultValue=""
+                key={allQuestion[currentIndex]?.question}
+                render={({ field }) => (
+                  <>
+                    {field.value && (
+                      <ImageWithLoader
+                        src={field.value}
+                        alt="question Image"
+                        className={styles["questionImage"]}
+                      />
+                    )}
+                  </>
+                )}
+              />
+            )}
           </div>
 
           <div className={styles["mcq"]}>
@@ -139,13 +137,7 @@ const ViewQuestionsMock: React.FC<ViewQuestionsMockProps> = ({
                   )}
                   <div className={styles["ansAndImg"]}>
                     <p className={styles.answer}>{answer.text}</p>
-                    {/* {answer?.image && (
-                      <img
-                        className={styles["answerImg"]}
-                        src={answer.image}
-                        loading="lazy"
-                      />
-                    )} */}
+
                     {answer?.image && (
                       <ImageWithLoader
                         src={answer.image}

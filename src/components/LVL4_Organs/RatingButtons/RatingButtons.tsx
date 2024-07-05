@@ -6,6 +6,8 @@ const RatingButtons = ({
   rated,
   totalRatings,
   onRatingChange,
+  id,
+  loading,
 }: RatingButtonsProps) => {
   const [selectedRating, setSelectedRating] = useState<number | null>(
     rated ? rated : 0
@@ -13,7 +15,7 @@ const RatingButtons = ({
 
   const handleRatingClick = (rating: number) => {
     setSelectedRating(rating);
-    onRatingChange && onRatingChange(rating);
+    onRatingChange && onRatingChange(rating, id);
   };
   return (
     <div className={styles.ratingButtons}>
@@ -21,7 +23,8 @@ const RatingButtons = ({
         <button
           key={index}
           type="button"
-          className={`${styles.ratingButton} ${
+          disabled={loading}
+          className={`${loading && "animate-pulse"} ${styles.ratingButton} ${
             selectedRating === index + 1 ? styles.selected : ""
           }`}
           onClick={() => handleRatingClick(index + 1)}

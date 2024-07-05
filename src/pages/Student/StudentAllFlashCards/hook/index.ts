@@ -258,13 +258,6 @@ export const useStudentAllFlashCards = () => {
       let response;
       response = await provideRateToCardApi(params, cookies?.student?.token);
       console.log("response", response);
-      // showSuccessToast(localeSuccess?.SUCCESS_RATE);
-      // console.log(
-      //   "currentFlashcardIndex",
-      //   currentFlashcardIndex,
-      //   "flashcards length",
-      //   flashcards
-      // );
 
       if (flashcards?.length - 1 === currentFlashcardIndex) {
         if (flashcards?.length !== allFlashcards?.length) {

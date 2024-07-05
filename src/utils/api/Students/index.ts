@@ -88,7 +88,7 @@ export const getAllCustomCardsByIdApi = async (
 };
 
 export const provideRateToCardApi = async (data: any, token: string) => {
-  // console.log("provideRateToCardApi", data, "token", token);
+  console.log("provideRateToCardApi", data, "token", token);
   const response = await apiRequest({
     method: "Post",
     url: `/user/rating`,

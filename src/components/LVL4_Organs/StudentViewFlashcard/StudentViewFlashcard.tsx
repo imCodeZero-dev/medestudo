@@ -262,10 +262,6 @@ const StudentViewFlashcard: React.FC<StudentViewFlashcardProps> = ({
                       render={({ field }) => (
                         <>
                           {field.value && (
-                            // <img
-                            //   className={styles["questionImage"]}
-                            //   src={field.value}
-                            // />
                             <ImageWithLoader
                               src={field.value}
                               alt="question Image"

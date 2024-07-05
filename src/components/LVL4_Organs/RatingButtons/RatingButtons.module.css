@@ -24,26 +24,27 @@
 }
 
 .selected {
-  transform: scale(1.2);
+  transform: scale(1.3);
+  font-size: 18px;
 }
 
 .ratingButton:nth-child(1) {
-  background-color: #e67e22;
+  background-color: #cc5200;
 }
 
 .ratingButton:nth-child(2) {
-  background-color: #f39c12;
+  background-color: #ff8433;
 }
 
 .ratingButton:nth-child(3) {
-  background-color: #f1c40f;
+  background-color: #ffc299;
   /* color: #333; */
 }
 
 .ratingButton:nth-child(4) {
-  background-color: #27ae60;
+  background-color: #4ac776;
 }
 
 .ratingButton:nth-child(5) {
-  background-color: #2ecc71;
+  background-color: #1db954;
 }
