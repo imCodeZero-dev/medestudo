@@ -23,6 +23,7 @@ import {
   getAllCustomClassesApi,
   getAllQuesitonsApi,
   getReviewDecksApi,
+  restudyCardAPI,
   studentGetAllClassesApi,
 } from "../../utils/api/Students";
 
@@ -535,7 +536,8 @@ export const useAllReviewDecksQuery = (cookies: {
 }) => {
   console.log("useAllReviewDecksQuery", cookies);
   const {
-    data: { data: { ratings: reviewDecks = [] } = {} } = {},
+    // data: { data: { ratings: reviewDecks = [] } = {} } = {},
+    data: { data: { batches: [reviewDecks = []] = [] } = {} } = {} = {},
     isLoading: reviewDecksLoading,
     error: errorReviewDecks,
     refetch: refetchReviewDecks,
@@ -547,7 +549,8 @@ export const useAllReviewDecksQuery = (cookies: {
       },
     ],
     async () => {
-      return getReviewDecksApi(cookies?.student?._id, cookies?.token);
+      return restudyCardAPI(cookies?.student?._id, cookies?.token);
+      // return getReviewDecksApi(cookies?.student?._id, cookies?.token);
     },
     {
       enabled: !!cookies?.token,

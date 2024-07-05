@@ -1,6 +1,9 @@
 import apiRequest from "../../../config/axios";
 import { examForm } from "../../constants/DataTypes";
-import { constructUrlWithParams } from "../../hooks/helper";
+import {
+  constructUrlWithParams,
+  constructUrlWithParamsOccurance,
+} from "../../hooks/helper";
 
 export const studentRegistrationApi = async (data: any) => {
   // console.log("studentRegistrationApi", data);
@@ -53,7 +56,6 @@ export const studentGetAllClassesApi = async (token: string) => {
 };
 
 export const getAllDecksByIdApi = async (classId: string, token: string) => {
-  console.log("getAllDecksByIdApi", classId);
   const response = await apiRequest({
     method: "Get",
     url: `/user/allDecks/${classId}`,
@@ -352,7 +354,6 @@ export const updateStudentProfileApi = async (
   studentId: string,
   token: string
 ) => {
-  console.log("updateStudentProfileApi", data, "id", studentId);
   const response = await apiRequest({
     method: "Put",
     url: `/user/updateSettings/${studentId}`,
@@ -367,7 +368,6 @@ export const updateStudentPictureApi = async (
   studentId: string,
   token: string
 ) => {
-  console.log("updateStudentPictureApi", data, "id", studentId);
   const response = await apiRequest({
     method: "Put",
     url: `/user/updatePicture/${studentId}`,
@@ -382,11 +382,35 @@ export const resetStudentPasswordApi = async (
   studentId: string,
   token: string
 ) => {
-  console.log("resetStudentPasswordApi", data, "id", studentId);
   const response = await apiRequest({
     method: "Put",
     url: `/user/resetPassword/${studentId}`,
     data,
+    token,
+  });
+  return response;
+};
+
+export const ratingOccuranceApi = async (data: any, token: string) => {
+  const fullUrl = constructUrlWithParamsOccurance(
+    `/user/occurance?studentId=${data?.studentId}`,
+    data?.flashcards
+  );
+  console.log("ratingOccuranceApi", fullUrl);
+  const response = await apiRequest({
+    method: "get",
+    url: fullUrl,
+    data,
+    token,
+  });
+  return response;
+};
+
+export const restudyCardAPI = async (studentId: string, token: string) => {
+  console.log("restudyCardAPI", studentId);
+  const response = await apiRequest({
+    method: "get",
+    url: `/user/restudy?studentId=${studentId}`,
     token,
   });
   return response;

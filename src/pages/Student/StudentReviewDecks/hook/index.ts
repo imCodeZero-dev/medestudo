@@ -111,9 +111,9 @@ export const useStudentReviewDecks = () => {
   useEffect(() => {
     // Set initial values when component mounts or currentFlashcardIndex changes
     reviewDecks.forEach((deck: any, i: number) => {
-      if (deck?.cardId) {
+      if (deck?.data?.rated) {
         const { question, answer, tags, questionImage, answerImage } =
-          deck.cardId;
+          deck?.data?.rated;
         try {
           setKey((prevKey) => prevKey + 1);
 

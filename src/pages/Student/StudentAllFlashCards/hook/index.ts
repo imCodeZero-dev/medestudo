@@ -34,6 +34,7 @@ import {
   getAllCardsByIdApi,
   getAllCustomCardsByIdApi,
   provideRateToCardApi,
+  ratingOccuranceApi,
   removeBookmarkApi,
   startStudyingApi,
 } from "../../../../utils/api/Students";
@@ -79,6 +80,7 @@ export const useStudentAllFlashCards = () => {
   const [bookmarkLoading, setBookmarkLoading] = useState<boolean>(false);
   const [stopTimer, setStopTimer] = useState<boolean>(false);
   const [deleteLoading, setDeleteLoading] = useState<boolean>(false);
+  const [occuranceLoading, setOccuranceLoading] = useState<boolean>(false);
   const [openViewCardModal, setOpenViewCardModal] = useState<boolean>(false);
   const [allSetModal, setAllSetModal] = useState<boolean>(false);
   const [checkpointModal, setCheckpointModal] = useState<boolean>(false);
@@ -89,6 +91,7 @@ export const useStudentAllFlashCards = () => {
   const navigate = useNavigate();
   const [currentFlashcardIndex, setCurrentFlashcardIndex] = useState(0);
   const [flashcards, setFlashcards] = useState<flashcardData[]>([]);
+  const [batchflashcardId, setBatchflashcardId] = useState<string[]>([]);
   const [currentBatchIndex, setCurrentBatchIndex] = useState(0);
   const BATCH_SIZE = 10;
   const [allFlashcardsLoaded, setAllFlashcardsLoaded] = useState(false);
@@ -111,6 +114,7 @@ export const useStudentAllFlashCards = () => {
     setAllSetModal(false);
   };
   const handleAllSetModalOpen = () => {
+    callOccuranceAPI();
     setAllSetModal(true);
   };
   const handleCheckpointModalClose = () => {
@@ -181,7 +185,7 @@ export const useStudentAllFlashCards = () => {
     ? allFlashcardsData?.data?.cards || []
     : allFlashcardsData?.data?.cards || [];
 
-  // console.log("allFlashcards", allFlashcards);
+  console.log("allFlashcards", allFlashcards);
 
   const {
     data: { data: { Deck: deckDetails = [] } = {} } = {},
@@ -418,22 +422,53 @@ export const useStudentAllFlashCards = () => {
 
   const loadInitialFlashcards = () => {
     const initialBatch = allFlashcards.slice(0, BATCH_SIZE);
+    const currentBatchID = initialBatch?.map(({ _id }: any) => _id);
+    setBatchflashcardId(currentBatchID);
     setFlashcards(initialBatch);
+
     setCurrentBatchIndex(0);
     setCurrentFlashcardIndex(0);
     setAllFlashcardsLoaded(allFlashcards.length <= BATCH_SIZE);
   };
 
+  // console.log("batchflashcardId", batchflashcardId);
+
   const loadMoreFlashcards = () => {
     const startIndex = (currentBatchIndex + 1) * BATCH_SIZE;
     const endIndex = startIndex + BATCH_SIZE;
     const newBatch = allFlashcards.slice(startIndex, endIndex);
+    const currentBatchID = newBatch?.map(({ _id }: any) => _id);
+    setBatchflashcardId(currentBatchID);
 
     setFlashcards(newBatch);
     setCurrentBatchIndex((prevIndex) => prevIndex + 1);
     setCurrentFlashcardIndex(0); // Reset to the first card in the new batch
     handleCheckpointModalClose();
     setAllFlashcardsLoaded(newBatch.length < BATCH_SIZE);
+    callOccuranceAPI();
+  };
+
+  const callOccuranceAPI = async () => {
+    try {
+      setOccuranceLoading(true);
+      let response;
+      response = await ratingOccuranceApi(
+        {
+          studentId: cookies?.student?.student?._id,
+          flashcards: batchflashcardId,
+        },
+        cookies?.student?.token
+      );
+      console.log("response", response);
+      // showSuccessToast(localeSuccess?.SUCCESS_FLASH_DELETED);
+      // refetchAllFlashcards();
+      // navigate(-1);
+    } catch (error: any) {
+      console.log("error", error);
+      showErrorToast(error?.response?.data?.message);
+    } finally {
+      setOccuranceLoading(false);
+    }
   };
 
   const getTotalTime = (time?: number) => {

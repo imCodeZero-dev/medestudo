@@ -140,6 +140,15 @@ export const constructUrlWithParams = (baseUrl: string, array: string[]) => {
   return `${baseUrl}?${params}`;
 };
 
+export const constructUrlWithParamsOccurance = (
+  baseUrl: string,
+  array: string[]
+) => {
+  // const params = array.map((item) => `${item},`).join("&");
+  const params = array.join(",");
+  return `${baseUrl}&flashCardId=${params}`;
+};
+
 export function formattedTime(seconds: number) {
   if (seconds < 60) {
     return `${seconds} ${seconds === 1 ? "sec" : "secs"}`;
