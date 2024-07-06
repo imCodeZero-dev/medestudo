@@ -12,10 +12,7 @@ import { useCookies } from "react-cookie";
 import { useQuery } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
 import { closeModal } from "../../../../redux/slices/CreateClassModalSlice";
-import {
-  professorResetPasswordApi,
-  professorUpdateProfilePictureApi,
-} from "../../../../utils/api/admin";
+
 import { uploadImageToCloudinary } from "../../../../utils/hooks/helper";
 import { passwordValidationSchema } from "../../../../utils/hooks/inputValidation";
 import {
@@ -72,23 +69,21 @@ export const useStudentSettings = () => {
     defaultValues: {},
   });
 
-  const [createLoading, setCreateLoading] = useState<boolean>(false);
   const [generalLoading, setGeneralLoading] = useState<boolean>(false);
   const [profilePicLoading, setProfilePicLoading] = useState<boolean>(false);
   const [passwordLoading, setPasswordLoading] = useState<boolean>(false);
 
-  // const openCreate = useSelector((state: any) => state.modal.isOpen);
-
-  const handleCloseCreate = () => {
-    dispatch(closeModal());
-  };
-
   const onSubmitGeneral = async (data: any) => {
     console.log("params", data);
+    // const params = {
+    //   name: data?.name,
+    //   username: data?.username,
+    //   location: JSON.parse(data?.location).name,
+    // };
     const params = {
       name: data?.name,
       username: data?.username,
-      location: JSON.parse(data?.location).name,
+      location: data?.location,
     };
     console.log("params", params);
 

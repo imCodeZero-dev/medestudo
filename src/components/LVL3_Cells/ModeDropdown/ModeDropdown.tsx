@@ -56,7 +56,7 @@ const ModeDropdown: React.FC<ModeDropdownProps> = ({ setMode, mode }) => {
   return (
     <div className={styles["ModeDropdown"]}>
       <div className={styles[""]} onClick={(e: any) => handleClick(e)}>
-        <div className="bg-white flex items-center space-x-2 p-2 rounded-lg">
+        <div className="bg-white flex items-center space-x-2 p-2 rounded-lg cursor-pointer">
           <IoSettingsSharp size={16} />
           <Text>
             {currentButton ? currentButton.label : localeLables.LABEL_FREE_MODE}

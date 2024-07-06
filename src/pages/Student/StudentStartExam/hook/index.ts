@@ -85,6 +85,7 @@ export const useStudentStartExam = () => {
   const [createResultModal, setCreateResultModal] = useState<boolean>(false);
   const [createLoading, setCreateLoading] = useState<boolean>(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
+  const [countdown, setCountdown] = useState<number>(5); // Initialize with the desired time in seconds
 
   // console.log("AllQuestion Exams", location);
   // console.log("pathName", pathName);
@@ -92,7 +93,7 @@ export const useStudentStartExam = () => {
   const practice = pathName?.includes("practice");
   // console.log("practice", practice);
   // console.log("AllQuestion Exams", examDetails);
-  const questionTime = location?.questionsTime * 5;
+  const questionTime = location?.totalQuestions * 5;
   const params = {
     totalQuestions: location?.totalQuestions,
     year: location?.selectedYears,
@@ -107,6 +108,9 @@ export const useStudentStartExam = () => {
     errorallQuestions,
     refetchallQuestions,
   } = useallQuestionsQuery(cookies, params, location);
+  useEffect(() => {
+    setCountdown(questionTime);
+  }, [questionTime]);
 
   // console.log("allQuestions params", params);
   // console.log("allQuestions", allQuestions);
@@ -259,6 +263,26 @@ export const useStudentStartExam = () => {
       setTotalTime(time);
     }
   };
+  // useEffect(() => {
+  //   console.log("questionTime");
+  //   if (questionTime === 0) {
+  //     finishExam();
+  //   }
+  // }, [questionTime]);
+
+  useEffect(() => {
+    if (!practice) {
+      if (countdown > 0) {
+        const timer = setInterval(() => {
+          setCountdown((prevTime) => prevTime - 1);
+        }, 1000);
+
+        return () => clearInterval(timer); // Cleanup the interval on component unmount
+      } else {
+        finishExam();
+      }
+    }
+  }, [countdown]);
 
   const finishExam = () => {
     getTotalTime();

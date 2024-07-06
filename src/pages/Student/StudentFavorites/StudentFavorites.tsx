@@ -18,6 +18,8 @@ import { StudentRoutes } from "../../../Routes/protectedRoutes/StudentRoutes";
 import StudentViewFlashcard from "../../../components/LVL4_Organs/StudentViewFlashcard/StudentViewFlashcard";
 import ViewCardModal from "../../../components/LVL4_Organs/ViewCardModal/ViewCardModal";
 import { useStudentFavorites } from "./hook";
+import ImageWithLoader from "../../../components/LVL2_Molecules/ImageWithLoader/Image";
+import NoCardMsg from "../../../components/LVL2_Molecules/NoCardMsg/NoCardMsg";
 
 const StudentFavorites = ({}: StudentFavoritesProps) => {
   const { localeTitles, localeButtons, localeLables } = useLocale();
@@ -55,23 +57,27 @@ const StudentFavorites = ({}: StudentFavoritesProps) => {
     <HomeLayout>
       <div className={styles["StudentFavorites"]}>
         <div className={styles["StudentFavorites-main"]}>
-          <StudentViewFlashcard
-            key={key}
-            handleViewCardModalOpen={handleViewCardModalOpen}
-            currentFlashcardIndex={currentFlashcardIndex}
-            allFlashcards={bookmarkCards}
-            control={control}
-            setValue={setValue}
-            allTags={allTags}
-            tags={tags}
-            handleNextFlashcard={handleNextFlashcard}
-            handlePreviousFlashcard={handlePreviousFlashcard}
-            handleSubmit={handleSubmit}
-            loading={bookmarkCardsLoading}
-            custom={false}
-            toggleBookmark={toggleBookmark}
-            revealAnswer
-          />
+          {bookmarkCards?.length > 0 ? (
+            <StudentViewFlashcard
+              key={key}
+              handleViewCardModalOpen={handleViewCardModalOpen}
+              currentFlashcardIndex={currentFlashcardIndex}
+              allFlashcards={bookmarkCards}
+              control={control}
+              setValue={setValue}
+              allTags={allTags}
+              tags={tags}
+              handleNextFlashcard={handleNextFlashcard}
+              handlePreviousFlashcard={handlePreviousFlashcard}
+              handleSubmit={handleSubmit}
+              loading={bookmarkCardsLoading}
+              custom={false}
+              toggleBookmark={toggleBookmark}
+              revealAnswer
+            />
+          ) : (
+            <NoCardMsg msg=" No cards yet, please bookmark some" />
+          )}
         </div>
 
         <div className={styles["StudentFavorites-right"]}>

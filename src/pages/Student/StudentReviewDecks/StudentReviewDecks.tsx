@@ -14,6 +14,7 @@ import { StudentRoutes } from "../../../Routes/protectedRoutes/StudentRoutes";
 import ViewCardModal from "../../../components/LVL4_Organs/ViewCardModal/ViewCardModal";
 import { useStudentReviewDecks } from "./hook";
 import StudentReviewAllCards from "../../../components/LVL4_Organs/StudentReviewAllCards/StudentReviewAllCards";
+import NoCardMsg from "../../../components/LVL2_Molecules/NoCardMsg/NoCardMsg";
 
 const StudentReviewDecks = ({}: StudentReviewDecksProps) => {
   const { localeTitles, localeButtons, localeLables } = useLocale();
@@ -51,25 +52,29 @@ const StudentReviewDecks = ({}: StudentReviewDecksProps) => {
     <HomeLayout>
       <div className={styles["StudentReviewDecks"]}>
         <div className={styles["StudentReviewDecks-main"]}>
-          <StudentReviewAllCards
-            handleViewCardModalOpen={handleViewCardModalOpen}
-            currentFlashcardIndex={currentFlashcardIndex}
-            allFlashcards={reviewDecks}
-            control={control}
-            setValue={setValue}
-            allTags={allTags}
-            tags={tags}
-            handleNextFlashcard={handleNextFlashcard}
-            handlePreviousFlashcard={handlePreviousFlashcard}
-            handleSubmit={handleSubmit}
-            loading={reviewDecksLoading}
-            custom={false}
-            handleRatingChange={handleRatingChange}
-            ratingLoading={ratingLoading}
-            // toggleBookmark={toggleBookmark}
-            revealAnswer
-            key={key}
-          />
+          {reviewDecks?.length > 0 ? (
+            <StudentReviewAllCards
+              handleViewCardModalOpen={handleViewCardModalOpen}
+              currentFlashcardIndex={currentFlashcardIndex}
+              allFlashcards={reviewDecks}
+              control={control}
+              setValue={setValue}
+              allTags={allTags}
+              tags={tags}
+              handleNextFlashcard={handleNextFlashcard}
+              handlePreviousFlashcard={handlePreviousFlashcard}
+              handleSubmit={handleSubmit}
+              loading={reviewDecksLoading}
+              custom={false}
+              handleRatingChange={handleRatingChange}
+              ratingLoading={ratingLoading}
+              // toggleBookmark={toggleBookmark}
+              revealAnswer
+              key={key}
+            />
+          ) : (
+            <NoCardMsg msg="No cards yet, please review some" />
+          )}
         </div>
 
         <div className={styles["StudentReviewDecks-right"]}>

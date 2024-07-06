@@ -95,6 +95,7 @@ export const useStudentMockExams = () => {
     );
     setQuestionsTime(getTotalTime);
     setValue("time", formattedTime(getTotalTime * 5));
+
     setValue("totalQuestions", getTotalTime);
   }, [allExams]);
 
@@ -113,7 +114,6 @@ export const useStudentMockExams = () => {
         selectedExamTypes,
         totalQuestions: watch("totalQuestions"),
         time: watch("time"),
-        questionsTime,
       },
     });
   };
