@@ -204,7 +204,7 @@ const StudentPracticeExams = ({}: StudentPracticeExamsProps) => {
                   control={control}
                   name="filter_subject"
                   value={selectedSubjects}
-                  placeholder="Select Subjects..."
+                  placeholder="All Subjects"
                   clearAll={clearAllSubjects}
                 />
               </div>
@@ -214,7 +214,7 @@ const StudentPracticeExams = ({}: StudentPracticeExamsProps) => {
                   control={control}
                   name="filter_year"
                   value={selectedYears}
-                  placeholder="Select Year..."
+                  placeholder="All Years"
                   clearAll={clearAllYears}
                 />
               </div>
@@ -226,7 +226,7 @@ const StudentPracticeExams = ({}: StudentPracticeExamsProps) => {
                   control={control}
                   name="filter_institutes"
                   value={selectedInstitutes}
-                  placeholder="Select Institutes..."
+                  placeholder="All Institutes"
                   clearAll={clearAllInstitutes}
                 />
               </div>
@@ -238,7 +238,7 @@ const StudentPracticeExams = ({}: StudentPracticeExamsProps) => {
                   control={control}
                   name="filter_examType"
                   value={selectedExamTypes}
-                  placeholder="Select Exam Types..."
+                  placeholder="All Exams"
                   clearAll={clearAllExamTypes}
                 />
               </div>

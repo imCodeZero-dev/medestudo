@@ -50,6 +50,7 @@ const StudentStartExam = ({}: StudentStartExamProps) => {
     allQuestionControl,
     practice,
     toggleReveal,
+    questionTime,
   } = useStudentStartExam();
   // console.log("allDecks", allDecks);
   const navigate = useNavigate();
@@ -68,6 +69,7 @@ const StudentStartExam = ({}: StudentStartExamProps) => {
             getTotalTime={getTotalTime}
             stopTimer={stopTimer}
             practice={practice}
+            questionTime={questionTime}
           />
           <ViewQuestionsMock
             toggleReveal={toggleReveal}
@@ -114,6 +116,7 @@ const StudentStartExam = ({}: StudentStartExamProps) => {
         />
 
         <ResultDrawer
+          selectedAnswer={selectedAnswer}
           questions={allQuestions}
           isOpen={isDrawerOpen}
           onClose={handleCloseDrawer}

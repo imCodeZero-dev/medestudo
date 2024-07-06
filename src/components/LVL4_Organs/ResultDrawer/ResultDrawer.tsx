@@ -12,6 +12,7 @@ const ResultDrawer = ({
   isOpen,
   onClose,
   control,
+  selectedAnswer,
 }: // showReasoning,
 ResultDrawerProps) => {
   const [showReasoning, setShowReasoning] = useState<boolean[]>(
@@ -80,7 +81,7 @@ ResultDrawerProps) => {
           {questions.map((question: any, index: number) => (
             <div key={index} className={styles.questionBlock}>
               <div className="flex justify-between items-center">
-                <h3>Q{index + 1}</h3>
+                <h3 className="text-lg font-bold">Q{index + 1}</h3>
 
                 <Button
                   className={
@@ -166,18 +167,22 @@ ResultDrawerProps) => {
               </div> */}
 
               {showReasoning[index] && (
-                <div className={styles["mcq"]}>
-                  {question?.answers?.map((answer: any, index: number) => (
-                    <div className={styles["mcqsDiv"]} key={index}>
+                <div className={`${styles["mcq"]} `}>
+                  {question?.answers?.map((answer: any, ind: number) => (
+                    <div className={styles["mcqsDiv"]} key={ind}>
+                    
                       <div className="flex items-center">
                         <p
-                          className={
+                          className={`${
                             answer.isCorrect
                               ? styles.correctOption
                               : styles.incorrectOption
-                          }
+                          } ${
+                            selectedAnswer?.[index]?.text === answer.text &&
+                            styles.selectedAns
+                          }`}
                         >
-                          {String.fromCharCode(65 + index)}
+                          {String.fromCharCode(65 + ind)}
                         </p>
                         <p className={styles.answer}>{answer.text}</p>
                       </div>
@@ -189,7 +194,7 @@ ResultDrawerProps) => {
                         }
                       >
                         <p className={styles.optionTextLabe}>
-                          {`Option ${String.fromCharCode(65 + index)}`}
+                          {`Option ${String.fromCharCode(65 + ind)}`}
                           <span className={styles.optionText}>
                             {" "}
                             {answer.reason}

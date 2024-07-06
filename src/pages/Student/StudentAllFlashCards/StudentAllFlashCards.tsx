@@ -91,11 +91,14 @@ const StudentAllFlashCards = ({}: StudentAllFlashCardsProps) => {
     key,
     revealAnswer,
     setRevealAnswer,
+    confidenceLevel,
   } = useStudentAllFlashCards();
   // console.log("allDecks", allDecks);
   const navigate = useNavigate();
   const { localeText } = useLocale();
-  const [activeSection, setActiveSection] = useState("thisRound");
+  const [activeSection, setActiveSection] = useState(
+    mode === "exam" ? "thisRound" : "overall"
+  );
   const [currentStep, setCurrentStep] = useState(2); // Example current step
   const totalSteps = allFlashcards?.length;
   // const [seconds, setSeconds] = useState(0);
@@ -197,18 +200,20 @@ const StudentAllFlashCards = ({}: StudentAllFlashCardsProps) => {
                     variant="contained"
                     aria-label="Basic button group"
                   >
-                    <Button
-                      className={
-                        styles[
-                          activeSection === "thisRound"
-                            ? "yellowButton"
-                            : "secondaryBtn"
-                        ]
-                      }
-                      onClick={() => setActiveSection("thisRound")}
-                    >
-                      {localeButtons.BUTTON_THIS_ROUND}
-                    </Button>
+                    {mode === "exam" && (
+                      <Button
+                        className={
+                          styles[
+                            activeSection === "thisRound"
+                              ? "yellowButton"
+                              : "secondaryBtn"
+                          ]
+                        }
+                        onClick={() => setActiveSection("thisRound")}
+                      >
+                        {localeButtons.BUTTON_THIS_ROUND}
+                      </Button>
+                    )}
                     <Button
                       className={
                         styles[
@@ -227,7 +232,10 @@ const StudentAllFlashCards = ({}: StudentAllFlashCardsProps) => {
               {activeSection === "thisRound" ? (
                 <>
                   <div className={styles["guageBox"]}>
-                    <GuageChart colors={["#FF900E", "#ca6b89", "#9747FF"]} />
+                    <GuageChart
+                      colors={["#FF900E", "#ca6b89", "#9747FF"]}
+                      percent={confidenceLevel}
+                    />
                   </div>
 
                   <div>

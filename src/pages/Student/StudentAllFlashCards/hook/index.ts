@@ -26,7 +26,10 @@ import {
   Tag,
   flashcardData,
 } from "../../../../utils/constants/DataTypes";
-import { uploadImageToCloudinary } from "../../../../utils/hooks/helper";
+import {
+  calculateConfidenceLevel,
+  uploadImageToCloudinary,
+} from "../../../../utils/hooks/helper";
 import {
   BookmarkApi,
   deleteCustomFlashcardApi,
@@ -93,6 +96,7 @@ export const useStudentAllFlashCards = () => {
   const [flashcards, setFlashcards] = useState<flashcardData[]>([]);
   const [batchflashcardId, setBatchflashcardId] = useState<string[]>([]);
   const [currentBatchIndex, setCurrentBatchIndex] = useState(0);
+  const [confidenceLevel, setConfidenceLevel] = useState(0);
   const BATCH_SIZE = 10;
   const [allFlashcardsLoaded, setAllFlashcardsLoaded] = useState(false);
   const [revealAnswer, setRevealAnswer] = useState(false);
@@ -263,6 +267,7 @@ export const useStudentAllFlashCards = () => {
         if (flashcards?.length !== allFlashcards?.length) {
           getTotalTime();
           handleCheckpointModalOpen();
+          setConfidenceLevel;
         } else {
           handleAllSetModalOpen();
         }
@@ -270,14 +275,13 @@ export const useStudentAllFlashCards = () => {
         handleNextFlashcard();
       }
 
-      // refetchallFlashcards();
-      // navigate(-1);
+      const calculate = calculateConfidenceLevel(rating, flashcards?.length);
+      setConfidenceLevel((prev) => prev + calculate);
     } catch (error: any) {
       console.log("error", error);
       showErrorToast(error?.response?.data?.message);
     } finally {
       setDeleteLoading(false);
-      // handleDeleteClose();
     }
   };
 
@@ -526,6 +530,7 @@ export const useStudentAllFlashCards = () => {
     key,
     revealAnswer,
     setRevealAnswer,
+    confidenceLevel,
     // setgetTotalTime,
   };
 };

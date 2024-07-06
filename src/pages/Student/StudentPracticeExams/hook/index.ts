@@ -128,6 +128,10 @@ export const useStudentPracticeExams = () => {
     setValue("filter_year", "");
     setValue("filter_institute", "");
     setValue("filter_title", "");
+    clearAllYears();
+    clearAllSubjects();
+    clearAllInstitutes();
+    clearAllExamTypes();
   };
 
   const clearAllYears = () => {

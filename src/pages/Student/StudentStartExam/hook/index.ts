@@ -22,7 +22,11 @@ import {
   useExamQuestionsQuery,
   useallQuestionsQuery,
 } from "../../../../redux/slices/APISlice";
-import { Flashcard, Tag } from "../../../../utils/constants/DataTypes";
+import {
+  Flashcard,
+  SelectedAnswersType,
+  Tag,
+} from "../../../../utils/constants/DataTypes";
 import { examCardData } from "../../../../components/LVL3_Cells/DashboardExams/@types";
 import {
   createResultApi,
@@ -74,7 +78,7 @@ export const useStudentStartExam = () => {
   const examDetails = location?.examsDetails;
   const [resultModal, setResultModal] = useState<boolean>(false);
   const [revealedAnswer, setRevealedAnswer] = useState<boolean>(false);
-  const [selectedAnswer, setSelectedAnswer] = useState<any>();
+  const [selectedAnswer, setSelectedAnswer] = useState<SelectedAnswersType>();
   const [totalMarks, setTotalMarks] = useState<number>(0);
   const [totalTime, setTotalTime] = useState<number>(0);
   const [stopTimer, setStopTimer] = useState<boolean>(false);
@@ -88,7 +92,7 @@ export const useStudentStartExam = () => {
   const practice = pathName?.includes("practice");
   // console.log("practice", practice);
   // console.log("AllQuestion Exams", examDetails);
-
+  const questionTime = location?.questionsTime * 5;
   const params = {
     totalQuestions: location?.totalQuestions,
     year: location?.selectedYears,
@@ -153,7 +157,7 @@ export const useStudentStartExam = () => {
   } = useExamQuestionsQuery(cookies, examId as string);
 
   const handleNextQuestion = () => {
-    setSelectedAnswer(null);
+    // setSelectedAnswer(null);
     setRevealedAnswer(false);
     setCurrentQuestionIndex((prevIndex) =>
       prevIndex < allQuestions?.length - 1 ? prevIndex + 1 : prevIndex
@@ -170,13 +174,14 @@ export const useStudentStartExam = () => {
   };
 
   const selectAnswer = (data: any) => {
-    console.log("selectAnswers", data);
-
-    setSelectedAnswer(data);
+    // console.log("selectAnswers", data);
+    const selectedAns = { ...selectedAnswer, [currentQuestionIndex]: data };
+    setSelectedAnswer(selectedAns);
   };
+  // console.log("setelectedAnswer", selectedAnswer);
 
   const respondToNext = () => {
-    if (selectedAnswer?.isCorrect) {
+    if (selectedAnswer?.[currentQuestionIndex]?.isCorrect) {
       setTotalMarks((prevMarks) => prevMarks + 1);
     } else {
       setTotalMarks((prevMarks) => prevMarks + 0);
@@ -214,13 +219,13 @@ export const useStudentStartExam = () => {
         console.error("Error decoding base64 string:", error);
       }
     }
-    console.log("allQuestions useEffect", allQuestions[currentQuestionIndex]);
+    // console.log("allQuestions useEffect", allQuestions[currentQuestionIndex]);
   }, [currentQuestionIndex, allQuestions]);
   useEffect(() => {
     allQuestions.forEach((deck: any, i: number) => {
       // if (deck?.question) {
       const { question, answer, tags, questionImage, answerImage } = deck;
-      console.log("allQuestions for Each", answer);
+      // console.log("allQuestions for Each", answer);
       try {
         const decodedQuestion = atob(question);
         // const decodedAnswer = atob(answer);
@@ -248,7 +253,7 @@ export const useStudentStartExam = () => {
   }, [allQuestions]);
 
   const getTotalTime = (time?: number) => {
-    console.log("totaltime", time);
+    // console.log("totaltime", time);
     setStopTimer(true);
     if (time) {
       setTotalTime(time);
@@ -316,5 +321,6 @@ export const useStudentStartExam = () => {
     allQuestionControl,
     practice,
     toggleReveal,
+    questionTime,
   };
 };

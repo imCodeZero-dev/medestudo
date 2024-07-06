@@ -75,12 +75,15 @@ font-family: Poppins; */
   padding: 10px;
   border-radius: 50%;
 }
-
+.selectedAns {
+  border: 2px solid #0030dd;
+}
 .selected {
-  color: white;
+  /* color: white; */
   border: 1px solid #0030dd;
   padding: 10px;
   border-radius: 50%;
+  background-color: #e3f2fd;
 }
 
 .closeButton {
@@ -95,12 +98,16 @@ font-family: Poppins; */
 }
 
 .content {
-  padding: 1rem;
-  background-color: #f8fbff;
+  /* padding: 1rem; */
+  background-color: white;
 }
 
 .questionBlock {
   margin-bottom: 1.5rem;
+  background-color: #f8fbff;
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
 .options {
@@ -117,10 +124,6 @@ font-family: Poppins; */
 
 .option span {
   margin-right: 0.5rem;
-}
-
-.selected {
-  background-color: #e3f2fd;
 }
 
 .correct {
@@ -166,8 +169,8 @@ font-family: Poppins; */
   align-items: flex-start;
   row-gap: 16px;
   overflow-y: auto;
+  transition: all 1s ease-out;
 }
-
 
 .answer {
   margin-left: 10px;

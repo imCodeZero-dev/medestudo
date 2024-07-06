@@ -113,6 +113,7 @@ export const useStudentMockExams = () => {
         selectedExamTypes,
         totalQuestions: watch("totalQuestions"),
         time: watch("time"),
+        questionsTime,
       },
     });
   };
@@ -130,6 +131,10 @@ export const useStudentMockExams = () => {
     setValue("filter_year", "");
     setValue("filter_institute", "");
     setValue("filter_title", "");
+    clearAllYears();
+    clearAllSubjects();
+    clearAllInstitutes();
+    clearAllExamTypes();
   };
 
   const clearAllYears = () => {

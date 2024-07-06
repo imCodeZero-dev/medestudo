@@ -207,3 +207,12 @@ export interface Ratingflashcard {
     tags: Tag[];
   };
 }
+
+interface Answer {
+  image: string | null;
+  isCorrect: boolean;
+  reason: string;
+  text: string;
+}
+
+export type SelectedAnswersType = { [key: number]: Answer };

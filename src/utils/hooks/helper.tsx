@@ -221,3 +221,12 @@ export const scrollToExploreFlashcards = (navigate: any) => {
       ?.scrollIntoView({ behavior: "smooth" });
   }
 };
+
+export const calculateConfidenceLevel = (
+  rating: number,
+  totalFlashcards: number
+): number => {
+  const percentage = ((rating / 5) * 100) / 100;
+
+  return percentage / totalFlashcards;
+};

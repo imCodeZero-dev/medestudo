@@ -127,7 +127,7 @@ const ViewQuestionsMock: React.FC<ViewQuestionsMockProps> = ({
                     <p
                       onClick={() => selectAnswer(answer)}
                       className={
-                        selectedAnswer === answer
+                        selectedAnswer?.[currentIndex] === answer
                           ? styles.selectedOption
                           : styles.notSelectedOption
                       }

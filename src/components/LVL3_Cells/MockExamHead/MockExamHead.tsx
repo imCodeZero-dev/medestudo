@@ -14,12 +14,14 @@ const MockExamHead: React.FC<MockExamHeadProps> = ({
   getTotalTime,
   stopTimer,
   practice,
+  questionTime,
 }) => {
+  console.log('questionTime',questionTime)
   // const { localeText, localeDropdowns } = useLocale();
   const { localeText, localeButtons } = useLocale();
   const { isDropdownOpen, toggleDropdown, dropdownRef } = useDropdown();
   const totalPages = totalQuestions;
-  const [timeLeft, setTimeLeft] = useState(practice ? 0 : 30 * 60);
+  const [timeLeft, setTimeLeft] = useState(practice ? 0 : questionTime);
 
   useEffect(() => {
     if (!stopTimer) {

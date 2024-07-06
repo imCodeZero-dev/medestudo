@@ -4,9 +4,9 @@ import { GuageChartProps } from "./types";
 import GaugeChart from "react-gauge-chart";
 import Text from "../../LVL1_Atoms/Text/Text";
 
-const GuageChart = ({ colors }: GuageChartProps) => {
+const GuageChart = ({ colors, percent }: GuageChartProps) => {
   return (
-    <div className={styles['GuageChart']}>
+    <div className={styles["GuageChart"]}>
       {" "}
       <GaugeChart
         style={{ width: "100%" }}
@@ -14,7 +14,7 @@ const GuageChart = ({ colors }: GuageChartProps) => {
         nrOfLevels={3}
         colors={colors}
         arcWidth={0.3}
-        percent={0.47}
+        percent={percent}
         needleColor="#0026B1"
         needleBaseColor="#0026B1"
         textColor={"black"}

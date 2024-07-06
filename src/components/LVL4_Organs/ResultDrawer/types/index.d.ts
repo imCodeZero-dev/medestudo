@@ -1,4 +1,5 @@
 import { Control } from "react-hook-form";
+import { SelectedAnswersType } from "../../../../utils/constants/DataTypes";
 
 export type ResultDrawerProps = {
   questions: any;
@@ -6,6 +7,7 @@ export type ResultDrawerProps = {
   isOpen: boolean;
   onClose: () => void;
   control: Control<any>;
+  selectedAnswer: SelectedAnswersType | undefined;
 };
 
 interface Question {
