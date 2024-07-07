@@ -66,25 +66,23 @@ export const useStudentFlashcardsExplore = () => {
     if (isChecked) {
       deck.forEach((dck: any) => {
         selectedClasses.push(dck);
-      });
 
-      setSelectedClasses([...selectedClasses]);
+        setSelectedClasses([...selectedClasses]);
+      });
     } else {
       const updatedSelectedClasses = selectedClasses.filter(
+        (selectedClass: any) => !deck.some((d: any) => d === selectedClass)
+      );
+      const removeFromDeck = selectedDecks.filter(
         (selectedClass: any) =>
           !deck.some((d: any) => d._id === selectedClass._id)
       );
 
       setSelectedClasses([...updatedSelectedClasses]);
+      setSelectedDecks([...removeFromDeck]);
     }
   };
-  // useEffect(() => {
-  //   console.log("selectedClasses", selectedClasses);
-  // }, [selectedClasses]);
-  // useEffect(() => {
-  //   console.log("selectedDecks", selectedDecks);
-  // }, [selectedDecks]);
-  // setSelectedDecks([...selectedDecks, selected]);
+
 
   const handleCheckboxDecks = (isChecked: boolean, deck: any) => {
     if (isChecked) {

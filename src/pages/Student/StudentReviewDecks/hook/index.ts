@@ -91,12 +91,12 @@ export const useStudentReviewDecks = () => {
 
   const toggleBookmark = async (data: any) => {
     console.log("toggleBookmark", data);
+    setBookmarkLoading(true);
     const params = {
       studentId: cookies?.student?.student?._id,
       cardId: data?._id,
     };
     try {
-      setBookmarkLoading(true);
       let response;
       response = await BookmarkApi(params, cookies?.student?.token);
       console.log("response", response);
@@ -192,5 +192,6 @@ export const useStudentReviewDecks = () => {
     key,
     handleRatingChange,
     ratingLoading,
+    bookmarkLoading,
   };
 };

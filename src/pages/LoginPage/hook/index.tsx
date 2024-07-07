@@ -187,23 +187,30 @@ export const useLoginPage = () => {
       if (professorPanel) {
         response = await professorLoginApi(params);
         console.log("response", response);
+        if (response?.data?.professor?.status === "active") {
+          dispatch(loginProfessor(response?.data));
+          setCookie("professor", response?.data, { maxAge: 86400 });
+          showSuccessToast("Login Successfully");
 
-        dispatch(loginProfessor(response?.data));
-        setCookie("professor", response?.data, { maxAge: 86400 });
-        showSuccessToast("Login Successfully");
-
-        navigate("/professor");
+          navigate("/professor");
+        } else {
+          showErrorToast("Your Account has been disabled");
+        }
       } else {
         response = await studentLoginApi(params);
         console.log("response", response);
 
-        dispatch(loginProfessor(response?.data));
-        setCookie("student", response?.data, { maxAge: 86400 });
-        showSuccessToast("Login Successfully");
-        if (response?.data?.student?.importantQuestions) {
-          navigate("/student/");
+        if (response?.data?.student?.status === "active") {
+          dispatch(loginProfessor(response?.data));
+          setCookie("student", response?.data, { maxAge: 86400 });
+          showSuccessToast("Login Successfully");
+          if (response?.data?.student?.importantQuestions) {
+            navigate("/student/");
+          } else {
+            navigate("/student/survey");
+          }
         } else {
-          navigate("/student/survey");
+          showErrorToast("Your Account has been disabled");
         }
       }
     } catch (error: any) {

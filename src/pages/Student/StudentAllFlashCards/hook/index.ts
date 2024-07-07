@@ -97,6 +97,7 @@ export const useStudentAllFlashCards = () => {
   const [batchflashcardId, setBatchflashcardId] = useState<string[]>([]);
   const [currentBatchIndex, setCurrentBatchIndex] = useState(0);
   const [confidenceLevel, setConfidenceLevel] = useState(0);
+  const [rateArray, setRateArray] = useState<Number[]>([]);
   const BATCH_SIZE = 10;
   const [allFlashcardsLoaded, setAllFlashcardsLoaded] = useState(false);
   const [revealAnswer, setRevealAnswer] = useState(false);
@@ -277,6 +278,8 @@ export const useStudentAllFlashCards = () => {
 
       const calculate = calculateConfidenceLevel(rating, flashcards?.length);
       setConfidenceLevel((prev) => prev + calculate);
+      rateArray.push(rating);
+      setRateArray([...rateArray]);
     } catch (error: any) {
       console.log("error", error);
       showErrorToast(error?.response?.data?.message);
@@ -531,6 +534,8 @@ export const useStudentAllFlashCards = () => {
     revealAnswer,
     setRevealAnswer,
     confidenceLevel,
+    bookmarkLoading,
+    rateArray,
     // setgetTotalTime,
   };
 };

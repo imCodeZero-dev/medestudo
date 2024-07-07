@@ -82,13 +82,14 @@ const ExpandableFlashcard: React.FC<ExpandableFlashcardProps> = ({
             <>
               <input
                 type="checkbox"
-                checked={subDecks?.every((subDeck: any) =>
-                  // checked={data?.every((subDeck: any) =>
-                  selectedDecks?.some(
-                    (selectedDeck: any) => selectedDeck._id === subDeck?._id
+                checked={
+                  subDecks?.length > 0 &&
+                  subDecks?.every((subDeck: any) =>
+                    selectedDecks?.some(
+                      (selectedDeck: any) => selectedDeck._id === subDeck?._id
+                    )
                   )
-                )}
-                // id={data?.deckId?._id}
+                }
                 onChange={(e) => {
                   const isChecked = e.target.checked;
                   onChange(isChecked);

@@ -9,6 +9,7 @@ import { SetStateAction } from "react";
 // import { SetStateAction } from "react";
 
 export type StudentViewFlashcardProps = {
+  bookmarkLoading?: boolean;
   loading: boolean;
   editLoading?: boolean;
   currentFlashcardIndex: number;

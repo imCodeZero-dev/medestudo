@@ -204,5 +204,6 @@ export const useStudentFavorites = () => {
     key,
     revealAnswer,
     setRevealAnswer,
+    bookmarkLoading,
   };
 };

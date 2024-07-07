@@ -20,6 +20,7 @@ import {
   useAllClassesQuery,
   useAllFlashcardsQuery,
   useAllTagsQuery,
+  useCustomClassDecksQuery,
 } from "../../../../redux/slices/APISlice";
 import { uploadImageToCloudinary } from "../../../../utils/hooks/helper";
 import {
@@ -60,29 +61,35 @@ export const useCreateCustomFlashcard = () => {
     refetchallFlashcards,
   } = useAllFlashcardsQuery(cookies, deckData?.deckId?._id as string);
 
-  const {
-    data: { data: { Deck: deckDetails = [] } = {} } = {},
-    isLoading: deckDetailsLoading,
-    error: errordeckDetails,
-    refetch: refetchdeckDetails,
-  } = useQuery(
-    [
-      "deckDetails",
-      {
-        cookies,
-      },
-    ],
+  // const {
+  //   data: { data: { Deck: deckDetails = [] } = {} } = {},
+  //   isLoading: deckDetailsLoading,
+  //   error: errordeckDetails,
+  //   refetch: refetchdeckDetails,
+  // } = useQuery(
+  //   [
+  //     "deckDetails",
+  //     {
+  //       cookies,
+  //     },
+  //   ],
 
-    async () => {
-      return getAllCustomCardsByIdApi(
-        deckData?._id as string,
-        cookies?.student?.token
-      );
-    },
-    {
-      enabled: !!cookies?.student?.token,
-    }
-  );
+  //   async () => {
+  //     return getAllCustomCardsByIdApi(
+  //       deckData?.classId as string,
+  //       cookies?.student?.token
+  //     );
+  //   },
+  //   {
+  //     enabled: !!cookies?.student?.token,
+  //   }
+  // );
+  const {
+    allCustomDecks,
+    allCustomDecksLoading,
+    errorallCustomDecks,
+    refetchallCustomDecks,
+  } = useCustomClassDecksQuery(deckData?.classId, cookies?.student);
 
   console.log("CreateDeckData", deckData);
 
@@ -141,8 +148,8 @@ export const useCreateCustomFlashcard = () => {
       console.log("response", response);
       // refetchClassDetails();
       showSuccessToast(localeSuccess?.SUCCESS_FLASH_CREATED);
-      // this refetch is not working, 
-      refetchdeckDetails();
+      // this refetch is not working,
+      refetchallCustomDecks();
     } catch (error: any) {
       console.log("error", error);
       showErrorToast(error?.response?.data?.message);

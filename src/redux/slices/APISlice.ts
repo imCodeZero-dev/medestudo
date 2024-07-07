@@ -22,6 +22,7 @@ import { getAllSubjectsApi } from "../../utils/api/all";
 import {
   getAllCustomClassesApi,
   getAllQuesitonsApi,
+  getCustomClassDecksApi,
   getReviewDecksApi,
   restudyCardAPI,
   studentGetAllClassesApi,
@@ -537,7 +538,7 @@ export const useAllReviewDecksQuery = (cookies: {
   console.log("useAllReviewDecksQuery", cookies);
   const {
     // data: { data: { ratings: reviewDecks = [] } = {} } = {},
-    data: { data: { batches: [reviewDecks = []] = [] } = {} } = {} = {},
+    data: { data: { batches: [reviewDecks = []] = [] } = {} } = ({} = {}),
     isLoading: reviewDecksLoading,
     error: errorReviewDecks,
     refetch: refetchReviewDecks,
@@ -562,5 +563,39 @@ export const useAllReviewDecksQuery = (cookies: {
     reviewDecksLoading,
     errorReviewDecks,
     refetchReviewDecks,
+  };
+};
+
+export const useCustomClassDecksQuery = (
+  deckData: string,
+  cookies: { token: string }
+) => {
+  console.log("useCustomClassDecksQuery", cookies);
+  const {
+    data: { data: { decks: allCustomDecks = [] } = {} } = {},
+    isLoading: allCustomDecksLoading,
+    error: errorallCustomDecks,
+    refetch: refetchallCustomDecks,
+  } = useQuery(
+    [
+      "allCustomDecks",
+      {
+        cookies,
+        deckData,
+      },
+    ],
+    async () => {
+      return getCustomClassDecksApi(deckData, cookies?.token);
+    },
+    {
+      enabled: !!cookies?.token && !!deckData,
+    }
+  );
+
+  return {
+    allCustomDecks,
+    allCustomDecksLoading,
+    errorallCustomDecks,
+    refetchallCustomDecks,
   };
 };

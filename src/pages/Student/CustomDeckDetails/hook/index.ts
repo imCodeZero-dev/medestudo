@@ -19,6 +19,7 @@ import {
   useAllClassesQuery,
   useAllDecksQuery,
   useCustomAllClassesQuery,
+  useCustomClassDecksQuery,
 } from "../../../../redux/slices/APISlice";
 import { DeckId } from "../../../../utils/constants/DataTypes";
 import {
@@ -151,30 +152,16 @@ export const useCustomDeckDetails = () => {
     refetchCustomClasses,
   } = useCustomAllClassesQuery(cookies);
 
+  const {
+    allCustomDecks,
+    allCustomDecksLoading,
+    errorallCustomDecks,
+    refetchallCustomDecks,
+  } = useCustomClassDecksQuery(deckData?._id, cookies?.student);
+
   // const { allDecks, allDecksLoading, errorAllDecks, refetchAllDecks } =
   //   useAllDecksQuery(cookies?.student?.token);
 
-  const {
-    data: { data: { decks: allCustomDecks = [] } = {} } = {},
-    isLoading: allCustomDecksLoading,
-    error: errorallCustomDecks,
-    refetch: refetchallCustomDecks,
-  } = useQuery(
-    [
-      "allCustomDecks",
-      {
-        cookies,
-        deckData,
-      },
-    ],
-
-    async () => {
-      return getCustomClassDecksApi(deckData?._id, cookies?.student?.token);
-    },
-    {
-      enabled: !!cookies?.student?.token && !!deckData?._id,
-    }
-  );
   console.log("allCustomDecks in deckDetails", allCustomDecks);
 
   // const {

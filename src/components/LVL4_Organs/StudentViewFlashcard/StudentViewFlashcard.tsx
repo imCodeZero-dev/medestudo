@@ -4,8 +4,6 @@ import { StudentViewFlashcardProps } from "./types";
 import Text from "../../LVL1_Atoms/Text/Text";
 import useLocale from "../../../locales";
 import QuillEditor from "../../LVL3_Cells/QuillEditor/QuillEditor";
-import TagInput from "../../LVL1_Atoms/Input/TagInput";
-import { IoCloseCircleOutline } from "react-icons/io5";
 import { Button } from "../../LVL1_Atoms/Button";
 import { TbCards } from "react-icons/tb";
 import { IoPencil } from "react-icons/io5";
@@ -15,7 +13,6 @@ import { BiSolidRightArrow } from "react-icons/bi";
 import { GiReturnArrow } from "react-icons/gi";
 import { Controller } from "react-hook-form";
 import Select from "react-select";
-import { Tag } from "../../../utils/constants/DataTypes";
 import Loader from "../../LVL1_Atoms/Loader";
 import ImageDropzone from "../../LVL2_Molecules/ImageUploader/ImageDropzone";
 import RatingButtons from "../RatingButtons/RatingButtons";
@@ -50,6 +47,7 @@ const StudentViewFlashcard: React.FC<StudentViewFlashcardProps> = ({
   toggleBookmark,
   showHeader = true,
   key,
+  bookmarkLoading,
 }) => {
   const { localeTitles, localePlaceholders, localeButtons, localeText } =
     useLocale();
@@ -154,31 +152,18 @@ const StudentViewFlashcard: React.FC<StudentViewFlashcardProps> = ({
 
                 {!custom && toggleBookmark && (
                   <div
-                    className={`${styles["StudentViewFlashcard-option"]} cursor-pointer`}
+                    className={`${styles["StudentViewFlashcard-option"]} ${
+                      bookmarkLoading && "animate-ping"
+                    } cursor-pointer`}
                     onClick={() =>
+                      !bookmarkLoading &&
                       toggleBookmark(allFlashcards[currentFlashcardIndex])
                     }
                   >
                     {allFlashcards[currentFlashcardIndex]?.bookmarked ? (
-                      <FaBookmark
-                        size={16}
-                        color="black"
-                        fill={
-                          allFlashcards[currentFlashcardIndex]?.bookmarked
-                            ? "primary"
-                            : "#1D1F22"
-                        }
-                      />
+                      <FaBookmark size={16} color="black" />
                     ) : (
-                      <FaRegBookmark
-                        size={16}
-                        color="black"
-                        fill={
-                          allFlashcards[currentFlashcardIndex]?.bookmarked
-                            ? "primary"
-                            : "#1D1F22"
-                        }
-                      />
+                      <FaRegBookmark size={16} color="black" />
                     )}
                   </div>
                 )}
@@ -201,14 +186,17 @@ const StudentViewFlashcard: React.FC<StudentViewFlashcardProps> = ({
             </div>
 
             <div className={styles["StudentViewFlashcard-body"]}>
-              <BiSolidLeftArrow
-                onClick={
-                  currentFlashcardIndex >= 1 && (handlePreviousFlashcard as any)
-                }
-                size={42}
-                fill={currentFlashcardIndex >= 1 ? "#3359E4" : "gray"}
-                className="cursor-pointer"
-              />
+              {mode !== "exam" && (
+                <BiSolidLeftArrow
+                  onClick={
+                    currentFlashcardIndex >= 1 &&
+                    (handlePreviousFlashcard as any)
+                  }
+                  size={42}
+                  fill={currentFlashcardIndex >= 1 ? "#3359E4" : "gray"}
+                  className="cursor-pointer"
+                />
+              )}
               <div className={styles["StudentViewFlashcard-body-main"]}>
                 {!enableEdit && (
                   <div className={styles["tags"]}>
@@ -371,21 +359,22 @@ const StudentViewFlashcard: React.FC<StudentViewFlashcardProps> = ({
                   </div>
                 )}
               </div>
-
               <div>
-                <BiSolidRightArrow
-                  onClick={
-                    currentFlashcardIndex !== allFlashcards?.length - 1 &&
-                    (handleNextFlashcard as any)
-                  }
-                  size={42}
-                  fill={
-                    currentFlashcardIndex !== allFlashcards?.length - 1
-                      ? "#3359E4"
-                      : "gray"
-                  }
-                  className="cursor-pointer"
-                />
+                {mode !== "exam" && (
+                  <BiSolidRightArrow
+                    onClick={
+                      currentFlashcardIndex !== allFlashcards?.length - 1 &&
+                      (handleNextFlashcard as any)
+                    }
+                    size={42}
+                    fill={
+                      currentFlashcardIndex !== allFlashcards?.length - 1
+                        ? "#3359E4"
+                        : "gray"
+                    }
+                    className="cursor-pointer"
+                  />
+                )}
               </div>
             </div>
           </div>

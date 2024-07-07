@@ -45,7 +45,7 @@ const EditProfessorModal = ({
               type="text"
             />
           </div>
-          <div className={styles["inputDiv"]}>
+          {/* <div className={styles["inputDiv"]}>
             <Input
               label={localeLables?.LABEL_PASSWORD}
               control={control}
@@ -55,7 +55,7 @@ const EditProfessorModal = ({
               preDefinedWrapClassName="inputField-wrap"
               type="password"
             />
-          </div>
+          </div> */}
 
           <div className={styles["inputDiv"]}>
             <Input

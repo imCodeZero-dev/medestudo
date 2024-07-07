@@ -33,6 +33,7 @@ const StudentReviewAllCards: React.FC<StudentReviewAllCardsProps> = ({
   toggleBookmark,
   key,
   ratingLoading,
+  bookmarkLoading,
 }) => {
   const { localeTitles, localePlaceholders, localeButtons, localeText } =
     useLocale();
@@ -71,7 +72,11 @@ const StudentReviewAllCards: React.FC<StudentReviewAllCardsProps> = ({
 
                       {!custom && toggleBookmark && (
                         <div
-                          className={`${styles["StudentReviewAllCards-option"]} cursor-pointer`}
+                          className={`${
+                            styles["StudentReviewAllCards-option"]
+                          } ${
+                            bookmarkLoading && "animate-ping"
+                          }  cursor-pointer`}
                           onClick={() =>
                             toggleBookmark(allFlashcards[currentFlashcardIndex])
                           }

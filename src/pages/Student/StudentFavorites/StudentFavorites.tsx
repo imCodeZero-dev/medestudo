@@ -48,6 +48,7 @@ const StudentFavorites = ({}: StudentFavoritesProps) => {
     key,
     revealAnswer,
     setRevealAnswer,
+    bookmarkLoading,
   } = useStudentFavorites();
 
   const { localeText } = useLocale();
@@ -71,6 +72,7 @@ const StudentFavorites = ({}: StudentFavoritesProps) => {
               handlePreviousFlashcard={handlePreviousFlashcard}
               handleSubmit={handleSubmit}
               loading={bookmarkCardsLoading}
+              bookmarkLoading={bookmarkLoading}
               custom={false}
               toggleBookmark={toggleBookmark}
               revealAnswer

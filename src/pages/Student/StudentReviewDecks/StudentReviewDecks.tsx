@@ -43,6 +43,7 @@ const StudentReviewDecks = ({}: StudentReviewDecksProps) => {
     key,
     handleRatingChange,
     ratingLoading,
+    bookmarkLoading,
   } = useStudentReviewDecks();
 
   const { localeText } = useLocale();
@@ -71,6 +72,7 @@ const StudentReviewDecks = ({}: StudentReviewDecksProps) => {
               // toggleBookmark={toggleBookmark}
               revealAnswer
               key={key}
+              bookmarkLoading={bookmarkLoading}
             />
           ) : (
             <NoCardMsg msg="No cards yet, please review some" />

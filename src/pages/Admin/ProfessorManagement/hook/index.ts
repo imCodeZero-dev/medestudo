@@ -148,7 +148,7 @@ export const useProfessorManagement = () => {
     const params = {
       name: data?.name,
       email: data?.email,
-      password: data?.password,
+      // password: data?.password,
       phone: data?.phone,
     };
     console.log("params", params);

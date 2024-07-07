@@ -92,6 +92,8 @@ const StudentAllFlashCards = ({}: StudentAllFlashCardsProps) => {
     revealAnswer,
     setRevealAnswer,
     confidenceLevel,
+    bookmarkLoading,
+    rateArray,
   } = useStudentAllFlashCards();
   // console.log("allDecks", allDecks);
   const navigate = useNavigate();
@@ -117,6 +119,7 @@ const StudentAllFlashCards = ({}: StudentAllFlashCardsProps) => {
         {/* {StudentAllFlashCards.map((flashcard) => ( */}
         <div className={styles["StudentAllFlashCards-main"]}>
           <StudentViewFlashcard
+            bookmarkLoading={bookmarkLoading}
             key={key}
             handleRatingChange={handleRatingChange}
             mode={mode}
@@ -242,6 +245,7 @@ const StudentAllFlashCards = ({}: StudentAllFlashCardsProps) => {
                     <ProgressIndicator
                       totalSteps={flashcards?.length}
                       currentStep={currentFlashcardIndex}
+                      rate={rateArray}
                     />
                   </div>
                 </>

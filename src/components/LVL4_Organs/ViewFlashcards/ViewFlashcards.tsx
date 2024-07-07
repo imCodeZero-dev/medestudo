@@ -18,6 +18,7 @@ import Select from "react-select";
 import { Tag } from "../../../utils/constants/DataTypes";
 import Loader from "../../LVL1_Atoms/Loader";
 import ImageDropzone from "../../LVL2_Molecules/ImageUploader/ImageDropzone";
+import ImageWithLoader from "../../LVL2_Molecules/ImageWithLoader/Image";
 
 const ViewFlashcards: React.FC<ViewFlashcardsProps> = ({
   control,
@@ -175,11 +176,20 @@ const ViewFlashcards: React.FC<ViewFlashcardsProps> = ({
                       defaultValue=""
                       // key={allFlashcards[currentFlashcardIndex]?._id}
                       render={({ field }) => (
+                        // <>
+                        //   {field.value !== "" && (
+                        //     <img
+                        //       className={styles["questionImage"]}
+                        //       src={field.value}
+                        //     />
+                        //   )}
+                        // </>
                         <>
-                          {field.value !== "" && (
-                            <img
-                              className={styles["questionImage"]}
+                          {field.value && (
+                            <ImageWithLoader
                               src={field.value}
+                              alt="question Image"
+                              className={styles["questionImage"]}
                             />
                           )}
                         </>
@@ -223,11 +233,20 @@ const ViewFlashcards: React.FC<ViewFlashcardsProps> = ({
                       defaultValue=""
                       // key={allFlashcards[currentFlashcardIndex]?._id}
                       render={({ field }) => (
+                        // <>
+                        //   {field.value !== "" && (
+                        //     <img
+                        //       className={styles["questionImage"]}
+                        //       src={field.value}
+                        //     />
+                        //   )}
+                        // </>
                         <>
-                          {field.value !== "" && (
-                            <img
-                              className={styles["questionImage"]}
+                          {field.value && (
+                            <ImageWithLoader
                               src={field.value}
+                              alt="answerImage"
+                              className={styles["questionImage"]}
                             />
                           )}
                         </>

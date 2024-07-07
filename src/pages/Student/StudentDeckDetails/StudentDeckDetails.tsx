@@ -311,14 +311,15 @@ const StudentDeckDetails = ({}: StudentDeckDetailsProps) => {
                   )}
                 </div>
               )}
-              <div className="flex w-64 m-auto">
+
+              {/* <div className="flex w-64 m-auto">
                 <Button
                   className="primaryActive"
                   onClick={() => setCreateModal(true)}
                 >
                   {localeButtons.BUTTON_ADD_NEW_DECK}
                 </Button>
-              </div>
+              </div> */}
             </>
           )}
         </div>
