@@ -146,7 +146,7 @@ const ProjectRoutes = () => {
       <ThemeProvider theme={theme}>
         <Router>
           <Routes>
-            <Route path="/" element={<AdminDashboardServices />} />
+            <Route path="/" element={<Home />} />
             <Route path="/admin/login" element={<AdminLogin />} />
             <Route path="/admin" element={<AdminDashboardServices />} />
             <Route

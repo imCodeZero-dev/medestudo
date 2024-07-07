@@ -147,6 +147,7 @@ const AdminProfile = ({}: AdminProfileProps) => {
                   preDefinedClassName="lesserHeight"
                   preDefinedWrapClassName="inputField-wrap"
                   type="email"
+                  readOnly
                 />
               </div>
               <Button

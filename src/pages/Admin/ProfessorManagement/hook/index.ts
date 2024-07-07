@@ -125,12 +125,12 @@ export const useProfessorManagement = () => {
 
       showSuccessToast(localeSuccess?.SUCCESS_PROFESSOR_CREATED);
       refetchAllProfessors();
+      handleCloseProfessor();
     } catch (error: any) {
       console.log("error", error);
       showErrorToast(error?.response?.data?.message);
     } finally {
       setProfessorLoading(false);
-      handleCloseProfessor();
     }
   };
   const onSubmitEditProfessor = async (data: any) => {

@@ -56,7 +56,7 @@ const ProfessorSettings = ({}: ProfessorSettingsProps) => {
             tabLabels={[
               localeLables?.LABEL_PERSONAL_INFO,
               localeLables?.LABEL_SECURITY,
-              localeLables?.LABEL_PRIVACY,
+              // localeLables?.LABEL_PRIVACY,
             ]}
           />
         </div>
@@ -83,14 +83,14 @@ const ProfessorSettings = ({}: ProfessorSettingsProps) => {
             onSubmitPassword={onSubmitPassword}
           />
         )}
-        {value === 2 && (
+        {/* {value === 2 && (
           <SettingsPrivacy
             control={control}
             loading={false}
             handleSubmit={handleSubmitPrivacy}
             onSubmit={onSubmitPrivacy}
           />
-        )}
+        )} */}
       </div>
     </HomeLayout>
   );
