@@ -1,5 +1,5 @@
 export type ProgressIndicatorProps = {
   totalSteps: number;
   currentStep: number;
-  rate: Number[];
+  rate: number[];
 };

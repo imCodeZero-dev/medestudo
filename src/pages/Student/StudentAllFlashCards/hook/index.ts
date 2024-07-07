@@ -97,7 +97,7 @@ export const useStudentAllFlashCards = () => {
   const [batchflashcardId, setBatchflashcardId] = useState<string[]>([]);
   const [currentBatchIndex, setCurrentBatchIndex] = useState(0);
   const [confidenceLevel, setConfidenceLevel] = useState(0);
-  const [rateArray, setRateArray] = useState<Number[]>([]);
+  const [rateArray, setRateArray] = useState<number[]>([]);
   const BATCH_SIZE = 10;
   const [allFlashcardsLoaded, setAllFlashcardsLoaded] = useState(false);
   const [revealAnswer, setRevealAnswer] = useState(false);
