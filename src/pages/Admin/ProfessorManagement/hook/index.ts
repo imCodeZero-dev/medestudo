@@ -51,19 +51,8 @@ export const useProfessorManagement = () => {
     phone: yup.string().required("Phone number is required"),
   });
   const validationSchemaEdit = yup.object().shape({
-    // email: yup
-    //   .string()
-    //   .required(localeErrors.ERROR_EMAIL_REQUIRED)
-    //   .email(localeErrors.ERROR_INVALID_EMAIL),
-    password: yup
-      .string()
-      .required(localeErrors.ERROR_PASSWORD_REQUIRED)
-      .matches(passwordRegex, localeErrors.ERROR_INVALID_PASSWORD),
     name: yup.string().required("Name is required"),
-    // confirmPassword: yup
-    //   .string()
-    //   .required("Confirm Password is required")
-    //   .oneOf([yup.ref("password")], "Passwords must match"),
+
     phone: yup.string().required("Phone number is required"),
   });
 

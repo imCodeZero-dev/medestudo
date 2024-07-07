@@ -25,8 +25,9 @@ export const updateProfessorApi = async (
   professorId: string,
   token: string
 ) => {
+  console.log("updateProfessorApi", data, "id", professorId);
   const response = await apiRequest({
-    method: "Post",
+    method: "Put",
     url: `/professor/editProfessor/${professorId}`,
     data,
     token,

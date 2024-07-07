@@ -13,6 +13,7 @@ const EditProfessorModal = ({
   handleSubmit,
   onSubmit,
   control,
+  loading,
 }: CreateProfessorModalProps) => {
   const {
     localeTitles,
@@ -78,6 +79,7 @@ const EditProfessorModal = ({
               {localeButtons.BUTTON_CANCEL}
             </Button>
             <Button
+              loading={loading}
               type="submit"
               className="purpleBtn"
               onClick={handleSubmit(onSubmit)}
