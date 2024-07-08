@@ -202,7 +202,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
                           )}
                           {header === "ID" && (
                             <Text className="font-semibold">
-                              {rowIndex + 1}
+                              {page * rowsPerPage + rowIndex + 1}
                             </Text>
                           )}
                           {header === "Status" && (
