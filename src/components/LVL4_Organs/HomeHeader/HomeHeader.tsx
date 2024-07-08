@@ -7,6 +7,7 @@ import logoImg from "../../../assets/MedEstudo-assets/MedEstudo-Final-Logos/Logo
 import { BiMenu } from "react-icons/bi";
 import { breakPoints } from "../../../utils/constants/ResponsiveDesignBreakPoints";
 import { useWidth } from "../../../utils/hooks/responsiveHook";
+import LoginDropdown from "../../LVL3_Cells/LoginDropdown/LoginDropdown";
 
 const HomeHeader = ({
   setDrawerOpen,
@@ -28,13 +29,10 @@ const HomeHeader = ({
         >
           {localeButtons.BUTTON_HOME}
         </Button>
-        <Button
-      
-          onClick={scrollToExploreFlashcards}
-        >
+        <Button onClick={scrollToExploreFlashcards}>
           {localeButtons.BUTTON_FLASHCARDS}
         </Button>
-        <Button
+        {/* <Button
           className=""
           // className={getNavItemClassName(button.label)}
           onClick={() => {
@@ -42,7 +40,8 @@ const HomeHeader = ({
           }}
         >
           {localeButtons.BUTTON_LOGIN}
-        </Button>
+        </Button> */}
+        <LoginDropdown userType="Admin" />
       </div>
 
       <div className={styles["HomeHeader-buttons-started"]}>

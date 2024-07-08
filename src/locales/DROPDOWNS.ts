@@ -5,6 +5,9 @@ export const DROPDOWNS = {
     DROPDOWN_PROFILE: "Profile",
     DROPDOWN_LOGOUT: "Logout",
     DROPDOWN_DELETE: "Delete",
+    DROPDOWN_STUDENT: "Student",
+    DROPDOWN_PROFESSOR: "Professor",
+    DROPDOWN_ADMIN: "Admin",
   },
   es: {
     DROPDOWN_ENG: "Eng",
@@ -12,5 +15,8 @@ export const DROPDOWNS = {
     DROPDOWN_PROFILE: "Profile",
     DROPDOWN_LOGOUT: "Logout",
     DROPDOWN_DELETE: "Delete",
+    DROPDOWN_STUDENT: "Student",
+    DROPDOWN_PROFESSOR: "Professor",
+    DROPDOWN_ADMIN: "Admin",
   },
 };
