@@ -154,12 +154,14 @@ export const useInstituteManagement = () => {
       );
       console.log("response", response);
       refetchAllInstitute();
-      showSuccessToast(localeSuccess?.SUCCESS_INSTITUTE_STATUS_CHANGED);
+      // showSuccessToast(localeSuccess?.SUCCESS_INSTITUTE_STATUS_CHANGED);
     } catch (error: any) {
       console.log("error", error);
       showErrorToast(error?.response?.data?.message);
     } finally {
-      setStatusLoading((prev) => ({ ...prev, [data._id]: false }));
+      setTimeout(() => {
+        setStatusLoading((prev) => ({ ...prev, [data._id]: false }));
+      }, 900);
     }
   };
 

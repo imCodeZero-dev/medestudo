@@ -85,7 +85,9 @@ export const useStudentManagement = () => {
       console.log("error", error);
       showErrorToast(error?.response?.data?.message);
     } finally {
-      setStatusLoading((prev) => ({ ...prev, [data._id]: false }));
+      setTimeout(() => {
+        setStatusLoading((prev) => ({ ...prev, [data._id]: false }));
+      }, 900);
     }
   };
 

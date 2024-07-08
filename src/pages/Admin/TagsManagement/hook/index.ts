@@ -143,12 +143,14 @@ export const useTagsManagement = () => {
       );
       console.log("response", response);
       refetchAllTags();
-      showSuccessToast(localeSuccess?.SUCCESS_TAG_STATUS_CHANGED);
+      // showSuccessToast(localeSuccess?.SUCCESS_TAG_STATUS_CHANGED);
     } catch (error: any) {
       console.log("error", error);
       showErrorToast(error?.response?.data?.message);
     } finally {
-      setStatusLoading((prev) => ({ ...prev, [data._id]: false }));
+      setTimeout(() => {
+        setStatusLoading((prev) => ({ ...prev, [data._id]: false }));
+      }, 900);
     }
   };
 
