@@ -15,6 +15,7 @@ import { useState } from "react";
 import Checkbox from "../../components/LVL1_Atoms/CheckBox";
 import { Button } from "../../components/LVL1_Atoms/Button";
 import handImg from "../../assets/Images/Auth/Group 8.png";
+import { useNavigate } from "react-router-dom";
 
 const AdminLogin = ({}) => {
   const {
@@ -26,6 +27,7 @@ const AdminLogin = ({}) => {
   } = useLocale();
   // const navigate = useNavigate();
   const [viewPassword, setViewPassword] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   const handleView = () => {
     setViewPassword(!viewPassword);
@@ -35,7 +37,11 @@ const AdminLogin = ({}) => {
   return (
     <div className={styles["AdminLogin"]}>
       <div className={styles["AdminLogin-header"]}>
-        <img src={logoImg} className={styles["logo"]} />
+        <img
+          src={logoImg}
+          className={styles["logo"]}
+          onClick={() => navigate("/")}
+        />
       </div>
       <div className={styles["AdminLogin-main"]}>
         <div className={styles["AdminLogin-main-text"]}>
@@ -86,9 +92,9 @@ const AdminLogin = ({}) => {
               label={localeLables?.LABEL_REMEMBER_ME}
               name="remember"
             />
-            <Text className={styles["forgotText"]}>
+            {/* <Text className={styles["forgotText"]}>
               {localeText?.TEXT_FORGOT_PASSWORD}
-            </Text>
+            </Text> */}
           </div>
 
           <Button

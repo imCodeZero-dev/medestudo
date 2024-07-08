@@ -49,7 +49,7 @@ const HomeHeader = ({
           // className={getNavItemClassName(button.label)}
           className="roundedYellow"
           onClick={() => {
-            navigate("");
+            navigate("/student");
           }}
         >
           {localeButtons.BUTTON_GET_STARTED}

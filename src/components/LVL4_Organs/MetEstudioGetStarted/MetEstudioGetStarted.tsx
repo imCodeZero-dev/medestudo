@@ -29,7 +29,7 @@ const MetEstudioGetStarted = ({ features }: MetEstudioGetStartedProps) => {
         </Text>
 
         {width > breakPoints?.mlg && (
-          <Button className="startedBtn">
+          <Button className="startedBtn" onClick={() => navigate("/student")}>
             {localeButtons.BUTTON_GET_STARTED} <MdArrowRightAlt />
           </Button>
         )}
@@ -40,7 +40,7 @@ const MetEstudioGetStarted = ({ features }: MetEstudioGetStartedProps) => {
           <StepProcess steps={steps} />
         </div>
         {width < breakPoints?.mlg && (
-          <Button className="startedBtn">
+          <Button className="startedBtn" onClick={() => navigate("/student")}>
             {localeButtons.BUTTON_GET_STARTED} <MdArrowRightAlt />
           </Button>
         )}

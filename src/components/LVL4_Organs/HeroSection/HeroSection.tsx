@@ -29,8 +29,18 @@ const HeroSection = ({ allStudents }: HeroSectionProps) => {
           </Text>
 
           <div className={styles.buttons}>
-            <button className={styles.getStarted}>Get Started</button>
-            <button className={styles.imStudent}>I'm Student</button>
+            <button
+              className={styles.getStarted}
+              onClick={() => navigate("/student")}
+            >
+              Get Started
+            </button>
+            <button
+              className={styles.imStudent}
+              onClick={() => navigate("/student")}
+            >
+              I'm Student
+            </button>
           </div>
         </div>
 

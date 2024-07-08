@@ -33,7 +33,7 @@ const AffiliateProgramSection = ({}: AffiliateProgramSectionProps) => {
           </Text>
         </div>
 
-        <Button className="startedBtn">
+        <Button className="startedBtn" onClick={() => navigate("/student")}>
           {localeButtons.BUTTON_JOIN_NOW} <MdArrowRightAlt />
         </Button>
       </div>

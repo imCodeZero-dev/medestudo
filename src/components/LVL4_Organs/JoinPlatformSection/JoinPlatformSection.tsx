@@ -23,7 +23,7 @@ const JoinPlatformSection = ({}: JoinPlatformSectionProps) => {
           Etiam sit amet imperdiet dolor. Maecenas lectus{" "}
         </Text>
 
-        <Button className="startedBtn">
+        <Button className="startedBtn" onClick={() => navigate("/student")}>
           {localeButtons.BUTTON_GET_STARTED} <MdArrowRightAlt />
         </Button>
       </div>
