@@ -20,7 +20,11 @@ const Header = ({ showSkip, setDrawerOpen }: HeaderProps) => {
 
   return (
     <div className={styles["AuthLayout-header"]}>
-      <img src={logoImg} className={styles["logo"]} />
+      <img
+        src={logoImg}
+        className={styles["logo"]}
+        onClick={() => navigate("/")}
+      />
 
       {showSkip ? (
         <div className={`${styles["AuthLayout-header-buttons"]} w-40`}>

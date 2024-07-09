@@ -53,7 +53,7 @@ const StudentReviewDecks = ({}: StudentReviewDecksProps) => {
     <HomeLayout>
       <div className={styles["StudentReviewDecks"]}>
         <div className={styles["StudentReviewDecks-main"]}>
-          {reviewDecks?.length > 0 ? (
+          {!reviewDecksLoading && reviewDecks?.length > 0 ? (
             <StudentReviewAllCards
               handleViewCardModalOpen={handleViewCardModalOpen}
               currentFlashcardIndex={currentFlashcardIndex}

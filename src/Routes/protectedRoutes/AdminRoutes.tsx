@@ -16,7 +16,7 @@ export const AdminRoutes = ({ children }: Props) => {
 
   useEffect(() => {
     if (!cookies?.admin?.token) {
-      navigate("/");
+      navigate("/admin/login");
     }
   }, [cookies, navigate]);
 

@@ -64,7 +64,11 @@ export const useLoginPage = () => {
   });
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [cookies, setCookie] = useCookies(["professor", "student"]);
+  const [cookies, setCookie, removeCookie] = useCookies([
+    "professor",
+    "student",
+    "admin",
+  ]);
   // const navigate = useNavigate();
   const switchToRegistration = () => {
     setAuthType("registration");
@@ -184,10 +188,13 @@ export const useLoginPage = () => {
     try {
       setLoadingLogin(true);
       let response;
+      const cookieOptions = {};
       if (professorPanel) {
         response = await professorLoginApi(params);
         console.log("response", response);
         if (response?.data?.professor?.status === "active") {
+          removeCookie("admin", cookieOptions);
+          removeCookie("student", cookieOptions);
           dispatch(loginProfessor(response?.data));
           setCookie("professor", response?.data, { maxAge: 86400 });
           showSuccessToast("Login Successfully");
@@ -201,6 +208,8 @@ export const useLoginPage = () => {
         console.log("response", response);
 
         if (response?.data?.student?.status === "active") {
+          removeCookie("admin", cookieOptions);
+          removeCookie("professor", cookieOptions);
           dispatch(loginProfessor(response?.data));
           setCookie("student", response?.data, { maxAge: 86400 });
           showSuccessToast("Login Successfully");

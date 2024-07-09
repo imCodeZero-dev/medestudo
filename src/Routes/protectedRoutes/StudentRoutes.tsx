@@ -16,7 +16,7 @@ export const StudentRoutes = ({ children }: Props) => {
 
   useEffect(() => {
     if (!cookies?.student?.token) {
-      navigate("/");
+      navigate("/student/login");
     }
   }, [cookies, navigate]);
 

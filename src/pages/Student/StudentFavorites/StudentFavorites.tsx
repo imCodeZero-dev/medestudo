@@ -58,7 +58,7 @@ const StudentFavorites = ({}: StudentFavoritesProps) => {
     <HomeLayout>
       <div className={styles["StudentFavorites"]}>
         <div className={styles["StudentFavorites-main"]}>
-          {bookmarkCards?.length > 0 ? (
+          {!bookmarkCardsLoading && bookmarkCards?.length > 0 ? (
             <StudentViewFlashcard
               key={key}
               handleViewCardModalOpen={handleViewCardModalOpen}

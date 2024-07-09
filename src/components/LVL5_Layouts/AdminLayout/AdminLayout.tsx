@@ -25,7 +25,7 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
   const { localeButtons, localeTitles } = useLocale();
   const { logoutModal, handleOpenLogout, handleCloseLogout, onLogoutConfirm } =
     useAdminLayout();
-  const [cookies, removeCookie] = useCookies(["admin"]);
+  const [cookies] = useCookies(["admin"]);
   let userData = cookies?.admin;
 
   const buttons = [
@@ -54,7 +54,11 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
     <div className={styles["AdminLayout"]}>
       <div className={styles["AdminLayout-header"]}>
         <div className={styles["AdminLayout-header-left"]}>
-          <img src={logoImg} className={styles["logo"]} />
+          <img
+            src={logoImg}
+            className={styles["logo"]}
+            onClick={() => navigate("/")}
+          />
 
           {width > breakPoints.slg ? (
             <div className={styles["AdminLayout-header-buttons"]}>

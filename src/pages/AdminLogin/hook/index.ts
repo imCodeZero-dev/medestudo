@@ -19,7 +19,11 @@ export const useAdminLogin = () => {
   const [loadingLogin, setLoadingLogin] = useState<boolean>(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [cookies, setCookie] = useCookies(["admin"]);
+  const [cookies, setCookie, removeCookie] = useCookies([
+    "admin",
+    "professor",
+    "student",
+  ]);
 
   const {
     handleSubmit,
@@ -46,7 +50,9 @@ export const useAdminLogin = () => {
       let response;
       response = await adminLoginApi(params);
       console.log("response", response);
-
+      const cookieOptions = {};
+      removeCookie("professor", cookieOptions);
+      removeCookie("student", cookieOptions);
       dispatch(loginAdmin(response?.data));
       setCookie("admin", response?.data, { maxAge: 86400 });
       showSuccessToast("Login Successfully");
