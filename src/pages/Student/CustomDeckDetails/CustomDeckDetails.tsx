@@ -25,7 +25,11 @@ import CreateDeckModal from "../../../components/LVL4_Organs/CreateDeckModal/Cre
 import { IconButton, Menu, MenuItem } from "@mui/material";
 import ConfirmationModal from "../../../components/LVL4_Organs/ConfirmationModal";
 import AlertIcon from "../../../assets/svgs/AlertIcon";
-import { Class, DecksWithCardCount } from "../../../utils/constants/DataTypes";
+import {
+  Class,
+  deckData,
+  DecksWithCardCount,
+} from "../../../utils/constants/DataTypes";
 import Loader from "../../../components/LVL1_Atoms/Loader";
 import { StudentRoutes } from "../../../Routes/protectedRoutes/StudentRoutes";
 import {
@@ -36,7 +40,7 @@ import {
 import { handleImageURL } from "../../../utils/constants/constants";
 import { Controller } from "react-hook-form";
 import { DropdownMenu } from "../../../components/LVL3_Cells/ExpandableFlashcard/ExpandableFlashcard";
-import { useDropdown } from "../../../utils/hooks/helper";
+import { formattedTime, useDropdown } from "../../../utils/hooks/helper";
 
 const CustomDeckDetails = ({}: CustomDeckDetailsProps) => {
   const { localeTitles, localeButtons, localeLables } = useLocale();
@@ -92,6 +96,11 @@ const CustomDeckDetails = ({}: CustomDeckDetailsProps) => {
   const { localeText } = useLocale();
   const { isDropdownOpen, toggleDropdown, dropdownRef } = useDropdown();
 
+  const totalCardCount = allCustomDecks?.reduce(
+    (total: number, item: deckData) => total + item?.cardCount,
+    0
+  );
+
   const navigateToViewFlashcard = (deck: any) => {
     console.log("navigateToViewFlashcard", deck);
     navigate(`/student/flashcard/deck/flashcard/custom`, {
@@ -141,7 +150,9 @@ const CustomDeckDetails = ({}: CustomDeckDetailsProps) => {
                         <IoTimeOutline />
                         <Text className={styles.estTime}>
                           {localeText?.TEXT_EST_TIME} :{" "}
-                          <span className={styles.time}>2hrs</span>
+                          <span className={styles.time}>
+                            {formattedTime(totalCardCount * 5)}
+                          </span>
                         </Text>
                       </div>
                     </div>
@@ -163,7 +174,7 @@ const CustomDeckDetails = ({}: CustomDeckDetailsProps) => {
                   ref={dropdownRef}
                 >
                   <Text className={styles["levelTag"]}>
-                    {localeLables.LABEL_BENINNER}
+                    {localeLables.LABEL_CUSTOM}
                   </Text>
                   <BiSolidPencil
                     size={20}

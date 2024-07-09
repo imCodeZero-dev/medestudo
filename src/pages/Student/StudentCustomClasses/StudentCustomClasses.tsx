@@ -18,6 +18,11 @@ import { Flashcard } from "../../../utils/constants/DataTypes";
 import DashboardExams from "../../../components/LVL3_Cells/DashboardExams/DashboardExams";
 import { examCardData } from "../../../components/LVL3_Cells/DashboardExams/@types";
 import { StudentRoutes } from "../../../Routes/protectedRoutes/StudentRoutes";
+import {
+  openCreateModalClass,
+  openCreateModalExam,
+} from "../../../redux/actions/modalActions";
+import { useDispatch } from "react-redux";
 
 const StudentCustomClasses = ({}: StudentCustomClassesProps) => {
   const { localeTitles, localeButtons, localeLables } = useLocale();
@@ -48,11 +53,24 @@ const StudentCustomClasses = ({}: StudentCustomClassesProps) => {
     getDetailsFlashcards,
     startExam,
   } = useStudentCustomClasses();
+  const dispatch = useDispatch();
 
   const navigate = useNavigate();
+  const handleCreateExamModal = () => {
+    dispatch(openCreateModalClass() as any);
+  };
 
   return (
-    <HomeLayout>
+    <HomeLayout
+      createButton={
+        <Button
+          className="primaryActive-lessHeight"
+          onClick={handleCreateExamModal}
+        >
+          + {localeButtons.BUTTON_CREATE_NEW}
+        </Button>
+      }
+    >
       <div className={styles["StudentCustomClasses"]}>
         {viewClass && (
           <div className={styles["StudentCustomClasses-main"]}>

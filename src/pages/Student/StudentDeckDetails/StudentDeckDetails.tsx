@@ -38,6 +38,7 @@ import {
   dummyFlashcardDetails,
 } from "../StudentDashboard/StudentDashboard";
 import { Controller } from "react-hook-form";
+import { formattedTime } from "../../../utils/hooks/helper";
 
 const StudentDeckDetails = ({}: StudentDeckDetailsProps) => {
   const { localeTitles, localeButtons, localeLables } = useLocale();
@@ -131,7 +132,10 @@ const StudentDeckDetails = ({}: StudentDeckDetailsProps) => {
                           <IoTimeOutline />
                           <Text className={styles.estTime}>
                             {localeText?.TEXT_EST_TIME} :{" "}
-                            <span className={styles.time}>2hrs</span>
+                            <span className={styles.time}>
+                              {" "}
+                              {formattedTime(totalCardCount * 5)}
+                            </span>
                           </Text>
                         </div>
                       </div>
@@ -153,7 +157,7 @@ const StudentDeckDetails = ({}: StudentDeckDetailsProps) => {
                 <div className={styles["head-right"]}>
                   <div className="flex ml-auto">
                     <Text className={styles["levelTag"]}>
-                      {localeLables.LABEL_BENINNER}
+                      {localeLables.LABEL_MEDESTUDIO_CERTIFIED}
                     </Text>
                   </div>
 
