@@ -134,7 +134,7 @@ const StudentDeckDetails = ({}: StudentDeckDetailsProps) => {
                             {localeText?.TEXT_EST_TIME} :{" "}
                             <span className={styles.time}>
                               {" "}
-                              {formattedTime(totalCardCount * 5)}
+                              {formattedTime((totalCardCount as number) * 5)}
                             </span>
                           </Text>
                         </div>
