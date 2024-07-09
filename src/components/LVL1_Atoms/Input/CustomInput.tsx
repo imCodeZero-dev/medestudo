@@ -36,6 +36,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
               <div className={styles.inputMain}>
                 <button
                   type="button"
+                  disabled={value === 0}
                   className={styles.button}
                   onClick={() => onChange(Math.max(min, value - 1))}
                 >
@@ -54,6 +55,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
                 </div>
 
                 <button
+                  disabled={value === max}
                   type="button"
                   className={styles.button}
                   onClick={() => onChange(Math.min(max, value + 1))}

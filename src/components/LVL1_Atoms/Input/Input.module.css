@@ -78,10 +78,10 @@ input[type="number"] {
   background-color: white;
 }
 
-.inputMain{
+.inputMain {
   display: flex;
 }
-.inputDiv{
+.inputDiv {
   display: flex;
 }
 .label {
@@ -94,6 +94,9 @@ input[type="number"] {
   padding: 0 8px;
   font-size: 16px;
   cursor: pointer;
+}
+.button:disabled {
+  cursor: not-allowed;
 }
 
 .input {

@@ -244,7 +244,11 @@ const StudentPracticeExams = ({}: StudentPracticeExamsProps) => {
               </div>
             </div>
             <div className={styles.startBtnDiv}>
-              <Button className="yellowButton" onClick={() => startExam()}>
+              <Button
+                className="yellowButton"
+                disabled={questionsTime === 0}
+                onClick={() => startExam()}
+              >
                 {localeButtons.BUTTON_START_EXAM}
               </Button>
             </div>
