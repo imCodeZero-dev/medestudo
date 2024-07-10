@@ -307,6 +307,7 @@ const StudentDashboard = ({}: StudentDashboardProps) => {
     dashboardData,
     totals,
     reviewDecks,
+    counts,
   } = useStudentDashboard();
   console.log("cookies", cookies);
   console.log("totals", totals);
@@ -373,7 +374,7 @@ const StudentDashboard = ({}: StudentDashboardProps) => {
 
           <div className={styles["StudentDashboard-section"]}>
             <div className="flex justify-between items-center">
-              <Text className={`${styles["sectionHeading"]} mb-4` }>
+              <Text className={`${styles["sectionHeading"]} mb-4`}>
                 {localeTitles?.TITLE_FLASHCARDS_STUDIED}
               </Text>
               {/* <Text
@@ -386,24 +387,24 @@ const StudentDashboard = ({}: StudentDashboardProps) => {
             <div className="flex flex-wrap md:grid md:grid-cols-3 md:space-x-4 space-y-3 ">
               <div className="w-full bg-white rounded-sm flex items-center justify-center shadow-sm">
                 <DonutChart
-                  available={500}
-                  total={800}
+                  available={counts?.today}
+                  total={reviewDecks?.length}
                   duration="Today"
                   color="#0030DD"
                 />
               </div>
               <div className="w-full bg-white rounded-sm flex items-center justify-center shadow-sm">
                 <DonutChart
-                  available={400}
-                  total={900}
+                  available={counts?.thisWeek}
+                  total={reviewDecks?.length}
                   duration="This Week"
                   color="#FF900E"
                 />
               </div>
               <div className=" w-full bg-white rounded-sm flex items-center justify-center shadow-sm">
                 <DonutChart
-                  available={300}
-                  total={1000}
+                  available={counts?.thisMonth}
+                  total={reviewDecks?.length}
                   duration="This Month"
                   color="#6683EB"
                 />

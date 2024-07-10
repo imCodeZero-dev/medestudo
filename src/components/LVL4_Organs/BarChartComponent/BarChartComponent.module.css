@@ -137,4 +137,10 @@
   .chartContainer {
     height: auto;
   }
+  .deckTextDecrease {
+    width: 86px;
+  }
+  .questionTextDecrease {
+    width: 86px;
+  }
 }

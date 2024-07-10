@@ -8,6 +8,7 @@ import {
   CLOUDINARY_UPLOAD_PRESET,
 } from "../constants/constants";
 import dayjs from "dayjs";
+import { reviewDeckType } from "../constants/DataTypes";
 
 export const IOSSwitch = styled((props: any) => (
   <Switch
@@ -229,4 +230,50 @@ export const calculateConfidenceLevel = (
   const percentage = ((rating / 5) * 100) / 100;
 
   return percentage / totalFlashcards;
+};
+
+const getDateDiffInDays = (date1: Date, date2: Date): number => {
+  const diffTime = Math.abs(date2.getTime() - date1.getTime());
+  return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+};
+
+const getWeekStart = (date: Date): Date => {
+  const start = new Date(date);
+  start.setDate(start.getDate() - start.getDay());
+  start.setHours(0, 0, 0, 0);
+  return start;
+};
+
+const getMonthStart = (date: Date): Date => {
+  const start = new Date(date);
+  start.setDate(1);
+  start.setHours(0, 0, 0, 0);
+  return start;
+};
+
+export const categorizeReviewDecks = (reviewDecks: reviewDeckType[]) => {
+  const today = new Date();
+  const weekStart = getWeekStart(today);
+  const monthStart = getMonthStart(today);
+
+  const todayCount = reviewDecks?.filter((deck) => {
+    const createdAt = new Date(deck.data.rated?.createdAt);
+    return getDateDiffInDays(today, createdAt) === 0;
+  }).length;
+
+  const thisWeekCount = reviewDecks?.filter((deck) => {
+    const createdAt = new Date(deck.data.rated?.createdAt);
+    return createdAt >= weekStart;
+  }).length;
+
+  const thisMonthCount = reviewDecks?.filter((deck) => {
+    const createdAt = new Date(deck.data.rated?.createdAt);
+    return createdAt >= monthStart;
+  }).length;
+
+  return {
+    today: todayCount,
+    thisWeek: thisWeekCount,
+    thisMonth: thisMonthCount,
+  };
 };

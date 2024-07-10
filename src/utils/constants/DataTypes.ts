@@ -204,6 +204,8 @@ export interface Ratingflashcard {
     answerImage: string;
     answer: string;
     deckId: string;
+
+    createdAt: string;
     tags: Tag[];
   };
 }

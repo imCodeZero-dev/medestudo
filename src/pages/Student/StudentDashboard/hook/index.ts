@@ -20,12 +20,32 @@ import {
   useStudentAllClassesQuery,
 } from "../../../../redux/slices/APISlice";
 import { useNavigate } from "react-router-dom";
+import { categorizeReviewDecks } from "../../../../utils/hooks/helper";
+import isSameOrAfter from "dayjs/plugin/isSameOrAfter";
+import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
+import isoWeek from "dayjs/plugin/isoWeek";
+import dayjs from "dayjs";
+
+dayjs.extend(isSameOrAfter);
+dayjs.extend(isSameOrBefore);
+dayjs.extend(isoWeek);
+
+interface CategorizedCounts {
+  today: number;
+  thisWeek: number;
+  thisMonth: number;
+}
 
 export const useStudentDashboard = () => {
   // const navigate = useNavigate();
   const { localeSuccess } = useLocale();
   const [cookies] = useCookies(["student"]);
   const navigate = useNavigate();
+  const [counts, setCounts] = useState<CategorizedCounts>({
+    today: 0,
+    thisWeek: 0,
+    thisMonth: 0,
+  });
   const [totals, setTotals] = useState({
     allFlashcards: 0,
     allQuestions: 0,
@@ -71,6 +91,7 @@ export const useStudentDashboard = () => {
     useStudentAllClassesQuery(cookies);
   const { allExams, allExamsLoading, errorAllExams, refetchAllExams } =
     useAllExamsQuery(cookies?.student);
+  const [reveiwTimelines, setReveiwTimelines] = useState(0);
 
   const {
     dashboardData,
@@ -125,6 +146,13 @@ export const useStudentDashboard = () => {
     // }
   };
 
+  // console.log("reviewDecks", reviewDecks);
+
+  useEffect(() => {
+    const categorizedCounts = categorizeReviewDecks(reviewDecks);
+    setCounts(categorizedCounts);
+  }, [reviewDecks]);
+
   useEffect(() => {
     if (dashboardData?.length > 0) {
       const allQuestions = dashboardData.reduce(
@@ -165,5 +193,6 @@ export const useStudentDashboard = () => {
     dashboardData,
     totals,
     reviewDecks,
+    counts,
   };
 };

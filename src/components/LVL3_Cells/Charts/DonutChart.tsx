@@ -1,21 +1,17 @@
 import React from "react";
-import Text from "../../LVL1_Atoms/Text/Text";
 import styles from "./Chart.module.css";
 
-interface props {
+interface Props {
   total: number;
   available: number;
   color: string;
   duration: string;
 }
-const DonutChart = ({ total, available, color, duration }: props) => {
-  // Calculate percentage of available funds
-  const percentage = Math.round((available / total) * 100);
 
-  // Calculate the strokeDashoffset to represent the percentage
+const DonutChart: React.FC<Props> = ({ total, available, color, duration }) => {
   const radius = 75; // Set the radius to your desired value
-
-  const circumference = 2 * Math.PI * 50; // Assuming radius of 50 for the donut
+  const circumference = 2 * Math.PI * radius;
+  const percentage = total === 0 ? 0 : (available / total) * 100;
   const strokeDashoffset = circumference - (percentage / 100) * circumference;
 
   return (
@@ -23,7 +19,7 @@ const DonutChart = ({ total, available, color, duration }: props) => {
       <circle
         cx="100"
         cy="100"
-        r="75"
+        r={radius}
         fill="transparent"
         stroke="#ddd"
         strokeWidth="10"
@@ -31,13 +27,14 @@ const DonutChart = ({ total, available, color, duration }: props) => {
       <circle
         cx="100"
         cy="100"
-        r="75"
+        r={radius}
         fill="transparent"
         stroke={color ? color : "#007bff"}
         strokeWidth="10"
-        strokeDasharray={`${circumference} ${circumference}`}
+        strokeDasharray={circumference}
         strokeDashoffset={strokeDashoffset}
-      />{" "}
+        transform="rotate(-90 100 100)"
+      />
       <text
         className={styles["duration"]}
         x="100"

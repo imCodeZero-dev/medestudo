@@ -48,3 +48,11 @@
 .ratingButton:nth-child(5) {
   background-color: #1db954;
 }
+
+@media (max-width: 768px) {
+  .ratingButton {
+    width: 26px;
+    height: 26px;
+    font-size: 12px;
+  }
+}
