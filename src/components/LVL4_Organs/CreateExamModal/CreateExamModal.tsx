@@ -10,6 +10,7 @@ import Text from "../../LVL1_Atoms/Text/Text";
 import SelectDropDown from "../../LVL2_Molecules/ControlSelect/CountrySelectDropDown";
 import CustomSelect from "../../LVL2_Molecules/ControlSelect/CustomSelect";
 import { totalYears } from "../../../utils/constants/constants";
+import SelectComponent from "../../LVL2_Molecules/ControlSelect/SelectComponent";
 
 const CreateExamModal = ({
   open,

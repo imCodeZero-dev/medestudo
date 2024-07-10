@@ -24,6 +24,7 @@ import CustomSelect from "../../../components/LVL2_Molecules/ControlSelect/Custo
 import { totalYears } from "../../../utils/constants/constants";
 import { useDispatch } from "react-redux";
 import { openCreateModalExam } from "../../../redux/actions/modalActions";
+import SelectComponent from "../../../components/LVL2_Molecules/ControlSelect/SelectComponent";
 
 const ProfessorExams = ({}: ProfessorExamsProps) => {
   const { localeTitles, localeButtons, localeLables, localePlaceholders } =

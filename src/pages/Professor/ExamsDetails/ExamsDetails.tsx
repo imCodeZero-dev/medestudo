@@ -17,13 +17,9 @@ import ConfirmationModal from "../../../components/LVL4_Organs/ConfirmationModal
 import AlertIcon from "../../../assets/svgs/AlertIcon";
 import { Class, DecksWithCardCount } from "../../../utils/constants/DataTypes";
 import Loader from "../../../components/LVL1_Atoms/Loader";
-import DashboardExams from "../../../components/LVL3_Cells/DashboardExams/DashboardExams";
-import { dummyQuestions } from "../ProfessorDashboard/ProfessorDashboard";
+
 import QuestionBar from "../../../components/LVL3_Cells/QuestionBar/QuestionBar";
-import { BsBuildings } from "react-icons/bs";
-import { FaRegCalendar, FaRegClock } from "react-icons/fa6";
-import { GoQuestion } from "react-icons/go";
-import { BiSolidPencil } from "react-icons/bi";
+
 import EditExamModal from "../../../components/LVL4_Organs/CreateExamModal/EditExamModal";
 import { totalYears } from "../../../utils/constants/constants";
 import ExamDetailsHead from "../../../components/LVL3_Cells/ExamDetailsHead/ExamDetailsHead";

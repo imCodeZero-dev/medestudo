@@ -15,6 +15,7 @@ import Select from "react-select";
 import { useState } from "react";
 import { breakPoints } from "../../../utils/constants/ResponsiveDesignBreakPoints";
 import { useWidth } from "../../../utils/hooks/responsiveHook";
+import SelectComponent from "../../LVL2_Molecules/ControlSelect/SelectComponent";
 
 const CreateDeckModal = ({
   open,

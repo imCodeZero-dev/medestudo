@@ -1,7 +1,7 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   showErrorToast,
   showSuccessToast,
@@ -32,6 +32,7 @@ export const useAdminProfile = () => {
     firstName: yup.string().required("First name is required"),
     lastName: yup.string().required("Last name is required"),
     image: yup.string().required("Picture is required"),
+    // oldImg: yup.string().required("Picture is required"),
   });
 
   const {
@@ -39,7 +40,7 @@ export const useAdminProfile = () => {
     control,
     formState: { errors },
     watch,
-  } = useForm({
+  } = useForm<any>({
     resolver: yupResolver(validationSchema),
     defaultValues: {
       lastName: cookies?.admin?.lastName,
@@ -47,6 +48,7 @@ export const useAdminProfile = () => {
       // newPassword: "",
       firstName: cookies?.admin?.firstName,
       image: cookies?.admin?.pic,
+      oldImg: cookies?.admin?.pic,
     },
   });
   const {
@@ -62,7 +64,8 @@ export const useAdminProfile = () => {
   });
   const [profileLoading, setProfileLoading] = useState<boolean>(false);
   const [resetLoading, setResetLoading] = useState<boolean>(false);
-
+  const AdminImage = watch("image");
+  const oldImg = watch("oldImg");
   const onSubmitUpdateAdmin = async (data: any) => {
     console.log("onSubmitUpdateAdmin", data);
     try {
@@ -94,11 +97,7 @@ export const useAdminProfile = () => {
         email: data?.email,
         pic: imageUrl,
       };
-      // setCookie("admin", updatedAdmin, { maxAge: 86400 });
-      // setCookie("admin", updatedAdmin, {
-      //   path: "/",
-      //   expires: new Date(dayjs().add(Number(30), "day").toString()),
-      // });
+
       setCookie("admin", updatedAdmin, { maxAge: 86400 });
 
       showSuccessToast(localeSuccess?.SUCCESS_ADMIN_UPDATED);
@@ -109,6 +108,53 @@ export const useAdminProfile = () => {
       setProfileLoading(false);
     }
   };
+  const callImageUpload = async () => {
+    try {
+      setProfileLoading(true);
+
+      let imageUrl = "";
+      if (AdminImage) {
+        imageUrl = await uploadImageToCloudinary(watch("image"));
+      }
+
+      const params = {
+        firstName: watch("firstName"),
+        lastName: watch("lastName"),
+        email: watch("email"),
+        pic: imageUrl,
+      };
+
+      const response = await updateAdminProfileApi(
+        params,
+        cookies?.admin?._id,
+        cookies?.admin?.token
+      );
+      console.log("response", response);
+
+      const updatedAdmin = {
+        ...cookies?.admin,
+        firstName: watch("firstName"),
+        lastName: watch("lastName"),
+        email: watch("email"),
+        pic: imageUrl,
+      };
+
+      setCookie("admin", updatedAdmin, { maxAge: 86400 });
+
+      showSuccessToast(localeSuccess?.SUCCESS_ADMIN_UPDATED);
+    } catch (error: any) {
+      console.log("error", error);
+      showErrorToast(error?.response?.data?.message);
+    } finally {
+      setProfileLoading(false);
+    }
+  };
+
+  // useMemo(() => {
+  //   if (AdminImage !== oldImg) {
+  //     callImageUpload();
+  //   }
+  // }, [AdminImage]);
 
   const onSubmitResetPasswordAdmin = async (data: any) => {
     // console.log("onSubmitResetPasswordAdmin", data);

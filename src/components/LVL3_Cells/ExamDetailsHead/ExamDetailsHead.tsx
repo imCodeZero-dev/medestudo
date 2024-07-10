@@ -9,6 +9,7 @@ import { GoQuestion } from "react-icons/go";
 import { BsBuildings } from "react-icons/bs";
 import { FaRegCalendar, FaRegClock } from "react-icons/fa6";
 import { Button } from "../../LVL1_Atoms/Button";
+import { FiTrash } from "react-icons/fi";
 
 const ExamDetailsHead: React.FC<ExamDetailsHeadProps> = ({
   examsDetails,
@@ -58,18 +59,34 @@ const ExamDetailsHead: React.FC<ExamDetailsHeadProps> = ({
         </div>
       </div>
       <div className={styles["main-inner-right"]}>
-        <Button
+        {/* <Button
           className="yellowButton-lessHeight"
           onClick={() => openDeleteModal(examsDetails?._id)}
         >
           {localeButtons?.BUTTON_DELETE_EXAM}
-        </Button>
-        <Button
+        </Button> */}
+        <div className="flex items-center justify-center bg-slate-200 p-2 h-12 w-12 rounded-full cursor-pointer hover:animate-pulse">
+          <FiTrash
+            size={16}
+            color="#CC5200"
+            className=""
+            onClick={() => openDeleteModal(examsDetails?._id)}
+          />
+        </div>
+        <div className="flex items-center justify-center bg-slate-200  p-2 h-12 w-12 rounded-full cursor-pointer  hover:animate-pulse">
+          <BiSolidPencil
+            size={16}
+            color="#3359E4"
+            className=""
+            onClick={() => openEditModal(examsDetails)}
+          />
+        </div>
+        {/* <Button
           className="primaryActive-lessHeight"
           onClick={() => openEditModal(examsDetails)}
         >
           {localeButtons?.BUTTON_EDIT}
-        </Button>
+        </Button> */}
       </div>
     </div>
   );

@@ -12,11 +12,9 @@ import { AdminRoutes } from "../../../Routes/protectedRoutes/AdminRoutes";
 import { useNavigate } from "react-router-dom";
 import AvatarImg from "../../../assets/Images/dashboard/Avatar.png";
 import Input from "../../../components/LVL1_Atoms/Input";
-import { CiEdit } from "react-icons/ci";
-import { FaPencil } from "react-icons/fa6";
+
 import AvatarUploader from "../../../components/LVL2_Molecules/ImageUploader/AvatarUploader";
-import { Cloudinary } from "@cloudinary/url-gen";
-import { AdvancedImage, responsive, placeholder } from "@cloudinary/react";
+
 import { useState } from "react";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 

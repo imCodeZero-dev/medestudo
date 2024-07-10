@@ -6,6 +6,7 @@ import useLocale from "../../../locales";
 import { Button } from "../../LVL1_Atoms/Button";
 import CustomSelect from "../../LVL2_Molecules/ControlSelect/CustomSelect";
 import { totalYears } from "../../../utils/constants/constants";
+import SelectComponent from "../../LVL2_Molecules/ControlSelect/SelectComponent";
 
 const CollegeDetailForm: React.FC<CollegeDetailFormProps> = ({
   control,

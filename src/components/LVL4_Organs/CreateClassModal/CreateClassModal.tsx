@@ -10,6 +10,7 @@ import Text from "../../LVL1_Atoms/Text/Text";
 import CustomSelect from "../../LVL2_Molecules/ControlSelect/CustomSelect";
 import { breakPoints } from "../../../utils/constants/ResponsiveDesignBreakPoints";
 import { useWidth } from "../../../utils/hooks/responsiveHook";
+import SelectComponent from "../../LVL2_Molecules/ControlSelect/SelectComponent";
 
 const CreateClassModal = ({
   open,

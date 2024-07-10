@@ -14,6 +14,7 @@ import DynamicTabs from "../../LVL3_Cells/Tabs/Tabs";
 import { useEffect, useState } from "react";
 import QuillEditor from "../../LVL3_Cells/QuillEditor/QuillEditor";
 import { useForm } from "react-hook-form";
+import ImageWithLoader from "../../LVL2_Molecules/ImageWithLoader/Image";
 
 const ViewQuestionModal = ({
   open,
@@ -85,9 +86,14 @@ const ViewQuestionModal = ({
                     localePlaceholders.PLACEHOLDER_ENTER_QUESTION_HERE
                   }
                 />
-                <img
+                {/* <img
                   className={styles["questionImage"]}
                   src={questionDetails?.questionImage}
+                /> */}
+                <ImageWithLoader
+                  className={styles["questionImage"]}
+                  src={questionDetails?.questionImage}
+                  alt=""
                 />
               </div>
               <Text className={styles.questionTitle}>
@@ -104,27 +110,41 @@ const ViewQuestionModal = ({
                   localePlaceholders.PLACEHOLDER_ENTER_DETAILED_SOLUTION_HERE
                 }
               />
-              <img
-                className={styles["questionImage"]}
-                src={questionDetails?.detailedSolutionImage}
-              />
+
+              {questionDetails?.detailedSolutionImage && (
+                <ImageWithLoader
+                  className={styles["questionImage"]}
+                  // className="h-24 w-24"
+                  src={questionDetails?.detailedSolutionImage}
+                  alt=""
+                />
+              )}
             </div>
           )}
           {tabValue === 1 && (
             <div className={styles["mcq"]}>
               {questionDetails?.answers?.map((answer: any, index: number) => (
                 <div className={styles["mcqsDiv"]} key={index}>
-                  <div className="flex items-center">
-                    <p
-                      className={
-                        answer.isCorrect
-                          ? styles.correctOption
-                          : styles.incorrectOption
-                      }
-                    >
-                      {String.fromCharCode(65 + index)}
-                    </p>
-                    <p className={styles.answer}>{answer.text}</p>
+                  <div className="flex justify-between">
+                    <div className="flex items-center">
+                      <p
+                        className={
+                          answer.isCorrect
+                            ? styles.correctOption
+                            : styles.incorrectOption
+                        }
+                      >
+                        {String.fromCharCode(65 + index)}
+                      </p>
+                      <p className={styles.answer}>{answer.text}</p>
+                    </div>
+                    {answer?.image && (
+                      <ImageWithLoader
+                        className="h-16 w-16"
+                        src={answer?.image}
+                        alt=""
+                      />
+                    )}
                   </div>
                   <div
                     className={

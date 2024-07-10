@@ -10,6 +10,7 @@ import Text from "../../LVL1_Atoms/Text/Text";
 import SelectDropDown from "../../LVL2_Molecules/ControlSelect/CountrySelectDropDown";
 import CustomSelect from "../../LVL2_Molecules/ControlSelect/CustomSelect";
 import { totalYears } from "../../../utils/constants/constants";
+import SelectComponent from "../../LVL2_Molecules/ControlSelect/SelectComponent";
 
 const EditExamModal = ({
   open,
@@ -56,16 +57,25 @@ const EditExamModal = ({
             />
           </div>
           <div className={styles["inputDiv"]}>
-            <CustomSelect
+            {/* <CustomSelect
               placeholder="Select Institute"
               name="institute"
               control={control}
               options={filteredDecks}
               defaultValue={watch("institute")}
+            /> */}
+
+            <SelectComponent
+              placeholder="Select Institute"
+              name="institute"
+              control={control}
+              options={filteredDecks}
+              defaultValue={watch("institute")}
+              isClearable={true}
             />
           </div>
           <div className={styles["inputDiv"]}>
-            <CustomSelect
+            <SelectComponent
               name="year"
               control={control}
               options={totalYears}

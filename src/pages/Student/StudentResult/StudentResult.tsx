@@ -23,6 +23,7 @@ import { StudentRoutes } from "../../../Routes/protectedRoutes/StudentRoutes";
 import ResultBar from "../../../components/LVL3_Cells/ResultBar/ResultBar";
 import ResultDrawer from "../../../components/LVL4_Organs/ResultDrawer/ResultDrawer";
 import MockResultModal from "../../../components/LVL4_Organs/MockResultModal/MockResultModal";
+import SelectComponent from "../../../components/LVL2_Molecules/ControlSelect/SelectComponent";
 
 const StudentResult = ({}: StudentResultProps) => {
   const { localeTitles, localeButtons, localeLables, localePlaceholders } =
