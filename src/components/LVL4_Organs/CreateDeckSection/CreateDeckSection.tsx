@@ -55,15 +55,12 @@ const CreateDeckSection = ({
       currentLevel?.subDeck[currentIndex] !== undefined
     ) {
       currentLevel = currentLevel?.subDeck[currentIndex];
-      console.log("aaaa", currentLevel);
     }
     if (
       nestedIndex !== undefined &&
       nestedIndex !== null &&
       !isNaN(nestedIndex)
     ) {
-      console.log("currentLevel11111.1", currentLevel);
-      console.log("currentLevel11111.2", nestedIndex);
       currentLevel = currentLevel?.subDeck[nestedIndex];
     }
     if (
@@ -71,18 +68,13 @@ const CreateDeckSection = ({
       deepNestedDeck !== null &&
       !isNaN(deepNestedDeck)
     ) {
-      console.log("currentLevel111112", currentLevel);
-      console.log("deepNestedDeck", deepNestedDeck);
       currentLevel = currentLevel?.subDeck[deepNestedDeck];
     }
-    console.log("currentLevel", currentLevel);
-    // for (let i = 0; i < level - 1; i++) {
     if (level != 1) {
       currentLevel.subDeck = currentLevel?.subDeck || [];
 
       // Check if the current level has sub-decks
       const lastSubDeck = currentLevel.subDeck[currentIndex];
-      console.log("lastSubDeck", lastSubDeck);
       if (level != 3 && level != 4 && lastSubDeck && lastSubDeck.subDeck) {
         // Move to the last sub-deck
         currentLevel = lastSubDeck;
@@ -96,13 +88,14 @@ const CreateDeckSection = ({
     }
 
     // Create a new sub-deck object
-    const newSubDeck = { name: "", subDeck: [] };
+    const newSubDeck = { id: Date.now(), name: "", subDeck: [] };
 
     // Initialize currentLevel.subDeck if it's undefined
     currentLevel.subDeck = currentLevel.subDeck || [];
 
     // Add the new sub-deck to the current level's subDeck array
     currentLevel.subDeck.push(newSubDeck);
+    // currentLevel.subDeck.push({ id: Date.now(), name: "", subDeck: [] });
 
     // Update the form value with the modified decks
     setValue("deck", [...currentDecks]);
@@ -213,7 +206,7 @@ const CreateDeckSection = ({
       <form onSubmit={handleSubmit(onSubmit)} className={styles["form"]}>
         <div className={styles["decksContainer"]}>
           {watch("deck")?.map((deck: any, parentIndex: number) => (
-            <div key={parentIndex} className={styles["deckContainer"]}>
+            <div key={deck.id} className={styles["deckContainer"]}>
               <InputDeck
                 control={control}
                 name={`deck[${parentIndex}].name`}
@@ -223,10 +216,7 @@ const CreateDeckSection = ({
               />
 
               {deck.subDeck?.map((subDeck: any, index: number) => (
-                <div
-                  key={parentIndex + "-" + index}
-                  className={styles["subDeckContainer"]}
-                >
+                <div key={subDeck.id} className={styles["subDeckContainer"]}>
                   <InputDeck
                     control={control}
                     name={`deck[${parentIndex}].subDeck[${index}].name`}
@@ -240,7 +230,7 @@ const CreateDeckSection = ({
                     (nestedDeck: any, nestedIndex: number) => (
                       <div
                         // key={nestedIndex}
-                        key={parentIndex + "-" + nestedIndex} //------------------------------------
+                        key={nestedDeck.id}
                         className={styles["nestedDeckContainer"]}
                       >
                         <InputDeck
@@ -259,13 +249,7 @@ const CreateDeckSection = ({
                           (deepNestedDeck: any, deepNestedIndex: number) => (
                             <div
                               // key={deepNestedIndex}
-                              key={
-                                parentIndex +
-                                "-" +
-                                nestedIndex +
-                                "-" +
-                                deepNestedIndex
-                              }
+                              key={deepNestedDeck.id}
                               className={styles["deepNestedDeckContainer"]}
                             >
                               <InputDeck
@@ -293,15 +277,7 @@ const CreateDeckSection = ({
                                 ) => (
                                   <div
                                     // key={lastNestedIndex}
-                                    key={
-                                      parentIndex +
-                                      "-" +
-                                      nestedIndex +
-                                      "-" +
-                                      deepNestedIndex +
-                                      "-" +
-                                      lastNestedIndex
-                                    }
+                                    key={lastNestedDeck.id}
                                     className={
                                       styles["deepNestedDeckContainer"]
                                     }
