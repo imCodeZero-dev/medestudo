@@ -73,3 +73,18 @@
 .right-section-main {
   padding: 24px;
 }
+
+@media (max-width: 768px) {
+  .StudentDashboard-right {
+    display: none;
+  }
+  .StudentDashboard-main {
+    width: auto;
+    padding: 0 12px;
+  }
+
+  .StudentDashboard-cards {
+ display: flex;
+ flex-wrap: wrap;
+  }
+}

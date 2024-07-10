@@ -219,3 +219,20 @@
   padding: 4px 12px;
   color: #6495dd;
 }
+
+@media (max-width: 768px) {
+  .StudentDeckDetails-right {
+    display: none;
+  }
+  .StudentDeckDetails-main {
+    flex: 1;
+    padding: 24px 12px;
+  }
+  .head-left {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .StudentDeckDetails-head {
+    flex-wrap: wrap;
+  }
+}

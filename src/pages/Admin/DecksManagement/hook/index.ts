@@ -46,6 +46,7 @@ export const useDecksManagement = () => {
   const [deleteLoading, setDeleteLoading] = useState<boolean>(false);
   const [editLoading, setEditLoading] = useState<boolean>(false);
   const [deleteModal, setdeleteModal] = useState<boolean>(false);
+ 
 
   const handleCreate = () => {
     setcreateSection(true);
@@ -238,5 +239,6 @@ export const useDecksManagement = () => {
     handleEditCancel,
     onConfirmEdit,
     allDecksLoading,
+ 
   };
 };

@@ -1,12 +1,12 @@
 .title {
-   /* font-family: Poppins; */
+  /* font-family: Poppins; */
   font-size: 24px;
   font-weight: 600;
   line-height: 36px;
   color: #1d1f22;
 }
 .basic {
-   /* font-family: Poppins; */
+  /* font-family: Poppins; */
   font-size: 16px;
   font-weight: 400;
   line-height: 24px;
@@ -23,4 +23,12 @@
 
 .inputDiv {
   margin-top: 4px;
+}
+
+@media (max-width: 768px) {
+  .basic {
+    font-size: 12px;
+
+    line-height: 18px;
+  }
 }

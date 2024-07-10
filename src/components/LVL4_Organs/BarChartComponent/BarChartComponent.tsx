@@ -133,7 +133,7 @@ const BarChartComponent: React.FC<BarChartComponentProps> = ({
   // console.log("chartData", chartData[chartData?.length - 2]);
 
   return (
-    <div className={styles.chartContainer} ref={chartContainerRef}>
+    <div className={`${styles.chartContainer}`} ref={chartContainerRef}>
       <div className={styles.chartWrapper}>
         <div className={styles.buttonGroup}>
           <div className="flex space-x-2">
@@ -149,7 +149,9 @@ const BarChartComponent: React.FC<BarChartComponentProps> = ({
               ) : (
                 <FaArrowTrendDown />
               )}
-              {`  ${progress.deckProgress}%`}
+              {`  ${
+                !isNaN(progress.deckProgress) ? progress.deckProgress : 0
+              }%`}
             </Text>
             <Text
               className={
@@ -164,12 +166,16 @@ const BarChartComponent: React.FC<BarChartComponentProps> = ({
               ) : (
                 <FaArrowTrendDown />
               )}
-              {` ${progress.questionProgress}%`}
+              {`  ${
+                !isNaN(progress.questionProgress)
+                  ? progress.questionProgress
+                  : 0
+              }%`}
             </Text>
             {/* <Text className={styles.increaseText}>{`${chartData[chartData.length - 1]?.differenceQuestions}`}</Text> */}
           </div>
 
-          <div className="flex space-x-6">
+          <div className="flex-wrap space-y-2 justify-between flex lg:space-x-6">
             <div className="flex space-x-3">
               <div className="flex items-center space-x-1">
                 <div className={styles.legendIndicator1}></div>
@@ -200,7 +206,12 @@ const BarChartComponent: React.FC<BarChartComponentProps> = ({
             </div>
           </div>
         </div>
-        <BarChart width={containerWidth} height={250} data={chartData}>
+        <BarChart
+          className={styles.chartMain}
+          width={containerWidth}
+          height={250}
+          data={chartData}
+        >
           <CartesianGrid strokeDasharray="3 3" stroke="#ffffff" />
           <XAxis
             dataKey="name"

@@ -19,6 +19,8 @@ import RatingButtons from "../RatingButtons/RatingButtons";
 import { MdOutlineZoomOutMap } from "react-icons/md";
 import { FaRegBookmark } from "react-icons/fa6";
 import ImageWithLoader from "../../LVL2_Molecules/ImageWithLoader/Image";
+import { breakPoints } from "../../../utils/constants/ResponsiveDesignBreakPoints";
+import { useWidth } from "../../../utils/hooks/responsiveHook";
 
 const StudentViewFlashcard: React.FC<StudentViewFlashcardProps> = ({
   control,
@@ -51,6 +53,7 @@ const StudentViewFlashcard: React.FC<StudentViewFlashcardProps> = ({
 }) => {
   const { localeTitles, localePlaceholders, localeButtons, localeText } =
     useLocale();
+  const { width } = useWidth();
 
   console.log("allFlashcards mode", mode);
   const filteredTags = allTags?.map((item: any) => item.title);
@@ -186,7 +189,35 @@ const StudentViewFlashcard: React.FC<StudentViewFlashcardProps> = ({
             </div>
 
             <div className={styles["StudentViewFlashcard-body"]}>
-              {mode !== "exam" && (
+              <div className="flex space-x-2">
+                {mode !== "exam" && width < breakPoints.sm && (
+                  <BiSolidLeftArrow
+                    onClick={
+                      currentFlashcardIndex >= 1 &&
+                      (handlePreviousFlashcard as any)
+                    }
+                    size={42}
+                    fill={currentFlashcardIndex >= 1 ? "#3359E4" : "gray"}
+                    className="cursor-pointer"
+                  />
+                )}
+                {mode !== "exam" && width < breakPoints.sm && (
+                  <BiSolidRightArrow
+                    onClick={
+                      currentFlashcardIndex !== allFlashcards?.length - 1 &&
+                      (handleNextFlashcard as any)
+                    }
+                    size={42}
+                    fill={
+                      currentFlashcardIndex !== allFlashcards?.length - 1
+                        ? "#3359E4"
+                        : "gray"
+                    }
+                    className="cursor-pointer"
+                  />
+                )}
+              </div>
+              {mode !== "exam" && width > breakPoints.sm && (
                 <BiSolidLeftArrow
                   onClick={
                     currentFlashcardIndex >= 1 &&
@@ -360,7 +391,7 @@ const StudentViewFlashcard: React.FC<StudentViewFlashcardProps> = ({
                 )}
               </div>
               <div>
-                {mode !== "exam" && (
+                {mode !== "exam" && width > breakPoints.sm && (
                   <BiSolidRightArrow
                     onClick={
                       currentFlashcardIndex !== allFlashcards?.length - 1 &&

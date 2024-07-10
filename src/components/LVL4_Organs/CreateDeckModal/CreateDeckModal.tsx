@@ -13,6 +13,8 @@ import CountrySelectDropDown from "../../LVL2_Molecules/ControlSelect/CountrySel
 import { Controller } from "react-hook-form";
 import Select from "react-select";
 import { useState } from "react";
+import { breakPoints } from "../../../utils/constants/ResponsiveDesignBreakPoints";
+import { useWidth } from "../../../utils/hooks/responsiveHook";
 
 const CreateDeckModal = ({
   open,
@@ -27,6 +29,7 @@ const CreateDeckModal = ({
   custom,
   edit,
 }: CreateDeckModalProps) => {
+  const { width } = useWidth();
   const {
     localeTitles,
     localeText,
@@ -46,7 +49,11 @@ const CreateDeckModal = ({
 
   return (
     <div className={styles["CreateDeckModal"]}>
-      <CustomModal open={open} onClose={handleClose}>
+      <CustomModal
+        open={open}
+        onClose={handleClose}
+        width={width > breakPoints?.sm ? 600 : "auto"}
+      >
         <div className="text-center">
           <Text className={styles["title"]}>
             {edit

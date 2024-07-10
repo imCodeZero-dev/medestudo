@@ -10,6 +10,8 @@ import { useCookies } from "react-cookie";
 import SettingIcon from "../../../assets/svgs/SettingIcon";
 import { CiLogout } from "react-icons/ci";
 import Text from "../../LVL1_Atoms/Text/Text";
+import { useWidth } from "../../../utils/hooks/responsiveHook";
+import { breakPoints } from "../../../utils/constants/ResponsiveDesignBreakPoints";
 
 const UserDropdown: React.FC<UserDropdownProps> = ({
   handleOpenLogout,
@@ -19,6 +21,7 @@ const UserDropdown: React.FC<UserDropdownProps> = ({
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const navigate = useNavigate();
   const { localeDropdowns } = useLocale();
+  const { width } = useWidth();
 
   const navigation = (link: string) => {
     handleClose();
@@ -59,7 +62,7 @@ const UserDropdown: React.FC<UserDropdownProps> = ({
           {userData?.pic ? (
             <img className={styles.image} src={userData?.pic} />
           ) : (
-            <RxAvatar size={40} />
+            <RxAvatar size={width > breakPoints?.sm ? 40 : 26} />
           )}
         </div>
 

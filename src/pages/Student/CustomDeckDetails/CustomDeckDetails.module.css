@@ -229,3 +229,22 @@ column-gap: 12px;
   text-align: left;
   color: 6F7680;
 }
+
+
+
+@media (max-width: 768px) {
+  .CustomDeckDetails-right {
+    display: none;
+  }
+  .CustomDeckDetails-main {
+    flex: 1;
+    padding: 24px 12px;
+  }
+  .head-left {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .CustomDeckDetails-head {
+    flex-wrap: wrap;
+  }
+}

@@ -198,10 +198,11 @@ const StudentAllFlashCards = ({}: StudentAllFlashCardsProps) => {
                   </div>
                 </div>
 
-                <div className="flex">
+                <div className="flex justify-center sm:justify-start">
                   <ButtonGroup
                     variant="contained"
                     aria-label="Basic button group"
+                    className="flex flex-col sm:flex-row"
                   >
                     {mode === "exam" && (
                       <Button

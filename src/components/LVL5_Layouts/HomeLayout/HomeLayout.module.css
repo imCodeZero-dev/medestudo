@@ -97,6 +97,14 @@
   .HomeLayout-header {
     height: 80px;
   }
+  .pathName {
+    font-size: 14px;
+    line-height: 22px;
+  }
+
+  .HomeLayout-header {
+    padding: 0 12px;
+  }
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */

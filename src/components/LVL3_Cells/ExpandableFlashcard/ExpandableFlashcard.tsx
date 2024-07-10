@@ -18,6 +18,8 @@ import { TbCards } from "react-icons/tb";
 import { FaCheckCircle } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
 import { handleImageURL } from "../../../utils/constants/constants";
+import { breakPoints } from "../../../utils/constants/ResponsiveDesignBreakPoints";
+import { useWidth } from "../../../utils/hooks/responsiveHook";
 
 export const DropdownMenu: React.FC<{
   openDeleteModal: ((data: string) => void) | undefined;
@@ -56,7 +58,7 @@ const ExpandableFlashcard: React.FC<ExpandableFlashcardProps> = ({
   custom,
 }) => {
   const [isHovered, setIsHovered] = useState(false);
-
+  const { width } = useWidth();
   // const { localeText, localeDropdowns } = useLocale();
   const { localeText, localeLables } = useLocale();
   const { isDropdownOpen, toggleDropdown, dropdownRef } = useDropdown();
@@ -112,13 +114,15 @@ const ExpandableFlashcard: React.FC<ExpandableFlashcardProps> = ({
 
           {!minView && (
             <div>
-              <Text className={styles["title"]}>
+              <Text className={`${styles["title"]} line-clamp-1`}>
                 {custom ? data?.title : data?.deckId?.name}
               </Text>
               {!custom && (
-                <Text className={styles["certifiedText"]}>
+                <Text className={`${styles["certifiedText"]} `}>
                   <FaCheckCircle fill="#1DB954" />
-                  {localeLables.LABEL_MEDESTUDIO_CERTIFIED}
+                  <span className="line-clamp-1">
+                    {localeLables.LABEL_MEDESTUDIO_CERTIFIED}
+                  </span>
                 </Text>
               )}
             </div>
@@ -126,7 +130,7 @@ const ExpandableFlashcard: React.FC<ExpandableFlashcardProps> = ({
         </div>
         <div className={styles["ExpandableFlashcard-right"]} ref={dropdownRef}>
           <Text className={styles["cardNumber"]}>{data?.flashcardCount}</Text>
-          <TbCards size={26} fill="black" />
+          <TbCards size={width > breakPoints?.sm ? 26 : 16} fill="black" />
           {custom && (
             <>
               <BiSolidPencil
@@ -190,7 +194,7 @@ const ExpandableFlashcard: React.FC<ExpandableFlashcardProps> = ({
                   onClick={() => getDetails && getDetails(data)}
                 >
                   <div>
-                    <Text className={styles["title"]}>
+                    <Text className={`${styles["title"]} line-clamp-1`}>
                       {dcks?.subdeck?.name}
                     </Text>
                   </div>
@@ -199,7 +203,10 @@ const ExpandableFlashcard: React.FC<ExpandableFlashcardProps> = ({
                   {/* <BiSolidPencil size={25} color="#2A2D31" className="cursor-pointer" /> */}
 
                   <Text className={styles["cardNumber"]}>55</Text>
-                  <TbCards size={26} fill="black" />
+                  <TbCards
+                    size={width > breakPoints?.sm ? 26 : 16}
+                    fill="black"
+                  />
                 </div>
               </div>
             ))}

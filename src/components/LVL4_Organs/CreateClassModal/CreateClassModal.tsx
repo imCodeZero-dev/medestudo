@@ -8,6 +8,8 @@ import { Button } from "../../LVL1_Atoms/Button";
 import CustomModal from "../../LVL2_Molecules/CustomModal/CustomModal";
 import Text from "../../LVL1_Atoms/Text/Text";
 import CustomSelect from "../../LVL2_Molecules/ControlSelect/CustomSelect";
+import { breakPoints } from "../../../utils/constants/ResponsiveDesignBreakPoints";
+import { useWidth } from "../../../utils/hooks/responsiveHook";
 
 const CreateClassModal = ({
   open,
@@ -27,9 +29,14 @@ const CreateClassModal = ({
     localePlaceholders,
     localeButtons,
   } = useLocale();
+  const { width } = useWidth();
   return (
     <div className={styles["CreateClassModal"]}>
-      <CustomModal open={open} onClose={handleClose}>
+      <CustomModal
+        open={open}
+        onClose={handleClose}
+        width={width > breakPoints?.sm ? 600 : "auto"}
+      >
         <div className={styles["modal-head"]}>
           <Text className={styles["title"]}>
             {edit

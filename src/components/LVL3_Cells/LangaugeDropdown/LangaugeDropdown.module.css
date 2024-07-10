@@ -60,3 +60,14 @@
   opacity: 0;
   visibility: hidden;
 }
+
+@media (max-width: 768px) {
+  .dropdownTxt {
+    font-size: 12px;
+  }
+  .mainDiv {
+    width: 80px;
+    padding: 6px;
+    gap: 6px;
+  }
+}

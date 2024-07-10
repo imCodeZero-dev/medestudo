@@ -39,12 +39,15 @@ import {
 } from "../StudentDashboard/StudentDashboard";
 import { Controller } from "react-hook-form";
 import { formattedTime } from "../../../utils/hooks/helper";
+import { useWidth } from "../../../utils/hooks/responsiveHook";
+import { breakPoints } from "../../../utils/constants/ResponsiveDesignBreakPoints";
 
 const StudentDeckDetails = ({}: StudentDeckDetailsProps) => {
   const { localeTitles, localeButtons, localeLables } = useLocale();
   const [cookies] = useCookies(["admin"]);
   const [createFlashcard, setCreateFlashcard] = useState<boolean>(false);
   const location = useLocation();
+  const { width } = useWidth();
 
   const {
     control,
@@ -121,7 +124,7 @@ const StudentDeckDetails = ({}: StudentDeckDetailsProps) => {
                       <Text className={styles.heading}>
                         {classDetails?.deckId?.name}
                       </Text>
-                      <div className="flex space-x-3 ">
+                      <div className="flex-wrap flex space-x-3 ">
                         <div className="flex items-center space-x-1">
                           <IoIosCheckmarkCircle fill="#1DB954" />
                           <Text className={styles.createdText}>
@@ -250,7 +253,9 @@ const StudentDeckDetails = ({}: StudentDeckDetailsProps) => {
                           <div className={styles["deckBody-left"]}>
                             {/* <SiRundeck /> */}
                             <div>
-                              <Text className={styles.deckName}>
+                              <Text
+                                className={`${styles.deckName} line-clamp-1`}
+                              >
                                 {deck?.subdeck?.name}
                               </Text>
                               <div className="flex items-center space-x-1 my-2">
@@ -264,7 +269,7 @@ const StudentDeckDetails = ({}: StudentDeckDetailsProps) => {
                           <div className={styles["deckBody-right"]}>
                             {deck?.cardCount > 0 && (
                               <IoIosPlayCircle
-                                size={32}
+                                size={width > breakPoints?.sm ? 32 : 24}
                                 color="#FF900E"
                                 className="cursor-pointer"
                                 onClick={() => navigateToViewFlashcard(deck)}
@@ -287,7 +292,7 @@ const StudentDeckDetails = ({}: StudentDeckDetailsProps) => {
                             {deck?._id && (
                               <div>
                                 <IoEllipsisHorizontal
-                                  size={25}
+                                   size={width > breakPoints?.sm ? 25 : 18}
                                   color="#2A2D31"
                                   className="cursor-pointer"
                                   onClick={(event) =>

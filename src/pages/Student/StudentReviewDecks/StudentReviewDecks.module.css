@@ -13,7 +13,6 @@
   justify-content: center;
 }
 
-
 .StudentReviewDecks-right {
   background-color: inherit;
   justify-content: space-between;
@@ -62,9 +61,6 @@
   border: 1px solid #d0d5dd !important;
 }
 
-
-
-
 .sectionHeading {
   /* font-family: Inter; */
   font-size: 18px;
@@ -75,7 +71,7 @@
 }
 
 .viewMore {
-   /* font-family: Poppins; */
+  /* font-family: Poppins; */
   font-size: 12px;
   font-weight: 500;
   line-height: 18px;
@@ -84,4 +80,13 @@
   border-bottom: 1px solid #383c41;
   cursor: pointer;
   /* text-underline-offset: #383c41; */
+}
+
+@media (max-width: 768px) {
+  .StudentReviewDecks-right {
+    display: none;
+  }
+  .StudentReviewDecks-main {
+    flex: 1;
+  }
 }

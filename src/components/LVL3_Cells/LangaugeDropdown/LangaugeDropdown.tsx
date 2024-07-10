@@ -8,6 +8,8 @@ import useLocale from "../../../locales";
 import { setLanguage } from "../../../redux/slices/languageSlice";
 import engFlag from "../../../assets/Images/dashboard/eng.png";
 import brazilFlag from "../../../assets/Images/dashboard/brazil.png";
+import { useWidth } from "../../../utils/hooks/responsiveHook";
+import { breakPoints } from "../../../utils/constants/ResponsiveDesignBreakPoints";
 
 const LanguageDropdown = ({}) => {
   const dispatch = useDispatch();
@@ -52,7 +54,7 @@ const LanguageDropdown = ({}) => {
       <div className={styles["mainDiv"]} onClick={handleToggle}>
         <div className="flex items-center space-x-1">
           <img
-            className="w-6 h-6 rounded-full mr-2 object-cover"
+            className="w-4 h-4 sm:w-6 sm:h-6 rounded-full mr-1 sm:mr-2 object-cover"
             src={currentLang === "en" ? engFlag : brazilFlag}
             alt={"flag"}
           />

@@ -373,7 +373,7 @@ const StudentDashboard = ({}: StudentDashboardProps) => {
 
           <div className={styles["StudentDashboard-section"]}>
             <div className="flex justify-between items-center">
-              <Text className={styles["sectionHeading"]}>
+              <Text className={`${styles["sectionHeading"]} mb-4` }>
                 {localeTitles?.TITLE_FLASHCARDS_STUDIED}
               </Text>
               {/* <Text
@@ -383,8 +383,8 @@ const StudentDashboard = ({}: StudentDashboardProps) => {
                 {localeTitles?.TITLE_VIEW_MORE}
               </Text> */}
             </div>
-            <div className="grid grid-cols-3 space-x-4">
-              <div className="bg-white rounded-sm flex items-center justify-center">
+            <div className="flex flex-wrap md:grid md:grid-cols-3 md:space-x-4 space-y-3 ">
+              <div className="w-full bg-white rounded-sm flex items-center justify-center shadow-sm">
                 <DonutChart
                   available={500}
                   total={800}
@@ -392,7 +392,7 @@ const StudentDashboard = ({}: StudentDashboardProps) => {
                   color="#0030DD"
                 />
               </div>
-              <div className="bg-white rounded-sm flex items-center justify-center">
+              <div className="w-full bg-white rounded-sm flex items-center justify-center shadow-sm">
                 <DonutChart
                   available={400}
                   total={900}
@@ -400,7 +400,7 @@ const StudentDashboard = ({}: StudentDashboardProps) => {
                   color="#FF900E"
                 />
               </div>
-              <div className="bg-white rounded-sm flex items-center justify-center">
+              <div className=" w-full bg-white rounded-sm flex items-center justify-center shadow-sm">
                 <DonutChart
                   available={300}
                   total={1000}

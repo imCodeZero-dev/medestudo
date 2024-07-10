@@ -225,4 +225,8 @@
     font-size: 16px;
     margin-top: 16px;
   }
+  .primaryActive-lessHeight {
+    font-size: 11px;
+    /* padding: 0.6em 0.6em; */
+  }
 }

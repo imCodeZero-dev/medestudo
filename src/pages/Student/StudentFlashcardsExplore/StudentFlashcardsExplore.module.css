@@ -53,3 +53,17 @@
 .right-section-main {
   padding: 24px;
 }
+
+@media (max-width: 768px) {
+  .StudentFlashcardsExplore-right {
+    display: none;
+  }
+  .StudentFlashcardsExplore-main {
+    flex: 1;
+    padding: 24px 12px;
+  }
+  .StudentFlashcardsExplore-head {
+    flex-wrap: wrap;
+    row-gap: 16px;
+  }
+}

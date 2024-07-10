@@ -47,6 +47,8 @@
 
 .StudentViewFlashcard-mainHead-left {
   display: flex;
+  flex-wrap: wrap;
+  row-gap: 12px;
   column-gap: 12px;
 }
 
@@ -147,6 +149,15 @@
   }
   .StudentViewFlashcard-body {
     padding: 4px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .questionImage {
+    width: auto;
+    height: auto;
+    /* margin: auto; */
+    margin: 12px 0;
   }
 }
 

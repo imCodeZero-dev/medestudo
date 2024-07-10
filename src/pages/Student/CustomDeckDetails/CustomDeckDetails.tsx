@@ -139,8 +139,8 @@ const CustomDeckDetails = ({}: CustomDeckDetailsProps) => {
                 <div className={styles["leftDetails"]}>
                   <div>
                     <Text className={styles.heading}>{deckData?.title}</Text>
-                    <div className="flex space-x-3 ">
-                      <div className="flex items-center space-x-1">
+                    <div className="flex-wrap flex space-x-3 ">
+                    <div className="flex items-center space-x-1">
                         <IoIosCheckmarkCircle fill="#1DB954" />
                         <Text className={styles.createdText}>
                           {`${localeText.TEXT_CREATED_BY} Me`}

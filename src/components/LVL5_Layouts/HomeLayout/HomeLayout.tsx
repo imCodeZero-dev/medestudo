@@ -239,7 +239,7 @@ const HomeLayout = ({ children, createButton, control }: HomeLayoutProps) => {
       </motion.div>
       <div className={styles["HomeLayout-main"]}>
         <div className={styles["HomeLayout-header"]}>
-          <div className="flex items-center space-x-3">
+          <div className="flex items-center space-x-1 sm:space-x-3">
             <div className={styles["pathName"]}>{getName()}</div>
             <div>{createButton && createButton}</div>
           </div>
@@ -262,7 +262,7 @@ const HomeLayout = ({ children, createButton, control }: HomeLayoutProps) => {
               <SettingIcon />
             </div> */}
 
-            <div className="ml-3 cursor-pointer">
+            <div className="ml-3 cursor-pointer items-center m-auto">
               <UserDropdown
                 handleOpenLogout={handleOpenLogout}
                 userData={userData}

@@ -41,6 +41,7 @@ const DecksManagement = ({}: DecksManagementProps) => {
     onConfirmEdit,
     deckLoading,
     allDecksLoading,
+
   } = useDecksManagement();
 
   const [expandedDecks, setExpandedDecks] = useState<boolean[]>([]);
@@ -80,6 +81,7 @@ const DecksManagement = ({}: DecksManagementProps) => {
 
         {createSection && (
           <CreateDeckSection
+         
             control={control}
             handleSubmit={handleSubmit}
             onSubmit={onCreateSubmission}

@@ -23,10 +23,14 @@ import {
   openCreateModalExam,
 } from "../../../redux/actions/modalActions";
 import { useDispatch } from "react-redux";
+import { useWidth } from "../../../utils/hooks/responsiveHook";
+import { breakPoints } from "../../../utils/constants/ResponsiveDesignBreakPoints";
+import { FiPlusCircle } from "react-icons/fi";
 
 const StudentCustomClasses = ({}: StudentCustomClassesProps) => {
   const { localeTitles, localeButtons, localeLables } = useLocale();
   const [cookies] = useCookies(["admin"]);
+  const { width } = useWidth();
 
   const {
     control,
@@ -63,12 +67,16 @@ const StudentCustomClasses = ({}: StudentCustomClassesProps) => {
   return (
     <HomeLayout
       createButton={
-        <Button
-          className="primaryActive-lessHeight"
-          onClick={handleCreateExamModal}
-        >
-          + {localeButtons.BUTTON_CREATE_NEW}
-        </Button>
+        width > breakPoints?.sm ? (
+          <Button
+            className="primaryActive-lessHeight"
+            onClick={handleCreateExamModal}
+          >
+            + {localeButtons.BUTTON_CREATE_NEW}
+          </Button>
+        ) : (
+          <FiPlusCircle color="blue" onClick={handleCreateExamModal} />
+        )
       }
     >
       <div className={styles["StudentCustomClasses"]}>

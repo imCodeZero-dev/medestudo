@@ -27,3 +27,7 @@
   letter-spacing: 0em;
   text-align: left;
 }
+
+@media (max-width: 768px) {
+
+}

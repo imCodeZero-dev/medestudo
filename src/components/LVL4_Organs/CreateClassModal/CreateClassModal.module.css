@@ -26,3 +26,12 @@
 .inputDiv {
   margin-top: 4px;
 }
+
+
+@media (max-width: 768px) {
+.basic{
+  font-size: 12px;
+
+  line-height: 18px;
+}
+}
