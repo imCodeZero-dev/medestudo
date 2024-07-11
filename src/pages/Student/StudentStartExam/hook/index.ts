@@ -19,6 +19,7 @@ import {
   useSearchParams,
 } from "react-router-dom";
 import {
+  useAllResultQuery,
   useExamQuestionsQuery,
   useallQuestionsQuery,
 } from "../../../../redux/slices/APISlice";
@@ -289,6 +290,8 @@ export const useStudentStartExam = () => {
     handleResultModalOpen();
   };
 
+  const { refetchAllResult } = useAllResultQuery(cookies?.student);
+
   const onCreateResult = async (data: any) => {
     const params = {
       title: data?.title,
@@ -300,7 +303,7 @@ export const useStudentStartExam = () => {
       let response;
       response = await createResultApi(params, cookies?.student?.token);
       console.log("response", response);
-
+      refetchAllResult();
       showSuccessToast(localeSuccess?.SUCCESS_RESULT_CREATED);
       navigate(-1);
       // refetchAllExams();

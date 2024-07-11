@@ -5,8 +5,7 @@ import Text from "../../LVL1_Atoms/Text/Text";
 import useLocale from "../../../locales";
 import { Button } from "../../LVL1_Atoms/Button";
 import CustomSelect from "../../LVL2_Molecules/ControlSelect/CustomSelect";
-import { totalYears } from "../../../utils/constants/constants";
-import CountrySelectDropDown from "../../LVL2_Molecules/ControlSelect/CountrySelectDropDown";
+
 import { Country, City, State } from "country-state-city";
 import StateSelectDropDown from "../../LVL2_Molecules/ControlSelect/StateSelectDropDown";
 import Input from "../../LVL1_Atoms/Input";

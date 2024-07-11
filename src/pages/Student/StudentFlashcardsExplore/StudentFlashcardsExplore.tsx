@@ -81,7 +81,7 @@ const StudentFlashcardsExplore = ({}: StudentFlashcardsExploreProps) => {
                 </Button>
               </div>
             </div>
-            {allClasses?.slice(0, 8)?.map((data: any, i: number) => (
+            {allClasses?.map((data: any, i: number) => (
               <ExpandableFlashcard
                 control={control}
                 key={data?._id}

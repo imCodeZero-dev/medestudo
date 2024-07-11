@@ -16,7 +16,7 @@ import AlertIcon from "../../../assets/svgs/AlertIcon";
 import Input from "../../../components/LVL1_Atoms/Input";
 import { BiSearch } from "react-icons/bi";
 import CustomSelect from "../../../components/LVL2_Molecules/ControlSelect/CustomSelect";
-import { totalYears } from "../../../utils/constants/constants";
+import { totalMonths, totalYears } from "../../../utils/constants/constants";
 import { useDispatch } from "react-redux";
 import { openCreateModalExam } from "../../../redux/actions/modalActions";
 import { StudentRoutes } from "../../../Routes/protectedRoutes/StudentRoutes";
@@ -65,7 +65,7 @@ const StudentResult = ({}: StudentResultProps) => {
             </Text>
 
             <div className={styles["searchDiv"]}>
-            <div className={styles["HomeLayout-header-mid"]}>
+              <div className={styles["HomeLayout-header-mid"]}>
                 <Input
                   control={control}
                   name="filter_title"
@@ -107,13 +107,13 @@ const StudentResult = ({}: StudentResultProps) => {
             </div>
             <div className="flex flex-col justify-between  space-y-3 mt-6">
               <Text className={styles.label}>
-                {localeLables.LABEL_INSTITUTE}
+                {localeLables.LABEL_MONTH}
               </Text>
               <CustomSelect
-                name="filter_institute"
+                name="filter_month"
                 control={control}
-                options={updatedInstitutes}
-                placeholder="Select Institute"
+                options={totalMonths}
+                placeholder="Select Month"
               />
             </div>
           </div>

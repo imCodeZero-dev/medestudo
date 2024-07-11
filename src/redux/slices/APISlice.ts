@@ -22,6 +22,7 @@ import { getAllSubjectsApi } from "../../utils/api/all";
 import {
   getAllCustomClassesApi,
   getAllQuesitonsApi,
+  getAllResultApi,
   getCustomClassDecksApi,
   getReviewDecksApi,
   restudyCardAPI,
@@ -85,7 +86,7 @@ export const useStudentsQuery = (cookies: AdminCookies) => {
   };
 };
 
-export const useAllTagsQuery = (cookies: any,type?:string) => {
+export const useAllTagsQuery = (cookies: any, type?: string) => {
   // const {
   //   data: { data: { tags: allTags = [] } = {} } = {},
   //   isLoading: allTagsLoading,
@@ -118,9 +119,7 @@ export const useAllTagsQuery = (cookies: any,type?:string) => {
         console.log("Raw data:", data);
         if (data && data.data && data.data.tags) {
           if (type !== "admin") {
-            return data.data.tags.filter(
-              (tag: any) => tag.status === "active"
-            );
+            return data.data.tags.filter((tag: any) => tag.status === "active");
           } else {
             return data.data.tags;
           }
@@ -130,13 +129,11 @@ export const useAllTagsQuery = (cookies: any,type?:string) => {
     }
   );
 
-
   return {
     allTags: data,
     allTagsLoading: isLoading,
     errorAllTags: error,
     refetchAllTags: refetch,
-
   };
 };
 
@@ -630,5 +627,35 @@ export const useCustomClassDecksQuery = (
     allCustomDecksLoading,
     errorallCustomDecks,
     refetchallCustomDecks,
+  };
+};
+
+export const useAllResultQuery = (cookies: { token: string }) => {
+  // console.log("useAllResultQuery", cookies);
+  const {
+    data: { data: { allResult = [] } = {} } = {},
+    isLoading: allResultLoading,
+    error: errorAllResult,
+    refetch: refetchAllResult,
+  } = useQuery(
+    [
+      "allResult",
+      {
+        cookies,
+      },
+    ],
+    async () => {
+      return getAllResultApi(cookies?.token);
+    },
+    {
+      enabled: !!cookies?.token,
+    }
+  );
+
+  return {
+    allResult,
+    allResultLoading,
+    errorAllResult,
+    refetchAllResult,
   };
 };

@@ -59,7 +59,7 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
           onClick={loginGoogle}
           leftIcon={<FaGoogle size={20} />}
         >
-          {localeButtons.BUTTON_LOGIN_WITH_GOOGLE}
+          {localeButtons.BUTTON_SIGNUP_WITH_GOOGLE}
         </Button>
         <Text className="text-[#6F7680] text-center mt-4">-OR-</Text>
       </div>

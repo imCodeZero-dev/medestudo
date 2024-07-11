@@ -53,6 +53,23 @@ for (let year = currentYear; year >= 1970; year--) {
 
 export const totalYears = years;
 
+const months = [
+  { name: "January", _id: "01" },
+  { name: "February", _id: "02" },
+  { name: "March", _id: "03" },
+  { name: "April", _id: "04" },
+  { name: "May", _id: "05" },
+  { name: "June", _id: "06" },
+  { name: "July", _id: "07" },
+  { name: "August", _id: "08" },
+  { name: "September", _id: "09" },
+  { name: "October", _id: "10" },
+  { name: "November", _id: "11" },
+  { name: "December", _id: "12" },
+];
+
+export const totalMonths = months;
+
 export const surveySteps = (localeLabel: any) => [
   {
     label: localeLabel.LABEL_COLLEGE_DETAILS,
@@ -186,5 +203,3 @@ export const dummyTestimonials = [
     msg: "Etiam sit amet imperdiet dolor. Maecenas lectus lectus, porttitor vel velit ut, interdum molestie nibh. Vivamus vulputate ut justo eget posuere. Etiam congue, dolor eget tristique finibus, nisi ex tincidunt nisl  vel semper sem sem et est. In arcu augue,",
   },
 ];
-
-

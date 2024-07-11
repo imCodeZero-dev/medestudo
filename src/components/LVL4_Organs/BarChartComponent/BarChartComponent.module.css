@@ -77,6 +77,8 @@
 
 .buttonGroup {
   display: flex;
+  flex-wrap: wrap;
+  row-gap: 16px;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 24px;
@@ -124,9 +126,17 @@
   width: auto;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 400px) {
+  /* @media (max-width: 768px) { */
+}
+
+/* Extra small devices (phones, 400px and down) */
+@media only screen and (max-height: 600px) {
+}
+/* Extra small devices (phones, 400px and down) */
+@media only screen and (max-width: 600px) {
   .chartMain {
-    width: 250px !important;
+    width: 235px !important;
   }
 
   .buttonGroup {
@@ -136,6 +146,7 @@
 
   .chartContainer {
     height: auto;
+    padding: 20px 0;
   }
   .deckTextDecrease {
     width: 86px;
@@ -143,4 +154,20 @@
   .questionTextDecrease {
     width: 86px;
   }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
 }

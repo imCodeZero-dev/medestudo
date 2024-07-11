@@ -19,6 +19,8 @@ import {
   getAllResultApi,
 } from "../../../../utils/api/Students";
 import { ResultDataType } from "../../../../utils/constants/DataTypes";
+import { useAllResultQuery } from "../../../../redux/slices/APISlice";
+import dayjs from "dayjs";
 
 export const useStudentResult = () => {
   // const navigate = useNavigate();
@@ -75,9 +77,9 @@ export const useStudentResult = () => {
     // Add more questions as needed
   ];
 
-  useEffect(() => {
-    console.log("selecteResultData", selecteResultData);
-  }, [selecteResultData]);
+  // useEffect(() => {
+  //   console.log("selecteResultData", selecteResultData);
+  // }, [selecteResultData]);
 
   const handleResultModalOpen = (data: any) => {
     setSelecteResultData(data);
@@ -99,28 +101,10 @@ export const useStudentResult = () => {
 
   const openCreate = useSelector((state: any) => state.modalCreateExam.isOpen);
 
-  const {
-    data: { data: { allResult = [] } = {} } = {},
-    isLoading: allResultLoading,
-    error: errorAllResult,
-    refetch: refetchAllResult,
-  } = useQuery(
-    [
-      "allResult",
-      {
-        cookies,
-      },
-    ],
+  const { allResult, allResultLoading, errorAllResult, refetchAllResult } =
+    useAllResultQuery(cookies?.student);
 
-    async () => {
-      return getAllResultApi(cookies?.student?.token);
-    },
-    {
-      enabled: !!cookies?.student?.token,
-    }
-  );
-
-  console.log("allResult", allResult);
+  // console.log("allResult", allResult);
 
   const handleDeleteClose = () => {
     setDeleteModal(false);
@@ -161,28 +145,31 @@ export const useStudentResult = () => {
 
   const clearFilter = () => {
     setValue("filter_year", "");
-    setValue("filter_institute", "");
+    setValue("filter_month", "");
     setValue("filter_title", "");
   };
 
   const year = watch("filter_year");
-  const institute = watch("filter_institute");
+  const month = watch("filter_month");
   const title = watch("filter_title");
   useEffect(() => {
-    console.log("year", year, "institute", institute, "title", title);
+    // console.log("year", year, "month", month, "title", title);
     const filteredData = allResult?.filter((item: examCardData) => {
-      if (!year && !institute && !title) {
+      const getMonth = dayjs(item?.createdAt).format("MMMM");
+      const getYear = dayjs(item?.createdAt).format("YYYY");
+      // console.log("getYear", getYear);
+      if (!year && !month && !title) {
         return true;
       }
       return (
-        (!year || item?.year === year?.label) &&
+        (!year || getYear === year?.label) &&
         (!title || item?.title.toLowerCase().includes(title.toLowerCase())) &&
-        (!institute || item?.institute === institute?.label)
+        (!month || getMonth === month?.label)
       );
     });
 
     setFilteredArray(filteredData);
-  }, [allResult, year, institute, title]);
+  }, [allResult, year, month, title]);
 
   return {
     control,

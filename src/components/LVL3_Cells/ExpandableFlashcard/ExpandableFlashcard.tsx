@@ -202,7 +202,9 @@ const ExpandableFlashcard: React.FC<ExpandableFlashcardProps> = ({
                 <div className={styles["expandedContent-right"]}>
                   {/* <BiSolidPencil size={25} color="#2A2D31" className="cursor-pointer" /> */}
 
-                  <Text className={styles["cardNumber"]}>55</Text>
+                  <Text className={styles["cardNumber"]}>
+                    {data?.cardCount}
+                  </Text>
                   <TbCards
                     size={width > breakPoints?.sm ? 26 : 16}
                     fill="black"

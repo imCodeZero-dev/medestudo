@@ -14,3 +14,17 @@
 .StudentFormPage-right {
   flex: 1;
 }
+
+
+@media (max-width: 768px) {
+  .StudentFormPage-main {
+display: flex;
+flex-direction: column;
+  }
+
+  .StudentFormPage-left {
+   
+    width: auto;
+   
+  }
+}

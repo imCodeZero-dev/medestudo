@@ -46,10 +46,12 @@ const DashboardExams: React.FC<DashboardExamsProps> = ({
               <BsBuildings size={9} color="#545961" />{" "}
               <Text className={styles["detailText"]}> {data?.institute}</Text>
             </div>
-            <div className={styles["details-section"]}>
-              <FaRegClock size={9} color="#545961" />{" "}
-              <Text className={styles["detailText"]}> {data?.time}</Text>
-            </div>
+            {data?.time && (
+              <div className={styles["details-section"]}>
+                <FaRegClock size={9} color="#545961" />{" "}
+                <Text className={styles["detailText"]}> {data?.time}</Text>
+              </div>
+            )}
             <div className={styles["details-section"]}>
               <FaRegCalendar size={9} color="#545961" />{" "}
               <Text className={styles["detailText"]}> {data?.year}</Text>

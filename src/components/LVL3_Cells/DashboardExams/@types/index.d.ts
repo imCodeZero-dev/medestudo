@@ -14,6 +14,8 @@ interface examCardData {
   institute: string;
   time?: string;
   year: string;
+  month?: string;
+  createdAt?: string;
   _id: string;
 }
 [];
