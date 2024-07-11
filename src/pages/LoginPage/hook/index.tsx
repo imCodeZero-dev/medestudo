@@ -192,6 +192,7 @@ export const useLoginPage = () => {
       if (professorPanel) {
         response = await professorLoginApi(params);
         console.log("response", response);
+        debugger;
         if (response?.data?.professor?.status === "active") {
           removeCookie("admin", cookieOptions);
           removeCookie("student", cookieOptions);
@@ -208,6 +209,7 @@ export const useLoginPage = () => {
         console.log("response", response);
 
         if (response?.data?.student?.status === "active") {
+          debugger;
           removeCookie("admin", cookieOptions);
           removeCookie("professor", cookieOptions);
           dispatch(loginProfessor(response?.data));

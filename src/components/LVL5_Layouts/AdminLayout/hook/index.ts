@@ -14,12 +14,9 @@ export const useAdminLayout = () => {
     if (!cookies || !cookies.admin) {
       return;
     }
+    debugger;
     const cookieOptions = {};
     removeCookie("admin", cookieOptions);
-    // removeCookie("admin", {
-    //   path: "/",
-    //   expires: new Date(0), // Set expiration to a past date
-    // });
   };
   const dispatch = useDispatch();
   const [logoutModal, setlogoutModal] = useState<boolean>(false);

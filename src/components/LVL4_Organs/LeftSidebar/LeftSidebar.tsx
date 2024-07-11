@@ -11,6 +11,8 @@ import {
 } from "../../../redux/actions/modalActions";
 import LanguageDropdown from "../../LVL3_Cells/LangaugeDropdown/LangaugeDropdown";
 import LoginDropdown from "../../LVL3_Cells/LoginDropdown/LoginDropdown";
+import { useWidth } from "../../../utils/hooks/responsiveHook";
+import { breakPoints } from "../../../utils/constants/ResponsiveDesignBreakPoints";
 // import { openCreateModal } from "../../../redux/actions/modalActions";
 
 const LeftSidebar = ({ options }: LeftSidebarProps) => {
@@ -18,6 +20,7 @@ const LeftSidebar = ({ options }: LeftSidebarProps) => {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
+  const { width } = useWidth();
 
   const handleOpenModal = () => {
     dispatch(openCreateModalClass() as any);
@@ -116,8 +119,8 @@ const LeftSidebar = ({ options }: LeftSidebarProps) => {
             </div>
           ))}
 
-{/* <LoginDropdown userType="Admin" /> */}
-          <LanguageDropdown />
+          {/* <LoginDropdown userType="Admin" /> */}
+          {width < breakPoints?.lg && <LanguageDropdown />}
         </>
       </div>
     </div>

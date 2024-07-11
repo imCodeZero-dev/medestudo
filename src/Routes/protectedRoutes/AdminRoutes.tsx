@@ -11,7 +11,7 @@ interface Props {
 
 export const AdminRoutes = ({ children }: Props) => {
   const navigate = useNavigate();
-  const [cookies, setCookie, removeCookie] = useCookies(["admin"] as any);
+  const [cookies, ] = useCookies(["admin"] as any);
   console.log("cookies", cookies);
 
   useEffect(() => {

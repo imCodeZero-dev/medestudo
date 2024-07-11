@@ -23,6 +23,7 @@ const AuthVerification = () => {
 
         const cookieOptions = {};
 
+        debugger;
         removeCookie("professor", cookieOptions);
         removeCookie("student", cookieOptions);
         removeCookie("admin", cookieOptions);

@@ -9,7 +9,7 @@ interface Props {
 }
 
 export const ProtectedRoute = ({ children }: Props) => {
-  const [cookies, setCookie, removeCookie] = useCookies(["user"] as any);
+  const [cookies] = useCookies(["user"] as any);
   const navigate = useNavigate();
   console.log("cookies", cookies);
 

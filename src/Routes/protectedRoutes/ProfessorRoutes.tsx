@@ -11,7 +11,7 @@ interface Props {
 
 export const ProfessorRoutes = ({ children }: Props) => {
   const navigate = useNavigate();
-  const [cookies, setCookie, removeCookie] = useCookies(["professor"] as any);
+  const [cookies] = useCookies(["professor"] as any);
   console.log("cookies", cookies);
 
   useEffect(() => {

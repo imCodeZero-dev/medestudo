@@ -4,8 +4,7 @@ import useLocale from "../../../../locales";
 import { useCookies } from "react-cookie";
 import { useDispatch } from "react-redux";
 import { logoutProfessor } from "../../../../redux/slices/ProfessorSlice";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
+
 // import { useLocation, useNavigate } from "react-router-dom";
 
 export const useHomeLayout = () => {
@@ -17,11 +16,7 @@ export const useHomeLayout = () => {
     if (!cookies || (!cookies.professor && !cookies.student)) {
       return;
     }
-    // const cookieOptions = {
-    //   path: "/",
-    //   expires: new Date(0),
-    // };
-
+    debugger;
     const cookieOptions = {};
     if (cookies.professor) {
       removeCookie("professor", cookieOptions);

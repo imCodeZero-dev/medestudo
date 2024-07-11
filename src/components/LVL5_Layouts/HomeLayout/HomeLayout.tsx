@@ -39,7 +39,7 @@ import { motion } from "framer-motion";
 const HomeLayout = ({ children, createButton, control }: HomeLayoutProps) => {
   const navigate = useNavigate();
   // const [activeButton, setActiveButton] = useState<string>("");
-  const [cookies, removeCookie] = useCookies(["professor"]);
+  const [cookies] = useCookies(["professor"]);
   let userData = cookies?.professor?.professor;
 
   const location = useLocation();

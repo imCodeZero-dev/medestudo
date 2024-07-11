@@ -51,6 +51,7 @@ export const useAdminLogin = () => {
       response = await adminLoginApi(params);
       console.log("response", response);
       const cookieOptions = {};
+      debugger;
       removeCookie("professor", cookieOptions);
       removeCookie("student", cookieOptions);
       dispatch(loginAdmin(response?.data));
