@@ -150,11 +150,11 @@ export const useAdminProfile = () => {
     }
   };
 
-  // useMemo(() => {
-  //   if (AdminImage !== oldImg) {
-  //     callImageUpload();
-  //   }
-  // }, [AdminImage]);
+  useEffect(() => {
+    if (AdminImage !== oldImg) {
+      callImageUpload();
+    }
+  }, [AdminImage, oldImg]);
 
   const onSubmitResetPasswordAdmin = async (data: any) => {
     // console.log("onSubmitResetPasswordAdmin", data);
