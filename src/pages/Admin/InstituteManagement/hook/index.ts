@@ -74,9 +74,9 @@ export const useInstituteManagement = () => {
     allInstituteLoading,
     errorAllInstitute,
     refetchAllInstitute,
-  } = useAllInstituteQuery();
+  } = useAllInstituteQuery("admin");
   // console.log("cookies", cookies);
-  // console.log("allInstitute", allInstitute);
+  console.log("allInstitute", allInstitute);
 
   const onDeleteConfirm = async () => {
     try {

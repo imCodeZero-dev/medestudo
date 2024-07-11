@@ -13,8 +13,6 @@ import { useQuery } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
-  createClassDeckApi,
-  deleteClassDeckApi,
   deleteExamApi,
   deleteQuestionApi,
   editExamApi,

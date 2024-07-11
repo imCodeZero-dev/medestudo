@@ -85,32 +85,58 @@ export const useStudentsQuery = (cookies: AdminCookies) => {
   };
 };
 
-export const useAllTagsQuery = (cookies: any) => {
-  const {
-    data: { data: { tags: allTags = [] } = {} } = {},
-    isLoading: allTagsLoading,
-    error: errorAllTags,
-    refetch: refetchAllTags,
-  } = useQuery(
-    [
-      "allTags",
-      {
-        cookies,
-      },
-    ],
+export const useAllTagsQuery = (cookies: any,type?:string) => {
+  // const {
+  //   data: { data: { tags: allTags = [] } = {} } = {},
+  //   isLoading: allTagsLoading,
+  //   error: errorAllTags,
+  //   refetch: refetchAllTags,
+  // } = useQuery(
+  //   [
+  //     "allTags",
+  //     {
+  //       cookies,
+  //     },
+  //   ],
+  //   async () => {
+  //     return getAllTagsApi(cookies?.admin?.token);
+  //   },
+  //   {
+  //     // enabled: !!cookies?.admin?.token,
+  //   }
+  // );
+  const { data, isLoading, error, refetch } = useQuery(
+    "allTags",
     async () => {
-      return getAllTagsApi(cookies?.admin?.token);
+      const response = await getAllTagsApi(cookies?.admin?.token);
+      console.log("API response:", response);
+      return response;
     },
     {
       // enabled: !!cookies?.admin?.token,
+      select: (data) => {
+        console.log("Raw data:", data);
+        if (data && data.data && data.data.tags) {
+          if (type !== "admin") {
+            return data.data.tags.filter(
+              (tag: any) => tag.status === "active"
+            );
+          } else {
+            return data.data.tags;
+          }
+        }
+        return [];
+      },
     }
   );
 
+
   return {
-    allTags,
-    allTagsLoading,
-    errorAllTags,
-    refetchAllTags,
+    allTags: data,
+    allTagsLoading: isLoading,
+    errorAllTags: error,
+    refetchAllTags: refetch,
+
   };
 };
 
@@ -232,32 +258,39 @@ export const useAllFlashcardsQuery = (cookies: any, deckId: string) => {
   };
 };
 
-export const useAllInstituteQuery = () => {
-  const {
-    data: { data: { tags: allInstitute = [] } = {} } = {},
-    isLoading: allInstituteLoading,
-    error: errorAllInstitute,
-    refetch: refetchAllInstitute,
-  } = useQuery(
-    [
-      "allInstitute",
-      // {
-      //   cookies,
-      // },
-    ],
+export const useAllInstituteQuery = (type?: string) => {
+  const { data, isLoading, error, refetch } = useQuery(
+    "allInstitute",
     async () => {
-      return getAllInstituteApi();
+      const response = await getAllInstituteApi();
+      // console.log("API response:", response);
+      return response;
     },
     {
       // enabled: !!cookies?.admin?.token,
+      select: (data) => {
+        // console.log("Raw data:", data);
+        if (data && data.data && data.data.tags) {
+          if (type !== "admin") {
+            return data.data.tags.filter(
+              (institute: any) => institute.status === "active"
+            );
+          } else {
+            return data.data.tags;
+          }
+        }
+        return [];
+      },
     }
   );
 
+  // console.log("Filtered institutes:", data);
+
   return {
-    allInstitute,
-    allInstituteLoading,
-    errorAllInstitute,
-    refetchAllInstitute,
+    allInstitute: data,
+    allInstituteLoading: isLoading,
+    errorAllInstitute: error,
+    refetchAllInstitute: refetch,
   };
 };
 

@@ -72,7 +72,7 @@ export const useTagsManagement = () => {
   };
 
   const { allTags, refetchAllTags, allTagsLoading, errorAllTags } =
-    useAllTagsQuery(cookies);
+    useAllTagsQuery(cookies, "admin");
 
   const onDeleteConfirm = async () => {
     try {
