@@ -16,6 +16,7 @@ import Checkbox from "../../components/LVL1_Atoms/CheckBox";
 import { Button } from "../../components/LVL1_Atoms/Button";
 import handImg from "../../assets/Images/Auth/Group 8.png";
 import { useNavigate } from "react-router-dom";
+import LanguageDropdown from "../../components/LVL3_Cells/LangaugeDropdown/LangaugeDropdown";
 
 const AdminLogin = ({}) => {
   const {
@@ -42,6 +43,7 @@ const AdminLogin = ({}) => {
           className={styles["logo"]}
           onClick={() => navigate("/")}
         />
+          <LanguageDropdown />
       </div>
       <div className={styles["AdminLogin-main"]}>
         <div className={styles["AdminLogin-main-text"]}>

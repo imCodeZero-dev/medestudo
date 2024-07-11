@@ -2,6 +2,7 @@
   width: 120px;
   height: 48px;
   object-fit: contain;
+  cursor: pointer;
 }
 
 .HomeHeader {
@@ -21,6 +22,7 @@
 
 .HomeHeader-buttons-started {
   display: block;
+  
 }
 
 /* Extra small devices (phones, 400px and down) */
@@ -66,7 +68,10 @@
   }
 
   .HomeHeader-buttons-started {
-    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 16px;
   }
 }
 

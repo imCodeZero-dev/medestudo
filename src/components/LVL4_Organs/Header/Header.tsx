@@ -8,6 +8,7 @@ import { BiMenu } from "react-icons/bi";
 import { useWidth } from "../../../utils/hooks/responsiveHook";
 import { breakPoints } from "../../../utils/constants/ResponsiveDesignBreakPoints";
 import { scrollToExploreFlashcards } from "../../../utils/hooks/helper";
+import LanguageDropdown from "../../LVL3_Cells/LangaugeDropdown/LangaugeDropdown";
 
 const Header = ({ showSkip, setDrawerOpen }: HeaderProps) => {
   const { localeButtons } = useLocale();
@@ -58,6 +59,7 @@ const Header = ({ showSkip, setDrawerOpen }: HeaderProps) => {
               >
                 {localeButtons.BUTTON_FLASHCARDS}
               </Button>
+              <LanguageDropdown />
               <Button
                 className="yellowButton"
                 onClick={() => {

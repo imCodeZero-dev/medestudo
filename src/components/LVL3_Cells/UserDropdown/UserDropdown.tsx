@@ -45,7 +45,10 @@ const UserDropdown: React.FC<UserDropdownProps> = ({
   const menuButtons = [
     {
       label: localeDropdowns?.DROPDOWN_PROFILE,
-      route: userType === "Admin" ? "/admin/profile" : "/professor/settings",
+      route:
+        userType === "Admin"
+          ? "/admin/profile"
+          : `/${userType.toLowerCase()}/settings`,
       icon: <SettingIcon />,
     },
     {

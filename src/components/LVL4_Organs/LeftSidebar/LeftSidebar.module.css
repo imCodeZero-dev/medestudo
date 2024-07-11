@@ -10,6 +10,7 @@
   object-fit: contain;
   /* display: block; */
   margin: 20px;
+  cursor: pointer;
 }
 
 .navigation {

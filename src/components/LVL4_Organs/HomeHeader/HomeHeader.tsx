@@ -8,6 +8,7 @@ import { BiMenu } from "react-icons/bi";
 import { breakPoints } from "../../../utils/constants/ResponsiveDesignBreakPoints";
 import { useWidth } from "../../../utils/hooks/responsiveHook";
 import LoginDropdown from "../../LVL3_Cells/LoginDropdown/LoginDropdown";
+import LanguageDropdown from "../../LVL3_Cells/LangaugeDropdown/LangaugeDropdown";
 
 const HomeHeader = ({
   setDrawerOpen,
@@ -54,10 +55,11 @@ const HomeHeader = ({
         >
           {localeButtons.BUTTON_GET_STARTED}
         </Button>
+        <LanguageDropdown />
       </div>
 
       {width < breakPoints.mlg && (
-        <div>
+        <div className="flex">
           <Button
             onClick={() => setDrawerOpen(true)}
             // className={getNavItemClassName(button.label)}
@@ -66,6 +68,7 @@ const HomeHeader = ({
             <BiMenu size={24} />
             {/* {localeButtons.BUTTON_GET_STARTED} */}
           </Button>
+          {/* <LanguageDropdown /> */}
         </div>
       )}
     </div>

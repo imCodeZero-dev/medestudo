@@ -9,6 +9,8 @@ import {
   openCreateModalClass,
   openCreateModalExam,
 } from "../../../redux/actions/modalActions";
+import LanguageDropdown from "../../LVL3_Cells/LangaugeDropdown/LangaugeDropdown";
+import LoginDropdown from "../../LVL3_Cells/LoginDropdown/LoginDropdown";
 // import { openCreateModal } from "../../../redux/actions/modalActions";
 
 const LeftSidebar = ({ options }: LeftSidebarProps) => {
@@ -46,65 +48,77 @@ const LeftSidebar = ({ options }: LeftSidebarProps) => {
 
   return (
     <div className={styles.LeftSidebar}>
-      <img src={logoImg} className={styles.logo} alt="Logo" />
+      <img
+        src={logoImg}
+        className={styles.logo}
+        alt="Logo"
+        onClick={() => navigate("/")}
+      />
 
       <div className={styles.navigation}>
-        {options.map((option: SidebarOption, index: number) => (
-          <div
-            key={index}
-            className={` ${
-              location?.pathname === option?.url ? styles.activeTab : styles.tab
-            }`}
-          >
+        <>
+          {options.map((option: SidebarOption, index: number) => (
             <div
-              className={
+              key={index}
+              className={` ${
                 location?.pathname === option?.url
-                  ? styles.tabSectionActive
-                  : styles.tabSection
-              }
-              onClick={() => handleTabClick(option)}
+                  ? styles.activeTab
+                  : styles.tab
+              }`}
             >
-              {option?.image}
-              <span
-                className={` ${
+              <div
+                className={
                   location?.pathname === option?.url
-                    ? styles.active
-                    : styles.inactive
-                }`}
+                    ? styles.tabSectionActive
+                    : styles.tabSection
+                }
+                onClick={() => handleTabClick(option)}
               >
-                {option.title}
-              </span>
-            </div>
-            {location?.pathname.includes(option?.url) && option.submenu && (
-              <div className={styles.submenu}>
-                {option?.submenu?.map(
-                  (subItem: SidebarOption, subIndex: number) => (
-                    <div
-                      className={
-                        location?.pathname.includes(subItem?.url)
-                          ? styles.tabSectionActive
-                          : styles.tabSection
-                      }
-                      onClick={() => handleTabClick(subItem)}
-                    >
-                      {subItem?.image}{" "}
-                      <span
-                        className={` ${
-                          location?.pathname.includes(subItem?.url)
-                            ? styles.active
-                            : styles.inactive
-                        }`}
-                        key={subIndex}
-                      >
-                        {subItem.title}
-                      </span>
-                    </div>
-                  )
-                )}
+                {option?.image}
+                <span
+                  className={` ${
+                    location?.pathname === option?.url
+                      ? styles.active
+                      : styles.inactive
+                  }`}
+                >
+                  {option.title}
+                </span>
               </div>
-            )}
-          </div>
-        ))}
+              {location?.pathname.includes(option?.url) && option.submenu && (
+                <div className={styles.submenu}>
+                  {option?.submenu?.map(
+                    (subItem: SidebarOption, subIndex: number) => (
+                      <div
+                        className={
+                          location?.pathname.includes(subItem?.url)
+                            ? styles.tabSectionActive
+                            : styles.tabSection
+                        }
+                        onClick={() => handleTabClick(subItem)}
+                      >
+                        {subItem?.image}{" "}
+                        <span
+                          className={` ${
+                            location?.pathname.includes(subItem?.url)
+                              ? styles.active
+                              : styles.inactive
+                          }`}
+                          key={subIndex}
+                        >
+                          {subItem.title}
+                        </span>
+                      </div>
+                    )
+                  )}
+                </div>
+              )}
+            </div>
+          ))}
+
+{/* <LoginDropdown userType="Admin" /> */}
+          <LanguageDropdown />
+        </>
       </div>
     </div>
   );

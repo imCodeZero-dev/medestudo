@@ -16,6 +16,7 @@
 .AuthLayout-header-buttons {
   display: flex;
   column-gap: 8px;
+  align-items: center;
 }
 
 

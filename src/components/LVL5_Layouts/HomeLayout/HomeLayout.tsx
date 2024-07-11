@@ -266,7 +266,11 @@ const HomeLayout = ({ children, createButton, control }: HomeLayoutProps) => {
               <UserDropdown
                 handleOpenLogout={handleOpenLogout}
                 userData={userData}
-                userType="Professor"
+                userType={
+                  location?.pathname.includes("/student")
+                    ? "Student"
+                    : "Professor"
+                }
               />
             </div>
           </div>
