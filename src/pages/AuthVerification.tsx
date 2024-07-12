@@ -22,15 +22,15 @@ const AuthVerification = () => {
       if (errorParam.includes("User does not exist")) {
         console.log("not exist", errorParam);
         setMessage("User Does not Exist, Redirecting to sign-up...");
-        // setTimeout(() => {
-        //   navigate("/student");
-        // }, 2000);
+        setTimeout(() => {
+          navigate("/student");
+        }, 2000);
       } else {
         console.log("alreadyRegistered", errorParam);
         setMessage("User Already Registered. try login, Redirecting...");
-        // setTimeout(() => {
-        //   navigate("/student");
-        // }, 2000);
+        setTimeout(() => {
+          navigate("/student");
+        }, 2000);
       }
     } else {
       if (token) {
