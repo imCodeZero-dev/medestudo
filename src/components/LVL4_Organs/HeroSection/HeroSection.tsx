@@ -10,6 +10,7 @@ import AvatarGroup from "../../LVL3_Cells/AvatarGroup/AvatarGroup";
 import { useEffect } from "react";
 import { Helmet } from "react-helmet";
 import InstagramEmbed from "../../LVL3_Cells/InstaEmbed/InstaEmbed";
+import landingVideo from "../../../assets/videos/landingVideo.mp4";
 
 const HeroSection = ({ allStudents }: HeroSectionProps) => {
   const { localeButtons } = useLocale();
@@ -72,16 +73,24 @@ const HeroSection = ({ allStudents }: HeroSectionProps) => {
         </video>
       </div> */}
       <div className={styles.videoSection}>
-        <iframe
-          // width="560"
+        <video
+          className={styles.video}
+          src={landingVideo}
+          autoPlay
+          loop
+          muted
+        ></video>
+
+        {/* <iframe
+          // width="100%"
           // height="315"
-          src="https://www.youtube.com/embed/UT5F9AXjwhg"
+          src={landingVideo}
           title="YouTube video player"
           frameBorder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
           className={styles.video}
-        ></iframe>
+        ></iframe> */}
       </div>
     </section>
   );

@@ -89,6 +89,7 @@
   /* height: auto; */
   animation: fadeIn 2s ease-in-out;
   border-radius: 16px;
+  object-fit: cover;
 }
 
 .heading {

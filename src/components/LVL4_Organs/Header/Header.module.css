@@ -2,6 +2,7 @@
   width: 120px;
   height: 48px;
   object-fit: contain;
+  cursor: pointer;
 }
 
 .AuthLayout-header {

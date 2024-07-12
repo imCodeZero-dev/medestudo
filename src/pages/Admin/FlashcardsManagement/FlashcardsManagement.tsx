@@ -45,7 +45,8 @@ const FlashcardsManagement = ({}: FlashcardsManagementProps) => {
     }
   }, [dashboardData]);
 
-  // console.log("modifiedArray", modifiedArray);
+  console.log("currentMonthData", currentMonthData);
+  console.log("dashboardData", dashboardData);
 
   const cards = [
     {

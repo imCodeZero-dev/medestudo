@@ -63,7 +63,7 @@ const ExpandableFlashcard: React.FC<ExpandableFlashcardProps> = ({
   const { localeText, localeLables } = useLocale();
   const { isDropdownOpen, toggleDropdown, dropdownRef } = useDropdown();
 
-  const subDecks = data?.subDeck || [];
+  const subDecks = data?.decks || [];
   // console.log("subDecks", subDecks);
   // console.log("selectedData", data);
   // console.log("selectedDecks", selectedDecks);
@@ -95,8 +95,7 @@ const ExpandableFlashcard: React.FC<ExpandableFlashcardProps> = ({
                 onChange={(e) => {
                   const isChecked = e.target.checked;
                   onChange(isChecked);
-                  onCheckboxChange &&
-                    onCheckboxChange(isChecked, data?.subDeck);
+                  onCheckboxChange && onCheckboxChange(isChecked, data?.decks);
                 }}
                 className={` form-checkbox h-5 w-5 text-indigo-600 transition duration-150 ease-in-out rounded-full mr-3`}
               />
@@ -161,7 +160,7 @@ const ExpandableFlashcard: React.FC<ExpandableFlashcardProps> = ({
             transition={{ duration: 0.6 }}
           >
             {/* {data?.subDeck?.subDeck?.map((dcks: any, i: any) => ( */}
-            {data?.subDeck?.map((dcks: any, i: any) => (
+            {data?.decks?.map((dcks: any, i: any) => (
               <div className={`${styles["expandedContent-main"]} `}>
                 <Controller
                   name={`decks-${data._id}`}
@@ -203,7 +202,7 @@ const ExpandableFlashcard: React.FC<ExpandableFlashcardProps> = ({
                   {/* <BiSolidPencil size={25} color="#2A2D31" className="cursor-pointer" /> */}
 
                   <Text className={styles["cardNumber"]}>
-                    {data?.cardCount}
+                    {dcks?.cardCount}
                   </Text>
                   <TbCards
                     size={width > breakPoints?.sm ? 26 : 16}
