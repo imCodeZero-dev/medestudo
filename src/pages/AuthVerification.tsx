@@ -19,7 +19,7 @@ const AuthVerification = () => {
 
   useEffect(() => {
     if (errorParam) {
-      if (errorParam === "User does not exist") {
+      if (errorParam.includes("User does not exist")) {
         console.log("not exist", errorParam);
         setMessage("User Does not Exist, Redirecting to sign-up...");
         // setTimeout(() => {
