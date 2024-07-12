@@ -68,13 +68,13 @@ const AuthVerification = () => {
             console.error("Login failed: ", decodedToken.message);
             setMessage("Login failed. Please try again.");
 
-            // navigate(-1);
+            navigate(-1);
             // Handle error message display here
           }
         } catch (error) {
           console.error("Invalid token: ", error);
           setMessage("Invalid token. Please try again.");
-          // navigate(-1);
+          navigate(-1);
           // Handle invalid token error display here
         }
       }
