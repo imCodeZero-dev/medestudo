@@ -18,7 +18,7 @@ const AuthVerification = () => {
   ]);
 
   useEffect(() => {
-    if (errorParam) {
+    if (errorParam === 'User Already Registered') {
       console.log("alreadyRegistered", errorParam);
       setMessage("User Already Registered. try login, Redirecting...");
       setTimeout(() => {
