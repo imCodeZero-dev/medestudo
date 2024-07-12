@@ -18,12 +18,20 @@ const AuthVerification = () => {
   ]);
 
   useEffect(() => {
-    if (errorParam === 'User Already Registered') {
-      console.log("alreadyRegistered", errorParam);
-      setMessage("User Already Registered. try login, Redirecting...");
-      setTimeout(() => {
-        navigate("/student");
-      }, 2000);
+    if (errorParam) {
+      if (errorParam === "User Already Registered") {
+        console.log("alreadyRegistered", errorParam);
+        setMessage("User Already Registered. try login, Redirecting...");
+        // setTimeout(() => {
+        //   navigate("/student");
+        // }, 2000);
+      } else {
+        console.log("not exist", errorParam);
+        setMessage("User Already Registered. try login, Redirecting...");
+        // setTimeout(() => {
+        //   navigate("/student");
+        // }, 2000);
+      }
     } else {
       if (token) {
         try {
