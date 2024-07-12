@@ -43,7 +43,10 @@ const AuthVerification = () => {
           removeCookie("student", cookieOptions);
           removeCookie("admin", cookieOptions);
 
-          if (decodedToken.message === "Login successful") {
+          if (
+            decodedToken.message === "Login successful" ||
+            decodedToken.message === "Account created successfully"
+          ) {
             console.log("decodedToken", decodedToken);
             const updatedStudent = {
               token: `Bearer ${decodedToken?.token}`,
