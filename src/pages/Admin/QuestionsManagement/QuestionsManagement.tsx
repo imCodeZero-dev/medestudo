@@ -60,9 +60,9 @@ const QuestionsManagement = ({}: QuestionsManagementProps) => {
       // outOf: countAllQuestions(dashboardData),
     },
     {
-      title: `${localeTitles.TITLE_PREVIOUS_MONTH}: ${prevMonthData?.month}`,
+      title: `${localeTitles.TITLE_PREVIOUS_MONTH}: ${currentMonthData?.prevMonth}`,
 
-      value: prevMonthData?.questions,
+      value: currentMonthData?.prevMonthQuestions,
       img: examsImgs,
       text: localeLables.LABEL_UPLOADED,
       // text: localeLables.LABEL_OUT_OF,

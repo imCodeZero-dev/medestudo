@@ -10,6 +10,10 @@ import {
 import dayjs from "dayjs";
 import { reviewDeckType } from "../constants/DataTypes";
 
+interface Item {
+  createdAt: string;
+}
+
 export const IOSSwitch = styled((props: any) => (
   <Switch
     checked={props.checked}
@@ -276,4 +280,14 @@ export const categorizeReviewDecks = (reviewDecks: reviewDeckType[]) => {
     thisWeek: thisWeekCount,
     thisMonth: thisMonthCount,
   };
+};
+
+export const countItemsFromCurrentMonth = (items: Item[]): number => {
+  const currentMonth = dayjs().month();
+  const currentYear = dayjs().year();
+
+  return items.filter((item) => {
+    const itemDate = dayjs(item.createdAt);
+    return itemDate.month() === currentMonth && itemDate.year() === currentYear;
+  }).length;
 };

@@ -132,6 +132,9 @@ export interface dashboardDataType {
   decks: number;
   flashcards: number;
   questions: number;
+  prevMonth: number;
+  prevMonthCards: number;
+  prevMonthQuestions: number;
 }
 
 export interface studentDataType {

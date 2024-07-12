@@ -11,6 +11,7 @@ import { useFlashcardsManagement } from "./hook";
 import { AdminRoutes } from "../../../Routes/protectedRoutes/AdminRoutes";
 import {
   countAllFlashcards,
+  countItemsFromCurrentMonth,
   getCurrentAndPreviousMonthData,
   getDecodedText,
 } from "../../../utils/hooks/helper";
@@ -46,6 +47,7 @@ const FlashcardsManagement = ({}: FlashcardsManagementProps) => {
   }, [dashboardData]);
 
   console.log("currentMonthData", currentMonthData);
+  console.log("prevMonthData", prevMonthData);
   console.log("dashboardData", dashboardData);
 
   const cards = [
@@ -58,15 +60,18 @@ const FlashcardsManagement = ({}: FlashcardsManagementProps) => {
     },
     {
       title: `${localeTitles.TITLE_THIS_MONTH}: ${currentMonthData?.month}`,
-      value: currentMonthData?.flashcards,
+      value:
+        allFlashcards?.length > 0
+          ? countItemsFromCurrentMonth(allFlashcards)
+          : 0,
       img: flashcardsImg,
       text: localeLables.LABEL_UPLOADED,
       // text: localeLables.LABEL_OUT_OF,
       // outOf: "2420",
     },
     {
-      title: `${localeTitles.TITLE_PREVIOUS_MONTH}: ${prevMonthData?.month}`,
-      value: prevMonthData?.flashcards,
+      title: `${localeTitles.TITLE_PREVIOUS_MONTH}: ${currentMonthData?.prevMonth}`,
+      value: currentMonthData?.prevMonthCards,
       img: flashcardsImg,
       text: localeLables.LABEL_UPLOADED,
       // text: localeLables.LABEL_OUT_OF,
