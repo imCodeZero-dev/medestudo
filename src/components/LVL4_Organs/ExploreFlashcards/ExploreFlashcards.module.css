@@ -58,6 +58,7 @@
   color: #2a2d31;
   display: flex;
   column-gap: 4px;
+  cursor: pointer;
   align-items: center;
 }
 /* Extra small devices (phones, 400px and down) */

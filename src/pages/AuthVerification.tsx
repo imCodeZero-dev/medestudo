@@ -7,6 +7,7 @@ import Loader from "../components/LVL1_Atoms/Loader";
 const AuthVerification = () => {
   const [searchParams] = useSearchParams();
   const token = searchParams.get("token");
+  const errorParam = searchParams.get("error");
   const navigate = useNavigate();
   const [message, setMessage] = useState("Verifying...");
 
@@ -17,47 +18,55 @@ const AuthVerification = () => {
   ]);
 
   useEffect(() => {
-    if (token) {
-      try {
-        const decodedToken: any = jwtDecode(token);
+    if (errorParam) {
+      console.log("alreadyRegistered", errorParam);
+      setMessage("User Already Registered. try login, Redirecting...");
+      setTimeout(() => {
+        navigate("/student");
+      }, 2000);
+    } else {
+      if (token) {
+        try {
+          const decodedToken: any = jwtDecode(token);
 
-        const cookieOptions = {};
+          const cookieOptions = {};
 
-        debugger;
-        removeCookie("professor", cookieOptions);
-        removeCookie("student", cookieOptions);
-        removeCookie("admin", cookieOptions);
+          debugger;
+          removeCookie("professor", cookieOptions);
+          removeCookie("student", cookieOptions);
+          removeCookie("admin", cookieOptions);
 
-        if (decodedToken.message === "Login successful") {
-          console.log("decodedToken", decodedToken);
-          const updatedStudent = {
-            token: `Bearer ${decodedToken?.token}`,
-            student: decodedToken?.user,
-          };
-          const updatedProfessor = {
-            token: `Bearer ${decodedToken?.token}`,
-            professor: decodedToken?.user,
-          };
-          if (decodedToken?.user?.role === "student") {
-            setCookie("student", updatedStudent, { maxAge: 86400 });
-            navigate("/student");
+          if (decodedToken.message === "Login successful") {
+            console.log("decodedToken", decodedToken);
+            const updatedStudent = {
+              token: `Bearer ${decodedToken?.token}`,
+              student: decodedToken?.user,
+            };
+            const updatedProfessor = {
+              token: `Bearer ${decodedToken?.token}`,
+              professor: decodedToken?.user,
+            };
+            if (decodedToken?.user?.role === "student") {
+              setCookie("student", updatedStudent, { maxAge: 86400 });
+              navigate("/student");
+            } else {
+              setCookie("professor", updatedProfessor, { maxAge: 86400 });
+              navigate("/professor");
+            }
+            setMessage("Login successful! Redirecting...");
           } else {
-            setCookie("professor", updatedProfessor, { maxAge: 86400 });
-            navigate("/professor");
-          }
-          setMessage("Login successful! Redirecting...");
-        } else {
-          console.error("Login failed: ", decodedToken.message);
-          setMessage("Login failed. Please try again.");
+            console.error("Login failed: ", decodedToken.message);
+            setMessage("Login failed. Please try again.");
 
-          navigate(-1);
-          // Handle error message display here
+            // navigate(-1);
+            // Handle error message display here
+          }
+        } catch (error) {
+          console.error("Invalid token: ", error);
+          setMessage("Invalid token. Please try again.");
+          // navigate(-1);
+          // Handle invalid token error display here
         }
-      } catch (error) {
-        console.error("Invalid token: ", error);
-        setMessage("Invalid token. Please try again.");
-        navigate(-1);
-        // Handle invalid token error display here
       }
     }
   }, [token, navigate]);

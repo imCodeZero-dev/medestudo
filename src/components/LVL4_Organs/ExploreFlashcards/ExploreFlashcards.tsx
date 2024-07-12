@@ -21,7 +21,10 @@ const ExploreFlashcards = ({ allFlashcards }: ExploreFlashcardsProps) => {
           {localeButtons.BUTTON_EXPLORE_FLASHCARDS}
         </Text>
 
-        <Text className={styles.seeAll}>
+        <Text
+          className={styles.seeAll}
+          onClick={() => navigate("/student/flashcards/explore")}
+        >
           {localeButtons.BUTTON_SEE_ALL} <MdArrowRightAlt />
         </Text>
       </div>
