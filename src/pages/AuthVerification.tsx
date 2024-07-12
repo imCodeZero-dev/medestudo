@@ -36,9 +36,8 @@ const AuthVerification = () => {
       if (token) {
         try {
           const decodedToken: any = jwtDecode(token);
-
           const cookieOptions = {};
-
+          console.log("decodedToken", decodedToken);
           debugger;
           removeCookie("professor", cookieOptions);
           removeCookie("student", cookieOptions);
