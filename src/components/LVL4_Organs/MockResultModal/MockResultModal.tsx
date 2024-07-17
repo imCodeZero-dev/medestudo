@@ -13,6 +13,8 @@ import { formattedTime } from "../../../utils/hooks/helper";
 import { useNavigate } from "react-router-dom";
 import { useWidth } from "../../../utils/hooks/responsiveHook";
 import { breakPoints } from "../../../utils/constants/ResponsiveDesignBreakPoints";
+import { IconButton } from "@mui/material";
+import { IoIosClose } from "react-icons/io";
 
 const MockResultModal = ({
   open,
@@ -35,6 +37,11 @@ const MockResultModal = ({
   } = useLocale();
 
   const navigate = useNavigate();
+
+  const navigateToDashboard = () => {
+    navigate("/student");
+    handleClose();
+  };
   const { width } = useWidth();
   return (
     <div className={styles["MockResultModal"]}>
@@ -45,14 +52,20 @@ const MockResultModal = ({
               ? localeTitles?.TITLE_PRACTICE_EXAM_RESULT
               : localeTitles?.TITLE_MOCK_EXAM_RESULT}
           </Text>
-          <div className={styles["chartDiv"]}>
-            <CircularProgressChart
-              totalMarks={totalMarks}
-              outOf={totalQuestion}
-              size={177}
-              strokeWidth={16}
-            />
-          </div>
+          <IconButton
+            className={`${styles["icon-button"]} `}
+            onClick={() => navigateToDashboard()}
+          >
+            <IoIosClose />
+          </IconButton>
+        </div>
+        <div className={styles["chartDiv"]}>
+          <CircularProgressChart
+            totalMarks={totalMarks}
+            outOf={totalQuestion}
+            size={177}
+            strokeWidth={16}
+          />
         </div>
 
         {timeSpent && (

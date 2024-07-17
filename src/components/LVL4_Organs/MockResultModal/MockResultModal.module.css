@@ -1,8 +1,15 @@
 .modal-head {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  /* flex-direction: column; */
   justify-content: center;
   align-items: center;
+  position: relative;
+}
+
+.icon-button {
+  position: absolute;
+  right: 0;
 }
 .title {
   /* font-family: Poppins; */
@@ -37,6 +44,8 @@
 
 .chartDiv{
   margin-top: 32px;
+  display: flex;
+  justify-content: center;
 }
 
 .timerSection{

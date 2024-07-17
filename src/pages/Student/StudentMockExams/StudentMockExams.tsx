@@ -17,6 +17,7 @@ import { generateYearsArray } from "../../../utils/hooks/helper";
 import Checkbox from "../../../components/LVL1_Atoms/CheckBox";
 import CustomNonSelectable from "../../../components/LVL2_Molecules/ControlSelect/CustomNonSelectable";
 import CustomInput from "../../../components/LVL1_Atoms/Input/CustomInput";
+import CustomTimeInput from "../../../components/LVL1_Atoms/Input/CustomTimeInput";
 
 const StudentMockExams = ({}: StudentMockExamsProps) => {
   const { localeTitles, localeButtons, localeLables, localePlaceholders } =
@@ -188,14 +189,21 @@ const StudentMockExams = ({}: StudentMockExamsProps) => {
                   min={0}
                   label="Total Questions"
                 />
-                <CustomInput
+                {/* <CustomInput
                   readOnly
                   name="time"
                   control={control}
                   max={5}
                   min={0}
                   label="Time"
-                  // unit="hr"
+               
+                /> */}
+                <CustomTimeInput
+                  name="time"
+                  control={control}
+                  label="Time"
+                  readOnly={false}
+                  unit="s"
                 />
               </div>
               <div className="flex flex-col justify-between space-y-3 mt-6">

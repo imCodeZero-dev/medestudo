@@ -49,7 +49,7 @@ export const useStudentMockExams = () => {
     defaultValues: {
       title: "",
       totalQuestions: 0,
-      time: 0,
+      time: 5,
       filter: "",
     },
   });
@@ -94,10 +94,13 @@ export const useStudentMockExams = () => {
       0
     );
     setQuestionsTime(getTotalTime);
-    setValue("time", formattedTime(getTotalTime * 5));
+    // setValue("time", formattedTime(getTotalTime * 5));
 
     setValue("totalQuestions", getTotalTime);
   }, [allExams]);
+
+  const watchTime = watch("time");
+  console.log("watchTime", watchTime);
 
   const [updatedInstitutes, setUpdatedInstitutes] = useState<any[]>([]);
   const [selectedYears, setSelectedYears] = useState<string[]>([]);
@@ -152,7 +155,8 @@ export const useStudentMockExams = () => {
   const totalQuestionsNumbers = watch("totalQuestions");
 
   useEffect(() => {
-    setValue("time", formattedTime(totalQuestionsNumbers * 5));
+    // setValue("time", formattedTime(totalQuestionsNumbers * 5));
+    setValue("time", totalQuestionsNumbers * 5);
   }, [totalQuestionsNumbers]);
 
   return {

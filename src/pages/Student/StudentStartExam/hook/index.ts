@@ -88,13 +88,14 @@ export const useStudentStartExam = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
   const [countdown, setCountdown] = useState<number>(5); // Initialize with the desired time in seconds
 
-  // console.log("AllQuestion Exams", location);
+  console.log("AllQuestion Exams", location);
   // console.log("pathName", pathName);
 
   const practice = pathName?.includes("practice");
   // console.log("practice", practice);
   // console.log("AllQuestion Exams", examDetails);
-  const questionTime = location?.totalQuestions * 5;
+  const questionTime = location?.time;
+  // const questionTime = location?.totalQuestions * 5;
   const params = {
     totalQuestions: location?.totalQuestions,
     year: location?.selectedYears,
