@@ -45,4 +45,5 @@ export type StudentViewFlashcardProps = {
   handleRatingChange?: (data: number) => void;
   handleViewCardModalOpen?: () => void;
   toggleBookmark?: (data: any) => void;
+  ratingLoading?: boolean;
 };

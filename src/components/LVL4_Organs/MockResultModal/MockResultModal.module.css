@@ -8,9 +8,10 @@
 }
 
 .icon-button {
-  position: absolute;
+  position: absolute !important;
   right: 0;
 }
+
 .title {
   /* font-family: Poppins; */
   font-size: 24px;
@@ -42,13 +43,13 @@
   margin: auto;
 }
 
-.chartDiv{
+.chartDiv {
   margin-top: 32px;
   display: flex;
   justify-content: center;
 }
 
-.timerSection{
+.timerSection {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -75,8 +76,6 @@ font-family: Poppins; */
   color: #1d1f22;
 }
 
-
-
 /* Extra small devices (phones, 400px and down) */
 @media only screen and (max-height: 600px) {
 }
@@ -84,24 +83,19 @@ font-family: Poppins; */
 @media only screen and (max-width: 600px) {
   .title {
     font-size: 20px;
-   
   }
- 
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
-  
 }
 
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
-  
 }
 
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
- 
 }
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */

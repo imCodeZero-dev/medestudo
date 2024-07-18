@@ -115,11 +115,20 @@ const ViewQuestionsMock: React.FC<ViewQuestionsMockProps> = ({
                 <div className={styles["mcqsDiv"]} key={index}>
                   {revealedAnswer ? (
                     <p
-                      className={
+                      // className={
+                      //   answer.isCorrect && revealedAnswer
+                      //     ? styles.correctOption
+                      //     : styles.incorrectOption
+                      // }
+                      className={`${
                         answer.isCorrect && revealedAnswer
                           ? styles.correctOption
                           : styles.incorrectOption
-                      }
+                      } ${
+                        selectedAnswer?.[currentIndex] === answer &&
+                        styles.selected
+                        // : styles.notSelectedOption
+                      }`}
                     >
                       {String.fromCharCode(65 + index)}
                     </p>
@@ -152,16 +161,18 @@ const ViewQuestionsMock: React.FC<ViewQuestionsMockProps> = ({
           </div>
 
           <div className={styles.buttonDiv}>
-            <Button
-              disabled={!selectedAnswer}
-              className="primary"
-              onClick={toggleReveal}
-              type="button"
-            >
-              {revealedAnswer
-                ? localeButtons.BUTTON_HIDE_THE_ANSWER
-                : localeButtons.BUTTON_REVEAL_THE_ANSWER}
-            </Button>
+            {practice && (
+              <Button
+                disabled={!selectedAnswer}
+                className="primary"
+                onClick={toggleReveal}
+                type="button"
+              >
+                {revealedAnswer
+                  ? localeButtons.BUTTON_HIDE_THE_ANSWER
+                  : localeButtons.BUTTON_REVEAL_THE_ANSWER}
+              </Button>
+            )}
             <Button
               disabled={!selectedAnswer}
               className="primaryActive"

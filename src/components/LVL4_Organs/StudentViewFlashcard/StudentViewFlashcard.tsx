@@ -50,6 +50,7 @@ const StudentViewFlashcard: React.FC<StudentViewFlashcardProps> = ({
   showHeader = true,
   key,
   bookmarkLoading,
+  ratingLoading,
 }) => {
   const { localeTitles, localePlaceholders, localeButtons, localeText } =
     useLocale();
@@ -361,6 +362,7 @@ const StudentViewFlashcard: React.FC<StudentViewFlashcardProps> = ({
                           <RatingButtons
                             totalRatings={5}
                             onRatingChange={handleRatingChange}
+                            loading={ratingLoading}
                           />
                         </div>
                       )}

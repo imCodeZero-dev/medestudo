@@ -84,6 +84,7 @@ export const useStudentAllFlashCards = () => {
   const [stopTimer, setStopTimer] = useState<boolean>(false);
   const [deleteLoading, setDeleteLoading] = useState<boolean>(false);
   const [occuranceLoading, setOccuranceLoading] = useState<boolean>(false);
+  const [ratingLoading, setRatingLoading] = useState<boolean>(false);
   const [openViewCardModal, setOpenViewCardModal] = useState<boolean>(false);
   const [allSetModal, setAllSetModal] = useState<boolean>(false);
   const [checkpointModal, setCheckpointModal] = useState<boolean>(false);
@@ -259,7 +260,7 @@ export const useStudentAllFlashCards = () => {
       cardId: allFlashcards?.[0]?._id,
     };
     try {
-      setDeleteLoading(true);
+      setRatingLoading(true);
       let response;
       response = await provideRateToCardApi(params, cookies?.student?.token);
       console.log("response", response);
@@ -284,7 +285,7 @@ export const useStudentAllFlashCards = () => {
       console.log("error", error);
       showErrorToast(error?.response?.data?.message);
     } finally {
-      setDeleteLoading(false);
+      setRatingLoading(false);
     }
   };
 
@@ -536,6 +537,7 @@ export const useStudentAllFlashCards = () => {
     confidenceLevel,
     bookmarkLoading,
     rateArray,
+    ratingLoading,
     // setgetTotalTime,
   };
 };

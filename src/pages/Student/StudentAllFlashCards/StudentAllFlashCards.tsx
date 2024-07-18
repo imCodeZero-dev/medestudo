@@ -94,6 +94,7 @@ const StudentAllFlashCards = ({}: StudentAllFlashCardsProps) => {
     confidenceLevel,
     bookmarkLoading,
     rateArray,
+    ratingLoading,
   } = useStudentAllFlashCards();
   // console.log("allDecks", allDecks);
   const navigate = useNavigate();
@@ -121,6 +122,7 @@ const StudentAllFlashCards = ({}: StudentAllFlashCardsProps) => {
           <StudentViewFlashcard
             bookmarkLoading={bookmarkLoading}
             key={key}
+            ratingLoading={ratingLoading}
             handleRatingChange={handleRatingChange}
             mode={mode}
             handleViewCardModalOpen={handleViewCardModalOpen}
