@@ -41,7 +41,6 @@ const DecksManagement = ({}: DecksManagementProps) => {
     onConfirmEdit,
     deckLoading,
     allDecksLoading,
-
   } = useDecksManagement();
 
   const [expandedDecks, setExpandedDecks] = useState<boolean[]>([]);
@@ -81,7 +80,6 @@ const DecksManagement = ({}: DecksManagementProps) => {
 
         {createSection && (
           <CreateDeckSection
-         
             control={control}
             handleSubmit={handleSubmit}
             onSubmit={onCreateSubmission}
@@ -138,13 +136,21 @@ const DecksManagement = ({}: DecksManagementProps) => {
                       )}
                     </div>
                   </div>
-                  <InputDeck
+                  {/* <InputDeck
+                    key={deck?.createdAt}
                     control={control}
                     name={deck?.name}
                     defaultValue={deck?.name}
                     readOnly
-                  />
+                  /> */}
 
+                  <InputDeck
+                    key={deck?.createdAt || parentIndex}
+                    control={control}
+                    name={`deck-${parentIndex}`}
+                    defaultValue={deck?.name || ""}
+                    readOnly
+                  />
                   <div
                     className={
                       expandedDecks[parentIndex]
