@@ -82,112 +82,82 @@ export const surveySteps = (localeLabel: any) => [
   },
 ];
 
-export const allFlashcardsData = [
+export const allFlashcardsData = (localeTitle: any) => [
   {
-    title: "Neurological Surgery Flashcard",
+    title: localeTitle?.TITLE_SURGERY,
     image: neuroImg,
-    createdBy: {
-      name: "Adam David",
-      pic: "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-    },
+    // createdBy: {
+    //   name: "Adam David",
+    //   pic: "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
+    // },
   },
 
   {
-    title: "Dental RTC Surgical Flashcards",
+    title: localeTitle?.TITLE_CLINIC,
     image: dentalImg,
-    createdBy: {
-      name: "Adam David",
-      pic: "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-    },
+    // createdBy: {
+    //   name: "Adam David",
+    //   pic: "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
+    // },
   },
 
   {
-    title: "Neurological Surgery Flashcard",
+    title: localeTitle?.TITLE_GYNECOLOGY_AND_OBSTETRIC,
     image: heartImg,
-    createdBy: {
-      name: "Adam David",
-      pic: "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-    },
+    // createdBy: {
+    //   name: "Adam David",
+    //   pic: "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
+    // },
   },
 
   {
-    title: "Neurological Surgery Flashcard",
+    title: localeTitle?.TITLE_PEDIATRICS,
     image: kidneyImg,
-    createdBy: {
-      name: "Adam David",
-      pic: "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-    },
+    // createdBy: {
+    //   name: "Adam David",
+    //   pic: "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
+    // },
   },
   {
-    title: "Neurological Surgery Flashcard",
+    title: localeTitle?.TITLE_PREVENTIVE,
     image: neuroImg,
-    createdBy: {
-      name: "Adam David",
-      pic: "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-    },
-  },
-
-  {
-    title: "Dental RTC Surgical Flashcards",
-    image: dentalImg,
-    createdBy: {
-      name: "Adam David",
-      pic: "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-    },
-  },
-
-  {
-    title: "Neurological Surgery Flashcard",
-    image: heartImg,
-    createdBy: {
-      name: "Adam David",
-      pic: "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-    },
-  },
-
-  {
-    title: "Neurological Surgery Flashcard",
-    image: kidneyImg,
-    createdBy: {
-      name: "Adam David",
-      pic: "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-    },
+    // createdBy: {
+    //   name: "Adam David",
+    //   pic: "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
+    // },
   },
 ];
 
-export const features = (localeTitles: any) => [
+export const features = (localeTitles: any, localeText: any) => [
   {
     pic: clumsy1,
     title: localeTitles.TITLE_FLASHCARDS,
-    text: "Lorem ipsum dolor sit amet, onsectetur adipiscing elit. Nunc sem lorem, tempus id condimentum ",
+    text: localeText.TEXT_FLASHCARD_MSG,
   },
   {
     pic: clumsy2,
     title: localeTitles.TITLE_PAST_EXAMS,
-    text: "Lorem ipsum dolor sit amet, onsectetur adipiscing elit. Nunc sem lorem, tempus id condimentum ",
+    text: localeText.TEXT_PASTEXAM_MSG,
   },
   {
     pic: clumsy3,
     title: localeTitles.TITLE_MOCK_EXAMS,
-    text: "Lorem ipsum dolor sit amet, onsectetur adipiscing elit. Nunc sem lorem, tempus id condimentum ",
+    text: localeText.TEXT_MOCKEXAM_MSG,
   },
 ];
 
-export const steps = [
+export const steps = (localeTitles: any, localeText: any) => [
   {
-    title: "Signup to Medestudo",
-    description:
-      "Lorem ipsum dolor sit amet, onsectetur adipiscing elit. Nunc sem lorem, tempus id condimentum",
+    title: localeTitles.TITLE_SIGNUP_TO_MEDESTUDO,
+    description: localeText.TEXT_LOGIN_WITH_GOOGLE_OR_EMAIL,
   },
   {
-    title: "Complete Profile",
-    description:
-      "Lorem ipsum dolor sit amet, onsectetur adipiscing elit. Nunc sem lorem, tempus id condimentum",
+    title: localeTitles.TITLE_COMPLETE_YOUR_PROFILE,
+    description: localeText.TEXT_ANS_FEW_QUESTIONS,
   },
   {
-    title: "Explore",
-    description:
-      "Lorem ipsum dolor sit amet, onsectetur adipiscing elit. Nunc sem lorem, tempus id condimentum",
+    title: localeTitles.TITLE_EXPLORE,
+    description: localeText.TEXT_GET_FAMILIAR_WITH,
   },
 ];
 

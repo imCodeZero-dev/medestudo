@@ -5,7 +5,7 @@ import Text from "../../LVL1_Atoms/Text/Text";
 import useLocale from "../../../locales";
 
 const AvatarGroup: React.FC<AvatarGroupProps> = ({ students }) => {
-  const { localeText } = useLocale();
+  const { localeText, localeTitles } = useLocale();
 
   return (
     <div className={styles.container}>
@@ -19,7 +19,9 @@ const AvatarGroup: React.FC<AvatarGroupProps> = ({ students }) => {
           />
         ))}
       </div>
-      <Text className={styles.studentCount}>{students?.length} Students</Text>
+      <Text className={styles.studentCount}>
+        {students?.length} {localeTitles.TITLE_STUDENTS}
+      </Text>
     </div>
   );
 };

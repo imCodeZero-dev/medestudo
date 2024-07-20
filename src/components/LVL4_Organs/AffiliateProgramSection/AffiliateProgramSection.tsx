@@ -9,7 +9,7 @@ import { MdArrowRightAlt } from "react-icons/md";
 import affiliateImage from "../../../assets/Images/Landing/Rectangle 70.png";
 
 const AffiliateProgramSection = ({}: AffiliateProgramSectionProps) => {
-  const { localeButtons, localeTitles } = useLocale();
+  const { localeButtons, localeTitles,localeText } = useLocale();
   const navigate = useNavigate();
 
   return (
@@ -27,9 +27,7 @@ const AffiliateProgramSection = ({}: AffiliateProgramSectionProps) => {
           </Text>
 
           <Text className={styles.text}>
-            Lorem ipsum dolor sit amet, onsectetur adipiscing elit. Nunc sem
-            lorem, tempus id condimentu dolor sit amet, onsectetur adipiscing
-            elit. Nunc sem lorem, tempus id condimentum
+            {localeText.TEXT_ARE_YOU_PASSIONATE_ABOUT}
           </Text>
         </div>
 

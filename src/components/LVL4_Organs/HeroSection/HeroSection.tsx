@@ -13,7 +13,7 @@ import InstagramEmbed from "../../LVL3_Cells/InstaEmbed/InstaEmbed";
 import landingVideo from "../../../assets/videos/landingVideo.mp4";
 
 const HeroSection = ({ allStudents }: HeroSectionProps) => {
-  const { localeButtons } = useLocale();
+  const { localeButtons, localeTitles, localeText } = useLocale();
   const navigate = useNavigate();
   useEffect(() => {
     // Load Instagram embed script after component mounts
@@ -34,16 +34,17 @@ const HeroSection = ({ allStudents }: HeroSectionProps) => {
     <section className={styles.hero}>
       <div className={styles.content}>
         <div className={styles.contentTop}>
-          <button className={styles.welcomeButton}>WELCOME TO MEDESTUDO</button>
+          <button className={styles.welcomeButton}>
+            {localeTitles.WELCOME_WELCOME_TO_MEDESTUDO}
+          </button>
           <Text className={styles.heading}>
-            Get yourself prepared with{" "}
+            {localeTitles?.GET_YOURSELF_READY}{" "}
             <span className={styles.brandName1}>
               Med<span className={styles.brandName2}>Estudo</span>
             </span>
           </Text>
           <Text className={styles.detailText}>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum
-            necessitatibus pariatur doloribus,
+            {localeText.TEXT_FLASHCARD_SUBTEXT}
           </Text>
 
           <div className={styles.buttons}>
@@ -51,13 +52,13 @@ const HeroSection = ({ allStudents }: HeroSectionProps) => {
               className={styles.getStarted}
               onClick={() => navigate("/student")}
             >
-              Get Started
+              {localeButtons?.BUTTON_GET_STARTED}
             </button>
             <button
               className={styles.imStudent}
               onClick={() => navigate("/student")}
             >
-              I'm Student
+              {localeButtons?.BUTTON_IM_A_STUDENT}
             </button>
           </div>
         </div>

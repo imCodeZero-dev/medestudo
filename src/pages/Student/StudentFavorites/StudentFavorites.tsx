@@ -20,6 +20,7 @@ import ViewCardModal from "../../../components/LVL4_Organs/ViewCardModal/ViewCar
 import { useStudentFavorites } from "./hook";
 import ImageWithLoader from "../../../components/LVL2_Molecules/ImageWithLoader/Image";
 import NoCardMsg from "../../../components/LVL2_Molecules/NoCardMsg/NoCardMsg";
+import Loader from "../../../components/LVL1_Atoms/Loader";
 
 const StudentFavorites = ({}: StudentFavoritesProps) => {
   const { localeTitles, localeButtons, localeLables } = useLocale();
@@ -58,6 +59,8 @@ const StudentFavorites = ({}: StudentFavoritesProps) => {
     <HomeLayout>
       <div className={styles["StudentFavorites"]}>
         <div className={styles["StudentFavorites-main"]}>
+          {bookmarkCardsLoading && <Loader />}
+
           {!bookmarkCardsLoading && bookmarkCards?.length > 0 ? (
             <StudentViewFlashcard
               key={key}

@@ -4,9 +4,10 @@ interface ImageProps {
   src: string;
   alt: string;
   className: string;
+  onClick?: () => void;
 }
 
-const ImageWithLoader = ({ src, alt, className }: ImageProps) => {
+const ImageWithLoader = ({ src, alt, className, onClick }: ImageProps) => {
   const [loading, setLoading] = useState(true);
 
   return (
@@ -17,6 +18,7 @@ const ImageWithLoader = ({ src, alt, className }: ImageProps) => {
         </div>
       )}
       <img
+        onClick={onClick}
         className={`transition-opacity duration-500 ${
           loading ? "opacity-0" : `${className} opacity-100`
         }`}

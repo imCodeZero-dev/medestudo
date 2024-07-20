@@ -60,6 +60,12 @@ export const useStudentResult = () => {
 
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
+  const [type, setType] = useState(0);
+
+  const handleChangeType = (event: React.SyntheticEvent, newValue: number) => {
+    setType(newValue);
+  };
+
   const questions = [
     {
       questionText:
@@ -76,10 +82,6 @@ export const useStudentResult = () => {
     },
     // Add more questions as needed
   ];
-
-  // useEffect(() => {
-  //   console.log("selecteResultData", selecteResultData);
-  // }, [selecteResultData]);
 
   const handleResultModalOpen = (data: any) => {
     setSelecteResultData(data);
@@ -153,7 +155,6 @@ export const useStudentResult = () => {
   const month = watch("filter_month");
   const title = watch("filter_title");
   useEffect(() => {
-    // console.log("year", year, "month", month, "title", title);
     const filteredData = allResult?.filter((item: examCardData) => {
       const getMonth = dayjs(item?.createdAt).format("MMMM");
       const getYear = dayjs(item?.createdAt).format("YYYY");
@@ -163,13 +164,27 @@ export const useStudentResult = () => {
       }
       return (
         (!year || getYear === year?.label) &&
+        // item?.type === "MOCK" &&
         (!title || item?.title.toLowerCase().includes(title.toLowerCase())) &&
         (!month || getMonth === month?.label)
       );
     });
+    let filterType;
+    if (type === 0) {
+      // clearFilter();
+      filterType = filteredData?.filter((i: examCardData) => {
+        return i?.type === "MOCK";
+      });
+    } else {
+      // clearFilter();
+      filterType = filteredData?.filter((i: examCardData) => {
+        return i?.type !== "MOCK";
+      });
+    }
 
-    setFilteredArray(filteredData);
-  }, [allResult, year, month, title]);
+    setFilteredArray(filterType);
+    console.log("allResult", allResult);
+  }, [allResult, year, month, title, type]);
 
   return {
     control,
@@ -196,5 +211,7 @@ export const useStudentResult = () => {
     handleResultModalClose,
     handleResultModalOpen,
     selecteResultData,
+    type,
+    handleChangeType,
   };
 };

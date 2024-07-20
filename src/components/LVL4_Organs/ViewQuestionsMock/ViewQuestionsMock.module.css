@@ -216,11 +216,13 @@
   width: 64px;
   height: 64px;
   object-fit: contain;
+  cursor: pointer;
 }
 
 .questionImage {
   width: 350px;
   margin: auto;
+  cursor: pointer;
 }
 
 .buttonDiv {

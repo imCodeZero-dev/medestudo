@@ -11,6 +11,7 @@ export interface DashboardExamsProps {
 
 interface examCardData {
   title: string;
+  type: string;
   institute: string;
   time?: string;
   year: string;

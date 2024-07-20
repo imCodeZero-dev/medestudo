@@ -7,7 +7,7 @@ import Text from "../../LVL1_Atoms/Text/Text";
 import FeatureCard from "../../LVL3_Cells/FeatureCard/FeatureCard";
 
 const MetEstudioFeatures = ({ features }: MetEstudioFeaturesProps) => {
-  const { localeButtons, localeTitles } = useLocale();
+  const { localeButtons, localeTitles, localeText } = useLocale();
   const navigate = useNavigate();
 
   return (
@@ -19,10 +19,7 @@ const MetEstudioFeatures = ({ features }: MetEstudioFeaturesProps) => {
       <Text className={styles.heading}>
         {localeTitles.TITLE_SO_MANY_REASONS_TO_START}
       </Text>
-      <Text className={styles.text}>
-        Lorem ipsum dolor sit amet, onsectetur adipiscing elit. Nunc sem lorem,
-        tempus id condimentum
-      </Text>
+      <Text className={styles.text}>{localeText.TEXT_MEDESTUDO_OFFERS}</Text>
 
       <div className={styles.featureCards}>
         {features?.map((feature, i) => (

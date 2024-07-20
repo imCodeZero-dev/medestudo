@@ -11,6 +11,7 @@ import { IoIosArrowRoundBack } from "react-icons/io";
 import { IoIosArrowRoundForward } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import ImageWithLoader from "../../LVL2_Molecules/ImageWithLoader/Image";
+import ViewImageModal from "../ViewImageModal/ViewImageModal";
 
 const ViewQuestionsMock: React.FC<ViewQuestionsMockProps> = ({
   control,
@@ -32,6 +33,19 @@ const ViewQuestionsMock: React.FC<ViewQuestionsMockProps> = ({
   const { localeTitles, localePlaceholders, localeButtons, localeText } =
     useLocale();
   const navigate = useNavigate();
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
+  const handleImageClick = (image: string) => {
+    setSelectedImage(image);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedImage(null);
+  };
 
   return (
     <div className={styles["ViewQuestionsMock"]}>
@@ -98,6 +112,7 @@ const ViewQuestionsMock: React.FC<ViewQuestionsMockProps> = ({
                   <>
                     {field.value && (
                       <ImageWithLoader
+                        onClick={() => handleImageClick(field.value)}
                         src={field.value}
                         alt="question Image"
                         className={styles["questionImage"]}
@@ -149,6 +164,7 @@ const ViewQuestionsMock: React.FC<ViewQuestionsMockProps> = ({
 
                     {answer?.image && (
                       <ImageWithLoader
+                        onClick={() => handleImageClick(answer.image)}
                         src={answer.image}
                         alt="Answer Image"
                         className={styles["answerImg"]}
@@ -209,6 +225,14 @@ const ViewQuestionsMock: React.FC<ViewQuestionsMockProps> = ({
           </div>
         </div>
         // </form>
+      )}
+
+      {selectedImage && (
+        <ViewImageModal
+          open={isModalOpen}
+          handleClose={handleCloseModal}
+          image={selectedImage}
+        />
       )}
     </div>
   );

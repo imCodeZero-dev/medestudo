@@ -9,7 +9,7 @@ import { MdArrowRightAlt } from "react-icons/md";
 import person from "../../../assets/Images/Landing/Professor2.png";
 
 const JoinPlatformSection = ({}: JoinPlatformSectionProps) => {
-  const { localeButtons, localeTitles } = useLocale();
+  const { localeButtons, localeTitles, localeText } = useLocale();
   const navigate = useNavigate();
 
   return (
@@ -20,7 +20,7 @@ const JoinPlatformSection = ({}: JoinPlatformSectionProps) => {
         </Text>
 
         <Text className={styles.text}>
-          Etiam sit amet imperdiet dolor. Maecenas lectus{" "}
+          {localeText.TEXT_DISCOVER_THE_MULTIPLE_BENIFITS}
         </Text>
 
         <Button className="startedBtn" onClick={() => navigate("/student")}>

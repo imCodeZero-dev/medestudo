@@ -9,7 +9,7 @@ import ReviewCard from "../../LVL3_Cells/ReviewCard/ReviewCard";
 import { useEffect, useState } from "react";
 
 const ReviewSection = ({ reviews }: ReviewSectionProps) => {
-  const { localeButtons, localeTitles } = useLocale();
+  const { localeButtons, localeTitles, localeText } = useLocale();
   const navigate = useNavigate();
 
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -30,8 +30,7 @@ const ReviewSection = ({ reviews }: ReviewSectionProps) => {
             {localeTitles?.TITLE_TRUSTED_BY_MIILIONS}
           </Text>
           <Text className={styles.text}>
-            Lorem ipsum dolor sit amet, onsectetur adipiscing elit. Nunc sem
-            lorem, tempus id condimentum .
+            {localeText.TEXT_AT_MEDESTUDO_WE_PRIDE_OURSELVES}
           </Text>
         </div>
 
@@ -42,8 +41,7 @@ const ReviewSection = ({ reviews }: ReviewSectionProps) => {
           </div>
           <div className={styles.line} />
           <Text className={styles.textsm}>
-            Lorem ipsum dolor sit amet, onsectetur adipiscing elit. Nunc sem
-            lorem, tempus id condimentum .
+            {localeText.TEXT_WHEATHER_ITS_MASTERING}
           </Text>
         </div>
       </div>

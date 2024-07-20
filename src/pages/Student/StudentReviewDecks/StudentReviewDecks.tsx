@@ -15,6 +15,7 @@ import ViewCardModal from "../../../components/LVL4_Organs/ViewCardModal/ViewCar
 import { useStudentReviewDecks } from "./hook";
 import StudentReviewAllCards from "../../../components/LVL4_Organs/StudentReviewAllCards/StudentReviewAllCards";
 import NoCardMsg from "../../../components/LVL2_Molecules/NoCardMsg/NoCardMsg";
+import Loader from "../../../components/LVL1_Atoms/Loader";
 
 const StudentReviewDecks = ({}: StudentReviewDecksProps) => {
   const { localeTitles, localeButtons, localeLables } = useLocale();
@@ -49,10 +50,12 @@ const StudentReviewDecks = ({}: StudentReviewDecksProps) => {
   const { localeText } = useLocale();
   const navigate = useNavigate();
 
+  console.log("reviewDecks", reviewDecks);
   return (
     <HomeLayout>
       <div className={styles["StudentReviewDecks"]}>
         <div className={styles["StudentReviewDecks-main"]}>
+          {reviewDecksLoading && <Loader />}
           {!reviewDecksLoading && reviewDecks?.length > 0 ? (
             <StudentReviewAllCards
               handleViewCardModalOpen={handleViewCardModalOpen}

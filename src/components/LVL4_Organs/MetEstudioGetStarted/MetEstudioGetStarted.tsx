@@ -12,7 +12,7 @@ import { useWidth } from "../../../utils/hooks/responsiveHook";
 import { breakPoints } from "../../../utils/constants/ResponsiveDesignBreakPoints";
 
 const MetEstudioGetStarted = ({ features }: MetEstudioGetStartedProps) => {
-  const { localeButtons, localeTitles } = useLocale();
+  const { localeButtons, localeTitles,localeText } = useLocale();
   const { width } = useWidth();
   const navigate = useNavigate();
 
@@ -24,9 +24,9 @@ const MetEstudioGetStarted = ({ features }: MetEstudioGetStartedProps) => {
         </button>
 
         <Text className={styles.heading}>{localeTitles.TITLE_HOW_TO_GET}</Text>
-        <Text className={styles.heading}>
+        {/* <Text className={styles.heading}>
           {localeTitles.TITLE_START_ON_MEDESTUDO}
-        </Text>
+        </Text> */}
 
         {width > breakPoints?.mlg && (
           <Button className="startedBtn" onClick={() => navigate("/student")}>
@@ -37,7 +37,7 @@ const MetEstudioGetStarted = ({ features }: MetEstudioGetStartedProps) => {
 
       <div className={styles.MetEstudioGetStarted_right}>
         <div className={styles.featureCards}>
-          <StepProcess steps={steps} />
+          <StepProcess steps={steps(localeTitles,localeText)} />
         </div>
         {width < breakPoints?.mlg && (
           <Button className="startedBtn" onClick={() => navigate("/student")}>

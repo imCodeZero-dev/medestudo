@@ -19,6 +19,7 @@ import {
 import {
   useAllClassesQuery,
   useAllFlashcardsQuery,
+  useAllReviewDecksQuery,
   useAllTagsQuery,
 } from "../../../../redux/slices/APISlice";
 import {
@@ -109,6 +110,13 @@ export const useStudentAllFlashCards = () => {
 
   const { allTags, refetchAllTags, allTagsLoading, errorAllTags } =
     useAllTagsQuery(cookies);
+
+  const {
+    reviewDecks,
+    refetchReviewDecks,
+    reviewDecksLoading,
+    errorReviewDecks,
+  } = useAllReviewDecksQuery(cookies?.student);
 
   const handleViewCardModalClose = () => {
     setOpenViewCardModal(false);
@@ -280,6 +288,7 @@ export const useStudentAllFlashCards = () => {
       const calculate = calculateConfidenceLevel(rating, flashcards?.length);
       setConfidenceLevel((prev) => prev + calculate);
       rateArray.push(rating);
+      refetchReviewDecks();
       setRateArray([...rateArray]);
     } catch (error: any) {
       console.log("error", error);

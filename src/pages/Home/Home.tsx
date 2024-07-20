@@ -34,8 +34,13 @@ const Home = ({}: HomeProps) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const exploreFlashcardsRef = useRef<HTMLDivElement>(null);
 
-  const { localeButtons, localeTitles, localeLables, localePlaceholders } =
-    useLocale();
+  const {
+    localeButtons,
+    localeTitles,
+    localeLables,
+    localePlaceholders,
+    localeText,
+  } = useLocale();
   const { allStudents } = useHome();
   const navigate = useNavigate();
 
@@ -67,35 +72,23 @@ const Home = ({}: HomeProps) => {
   const reviewData = [
     {
       rating: 5,
-      review:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sem lorem, tempus id condimentum.",
+      review: localeText?.TEXT_FIRST_REVIEW,
       authorName: "Adam David",
       authorRole: "Student",
       authorAvatar:
         "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
     },
     {
-      rating: 4,
-      review:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sem lorem, tempus id condimentum.",
+      rating: 5,
+      review: localeText?.TEXT_SECOND_REVIEW,
       authorName: "Mr David",
       authorRole: "Student",
       authorAvatar:
         "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
     },
     {
-      rating: 2,
-      review:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sem lorem, tempus id condimentum.",
-      authorName: "John David",
-      authorRole: "Student",
-      authorAvatar:
-        "https://t4.ftcdn.net/jpg/02/44/43/69/360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-    },
-    {
-      rating: 2,
-      review:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sem lorem, tempus id condimentum.",
+      rating: 5,
+      review: localeText?.TEXT_THIRD_REVIEW,
       authorName: "John David",
       authorRole: "Student",
       authorAvatar:
@@ -134,13 +127,13 @@ const Home = ({}: HomeProps) => {
         <StatsSection />
       </div>
       <div id="exploreFlashcards">
-        <ExploreFlashcards allFlashcards={allFlashcardsData} />
+        <ExploreFlashcards allFlashcards={allFlashcardsData(localeTitles)} />
       </div>
       <WhyMetEstudioSection />
-      <MetEstudioFeatures features={features(localeTitles)} />
+      <MetEstudioFeatures features={features(localeTitles, localeText)} />
       <div className={styles.whiteBgDiv}>
         <MetEstudioGetStarted />
-        <TestimonialSection />
+        {/* <TestimonialSection /> */}
         <JoinPlatformSection />
       </div>
 

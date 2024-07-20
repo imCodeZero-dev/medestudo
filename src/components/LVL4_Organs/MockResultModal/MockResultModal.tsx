@@ -80,7 +80,7 @@ const MockResultModal = ({
         )}
         {saveResult && showDetails ? (
           <div className="flex justify-between mt-4 space-x-4">
-            {practice ? (
+            {/* {practice ? (
               <Button
                 type="button"
                 className="primary"
@@ -88,11 +88,11 @@ const MockResultModal = ({
               >
                 {localeButtons.BUTTON_GO_TO_DASHBOARD}
               </Button>
-            ) : (
-              <Button type="button" className="primary" onClick={saveResult}>
-                {localeButtons.BUTTON_SAVE_RESULT}
-              </Button>
-            )}
+            ) : ( */}
+            <Button type="button" className="primary" onClick={saveResult}>
+              {localeButtons.BUTTON_SAVE_RESULT}
+            </Button>
+            {/* )} */}
             <Button
               type="submit"
               className="primaryActive"

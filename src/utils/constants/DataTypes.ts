@@ -159,7 +159,7 @@ export interface flashcardLandingType {
   _id?: string;
   image: string;
   title: string;
-  createdBy: {
+  createdBy?: {
     pic: string;
     name: string;
   };

@@ -1,5 +1,3 @@
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import {
@@ -12,27 +10,17 @@ import { useCookies } from "react-cookie";
 import { useQuery } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
 
-import {
-  useLocation,
-  useNavigate,
-  useParams,
-  useSearchParams,
-} from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import {
   useAllResultQuery,
   useExamQuestionsQuery,
   useallQuestionsQuery,
 } from "../../../../redux/slices/APISlice";
 import {
-  Flashcard,
   SelectedAnswersType,
   Tag,
 } from "../../../../utils/constants/DataTypes";
-import { examCardData } from "../../../../components/LVL3_Cells/DashboardExams/@types";
-import {
-  createResultApi,
-  getAllQuesitonsApi,
-} from "../../../../utils/api/Students";
+import { createResultApi } from "../../../../utils/api/Students";
 
 export const useStudentStartExam = () => {
   // const navigate = useNavigate();
@@ -295,6 +283,7 @@ export const useStudentStartExam = () => {
 
   const onCreateResult = async (data: any) => {
     const params = {
+      type: practice ? "PRACTICE" : "MOCK",
       title: data?.title,
       achievedMarks: totalMarks.toString(),
       totalQuestions: (allQuestions?.length).toString(),

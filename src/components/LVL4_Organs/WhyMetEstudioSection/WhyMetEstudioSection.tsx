@@ -12,7 +12,7 @@ import { flashcardData } from "../../../utils/constants/DataTypes";
 // import { Tag } from "../../../utils/constants/DataTypes";
 
 const WhyMetEstudioSection = ({}: WhyMetEstudioSectionProps) => {
-  const { localeButtons, localeTitles } = useLocale();
+  const { localeButtons, localeTitles, localeText } = useLocale();
   const [currentFlashcardIndex, setCurrentFlashcardIndex] = useState(0);
   const [revealAnswer, setRevealAnswer] = useState(false);
 
@@ -129,11 +129,10 @@ const WhyMetEstudioSection = ({}: WhyMetEstudioSectionProps) => {
         </button>
 
         <Text className={styles.heading}>
-          {localeTitles.TITLE_THE_BEST_IN_THE_BUSINESS}
+          {localeTitles.TITLE_THE_BEST_CHOISE_FOR_YOUR_FUTURE}
         </Text>
         <Text className={styles.text}>
-          Lorem ipsum dolor sit amet, onsectetur adipiscing elit. Nunc sem
-          lorem, tempus id condimentum
+          {localeText.TEXT_OUR_PLATFOR_GOES_BEYOND}
         </Text>
 
         <img className={styles.laptop} src={laptop} alt="medestudio" />

@@ -6,6 +6,8 @@ import { Button } from "../../LVL1_Atoms/Button";
 import useLocale from "../../../locales";
 import QuillEditor from "../../LVL3_Cells/QuillEditor/QuillEditor";
 import { Controller } from "react-hook-form";
+import ViewImageModal from "../ViewImageModal/ViewImageModal";
+import ImageWithLoader from "../../LVL2_Molecules/ImageWithLoader/Image";
 
 const ResultDrawer = ({
   questions,
@@ -18,6 +20,18 @@ ResultDrawerProps) => {
   const [showReasoning, setShowReasoning] = useState<boolean[]>(
     Array(questions.length).fill(false)
   );
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
+  const handleImageClick = (image: string) => {
+    setSelectedImage(image);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedImage(null);
+  };
 
   const toggleReasoning = (index: number) => {
     setShowReasoning((prev) => {
@@ -26,7 +40,7 @@ ResultDrawerProps) => {
       return newReasoning;
     });
   };
-  console.log("ResultDrawer", questions);
+  // console.log("ResultDrawer", questions);
   const {
     localeButtons,
     localeTitles,
@@ -117,9 +131,11 @@ ResultDrawerProps) => {
                   render={({ field }) => (
                     <>
                       {field.value !== "" && (
-                        <img
-                          className={styles["questionImage"]}
+                        <ImageWithLoader
+                          onClick={() => handleImageClick(field.value)}
                           src={field.value}
+                          alt="question Image"
+                          className={styles["questionImage"]}
                         />
                       )}
                     </>
@@ -170,7 +186,6 @@ ResultDrawerProps) => {
                 <div className={`${styles["mcq"]} `}>
                   {question?.answers?.map((answer: any, ind: number) => (
                     <div className={styles["mcqsDiv"]} key={ind}>
-                    
                       <div className="flex items-center">
                         <p
                           className={`${
@@ -200,6 +215,25 @@ ResultDrawerProps) => {
                             {answer.reason}
                           </span>
                         </p>
+
+                        <Controller
+                          name={`answer-${index}`}
+                          control={control}
+                          defaultValue=""
+                          key={answer[index]?.image}
+                          render={({ field }) => (
+                            <>
+                              {field.value !== "" && (
+                                <ImageWithLoader
+                                  onClick={() => handleImageClick(field.value)}
+                                  src={field.value}
+                                  alt="answer Image"
+                                  className={styles["answerImg"]}
+                                />
+                              )}
+                            </>
+                          )}
+                        />
                       </div>
                     </div>
                   ))}
@@ -210,6 +244,14 @@ ResultDrawerProps) => {
         </div>
       </div>
       {/* <button className={styles.viewScoreButton}>View Score</button> */}
+
+      {selectedImage && (
+        <ViewImageModal
+          open={isModalOpen}
+          handleClose={handleCloseModal}
+          image={selectedImage}
+        />
+      )}
     </div>
   );
 };

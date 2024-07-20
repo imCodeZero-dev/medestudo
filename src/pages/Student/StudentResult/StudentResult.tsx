@@ -24,6 +24,7 @@ import ResultBar from "../../../components/LVL3_Cells/ResultBar/ResultBar";
 import ResultDrawer from "../../../components/LVL4_Organs/ResultDrawer/ResultDrawer";
 import MockResultModal from "../../../components/LVL4_Organs/MockResultModal/MockResultModal";
 import SelectComponent from "../../../components/LVL2_Molecules/ControlSelect/SelectComponent";
+import DynamicTabs from "../../../components/LVL3_Cells/Tabs/Tabs";
 
 const StudentResult = ({}: StudentResultProps) => {
   const { localeTitles, localeButtons, localeLables, localePlaceholders } =
@@ -46,6 +47,8 @@ const StudentResult = ({}: StudentResultProps) => {
     handleResultModalClose,
     selecteResultData,
     handleResultModalOpen,
+    type,
+    handleChangeType,
   } = useStudentResult();
 
   const dispatch = useDispatch();
@@ -84,6 +87,17 @@ const StudentResult = ({}: StudentResultProps) => {
               </div>
             </div>
           </div>
+
+          <div className="md:px-[24px]">
+            <DynamicTabs
+              value={type}
+              onChange={handleChangeType}
+              tabLabels={[
+                localeLables?.LABEL_MOCK,
+                localeLables?.LABEL_PRACTICE,
+              ]}
+            />
+          </div>
           {filteredArray?.map((data: examCardData, i: number) => (
             <ResultBar
               key={i}
@@ -106,9 +120,7 @@ const StudentResult = ({}: StudentResultProps) => {
               />
             </div>
             <div className="flex flex-col justify-between  space-y-3 mt-6">
-              <Text className={styles.label}>
-                {localeLables.LABEL_MONTH}
-              </Text>
+              <Text className={styles.label}>{localeLables.LABEL_MONTH}</Text>
               <CustomSelect
                 name="filter_month"
                 control={control}

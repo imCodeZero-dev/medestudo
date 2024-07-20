@@ -1,0 +1,8 @@
+.img {
+  width: max-content;
+  height: max-content;
+  object-fit: contain;
+  justify-content: center;
+  text-align: center;
+  margin: auto;
+}

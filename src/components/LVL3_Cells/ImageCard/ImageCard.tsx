@@ -18,15 +18,19 @@ const ImageCard: React.FC<ImageCardProps> = ({ flashcards }) => {
 
       <Text className={styles.flashcardTitle}>{flashcards?.title}</Text>
 
-      <div className={styles.updatedByDiv}>
-        <div className={styles.updatedByDiv_Profile}>
-          <img className={styles.userImg} src={flashcards?.createdBy?.pic} />
+      {flashcards?.createdBy && (
+        <div className={styles.updatedByDiv}>
+          <div className={styles.updatedByDiv_Profile}>
+            <img className={styles.userImg} src={flashcards?.createdBy?.pic} />
 
-          <Text className={styles.userName}>{flashcards?.createdBy?.name}</Text>
+            <Text className={styles.userName}>
+              {flashcards?.createdBy?.name}
+            </Text>
+          </div>
+
+          <MdArrowRightAlt />
         </div>
-
-        <MdArrowRightAlt />
-      </div>
+      )}
     </div>
   );
 };
