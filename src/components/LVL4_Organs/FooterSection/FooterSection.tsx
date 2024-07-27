@@ -4,49 +4,83 @@ import Text from "../../LVL1_Atoms/Text/Text";
 import { FaXTwitter } from "react-icons/fa6";
 import { FaFacebookF, FaInstagram, FaLinkedinIn } from "react-icons/fa";
 import logo from "../../../assets/Images/Landing/MEDESTUDO.png";
+import useLocale from "../../../locales";
+import { AiOutlineYoutube } from "react-icons/ai";
 
 const FooterSection = () => {
+  const { localeTitles } = useLocale();
+  const NavigateToSocial = (link: string) => {
+    window.open(link);
+  };
   return (
     <footer className={styles.footer}>
       <div className={styles.container}>
         <div className={styles.column}>
-          <h4 className={styles.columnTitle}>For Students</h4>
+          <h4 className={styles.columnTitle}>
+            {localeTitles.TITLE_FOR_STUDENTS}
+          </h4>
           <ul className={styles.list}>
-            <li>Flashcards</li>
-            <li>Exams</li>
-            <li>Mock Exams</li>
-            <li>Custom Flashcards</li>
+            <li>{localeTitles.TITLE_FLASHCARDS}</li>
+            <li>{localeTitles.TITLE_EXAMS}</li>
+            <li>{localeTitles.TITLE_MOCK_EXAMS}</li>
+            <li>{localeTitles.TITLE_CUSTOM_FLASHCARDS}</li>
           </ul>
         </div>
         <div className={styles.column}>
-          <h4 className={styles.columnTitle}>For Professors</h4>
+          <h4 className={styles.columnTitle}>
+            {" "}
+            {localeTitles.TITLE_FOR_PROFESSORS}
+          </h4>
           <ul className={styles.list}>
-            <li>Flashcards</li>
-            <li>Create Exams</li>
-            <li>Create Flashcards</li>
-            <li>Dashboard</li>
+            <li>{localeTitles.TITLE_FLASHCARDS}</li>
+            <li>{localeTitles.TITLE_CREATE_EXAMS}</li>
+            <li>{localeTitles.TITLE_CREATE_FLASHCARDS}</li>
+            <li>{localeTitles.TITLE_DASHBOARD}</li>
           </ul>
         </div>
         <div className={styles.column}>
-          <h4 className={styles.columnTitle}>Contact</h4>
+          <h4 className={styles.columnTitle}> {localeTitles.TITLE_CONTACT}</h4>
           <ul className={styles.list}>
             <li>E: info@medestudo.com</li>
             <li>P: +12341241445</li>
           </ul>
         </div>
         <div className={styles.column}>
-          <h4 className={styles.columnTitle}>Social Media</h4>
+          <h4 className={styles.columnTitle}>
+            {" "}
+            {localeTitles.TITLE_SOCIAL_MEDIA}
+          </h4>
           <ul className={styles.listSocials}>
-            <div className={styles.iconDiv}>
+            <div
+              className={styles.iconDiv}
+              onClick={() =>
+                NavigateToSocial("https://www.instagram.com/medestudobr/")
+              }
+            >
               <FaXTwitter />
             </div>
-            <div className={styles.iconDiv}>
-              <FaLinkedinIn />
+            <div
+              className={styles.iconDiv}
+              onClick={() =>
+                NavigateToSocial("https://www.instagram.com/medestudobr/")
+              }
+            >
+              <AiOutlineYoutube />
             </div>
-            <div className={styles.iconDiv}>
+            <div
+              className={styles.iconDiv}
+              onClick={() =>
+                NavigateToSocial("https://www.instagram.com/medestudobr/")
+              }
+            >
               <FaInstagram />
             </div>
-            <div className={styles.iconDiv}>
+            <div
+              className={styles.iconDiv}
+              onClick={() =>
+                NavigateToSocial("https://www.instagram.com/medestudobr/")
+              }
+            >
               <FaFacebookF />
             </div>
           </ul>

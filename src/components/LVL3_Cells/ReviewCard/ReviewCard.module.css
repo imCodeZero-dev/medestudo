@@ -27,6 +27,11 @@
   text-align: left;
   color: #f3f4f5;
   margin-bottom: 20px;
+  display: -webkit-box;
+  -webkit-line-clamp: 4; /* Change this number to the number of lines you want */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .author {
