@@ -139,8 +139,12 @@
     grid-template-columns: auto auto auto;
   } */
   .allCards {
-    grid-template-columns: repeat(3, 1fr);
+    /* grid-template-columns: repeat(3, 1fr); */
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
     gap: 16px;
+    justify-content: center;
   }
   /* .allCards > :nth-child(4), */
   .allCards > :nth-child(5) {

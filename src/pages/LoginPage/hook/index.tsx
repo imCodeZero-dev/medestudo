@@ -197,7 +197,13 @@ export const useLoginPage = () => {
           removeCookie("admin", cookieOptions);
           removeCookie("student", cookieOptions);
           dispatch(loginProfessor(response?.data));
-          setCookie("professor", response?.data, { maxAge: 86400 });
+          setCookie("professor", response?.data, {
+            // maxAge: 86400,
+            expires: new Date(Date.now() + 86400 * 1000), // 1 day
+            path: "/",
+            sameSite: "strict",
+            secure: true,
+          });
           showSuccessToast("Login Successfully");
 
           navigate("/professor");
@@ -213,7 +219,12 @@ export const useLoginPage = () => {
           removeCookie("admin", cookieOptions);
           removeCookie("professor", cookieOptions);
           dispatch(loginProfessor(response?.data));
-          setCookie("student", response?.data, { maxAge: 86400 });
+          setCookie("student", response?.data, {
+            expires: new Date(Date.now() + 86400 * 1000), // 1 day
+            path: "/",
+            sameSite: "strict",
+            secure: true,
+          });
           showSuccessToast("Login Successfully");
           if (response?.data?.student?.importantQuestions) {
             navigate("/student/");
@@ -246,7 +257,12 @@ export const useLoginPage = () => {
       console.log("response", response);
 
       // dispatch(loginProfessor(response?.data));
-      setCookie("student", response?.data, { maxAge: 86400 });
+      setCookie("student", response?.data, {
+        expires: new Date(Date.now() + 86400 * 1000), // 1 day
+        path: "/",
+        sameSite: "strict",
+        secure: true,
+      });
       showSuccessToast("Registration Successfully");
 
       navigate("/student/survey");
