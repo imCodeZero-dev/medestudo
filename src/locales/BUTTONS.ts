@@ -128,7 +128,7 @@ export const BUTTONS = {
     BUTTON_START_EXAM: "Start Exam",
     BUTTON_THIS_ROUND: "This Round",
     BUTTON_OVERALL: "Overall",
-    BUTTON_REVEAL_THE_ANSWER: "Reveal The Answer",
+    BUTTON_REVEAL_THE_ANSWER: "Revelar Resposta",
     BUTTON_HIDE_THE_ANSWER: "Hide The Answer",
     BUTTON_GO_TO_DASHBOARD: "Go to Dashboard",
     BUTTON_10_MORE_CARDS: "10 More Cards",

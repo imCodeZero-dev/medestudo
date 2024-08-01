@@ -9,6 +9,8 @@ import StudentViewFlashcard from "../StudentViewFlashcard/StudentViewFlashcard";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { flashcardData } from "../../../utils/constants/DataTypes";
+import heartImg from "../../../assets/Images/Random/heart.png";
+import { decodeBase64Unicode } from "../../../utils/hooks/helper";
 // import { Tag } from "../../../utils/constants/DataTypes";
 
 const WhyMetEstudioSection = ({}: WhyMetEstudioSectionProps) => {
@@ -28,17 +30,15 @@ const WhyMetEstudioSection = ({}: WhyMetEstudioSectionProps) => {
   const allFlashcards = [
     {
       answer:
-        "PHAgY2xhc3M9InFsLWFsaWduLWNlbnRlciI+PHN0cm9uZz5UaGlzIGlzIEFuc3dlciAxPC9zdHJvbmc+PC9wPg==",
-      answerImage:
-        "https://res.cloudinary.com/dkzlc4bhv/image/upload/v1718367229/medestudo/bw8rp7yqqljur9hw7pqi.png",
+        "UGFyYWRhIGNhcmRpb3JyZXNwaXJhdMOzcmlhID0gSW50ZXJydXDDp8OjbyBzw7piaXRhIGUgaW5lc3BlcmFkYSBkYSBjaXJjdWxhw6fDo28u",
+      answerImage: "",
       cardCount: 6,
       createdAt: "2024-06-14T12:13:51.493Z",
       deckId: "66685016e0c41fc32bfdec8e",
       professorId: "65eb1f49799e17997824fd42",
       question:
-        "PHAgY2xhc3M9InFsLWFsaWduLWNlbnRlciI+PHN0cm9uZz5UaGlzIGlzIFF1ZXN0aW9uIDE8L3N0cm9uZz48L3A+",
-      questionImage:
-        "https://res.cloudinary.com/dkzlc4bhv/image/upload/v1718367229/medestudo/dkekhfwuz6uwapnxnegh.png",
+        "UGFyYWRhIGNhcmRpb3JyZXNwaXJhdMOzcmlhID0gSW50ZXJydXDDp8OjbyBzw7piaXRhIGUgaW5lc3BlcmFkYSBkYSBfX19fX19fX18K",
+      questionImage: heartImg,
       tags: ["YEEE edited", "test"],
       updatedAt: "2024-06-21T16:31:24.610Z",
       _id: "666c33ff536262b86a09167a",
@@ -88,8 +88,8 @@ const WhyMetEstudioSection = ({}: WhyMetEstudioSectionProps) => {
       const { question, answer, tags, questionImage, answerImage } =
         allFlashcards[currentFlashcardIndex];
       try {
-        const decodedQuestion = atob(question);
-        const decodedAnswer = atob(answer);
+        const decodedQuestion = decodeBase64Unicode(question);
+        const decodedAnswer = decodeBase64Unicode(answer);
         setValue("question", decodedQuestion);
         setValue("answer", decodedAnswer);
         setValue("questionImage", questionImage);

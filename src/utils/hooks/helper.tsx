@@ -289,3 +289,19 @@ export const countItemsFromCurrentMonth = (items: Item[]): number => {
     return itemDate.month() === currentMonth && itemDate.year() === currentYear;
   }).length;
 };
+
+
+export function decodeBase64Unicode(str:string) {
+  // Decode base64 string to binary string
+  const binaryStr = atob(str);
+
+  // Convert binary string to byte array
+  const len = binaryStr.length;
+  const bytes = new Uint8Array(len);
+  for (let i = 0; i < len; i++) {
+    bytes[i] = binaryStr.charCodeAt(i);
+  }
+
+  // Decode byte array to UTF-8 string
+  return new TextDecoder('utf-8').decode(bytes);
+}
