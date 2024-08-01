@@ -31,7 +31,7 @@ const QuestionBar: React.FC<QuestionBarProps> = ({
   // Extract text content from each <p> element
   const textContents = Array.from(paragraphs).map((p) => p.textContent);
 
-  /
+  
 
   return (
     <div className={styles["QuestionBar"]}>
