@@ -8,7 +8,8 @@ import clumsy3 from "../../assets/Images/Landing/clumsy3.png";
 import professor1 from "../../assets/Images/Landing/Professor1.png";
 import professor2 from "../../assets/Images/Landing/Professor2.png";
 
-export const baseURL = "https://167.88.33.35.nip.io/api/v1";
+export const baseURL = "https://api.medestudo.com/api/v1";
+// export const baseURL = "https://167.88.33.35.nip.io/api/v1";
 // export const baseURL = "https://medestudo.onrender.com/api/v1";
 export const CLOUDINARY_CLOUD_NAME = "dkzlc4bhv";
 export const CLOUDINARY_UPLOAD_PRESET = "medestudo";
