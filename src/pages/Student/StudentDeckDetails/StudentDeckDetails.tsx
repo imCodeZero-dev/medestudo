@@ -84,6 +84,7 @@ const StudentDeckDetails = ({}: StudentDeckDetailsProps) => {
     handleAllSelect,
     handleCheckboxDecks,
     totalCardCount,
+    classId,
   } = useStudentDeckDetails();
   // console.log("specificDecks", specificDecks);
   const navigate = useNavigate();
@@ -99,7 +100,7 @@ const StudentDeckDetails = ({}: StudentDeckDetailsProps) => {
   const navigateToViewFlashcardCustom = (deck: any) => {
     // console.log("navigateToViewFlashcard", deck);
     navigate(`/student/flashcard/deck/flashcard/combine`, {
-      state: { ids: deck, mode },
+      state: { ids: deck, classIds: classId, mode },
     });
   };
 
@@ -292,7 +293,7 @@ const StudentDeckDetails = ({}: StudentDeckDetailsProps) => {
                             {deck?._id && (
                               <div>
                                 <IoEllipsisHorizontal
-                                   size={width > breakPoints?.sm ? 25 : 18}
+                                  size={width > breakPoints?.sm ? 25 : 18}
                                   color="#2A2D31"
                                   className="cursor-pointer"
                                   onClick={(event) =>

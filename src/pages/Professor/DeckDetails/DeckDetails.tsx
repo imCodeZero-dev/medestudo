@@ -74,9 +74,7 @@ const DeckDetails = ({}: DeckDetailsProps) => {
     (total: number, item: deckData) => total + item?.cardCount,
     0
   );
-  // console.log("totalCardCount", totalCardCount);
   const navigateToCreateFlashcard = (deck: any) => {
-    // console.log("navigateToCreateFlashcard", deck);
     navigate("/professor/classes/deck/flashcard", { state: deck });
   };
   const navigateToViewFlashcard = (deck: any) => {

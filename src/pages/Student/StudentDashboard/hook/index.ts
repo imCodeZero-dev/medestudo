@@ -107,7 +107,6 @@ export const useStudentDashboard = () => {
     errorReviewDecks,
   } = useAllReviewDecksQuery(cookies?.student);
 
-  console.log("dashboardData", dashboardData);
 
   // const getDetails = (data: string) => {
   //   navigate(`/student/classes/deck?${data}`, { state: data });

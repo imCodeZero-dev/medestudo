@@ -44,7 +44,6 @@ const TagsManagement = ({}: TagsManagementProps) => {
     allTagsLoading,
     statusLoading,
   } = useTagsManagement();
-  console.log("allTags", allTags);
 
   const headers = ["ID", "Title", "Created On", "Status", "Action"];
 

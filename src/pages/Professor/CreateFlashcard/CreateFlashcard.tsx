@@ -48,7 +48,6 @@ const CreateFlashcard = ({}: CreateFlashcardProps) => {
     allClassesLoading,
     getDetails,
   } = useCreateFlashcard();
-  // console.log("allDecks", allDecks);
   const navigate = useNavigate();
   const { localeText } = useLocale();
 

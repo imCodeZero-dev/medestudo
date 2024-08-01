@@ -35,19 +35,11 @@ const CreateDeckSection = ({
     deepNestedDeck?: number
   ) => {
     // debugger;
-    console.log("currentIndex", currentIndex);
-    console.log("level", level);
-    console.log("nestedIndex", nestedIndex);
-    console.log("deepNestedDeck", deepNestedDeck);
+   
     const currentDecks = getValues("deck") || [];
-    console.log("currentDecks", currentDecks);
+   
     let currentLevel: any = currentDecks[0];
-    console.log("currentLevel00000", currentDecks);
-    console.log("currentLevel", currentLevel);
-    console.log(
-      "currentLevel?.subDeck[currentIndex] !== undefined",
-      currentLevel
-    );
+   
     if (
       level != 1 &&
       level != 2 &&
@@ -101,7 +93,6 @@ const CreateDeckSection = ({
     setValue("deck", [...currentDecks]);
   };
 
-  console.log("watchIndex", watch("deck"));
 
   const onRemove = (index: any) => {
     const currentDecks = getValues("deck") || [];

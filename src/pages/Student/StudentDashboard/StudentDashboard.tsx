@@ -310,10 +310,8 @@ const StudentDashboard = ({}: StudentDashboardProps) => {
     counts,
   } = useStudentDashboard();
   console.log("cookies", cookies);
-  console.log("totals", totals);
   const navigate = useNavigate();
 
-  console.log("allExams", allExams);
 
   const dsahboardCards = [
     {

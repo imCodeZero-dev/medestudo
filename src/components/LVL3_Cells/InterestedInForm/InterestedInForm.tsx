@@ -38,9 +38,7 @@ const InterestedInForm: React.FC<InterestedInFormProps> = ({
     setViewPassword(!viewPassword);
   };
 
-  //   useEffect(() => {
-  // console.log('watch("state")',watch("state"))
-  //   },[watch("state")])
+
   return (
     <div className={styles["InterestedInForm"]}>
       <Text className={styles.title}>

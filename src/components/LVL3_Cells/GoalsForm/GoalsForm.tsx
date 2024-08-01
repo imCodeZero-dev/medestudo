@@ -26,7 +26,6 @@ const GoalsForm: React.FC<GoalsFormProps> = ({
     localePlaceholders,
   } = useLocale();
 
-  // console.log("whyChoose", whyChooseArray);
 
   return (
     <div className={styles["GoalsForm"]}>

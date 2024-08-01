@@ -52,7 +52,6 @@ const StudentStartExam = ({}: StudentStartExamProps) => {
     toggleReveal,
     questionTime,
   } = useStudentStartExam();
-  // console.log("allDecks", allDecks);
   const navigate = useNavigate();
   const { localeText } = useLocale();
 

@@ -66,7 +66,6 @@ export const useStudentReviewDecks = () => {
     setOpenViewCardModal(true);
   };
 
-  // console.log("flashcardData", flashcardData);
 
   const { allClasses, allClassesLoading, errorAllClasses, refetchAllClasses } =
     useAllClassesQuery(cookies);
@@ -90,7 +89,6 @@ export const useStudentReviewDecks = () => {
   };
 
   const toggleBookmark = async (data: any) => {
-    console.log("toggleBookmark", data);
     setBookmarkLoading(true);
     const params = {
       studentId: cookies?.student?.student?._id,
@@ -147,11 +145,11 @@ export const useStudentReviewDecks = () => {
   }, [currentFlashcardIndex, reviewDecks]);
 
   const handleRatingChange = async (rating: number, id: string) => {
-    console.log(`Selected Rating: ${rating}, id: ${id}`);
     const params = {
       rate: rating,
       studentId: cookies?.student?.student?._id,
-      cardId: reviewDecks?.[0]?.data?.rated?._id,
+      cardId: id,
+      // cardId: reviewDecks?.[0]?.data?.rated?._id,
       // cardId: reviewDecks?.[0]?.rated?._id,
     };
     try {
@@ -167,7 +165,6 @@ export const useStudentReviewDecks = () => {
     }
   };
 
-  console.log("reviewDecks", reviewDecks);
 
   return {
     control,

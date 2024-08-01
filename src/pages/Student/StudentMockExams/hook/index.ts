@@ -100,7 +100,6 @@ export const useStudentMockExams = () => {
   }, [allExams]);
 
   const watchTime = watch("time");
-  console.log("watchTime", watchTime);
 
   const [updatedInstitutes, setUpdatedInstitutes] = useState<any[]>([]);
   const [selectedYears, setSelectedYears] = useState<string[]>([]);

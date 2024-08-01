@@ -49,6 +49,7 @@ export const TEXT = {
       "Enter details to continue using your account!",
     TEXT_HOW_WELL_DID_YOU_KNOW_ANS: "How well did you know the answer",
     TEXT_ALL: "All",
+    TEXT_CUSTOM: "Custom",
     TEXT_OUR_PLATFOR_GOES_BEYOND:
       "Our platform goes beyond traditional flashcards by incorporating interactive elements such as quizzes, mock exams, and detailed explanations for questions. This approach helps you not only memorize facts but also understand complex concepts and apply them in real-world scenarios.",
 
@@ -140,6 +141,7 @@ export const TEXT = {
       "Enter details to continue using your account!",
     TEXT_HOW_WELL_DID_YOU_KNOW_ANS: "How well did you know the answer",
     TEXT_ALL: "All",
+    TEXT_CUSTOM: "Custom",
     TEXT_OUR_PLATFOR_GOES_BEYOND:
       "Nossa plataforma vai além dos flashcards tradicionais, incorporando elementos interativos como questionários, simulados e explicações detalhadas para questões. Essa abordagem ajuda você não apenas a memorizar fatos, mas também a compreender conceitos complexos e aplicá-los em cenários do mundo real.",
     TEXT_SELECTED_OF: "Selected of",

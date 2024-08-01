@@ -73,7 +73,6 @@ export const useProfessorDashboard = () => {
     refetchDashboardData,
   } = useDashboardDataQuery(cookies?.professor);
 
-  console.log("dashboardData", dashboardData);
 
   const getDetails = (data: string) => {
     navigate(`/professor/classes/deck?${data}`, { state: data });
@@ -86,7 +85,6 @@ export const useProfessorDashboard = () => {
     const params = {
       status: data?.status === "active" ? "inactive" : "active",
     };
-    console.log("params", params);
     // try {
     //   setProfessorLoading(true);
     //   let response;

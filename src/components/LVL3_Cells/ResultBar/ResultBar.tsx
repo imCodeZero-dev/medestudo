@@ -3,14 +3,10 @@ import { ResultBarProps } from "./@types";
 import styles from "./ResultBar.module.css";
 import Text from "../../LVL1_Atoms/Text/Text";
 import useLocale from "../../../locales";
-import { BiSolidPencil } from "react-icons/bi";
 import { IoEllipsisHorizontal } from "react-icons/io5";
 import { MdMenuBook } from "react-icons/md";
-import { BsBuildings } from "react-icons/bs";
-import { FaRegClock } from "react-icons/fa";
 import { FaRegCalendar } from "react-icons/fa";
 
-import { IoIosPlayCircle } from "react-icons/io";
 import { DropdownMenu } from "../DashboardFlashcard/DashboardFlashcard";
 import { useDropdown } from "../../../utils/hooks/helper";
 import dayjs from "dayjs";
@@ -24,13 +20,11 @@ const ResultBar: React.FC<ResultBarProps> = ({
 }) => {
   const { localeText } = useLocale();
   const { isDropdownOpen, toggleDropdown, dropdownRef } = useDropdown();
-  // console.log("isDropdownOpen", isDropdownOpen);
 
   const calculateMarks = (achievedMarks: number, totalQuestions: number) => {
     const percentage = (achievedMarks / totalQuestions) * 100;
     const result = percentage >= 50 ? "marksGood" : "marksBad";
     return result;
-    // return { percentage, result };
   };
 
   return (

@@ -69,7 +69,7 @@ export const useStudentFormPage = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [cookies, setCookie] = useCookies(["student"]);
+  const [cookies] = useCookies(["student"]);
 
   const {
     allInstitute,
@@ -107,7 +107,6 @@ export const useStudentFormPage = () => {
 
   useEffect(() => {
     if (watch("speciality")) {
-      // console.log("arrayOfSubjects", watch("subject"));
       if (!arrayOfSubjects.includes(watch("speciality").label)) {
         arrayOfSubjects.push(watch("speciality").label);
         setArrayOfSubjects([...arrayOfSubjects]);
@@ -123,7 +122,6 @@ export const useStudentFormPage = () => {
   };
 
   const onSubmit = async (data: any) => {
-    console.log("loginForm", data);
     if (activeSection === 0 && !(data?.institution && data?.year)) {
       {
         showErrorToast("All Fields are required");
@@ -166,7 +164,6 @@ export const useStudentFormPage = () => {
             ?.filter((i) => i.active)
             ?.map((data) => data?.label),
         };
-        console.log("params", params);
 
         try {
           setFormLogin(true);

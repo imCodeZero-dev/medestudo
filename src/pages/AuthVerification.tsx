@@ -45,7 +45,6 @@ const AuthVerification = () => {
         try {
           const decodedToken: any = jwtDecode(token);
           const cookieOptions = {};
-          console.log("decodedToken", decodedToken);
           debugger;
           removeCookie("professor", cookieOptions);
           removeCookie("student", cookieOptions);
@@ -55,7 +54,6 @@ const AuthVerification = () => {
             decodedToken.message === "Login successful" ||
             decodedToken.message === "Account created successfully"
           ) {
-            console.log("decodedToken", decodedToken);
             const updatedStudent = {
               token: `Bearer ${decodedToken?.token}`,
               student: decodedToken?.user,

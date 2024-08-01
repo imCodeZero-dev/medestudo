@@ -37,9 +37,7 @@ const StudentReviewAllCards: React.FC<StudentReviewAllCardsProps> = ({
 }) => {
   const { localeTitles, localePlaceholders, localeButtons, localeText } =
     useLocale();
-  console.log("allFlashcards", allFlashcards);
 
-  // console.log("filteredTags", filteredTags);
   return (
     <div className={styles["StudentReviewAllCards"]}>
       {loading ? (
@@ -183,7 +181,6 @@ const StudentReviewAllCards: React.FC<StudentReviewAllCardsProps> = ({
                               <Text className={styles["ratingText"]}>
                                 {localeText.TEXT_HOW_WELL_DID_YOU_KNOW_ANS}
                               </Text>
-                              {/* {console.log("RatingButtons", card)} */}
                               <RatingButtons
                                 id={card?.data?.rated?._id}
                                 rated={card?.difficulty}

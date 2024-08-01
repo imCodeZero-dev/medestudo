@@ -58,7 +58,6 @@ export const useCreateFlashcard = () => {
   const { classDecks, classDecksLoading, errorclassDecks, refetchclassDecks } =
     useAllClassDecksQuery(deckData?.classId, cookies?.professor);
 
-  console.log("CreateDeckData", deckData);
 
   useEffect(() => {
     if (!deckData) {
@@ -127,9 +126,7 @@ export const useCreateFlashcard = () => {
       navigate(-1);
     }
   };
-  useEffect(() => {
-    console.log("allFlashcards", allFlashcards);
-  }, [allFlashcards]);
+
 
   // console.log("filteredDecks", filteredDecks);
   return {

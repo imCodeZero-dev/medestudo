@@ -68,8 +68,6 @@ export const useStudentDeckDetails = () => {
   const deckId = location?.state;
   const mode = location?.state?.mode;
 
-  // console.log("deckId in studente", deckId, mode);
-
   // const openCreate = useSelector((state: any) => state.modal.isOpen);
   const navigate = useNavigate();
   const [createModal, setCreateModal] = useState(false);
@@ -77,6 +75,7 @@ export const useStudentDeckDetails = () => {
   const [deleteModal, setDeleteModal] = useState(false);
   const [deleteClassModal, setDeleteClassModal] = useState(false);
   const [deleteLoading, setDeleteLoading] = useState(false);
+  const [classId, setClassId] = useState<string[]>();
   const [selectedDeckId, setSelectedDeckId] = useState<null | string>(null);
   const handleCloseCreate = () => {
     setCreateModal(false);
@@ -86,7 +85,6 @@ export const useStudentDeckDetails = () => {
     setDeleteModal(false);
   };
   const openDeleteModal = (id: string) => {
-    console.log("openDeleteModal", id);
     handleCloseOptions();
     setSelectedDeckId(id);
     setDeleteModal(true);
@@ -183,7 +181,6 @@ export const useStudentDeckDetails = () => {
   };
 
   const handleAllSelect = (isChecked: boolean) => {
-    console.log("handleAllSelect", isChecked);
     if (isChecked) {
       const getAll = allDecks?.flatMap((deck: any) => deck || []);
       setSelectedDecks(getAll);
@@ -198,11 +195,13 @@ export const useStudentDeckDetails = () => {
       (acc, item) => acc + item?.cardCount,
       0
     );
+    setClassId((prevState: any) => [
+      ...selectedDecks.flatMap((deck: any) => deck?.classId || []),
+    ]);
     setTotalCardCount(totalCards);
   }, [selectedDecks]);
 
   const onSubmitCreate = async (data: any) => {
-    console.log("onSubmitCreate", data);
     const requestData: any = {
       // name: "anxzc",
       deckId: classDetails?.deckId?._id,
@@ -242,9 +241,7 @@ export const useStudentDeckDetails = () => {
     }
 
     // Now you can send the requestData to your API
-    console.log("API Request Data:", requestData);
 
-    console.log("onSubmitCreate", data);
     try {
       setCreateLoading(true);
       let response;
@@ -360,5 +357,6 @@ export const useStudentDeckDetails = () => {
     selectedDecks,
     handleCheckboxDecks,
     totalCardCount,
+    classId,
   };
 };

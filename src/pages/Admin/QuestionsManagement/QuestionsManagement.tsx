@@ -73,7 +73,6 @@ const QuestionsManagement = ({}: QuestionsManagementProps) => {
   const headers = ["ID", "Question Title", "Correct Answer", "Created On"];
 
   const handleStatusToggle = (data: any) => {
-    console.log("handleStatusToggle", data);
   };
 
   return (

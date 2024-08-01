@@ -74,7 +74,6 @@ export const useStudentSettings = () => {
   const [passwordLoading, setPasswordLoading] = useState<boolean>(false);
 
   const onSubmitGeneral = async (data: any) => {
-    console.log("params", data);
     // const params = {
     //   name: data?.name,
     //   username: data?.username,
@@ -100,7 +99,12 @@ export const useStudentSettings = () => {
       setCookie(
         "student",
         { ...cookies.student, student: response?.data?.student },
-        { maxAge: 86400 }
+        {
+          expires: new Date(Date.now() + 86400 * 1000), // 1 day
+          path: "/",
+          sameSite: "strict",
+          secure: true,
+        }
       );
       showSuccessToast(localeSuccess?.SUCCESS_GENERAL_INFO_UPDATED);
     } catch (error: any) {
@@ -111,14 +115,12 @@ export const useStudentSettings = () => {
     }
   };
   const onSubmitImage = async (data: any) => {
-    console.log("onSubmitImage params", data);
     let imageUrl = "";
     setProfilePicLoading(true);
     imageUrl = await uploadImageToCloudinary(data?.pic);
     const params = {
       pic: imageUrl,
     };
-    console.log("onSubmitImage params", params);
     try {
       let response;
       response = await updateStudentPictureApi(
@@ -131,7 +133,12 @@ export const useStudentSettings = () => {
       setCookie(
         "student",
         { ...cookies.student, student: response?.data?.student },
-        { maxAge: 86400 }
+        {
+          expires: new Date(Date.now() + 86400 * 1000), // 1 day
+          path: "/",
+          sameSite: "strict",
+          secure: true,
+        }
       );
       showSuccessToast(localeSuccess?.SUCCESS_PROFILE_PICTURE_UPDATED);
     } catch (error: any) {
@@ -143,7 +150,6 @@ export const useStudentSettings = () => {
   };
 
   const onSubmitPassword = async (data: any) => {
-    console.log("onSubmitPassword", data);
     const params = {
       currentPassword: data?.currentPassword,
       newPassword: data?.newPassword,

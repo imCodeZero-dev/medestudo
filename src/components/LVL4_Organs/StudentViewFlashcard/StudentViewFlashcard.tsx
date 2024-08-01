@@ -51,12 +51,12 @@ const StudentViewFlashcard: React.FC<StudentViewFlashcardProps> = ({
   key,
   bookmarkLoading,
   ratingLoading,
+  combine,
 }) => {
   const { localeTitles, localePlaceholders, localeButtons, localeText } =
     useLocale();
   const { width } = useWidth();
 
-  console.log("allFlashcards mode", mode);
   const filteredTags = allTags?.map((item: any) => item.title);
 
   // const handleEdit = (data: any) => {
@@ -67,7 +67,6 @@ const StudentViewFlashcard: React.FC<StudentViewFlashcardProps> = ({
   //   handleEditClose && handleEditClose();
   //   setKey((prevKey) => prevKey + 1);
   // };
-  console.log("filteredTags", filteredTags);
   return (
     <div className={styles["StudentViewFlashcard"]}>
       {loading ? (
@@ -87,7 +86,9 @@ const StudentViewFlashcard: React.FC<StudentViewFlashcardProps> = ({
                 </Text>
                 <div>
                   <Text className={styles.heading}>
-                    {deckDetails?.classId?.deckId?.name}
+                    {combine
+                      ? localeText.TEXT_CUSTOM
+                      : deckDetails?.classId?.deckId?.name}
                   </Text>
                 </div>
               </div>

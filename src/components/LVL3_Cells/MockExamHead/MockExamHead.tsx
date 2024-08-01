@@ -16,7 +16,6 @@ const MockExamHead: React.FC<MockExamHeadProps> = ({
   practice,
   questionTime,
 }) => {
-  console.log('questionTime',questionTime)
   // const { localeText, localeDropdowns } = useLocale();
   const { localeText, localeButtons } = useLocale();
   const { isDropdownOpen, toggleDropdown, dropdownRef } = useDropdown();

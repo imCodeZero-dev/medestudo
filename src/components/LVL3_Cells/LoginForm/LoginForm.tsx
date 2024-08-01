@@ -33,7 +33,6 @@ const LoginForm: React.FC<LoginFormProps> = ({
   const [viewPassword, setViewPassword] = useState<boolean>(false);
   const pathName = useLocation().pathname;
   const professorPanel = pathName.includes("/professor");
-  // console.log("professorPanel", professorPanel);
 
   const handleView = () => {
     setViewPassword(!viewPassword);
@@ -48,14 +47,7 @@ const LoginForm: React.FC<LoginFormProps> = ({
         {localeText?.TEXT_ENTER_DETAILS_TO_CONTINUE}
       </Text>
       <div className="my-2">
-        {/* <GoogleLogin
-          onSuccess={(credentialResponse) => {
-            console.log(credentialResponse);
-          }}
-          onError={() => {
-            console.log("Login Failed");
-          }}
-        /> */}
+       
         <Button
           className="primary"
           onClick={loginGoogle}

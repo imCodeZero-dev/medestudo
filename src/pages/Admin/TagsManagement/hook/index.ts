@@ -79,11 +79,9 @@ export const useTagsManagement = () => {
       setCreateLoading(true);
       let response;
       response = await deleteTagApi(tagData?._id, cookies?.admin?.token);
-      console.log("response", response);
       refetchAllTags();
       showSuccessToast(localeSuccess?.SUCCESS_TAG_DELETED);
     } catch (error: any) {
-      console.log("error", error);
       showErrorToast(error?.response?.data?.message);
     } finally {
       setCreateLoading(false);
@@ -91,7 +89,6 @@ export const useTagsManagement = () => {
     }
   };
   const onSubmitCreate = async (data: any) => {
-    console.log("params", data);
     try {
       setCreateLoading(true);
       let response;

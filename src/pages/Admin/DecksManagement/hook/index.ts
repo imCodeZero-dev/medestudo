@@ -57,7 +57,6 @@ export const useDecksManagement = () => {
 
   const handleEdit = (data: any) => {
     setEditSection(true);
-    console.log("handleEdit", data);
     setDeckData(data);
 
     setValue("deck[0].name", data.name);
@@ -100,7 +99,6 @@ export const useDecksManagement = () => {
     });
   };
 
-  console.log("watchdecks", watch("deck"));
 
   const handleEditCancel = () => {
     setEditSection(false);
@@ -115,7 +113,6 @@ export const useDecksManagement = () => {
     setdeleteModal(false);
   };
 
-  // console.log("deckData", deckData);
 
   const {
     data: { data: { decks: allDecks = [] } = {} } = {},
@@ -138,10 +135,8 @@ export const useDecksManagement = () => {
     }
   );
 
-  console.log("allDecks", allDecks);
 
   const onCreateSubmission = async (data: any) => {
-    console.log("onCreateSubmission", data);
     if (!data?.deck?.[0]?.name) {
       showErrorToast("Deck must be filled");
     } else {
@@ -170,12 +165,10 @@ export const useDecksManagement = () => {
   };
 
   const onConfirmEdit = async (data: any) => {
-    console.log("onConfirmEdit", data);
     const params = {
       name: data?.deck?.[0]?.name,
       subDeck: data?.deck?.[0]?.subDeck,
     };
-    console.log("onConfirmEdit params", params);
     try {
       setDeckLoading(true);
       let response;

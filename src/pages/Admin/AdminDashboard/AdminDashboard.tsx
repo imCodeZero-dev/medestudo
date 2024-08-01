@@ -50,7 +50,6 @@ const AdminDashboard = ({}: AdminDashboardProps) => {
     navigate("/admin/tags");
   };
 
-  console.log("allProfessors", allProfessors);
 
   const cards = [
     {

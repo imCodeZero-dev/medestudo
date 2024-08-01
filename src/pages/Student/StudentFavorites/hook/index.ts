@@ -94,7 +94,6 @@ export const useStudentFavorites = () => {
     setOpenViewCardModal(true);
   };
 
-  // console.log("flashcardData", flashcardData);
 
   const { allClasses, allClassesLoading, errorAllClasses, refetchAllClasses } =
     useAllClassesQuery(cookies);
@@ -120,7 +119,6 @@ export const useStudentFavorites = () => {
   };
 
   const toggleBookmark = async (data: any) => {
-    console.log("toggleBookmark", data);
     const params = {
       studentId: cookies?.student?.student?._id,
       cardId: data?.cardId,
@@ -158,7 +156,6 @@ export const useStudentFavorites = () => {
 
   useEffect(() => {
     if (bookmarkCards.length === 0 && emptyArray) {
-      console.log("No bookmarks found ");
       setEmptyArray(false); // Reset the emptyArray state
       setValue("question", "");
       setValue("answer", "");
@@ -166,7 +163,6 @@ export const useStudentFavorites = () => {
       setValue("answerImage", "");
       setValue("tags", []);
     } else if (bookmarkCards[currentFlashcardIndex]?.card) {
-      console.log("bookmarks found ");
       const { question, answer, tags, questionImage, answerImage } =
         bookmarkCards[currentFlashcardIndex]?.card;
       try {
@@ -193,10 +189,8 @@ export const useStudentFavorites = () => {
         console.error("Error decoding base64 string:", error);
       }
     }
-    console.log("bookmarkCards[currentFlashcardIndex]", bookmarkCards);
   }, [currentFlashcardIndex, bookmarkCards]);
 
-  console.log("errorbookmarkCards", errorbookmarkCards);
 
   // useEffect(() => {
   //   if (bookmarkCards[currentFlashcardIndex]?.card) {

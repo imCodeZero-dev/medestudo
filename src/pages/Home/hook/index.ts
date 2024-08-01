@@ -28,7 +28,6 @@ export const useHome = () => {
   } = useStudentsQuery(cookies as any);
 
  
-console.log('allStudents',allStudents)
 
   return {
     control,

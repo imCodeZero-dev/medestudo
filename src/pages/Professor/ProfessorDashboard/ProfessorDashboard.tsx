@@ -144,8 +144,7 @@ const ProfessorDashboard = ({}: ProfessorDashboardProps) => {
     dashboardData,
     totals,
   } = useProfessorDashboard();
-  console.log("cookies", cookies);
-  console.log("totals", totals);
+
   const navigate = useNavigate();
 
   const dummyData = [

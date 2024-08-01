@@ -44,7 +44,6 @@ const ProfessorManagement = ({}: ProfessorManagementProps) => {
     deleteLoading,
     statusLoading,
   } = useProfessorManagement();
-  console.log("allProfessors", allProfessors);
 
   const cards = [
     {

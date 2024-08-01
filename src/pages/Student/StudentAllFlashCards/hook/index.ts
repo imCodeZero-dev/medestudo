@@ -21,6 +21,7 @@ import {
   useAllFlashcardsQuery,
   useAllReviewDecksQuery,
   useAllTagsQuery,
+  useClassDetailsQuery,
 } from "../../../../redux/slices/APISlice";
 import {
   Flashcard,
@@ -58,6 +59,8 @@ export const useStudentAllFlashCards = () => {
   const customId = location?.state?._id;
 
   const deckIds = location?.state?.ids?.map((deck: any) => deck?._id);
+  const classIds = location?.state?.classIds?.map((cl: any) => cl);
+  console.log("all ids", "classIds", classIds, "deckIds", deckIds);
   const {
     handleSubmit,
     control,
@@ -100,6 +103,16 @@ export const useStudentAllFlashCards = () => {
   const [currentBatchIndex, setCurrentBatchIndex] = useState(0);
   const [confidenceLevel, setConfidenceLevel] = useState(0);
   const [rateArray, setRateArray] = useState<number[]>([]);
+  const [occuranceRatings, setOccuranceRatings] = useState<number[]>([]);
+  const [masteryLevel, setMasteryLevel] = useState<number>(0);
+  const [ratings, setRatings] = useState([
+    { label: "Total", value: 0, maxValue: 20 },
+    { label: "1", value: 0, maxValue: 20 },
+    { label: "2", value: 0, maxValue: 20 },
+    { label: "3", value: 0, maxValue: 20 },
+    { label: "4", value: 0, maxValue: 20 },
+    { label: "5", value: 0, maxValue: 20 },
+  ]);
   const BATCH_SIZE = 10;
   const [allFlashcardsLoaded, setAllFlashcardsLoaded] = useState(false);
   const [revealAnswer, setRevealAnswer] = useState(false);
@@ -118,6 +131,13 @@ export const useStudentAllFlashCards = () => {
     errorReviewDecks,
   } = useAllReviewDecksQuery(cookies?.student);
 
+  // const {
+  //   classDetails,
+  //   classDetailsLoading,
+  //   errorClassDetails,
+  //   refetchClassDetails,
+  // } = useClassDetailsQuery(classIds?.[0], cookies?.student);
+
   const handleViewCardModalClose = () => {
     setOpenViewCardModal(false);
   };
@@ -128,7 +148,7 @@ export const useStudentAllFlashCards = () => {
     setAllSetModal(false);
   };
   const handleAllSetModalOpen = () => {
-    callOccuranceAPI();
+    // callOccuranceAPI();
     setAllSetModal(true);
   };
   const handleCheckpointModalClose = () => {
@@ -156,8 +176,6 @@ export const useStudentAllFlashCards = () => {
     setEnableEdit(false);
     setKey((prevKey) => prevKey + 1);
   };
-
-  // console.log("flashcardData", flashcardData);
 
   const { allClasses, allClassesLoading, errorAllClasses, refetchAllClasses } =
     useAllClassesQuery(cookies);
@@ -199,8 +217,6 @@ export const useStudentAllFlashCards = () => {
     ? allFlashcardsData?.data?.cards || []
     : allFlashcardsData?.data?.cards || [];
 
-  console.log("allFlashcards", allFlashcards);
-
   const {
     data: { data: { Deck: deckDetails = [] } = {} } = {},
     isLoading: deckDetailsLoading,
@@ -222,25 +238,14 @@ export const useStudentAllFlashCards = () => {
     }
   );
 
-  // console.log("deckDetails", deckDetails);
-
   const getDetails = (data: string) => {
     navigate(`/professor/classes/deck?${data}`, { state: data });
   };
 
-  // console.log("allFlashcards", allFlashcards);
-
-  // const handleNextFlashcard = () => {
-  //   setCurrentFlashcardIndex((prevIndex) =>
-  //     prevIndex < allFlashcards?.length - 1 ? prevIndex + 1 : prevIndex
-  //   );
-  // };
-
   const handleNextFlashcard = () => {
     setCurrentFlashcardIndex((prevIndex) => {
       const nextIndex = prevIndex + 1;
-
-      console.log("nextIndex", nextIndex, "BATCH_SIZE", BATCH_SIZE);
+      console.log("allFlashcardsLoaded", allFlashcardsLoaded);
       if (nextIndex >= BATCH_SIZE) {
         if (!allFlashcardsLoaded) {
           loadMoreFlashcards();
@@ -261,20 +266,18 @@ export const useStudentAllFlashCards = () => {
     setRevealAnswer(false);
   };
   const handleRatingChange = async (rating: number) => {
-    console.log(`Selected Rating: ${rating}`);
     const params = {
       rate: rating,
       studentId: cookies?.student?.student?._id,
-      cardId: allFlashcards?.[0]?._id,
+      cardId: allFlashcards?.[currentFlashcardIndex]?._id,
     };
     try {
       setRatingLoading(true);
       let response;
       response = await provideRateToCardApi(params, cookies?.student?.token);
-      console.log("response", response);
 
       if (flashcards?.length - 1 === currentFlashcardIndex) {
-        if (flashcards?.length !== allFlashcards?.length) {
+        if (!allFlashcardsLoaded) {
           getTotalTime();
           handleCheckpointModalOpen();
           setConfidenceLevel;
@@ -361,7 +364,7 @@ export const useStudentAllFlashCards = () => {
     }
   };
   const toggleBookmark = async (data: any) => {
-    console.log("toggleBookmark", data);
+    // console.log("toggleBookmark", data);
     const params = {
       studentId: cookies?.student?.student?._id,
       cardId: data?._id,
@@ -427,8 +430,18 @@ export const useStudentAllFlashCards = () => {
   useEffect(() => {
     if (allFlashcards.length > 0) {
       loadInitialFlashcards();
+      if (combine) {
+        callOccuranceAPI();
+      }
     }
+    console.log("allFlashcards", allFlashcards, "allClasses", allClasses);
   }, [allFlashcards]);
+
+  useEffect(() => {
+    if (deckDetails?.classId?._id) {
+      callOccuranceAPI();
+    }
+  }, [deckDetails]);
 
   const loadInitialFlashcards = () => {
     const initialBatch = allFlashcards.slice(0, BATCH_SIZE);
@@ -441,14 +454,16 @@ export const useStudentAllFlashCards = () => {
     setAllFlashcardsLoaded(allFlashcards.length <= BATCH_SIZE);
   };
 
-  // console.log("batchflashcardId", batchflashcardId);
-
   const loadMoreFlashcards = () => {
+    setConfidenceLevel(0);
+    setRateArray([]);
     const startIndex = (currentBatchIndex + 1) * BATCH_SIZE;
     const endIndex = startIndex + BATCH_SIZE;
+    console.log("startIndex", startIndex, "endIndex", endIndex);
     const newBatch = allFlashcards.slice(startIndex, endIndex);
     const currentBatchID = newBatch?.map(({ _id }: any) => _id);
     setBatchflashcardId(currentBatchID);
+    console.log("newBatch", newBatch.length, "BATCH_SIZE", BATCH_SIZE);
 
     setFlashcards(newBatch);
     setCurrentBatchIndex((prevIndex) => prevIndex + 1);
@@ -465,11 +480,13 @@ export const useStudentAllFlashCards = () => {
       response = await ratingOccuranceApi(
         {
           studentId: cookies?.student?.student?._id,
-          flashcards: batchflashcardId,
+          // classId: classIds,
+          classId: !combine ? [deckDetails?.classId?._id] : classIds,
         },
         cookies?.student?.token
       );
       console.log("response", response);
+      setOccuranceRatings(response?.data?.data);
       // showSuccessToast(localeSuccess?.SUCCESS_FLASH_DELETED);
       // refetchAllFlashcards();
       // navigate(-1);
@@ -482,7 +499,6 @@ export const useStudentAllFlashCards = () => {
   };
 
   const getTotalTime = (time?: number) => {
-    console.log("totaltime", time);
     setStopTimer(true);
     if (time) {
       setTotalTime(time);
@@ -494,6 +510,56 @@ export const useStudentAllFlashCards = () => {
     handleCheckpointModalClose();
   };
 
+  useEffect(() => {
+    let total = 0;
+    let totalWeightedValue = 0;
+    let totalResponses = 0;
+
+    const updatedRatings = ratings.map((rating) => {
+      const label = rating.label;
+
+      if (label === "Total") {
+        return rating; // Skip updating "Total" for now
+      }
+
+      const labelAsNumber = Number(label);
+      if (labelAsNumber in occuranceRatings) {
+        const value = occuranceRatings[labelAsNumber];
+        total += value;
+        totalWeightedValue += value * labelAsNumber;
+        totalResponses += value;
+        return { ...rating, value };
+      }
+
+      return rating;
+    });
+
+    // Update the "Total" label with the total value
+    const newRatingIndex = updatedRatings.findIndex(
+      (rating) => rating.label === "Total"
+    );
+    if (newRatingIndex !== -1) {
+      updatedRatings[newRatingIndex] = {
+        ...updatedRatings[newRatingIndex],
+        value: total,
+      };
+    }
+
+    setRatings(updatedRatings);
+
+    // Calculate mastery level
+    if (totalResponses > 0) {
+      const averageRating = totalWeightedValue / totalResponses;
+      const masteryLevel = (averageRating / 5) * 100;
+      setMasteryLevel(Number(masteryLevel.toFixed(1)));
+    } else {
+      setMasteryLevel(0); // If no responses, set mastery to 0%
+    }
+  }, [occuranceRatings]);
+
+  useEffect(() => {
+    console.log("deckDetails", deckDetails);
+  }, [deckDetails]);
   return {
     control,
     errors,
@@ -547,6 +613,9 @@ export const useStudentAllFlashCards = () => {
     bookmarkLoading,
     rateArray,
     ratingLoading,
+    ratings,
+    masteryLevel,
+    combine,
     // setgetTotalTime,
   };
 };

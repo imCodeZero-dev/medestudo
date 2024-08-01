@@ -14,6 +14,7 @@ import {
   getAllClassesApi,
   getAllExamsApi,
   getAllFlashcardsByIdApi,
+  getClassByIdApi,
   getClassDecksApi,
   getDashboardDataApi,
   getExamQuestionsApi,
@@ -110,13 +111,13 @@ export const useAllTagsQuery = (cookies: any, type?: string) => {
     "allTags",
     async () => {
       const response = await getAllTagsApi(cookies?.admin?.token);
-      console.log("API response:", response);
+      // console.log("API response:", response);
       return response;
     },
     {
       // enabled: !!cookies?.admin?.token,
       select: (data) => {
-        console.log("Raw data:", data);
+        // console.log("Raw data:", data);
         if (data && data.data && data.data.tags) {
           if (type !== "admin") {
             return data.data.tags.filter((tag: any) => tag.status === "active");
@@ -225,7 +226,6 @@ export const useAllExamsQuery = (cookies: any) => {
 };
 
 export const useAllFlashcardsQuery = (cookies: any, deckId: string) => {
-  console.log("useAllFlashcardsQuery", deckId, "cookies", cookies);
   const {
     data: { data: { cards: allFlashcards = [] } = {} } = {},
     isLoading: allFlashcardsLoading,
@@ -531,7 +531,7 @@ export const useAllClassDecksQuery = (
   classId: string,
   cookies: { token: string }
 ) => {
-  console.log("useAllClassDecksQuery", classId, cookies);
+  // console.log("useAllClassDecksQuery", classId, cookies);
   const {
     data: { data: { decksWithCardCount: classDecks = [] } = {} } = {},
     isLoading: classDecksLoading,
@@ -561,11 +561,52 @@ export const useAllClassDecksQuery = (
   };
 };
 
+
+
+
+
+
+
+
+export const useClassDetailsQuery = (
+  classId: string,
+  cookies: { token: string }
+) => {
+  // console.log("useAllClassDecksQuery", classId, cookies);
+  const {
+    data: { data: { class: classDetails = [] } = {} } = {},
+  isLoading: classDetailsLoading,
+  error: errorClassDetails,
+  refetch: refetchClassDetails,
+  } = useQuery(
+    [
+      "classDetails",
+      {
+        cookies,
+        classId,
+      },
+    ],
+    async () => {
+      return getClassByIdApi(classId, cookies?.token);
+    },
+    {
+      enabled: !!cookies?.token && !!classId,
+    }
+  );
+
+  return {
+    classDetails,
+    classDetailsLoading,
+    errorClassDetails,
+    refetchClassDetails,
+  };
+};
+
 export const useAllReviewDecksQuery = (cookies: {
   token: string;
   student: { _id: string };
 }) => {
-  console.log("useAllReviewDecksQuery", cookies);
+  // console.log("useAllReviewDecksQuery", cookies);
   const {
     // data: { data: { ratings: reviewDecks = [] } = {} } = {},
     data: { data: { batches: [reviewDecks = []] = [] } = {} } = ({} = {}),
@@ -600,7 +641,7 @@ export const useCustomClassDecksQuery = (
   deckData: string,
   cookies: { token: string }
 ) => {
-  console.log("useCustomClassDecksQuery", cookies);
+  // console.log("useCustomClassDecksQuery", cookies);
   const {
     data: { data: { decks: allCustomDecks = [] } = {} } = {},
     isLoading: allCustomDecksLoading,

@@ -50,7 +50,6 @@ const StudentReviewDecks = ({}: StudentReviewDecksProps) => {
   const { localeText } = useLocale();
   const navigate = useNavigate();
 
-  console.log("reviewDecks", reviewDecks);
   return (
     <HomeLayout>
       <div className={styles["StudentReviewDecks"]}>

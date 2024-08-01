@@ -40,7 +40,6 @@ ResultDrawerProps) => {
       return newReasoning;
     });
   };
-  // console.log("ResultDrawer", questions);
   const {
     localeButtons,
     localeTitles,

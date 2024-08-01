@@ -27,7 +27,7 @@ export const useStudentFlashcardsExplore = () => {
   const dispatch = useDispatch();
   const [viewClass, setViewClass] = useState<boolean>(true);
   const [viewClassDetails, setViewClassDetails] = useState<boolean>(false);
-  const [classId, setClassId] = useState<string>();
+  const [classId, setClassId] = useState<string[]>();
   const [modeType, setModeType] = useState<ModeType>("free");
   const navigate = useNavigate();
   const [selectedClasses, setSelectedClasses] = useState<any>([]);
@@ -40,9 +40,6 @@ export const useStudentFlashcardsExplore = () => {
     refetchCustomClasses,
   } = useCustomAllClassesQuery(cookies);
 
-  useEffect(() => {
-    console.log("modeType", modeType);
-  }, [modeType]);
   const {
     handleSubmit,
     control,
@@ -62,7 +59,6 @@ export const useStudentFlashcardsExplore = () => {
     defaultValues: {},
   });
   const handleCheckboxChange = (isChecked: boolean, deck: any) => {
-    console.log("handleCheckboxChange", deck, "isChecked", isChecked);
     if (isChecked) {
       deck.forEach((dck: any) => {
         selectedClasses.push(dck);
@@ -83,7 +79,6 @@ export const useStudentFlashcardsExplore = () => {
     }
   };
 
-
   const handleCheckboxDecks = (isChecked: boolean, deck: any) => {
     if (isChecked) {
       setSelectedDecks([...selectedDecks, deck]);
@@ -99,8 +94,16 @@ export const useStudentFlashcardsExplore = () => {
         // ...prevState,
         ...selectedClasses.flatMap((deck: any) => deck || []),
       ]);
+      setClassId((prevState: any) => [
+        // ...prevState,
+        ...selectedClasses.flatMap((deck: any) => deck?.classId || []),
+      ]);
     }
+    // console.log("selectedClasses", selectedClasses);
   }, [selectedClasses]);
+  // useEffect(() => {
+  //   console.log("classId", classId);
+  // }, [classId]);
 
   const [createLoading, setCreateLoading] = useState<boolean>(false);
 
@@ -118,7 +121,6 @@ export const useStudentFlashcardsExplore = () => {
   };
 
   const openDeleteModal = (id: string) => {
-    console.log("openDeleteModal", id);
     setSelecteClassId(id);
     setDeleteModal(true);
   };
@@ -128,10 +130,7 @@ export const useStudentFlashcardsExplore = () => {
   const { allExams, allExamsLoading, errorAllExams, refetchAllExams } =
     useAllExamsQuery(cookies?.student);
 
-  console.log("allClasses", allClasses);
-
   const onSubmitCreate = async (data: any) => {
-    console.log("onSubmitCreate", data);
     const params = {
       title: data?.title,
     };
@@ -188,5 +187,6 @@ export const useStudentFlashcardsExplore = () => {
     handleCheckboxDecks,
     selectedDecks,
     customClasses,
+    classId,
   };
 };

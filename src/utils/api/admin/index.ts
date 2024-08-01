@@ -25,7 +25,6 @@ export const updateProfessorApi = async (
   professorId: string,
   token: string
 ) => {
-  console.log("updateProfessorApi", data, "id", professorId);
   const response = await apiRequest({
     method: "Put",
     url: `/professor/editProfessor/${professorId}`,
@@ -48,7 +47,6 @@ export const deleteProfessorApi = async (
 };
 
 export const getAllProfessorApi = async (token: string) => {
-  console.log("getAllProfessorApi", token);
   const response = await apiRequest({
     method: "Get",
     url: `/admin/professor/getAll`,
@@ -58,7 +56,6 @@ export const getAllProfessorApi = async (token: string) => {
 };
 
 export const getAllStudentsApi = async (token: string) => {
-  console.log("getAllStudentsApi", token);
   const response = await apiRequest({
     method: "Get",
     url: `/admin/student/getAll`,
@@ -81,7 +78,6 @@ export const changeProfessorStatusApi = async (
   professorId: string,
   token: string
 ) => {
-  console.log("changeProfessorStatusApi", data, "professorId", professorId);
   const response = await apiRequest({
     method: "Put",
     url: `/admin/updateProfessorstatus/${professorId}`,
@@ -106,7 +102,6 @@ export const changeStudentStatusApi = async (
 };
 
 export const createDeckApi = async (data: any, token: string) => {
-  console.log("createDeckApi", data, "token", token);
   const response = await apiRequest({
     method: "Post",
     url: `/admin/createDeck`,
@@ -121,7 +116,6 @@ export const updateDeckApi = async (
   deckId: string,
   token: string
 ) => {
-  console.log("updateDeckApi", data);
   const response = await apiRequest({
     method: "Put",
     url: `/admin/updateDeck/${deckId}`,
@@ -188,7 +182,6 @@ export const updateAdminProfileApi = async (
   adminId: string,
   token: string
 ) => {
-  console.log("updateAdminProfileApi", data, "id", adminId);
   const response = await apiRequest({
     method: "Put",
     url: `/admin/updateAdminProfile/${adminId}`,
@@ -203,7 +196,6 @@ export const resetAdminPasswordApi = async (
   adminId: string,
   token: string
 ) => {
-  console.log("resetAdminPasswordApi", data, "id", adminId);
   const response = await apiRequest({
     method: "Post",
     url: `/admin/resetAdminPassword/${adminId}`,

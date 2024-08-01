@@ -115,7 +115,6 @@ export const useProfessorManagement = () => {
       password: data?.password,
       phone: data?.phone,
     };
-    console.log("params", params);
     try {
       setProfessorLoading(true);
       let response;

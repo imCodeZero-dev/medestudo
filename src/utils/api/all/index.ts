@@ -12,7 +12,6 @@ export const sendOtpToEmailApi = async (data: { email: string }) => {
 };
 
 export const verifyOTPApi = async (data: { otp: string; email: string }) => {
-  console.log("verifyOTPApi", data);
   const response = await apiRequest({
     method: "Post",
     url: `/medestudo/otp/verifyOtp`,

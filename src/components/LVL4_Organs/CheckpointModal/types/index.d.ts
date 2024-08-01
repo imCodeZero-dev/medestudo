@@ -9,6 +9,7 @@ export type CheckpointModalProps = {
   navigateToDashboard: () => void;
   control: Control<any>;
   timeSpent?: string | number;
+  masteryLevel?: string | number;
 };
 export type AllSetModalProps = {
   open: boolean;

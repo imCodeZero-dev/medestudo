@@ -51,7 +51,6 @@ const DecksManagement = ({}: DecksManagementProps) => {
     setExpandedDecks(newExpandedDecks);
   };
 
-  // console.log("allDecks", allDecks);
 
   return (
     <AdminLayout>

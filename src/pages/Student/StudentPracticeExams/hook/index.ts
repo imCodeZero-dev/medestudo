@@ -81,7 +81,6 @@ export const useStudentPracticeExams = () => {
 
   const { allExams, allExamsLoading, errorAllExams, refetchAllExams } =
     useAllExamsQuery(cookies?.student);
-  console.log("allExams", allExams);
 
   useEffect(() => {
     const filteredData = allExams?.map((item: any) => item.title);

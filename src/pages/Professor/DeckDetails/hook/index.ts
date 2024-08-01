@@ -24,6 +24,7 @@ import {
   useAllClassDecksQuery,
   useAllClassesQuery,
   useAllDecksQuery,
+  useClassDetailsQuery,
 } from "../../../../redux/slices/APISlice";
 import { DeckId } from "../../../../utils/constants/DataTypes";
 
@@ -64,8 +65,6 @@ export const useDeckDetails = () => {
 
   const deckId = location?.state;
 
-  // console.log("deckId", deckId);
-
   // const openCreate = useSelector((state: any) => state.modal.isOpen);
   const navigate = useNavigate();
   const [createModal, setCreateModal] = useState(false);
@@ -82,7 +81,6 @@ export const useDeckDetails = () => {
     setDeleteModal(false);
   };
   const openDeleteModal = (id: string) => {
-    console.log("openDeleteModal", id);
     handleCloseOptions();
     setSelectedDeckId(id);
     setDeleteModal(true);
@@ -100,38 +98,39 @@ export const useDeckDetails = () => {
   const { allDecks, allDecksLoading, errorAllDecks, refetchAllDecks } =
     useAllDecksQuery(cookies?.professor?.token);
 
-  console.log("allDecks in deckDetails", allDecks);
+  // const {
+  //   data: { data: { class: classDetails = [] } = {} } = {},
+  //   isLoading: classDetailsLoading,
+  //   error: errorClassDetails,
+  //   refetch: refetchClassDetails,
+  // } = useQuery(
+  //   [
+  //     "classDetails",
+  //     {
+  //       cookies,
+  //       deckId,
+  //     },
+  //   ],
+
+  //   async () => {
+  //     return getClassByIdApi(deckId, cookies?.professor?.token);
+  //   },
+  //   {
+  //     enabled: !!cookies?.professor?.token && !!deckId,
+  //   }
+  // );
 
   const {
-    data: { data: { class: classDetails = [] } = {} } = {},
-    isLoading: classDetailsLoading,
-    error: errorClassDetails,
-    refetch: refetchClassDetails,
-  } = useQuery(
-    [
-      "classDetails",
-      {
-        cookies,
-        deckId,
-      },
-    ],
-
-    async () => {
-      return getClassByIdApi(deckId, cookies?.professor?.token);
-    },
-    {
-      enabled: !!cookies?.professor?.token && !!deckId,
-    }
-  );
+    classDetails,
+    classDetailsLoading,
+    errorClassDetails,
+    refetchClassDetails,
+  } = useClassDetailsQuery(deckId, cookies?.professor);
 
   const { classDecks, classDecksLoading, errorclassDecks, refetchclassDecks } =
     useAllClassDecksQuery(classDetails?._id, cookies?.professor);
 
-  console.log("classDecks", classDecks);
-  // console.log("classDetails", classDetails);
-
   const onSubmitCreate = async (data: any) => {
-    console.log("onSubmitCreate", data);
     const requestData: any = {
       // name: "anxzc",
       deckId: classDetails?.deckId?._id,
@@ -169,10 +168,6 @@ export const useDeckDetails = () => {
       });
     }
 
-    // Now you can send the requestData to your API
-    console.log("API Request Data:", requestData);
-
-    console.log("onSubmitCreate", data);
     try {
       setCreateLoading(true);
       let response;

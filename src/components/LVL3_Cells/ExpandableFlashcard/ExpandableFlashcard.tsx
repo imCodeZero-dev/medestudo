@@ -64,9 +64,7 @@ const ExpandableFlashcard: React.FC<ExpandableFlashcardProps> = ({
   const { isDropdownOpen, toggleDropdown, dropdownRef } = useDropdown();
 
   const subDecks = data?.decks || [];
-  // console.log("subDecks", subDecks);
-  // console.log("selectedData", data);
-  // console.log("selectedDecks", selectedDecks);
+
 
   return (
     <motion.div

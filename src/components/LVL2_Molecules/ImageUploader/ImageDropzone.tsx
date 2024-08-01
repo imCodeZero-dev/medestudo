@@ -60,7 +60,6 @@ const ImageDropzone: React.FC<ImageDropzoneProps> = ({
               >
                 {field.value && typeof field.value === "string" ? (
                   <>
-                    {console.log("fieldValue", field.value)}
                     <img
                       src={field.value}
                       // alt="Uploaded Image"

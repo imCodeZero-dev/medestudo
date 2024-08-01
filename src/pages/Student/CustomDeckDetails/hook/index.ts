@@ -61,12 +61,10 @@ export const useCustomDeckDetails = () => {
     }
   };
   const handleAllSelect = (isChecked: boolean) => {
-    // console.log("handleAllSelect", isChecked);
     if (isChecked) {
       const getAll = allCustomDecks?.flatMap((deck: any) => deck || []);
       setSelectedDecks(getAll);
     } else {
-      // const remove = selectedDecks?.filter((d: any) => d._id !== deck?._id);
       setSelectedDecks([]);
     }
   };
@@ -77,7 +75,6 @@ export const useCustomDeckDetails = () => {
   const deckData = location?.state;
   const mode = location?.state?.mode;
 
-  console.log("deckData in studente", deckData, mode);
 
   // const openCreate = useSelector((state: any) => state.modal.isOpen);
   const navigate = useNavigate();
@@ -162,7 +159,6 @@ export const useCustomDeckDetails = () => {
   // const { allDecks, allDecksLoading, errorAllDecks, refetchAllDecks } =
   //   useAllDecksQuery(cookies?.student?.token);
 
-  console.log("allCustomDecks in deckDetails", allCustomDecks);
 
   // const {
   //   data: { data: { class: classDetails = [] } = {} } = {},
@@ -211,7 +207,6 @@ export const useCustomDeckDetails = () => {
   // console.log("classDetails", classDetails);
 
   const onSubmitClassEdit = async (data: any) => {
-    // console.log("onSubmitCreate", data);
 
     const params = {
       title: data?.title,
@@ -240,7 +235,6 @@ export const useCustomDeckDetails = () => {
   };
 
   const onSubmitCreate = async (data: any) => {
-    console.log("onSubmitCreate", data);
 
     const params = {
       title: data?.deckTitle,
@@ -268,7 +262,6 @@ export const useCustomDeckDetails = () => {
   };
 
   const onSubmitEditDeck = async (data: any) => {
-    // console.log("onSubmitCreate", data);
 
     const params = {
       title: data?.deckTitle,
@@ -340,15 +333,7 @@ export const useCustomDeckDetails = () => {
     navigate(`/student/flashcard/deck?${data}`, { state: data });
   };
 
-  // useEffect(() => {
-  //   console.log("classDetails", classDetails);
-  //   if (allDecks?.length > 0) {
-  //     const currentClass = allDecks?.filter(
-  //       (deck: DeckId) => deck?._id === classDetails?.deckId?._id
-  //     );
-  //     setSpecificDecks(currentClass);
-  //   }
-  // }, [classDetails, allDecks]);
+  
 
   return {
     control,

@@ -16,7 +16,6 @@ const TimerComponent = ({ getTotaltime, stopTimer }: TimerComponentProps) => {
   const { localeText } = useLocale();
 
   useEffect(() => {
-    console.log("stopTimer", stopTimer);
     if (!stopTimer) {
       const timer = setInterval(() => {
         setSeconds((prevSeconds) => prevSeconds + 1);

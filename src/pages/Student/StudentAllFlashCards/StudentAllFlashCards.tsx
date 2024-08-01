@@ -95,8 +95,10 @@ const StudentAllFlashCards = ({}: StudentAllFlashCardsProps) => {
     bookmarkLoading,
     rateArray,
     ratingLoading,
+    ratings,
+    masteryLevel,
+    combine,
   } = useStudentAllFlashCards();
-  // console.log("allDecks", allDecks);
   const navigate = useNavigate();
   const { localeText } = useLocale();
   const [activeSection, setActiveSection] = useState(
@@ -105,14 +107,6 @@ const StudentAllFlashCards = ({}: StudentAllFlashCardsProps) => {
   const [currentStep, setCurrentStep] = useState(2); // Example current step
   const totalSteps = allFlashcards?.length;
   // const [seconds, setSeconds] = useState(0);
-  const ratings = [
-    { label: "New", value: 15, maxValue: 20 },
-    { label: "1", value: 3, maxValue: 20 },
-    { label: "2", value: 4, maxValue: 20 },
-    { label: "3", value: 5, maxValue: 20 },
-    { label: "4", value: 2, maxValue: 20 },
-    { label: "5", value: 1, maxValue: 20 },
-  ];
 
   return (
     <HomeLayout>
@@ -148,6 +142,7 @@ const StudentAllFlashCards = ({}: StudentAllFlashCardsProps) => {
             setRevealAnswer={setRevealAnswer}
             custom={custom}
             toggleBookmark={toggleBookmark}
+            combine={combine}
           />
         </div>
         {/* ))} */}
@@ -180,6 +175,8 @@ const StudentAllFlashCards = ({}: StudentAllFlashCardsProps) => {
           </div>
         ) : (
           <div className={styles["StudentAllFlashCards-right"]}>
+            {/* {combine && (
+              <> */}
             <div className={styles["right-section-main"]}>
               <div className="mb-6">
                 <div className="flex space-x-3 mb-4">
@@ -189,7 +186,9 @@ const StudentAllFlashCards = ({}: StudentAllFlashCardsProps) => {
                   />
                   <div className="flex flex-col justify-center">
                     <Text className={styles["classTitle"]}>
-                      {dummyFlashcardDetails[0]?.title}
+                      {combine
+                        ? localeText.TEXT_CUSTOM
+                        : deckDetails?.classId?.deckId?.name}
                     </Text>
                     <div className="flex items-center space-x-1">
                       <IoIosCheckmarkCircle fill="#1DB954" />
@@ -235,6 +234,7 @@ const StudentAllFlashCards = ({}: StudentAllFlashCardsProps) => {
                   </ButtonGroup>
                 </div>
               </div>
+
               {activeSection === "thisRound" ? (
                 <>
                   <div className={styles["guageBox"]}>
@@ -256,7 +256,7 @@ const StudentAllFlashCards = ({}: StudentAllFlashCardsProps) => {
                 <>
                   <div className={styles["circularProgress"]}>
                     <CircularProgressChart
-                      percentage={85}
+                      percentage={masteryLevel}
                       size={177}
                       strokeWidth={16}
                     />
@@ -277,7 +277,9 @@ const StudentAllFlashCards = ({}: StudentAllFlashCardsProps) => {
                 getTotaltime={getTotalTime}
                 stopTimer={stopTimer}
               />
-            </div>
+            </div>{" "}
+            {/* </>
+            )} */}
           </div>
         )}
         <ConfirmationModal
@@ -299,6 +301,7 @@ const StudentAllFlashCards = ({}: StudentAllFlashCardsProps) => {
           loading={false}
           loadMore={loadMoreFlashcards}
           timeSpent={TotalTime}
+          masteryLevel={masteryLevel}
           navigateToDashboard={navigateToDashboard}
         />
 

@@ -79,8 +79,6 @@ export const useDropdown = () => {
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const toggleDropdown = () => {
-    console.log("buttonPressed");
-
     setIsDropdownOpen((prevState) => !prevState);
   };
 
@@ -104,7 +102,6 @@ export const useDropdown = () => {
 };
 
 export const uploadImageToCloudinary = async (image: File): Promise<string> => {
-  console.log("uploadImageToCloudinary", image);
   const formData = new FormData();
   formData.append("file", image);
   formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
@@ -150,8 +147,9 @@ export const constructUrlWithParamsOccurance = (
   array: string[]
 ) => {
   // const params = array.map((item) => `${item},`).join("&");
+  console.log("constructUrlWithParamsOccurance", array);
   const params = array.join(",");
-  return `${baseUrl}&flashCardId=${params}`;
+  return `${baseUrl}&classId=${params}`;
 };
 
 export function formattedTime(seconds: number) {

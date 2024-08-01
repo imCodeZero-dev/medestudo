@@ -91,7 +91,6 @@ export const useCreateCustomFlashcard = () => {
     refetchallCustomDecks,
   } = useCustomClassDecksQuery(deckData?.classId, cookies?.student);
 
-  console.log("CreateDeckData", deckData);
 
   useEffect(() => {
     if (!deckData) {
@@ -160,7 +159,6 @@ export const useCreateCustomFlashcard = () => {
     }
   };
 
-  // console.log("filteredDecks", filteredDecks);
   return {
     control,
     errors,

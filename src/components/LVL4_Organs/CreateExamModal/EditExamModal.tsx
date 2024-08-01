@@ -31,8 +31,6 @@ const EditExamModal = ({
     localeButtons,
   } = useLocale();
 
-  // const watchVal = watch("institute");
-  // console.log("watchVal", watchVal);
   return (
     <div className={styles[""]}>
       <CustomModal open={open} onClose={handleClose}>

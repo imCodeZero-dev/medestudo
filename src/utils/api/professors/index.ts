@@ -23,7 +23,6 @@ export const createClassApi = async (data: any, token: string) => {
 };
 
 export const deleteClassApi = async (classId: string | null, token: string) => {
-  console.log("deleteClassApi", classId);
   const response = await apiRequest({
     method: "Delete",
     url: `/professor/deleteClassById/${classId}`,
@@ -53,7 +52,6 @@ export const getClassByIdApi = async (classId: string, token: string) => {
 };
 
 export const getClassDecksApi = async (classId: string, token: string) => {
-  console.log("getClassDecksApi", classId);
   const response = await apiRequest({
     method: "Get",
     url: `/professor/getAllDeck/${classId}`,
@@ -67,7 +65,6 @@ export const createClassDeckApi = async (
   classId: string,
   token: string
 ) => {
-  console.log("createClassDeckApi", data);
   const response = await apiRequest({
     method: "Post",
     url: `/professor/createDeck/${classId}`,
@@ -111,7 +108,6 @@ export const deleteClassDeckApi = async (
   deckId: string | null,
   token: string
 ) => {
-  console.log("deleteDeckApi", deckId);
   const response = await apiRequest({
     method: "Delete",
     url: `/professor/deleteDeck/${deckId}`,
@@ -124,7 +120,6 @@ export const deleteFlashcardApi = async (
   flashCardId: string | null,
   token: string
 ) => {
-  console.log("deleteFlashcardApi", flashCardId);
   const response = await apiRequest({
     method: "Delete",
     url: `/professor/deleteFlashCard/${flashCardId}`,
@@ -137,7 +132,6 @@ export const getAllFlashcardsByIdApi = async (
   deckId: string | undefined,
   token: string
 ) => {
-  console.log("getAllFlashcardsByIdApi", deckId);
   const response = await apiRequest({
     method: "Get",
     url: `/professor/getAllFlashCard/${deckId}`,
@@ -147,7 +141,6 @@ export const getAllFlashcardsByIdApi = async (
 };
 
 export const createExamApi = async (data: examForm, token: string) => {
-  console.log("createExamApi", data);
   const response = await apiRequest({
     method: "Post",
     url: `/professor/createExam`,
@@ -171,7 +164,6 @@ export const editExamApi = async (
   examId: string,
   token: string
 ) => {
-  console.log("editExamApi", data, "id", examId);
   const response = await apiRequest({
     method: "Put",
     url: `/professor/updateExam/${examId}`,
@@ -204,7 +196,6 @@ export const createQuestionApi = async (
   examId: string,
   token: string
 ) => {
-  console.log("createQuestionApi", data, "examId", examId);
   const response = await apiRequest({
     method: "Post",
     url: `/professor/createQns/${examId}`,
@@ -219,7 +210,6 @@ export const editQuestionApi = async (
   questionId: string,
   token: string
 ) => {
-  console.log("editQuestionApi", data, "questionId", questionId);
   const response = await apiRequest({
     method: "Put",
     url: `/professor/updateQns/${questionId}`,
@@ -230,7 +220,6 @@ export const editQuestionApi = async (
 };
 
 export const deleteQuestionApi = async (questionId: string, token: string) => {
-  console.log("createQuestionApi", questionId);
   const response = await apiRequest({
     method: "Delete",
     url: `/professor/deleteQns/${questionId}`,
@@ -249,6 +238,7 @@ export const getExamQuestionsApi = async (examId: string, token: string) => {
 };
 
 export const getDeckDetailsApi = async (deckId: string, token: string) => {
+  console.log("getDeckDetailsApi", deckId);
   const response = await apiRequest({
     method: "Get",
     url: `/professor/getDeckByDeckId/${deckId}`,

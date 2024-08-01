@@ -37,9 +37,7 @@ export const useStudentCustomClasses = () => {
   const [selectedClasses, setSelectedClasses] = useState<any>([]);
   const [selectedDecks, setSelectedDecks] = useState<any>([]);
 
-  useEffect(() => {
-    console.log("modeType", modeType);
-  }, [modeType]);
+
   const {
     handleSubmit,
     control,
@@ -166,7 +164,6 @@ export const useStudentCustomClasses = () => {
   };
 
   const getDetailsFlashcards = (data: any) => {
-    // console.log("getDetails", data);
     navigate(`/student/flashcard/deck?${data?._id}`, {
       state: { ...data, mode: "free" },
     });
@@ -177,7 +174,6 @@ export const useStudentCustomClasses = () => {
   };
 
   const startExam = (data: any) => {
-    console.log("startExam", data);
     navigate(`/student/exams/mock/study`, {
       state: {
         selectedYears: [data?.year],
@@ -189,7 +185,6 @@ export const useStudentCustomClasses = () => {
       },
     });
   };
-  // console.log("filteredDecks", filteredDecks);
   return {
     control,
     errors,

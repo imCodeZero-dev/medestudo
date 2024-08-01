@@ -46,14 +46,7 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
         {localeText?.TEXT_ENTER_DETAILS_TO_CONTINUE}
       </Text>
       <div className="my-2">
-        {/* <GoogleLogin
-          onSuccess={(credentialResponse) => {
-            console.log(credentialResponse);
-          }}
-          onError={() => {
-            console.log("Login Failed");
-          }}
-        /> */}
+       
         <Button
           className="primary"
           onClick={loginGoogle}

@@ -51,7 +51,6 @@ export const useCreateExamQuestion = () => {
   const dispatch = useDispatch();
   const examId = location?.state;
 
-  // console.log("examId", examId);
 
   type FormData = {
     answers: {
@@ -116,7 +115,6 @@ export const useCreateExamQuestion = () => {
     }
   }, [examId]);
 
-  // console.log("allSubjects", allSubjects);
 
   const {
     handleSubmit,
@@ -188,7 +186,6 @@ export const useCreateExamQuestion = () => {
   // console.log("examsDetails", examsDetails);
 
   const onSubmitCreate = async (data: any) => {
-    console.log("onSubmitCreate", data);
     const hasCorrectAnswer = data?.answers?.some(
       (answer: any) => answer?.isCorrect
     );
@@ -200,7 +197,6 @@ export const useCreateExamQuestion = () => {
   };
 
   const onSubmitEditQuestion = async (data: any) => {
-    console.log("onSubmitEditQuestion", data);
     const hasCorrectAnswer = data?.answers?.some(
       (answer: any) => answer?.isCorrect
     );

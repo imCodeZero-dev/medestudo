@@ -46,9 +46,7 @@ const FlashcardsManagement = ({}: FlashcardsManagementProps) => {
     }
   }, [dashboardData]);
 
-  console.log("currentMonthData", currentMonthData);
-  console.log("prevMonthData", prevMonthData);
-  console.log("dashboardData", dashboardData);
+
 
   const cards = [
     {
@@ -81,10 +79,7 @@ const FlashcardsManagement = ({}: FlashcardsManagementProps) => {
 
   const headers = ["ID", "Question", "Answer", "Created On"];
 
-  const handleStatusToggle = (data: any) => {
-    console.log("handleStatusToggle", data);
-  };
-  // console.log("allFlashcards", allFlashcards);
+ 
 
   return (
     <AdminLayout>

@@ -70,7 +70,6 @@ const StudentFormPage = (props: any) => {
     },
   }));
 
-  // console.log("modifiedSubjects", modifiedSubjects);
 
   return (
     <div className={styles["StudentFormPage"]}>

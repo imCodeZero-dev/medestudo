@@ -101,7 +101,12 @@ export const useProfessorSettings = () => {
       setCookie(
         "professor",
         { ...cookies.professor, professor: response?.data?.professor },
-        { maxAge: 86400 }
+        {
+          expires: new Date(Date.now() + 86400 * 1000), // 1 day
+          path: "/",
+          sameSite: "strict",
+          secure: true,
+        }
       );
       showSuccessToast(localeSuccess?.SUCCESS_GENERAL_INFO_UPDATED);
     } catch (error: any) {
@@ -113,14 +118,12 @@ export const useProfessorSettings = () => {
   };
 
   const onSubmitImage = async (data: any) => {
-    console.log("onSubmitImage params", data);
     setProfilePicLoading(true);
     let imageUrl = "";
     imageUrl = await uploadImageToCloudinary(data?.pic);
     const params = {
       pic: imageUrl,
     };
-    console.log("onSubmitImage params", params);
     try {
       let response;
       response = await professorUpdateProfilePictureApi(
@@ -133,7 +136,12 @@ export const useProfessorSettings = () => {
       setCookie(
         "professor",
         { ...cookies.professor, professor: response?.data?.professor },
-        { maxAge: 86400 }
+        {
+          expires: new Date(Date.now() + 86400 * 1000), // 1 day
+          path: "/",
+          sameSite: "strict",
+          secure: true,
+        }
       );
       showSuccessToast(localeSuccess?.SUCCESS_PROFILE_PICTURE_UPDATED);
     } catch (error: any) {
@@ -145,7 +153,6 @@ export const useProfessorSettings = () => {
   };
 
   const onSubmitPassword = async (data: any) => {
-    console.log("onSubmitPassword", data);
     const params = {
       currentPassword: data?.currentPassword,
       newPassword: data?.newPassword,
@@ -170,9 +177,7 @@ export const useProfessorSettings = () => {
       setPasswordLoading(false);
     }
   };
-  const onSubmitPrivacy = async (data: any) => {
-    console.log("params", data);
-  };
+  const onSubmitPrivacy = async (data: any) => {};
 
   return {
     control,

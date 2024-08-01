@@ -35,7 +35,6 @@ export const useAllFlashCards = () => {
   const [cookies] = useCookies(["professor"]);
   const dispatch = useDispatch();
   const { deckId } = useParams();
-  // console.log("AllFlashCards", deckId);
   const {
     handleSubmit,
     control,
@@ -92,7 +91,6 @@ export const useAllFlashCards = () => {
     setKey((prevKey) => prevKey + 1);
   };
 
-  // console.log("flashcardData", flashcardData);
 
   const { allClasses, allClassesLoading, errorAllClasses, refetchAllClasses } =
     useAllClassesQuery(cookies);
@@ -125,7 +123,6 @@ export const useAllFlashCards = () => {
     }
   );
 
-  // console.log("deckDetails", deckDetails);
 
   const getDetails = (data: string) => {
     navigate(`/professor/classes/deck?${data}`, { state: data });

@@ -106,7 +106,6 @@ export const useAdminDashboard = () => {
     errorAllStudents,
   } = useStudentsQuery(cookies as AdminCookies);
 
-  // console.log("allProfessors", allProfessors);
 
   const onSubmitCreateProfessor = async (data: any) => {
     const params = {
@@ -115,7 +114,6 @@ export const useAdminDashboard = () => {
       password: data?.password,
       phone: data?.phone,
     };
-    console.log("params", params);
     try {
       setProfessorLoading(true);
       let response;

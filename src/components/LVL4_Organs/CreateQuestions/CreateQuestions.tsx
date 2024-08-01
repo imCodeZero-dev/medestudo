@@ -34,7 +34,6 @@ const CreateQuestions = ({
     localeButtons,
   } = useLocale();
 
-  // console.log("allTags", allTags);
   return (
     <div className={styles["CreateQuestions"]}>
       <form onSubmit={handleSubmit(onSubmit)} className={styles["form"]}>

@@ -39,7 +39,6 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
     { label: "Institute", route: "/admin/institute" },
   ];
   const getNavItemClassName = (label: string) => {
-    // console.log("label", label);
     let isActive;
     if (label === "Dashboard" && location.pathname === "/admin") {
       isActive = true;

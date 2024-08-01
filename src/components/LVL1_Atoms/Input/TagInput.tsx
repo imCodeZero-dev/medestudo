@@ -36,7 +36,6 @@ const TagInput: React.FC<TagInputProps> = ({
               placeholder={placeholder}
               onChange={(selectedTags: any) => field.onChange(selectedTags)}
             />
-            {errors && console.log("SelectErrors", errors)}{" "}
             {/* Log errors to the console */}
             {errors && (
               <ErrorMessage errors={`${errors?.[name]?.message as any}`} />

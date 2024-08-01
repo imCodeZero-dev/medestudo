@@ -12,7 +12,6 @@ interface Props {
 export const AuthRoutes = ({ children }: Props) => {
   const navigate = useNavigate();
   const [cookies] = useCookies(["student"] as any);
-  console.log("object", cookies.accessToken);
 
   // useEffect(() => {
   //   if (cookies?.accessToken) {

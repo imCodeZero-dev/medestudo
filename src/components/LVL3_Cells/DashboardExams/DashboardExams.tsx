@@ -24,7 +24,6 @@ const DashboardExams: React.FC<DashboardExamsProps> = ({
 }) => {
   const { localeText } = useLocale();
   const { isDropdownOpen, toggleDropdown, dropdownRef } = useDropdown();
-  // console.log("isDropdownOpen", isDropdownOpen);
 
   return (
     <div className={styles["DashboardExams"]}>

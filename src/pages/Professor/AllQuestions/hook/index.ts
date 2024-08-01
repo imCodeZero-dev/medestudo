@@ -41,7 +41,6 @@ export const useAllQuestions = () => {
   const [cookies] = useCookies(["professor"]);
   const dispatch = useDispatch();
   const { examId } = useParams();
-  // console.log("AllQuestion Exams", examId);
   const {
     handleSubmit,
     control,
@@ -76,8 +75,7 @@ export const useAllQuestions = () => {
     location?.currentIndex
   );
   const examDetails = location?.examsDetails;
-  // console.log("AllQuestion Exams", location);
-  // console.log("AllQuestion Exams", examDetails);
+
 
   const [editModal, setEditModal] = useState(false);
 
@@ -128,11 +126,7 @@ export const useAllQuestions = () => {
 
   const { refetchAllExams } = useAllExamsQuery(cookies?.professor);
 
-  // console.log("examQuestions", examQuestions);
-
-  // const getDetails = (data: string) => {
-  //   navigate(`/professor/classes/deck?${data}`, { state: data });
-  // };
+ 
 
   const handleNextQuestion = () => {
     setCurrentQuestionIndex((prevIndex) =>

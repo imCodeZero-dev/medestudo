@@ -30,7 +30,6 @@ const ProfileInfo = ({
   const { localeTitles, localeLables, localePlaceholders, localeButtons } =
     useLocale();
   const watchImg = watch("pic");
-  console.log("watchImg", watchImg);
 
   return (
     <div className={styles.ProfileInfo}>

@@ -105,7 +105,6 @@ const BarChartComponent: React.FC<BarChartComponentProps> = ({
   };
 
   useEffect(() => {
-    console.log("chartData", data);
     // Convert the new data format to match the format expected by Recharts
     const formattedData = data.map((item: any, index: number) => ({
       name: item.month,
@@ -126,11 +125,9 @@ const BarChartComponent: React.FC<BarChartComponentProps> = ({
       formattedData[formattedData.length - 2]?.Questions
     ).toFixed(2);
     setProgress({ questionProgress, deckProgress });
-    // console.log("formattedData", formattedData);
-    console.log("formattedData", formattedData);
+
   }, [data, activeButton]);
-  console.log("progress", progress);
-  // console.log("chartData", chartData[chartData?.length - 2]);
+
 
   return (
     <div className={`${styles.chartContainer}`} ref={chartContainerRef}>

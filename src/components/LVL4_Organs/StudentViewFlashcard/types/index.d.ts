@@ -38,6 +38,7 @@ export type StudentViewFlashcardProps = {
     },
     undefined
   >;
+  combine?: boolean;
   revealAnswer?: boolean;
   custom?: boolean;
   setRevealAnswer?: SetStateAction;

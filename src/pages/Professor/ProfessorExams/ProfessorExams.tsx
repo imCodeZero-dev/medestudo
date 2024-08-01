@@ -57,8 +57,7 @@ const ProfessorExams = ({}: ProfessorExamsProps) => {
     filteredArray,
     clearFilter,
   } = useProfessorExams();
-  // console.log("cookies", cookies);
-  // console.log("allExams", allExams);
+  
   const dispatch = useDispatch();
 
   const navigate = useNavigate();

@@ -21,7 +21,6 @@ const AvatarUploader: React.FC<AvatarUploaderProps> = ({
 }) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  console.log("watchName", watch(name));
   const fieldValue = watch(name);
 
   return (

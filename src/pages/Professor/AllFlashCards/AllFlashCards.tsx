@@ -49,7 +49,6 @@ const AllFlashCards = ({}: AllFlashCardsProps) => {
     deckDetails,
     key,
   } = useAllFlashCards();
-  // console.log("allDecks", allDecks);
   const navigate = useNavigate();
   const { localeText } = useLocale();
 

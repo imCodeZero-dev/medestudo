@@ -9,7 +9,6 @@ import { baseURL } from "../../utils/constants/constants";
 // export const baseUrl = "http://18.157.101.14:3001/v1";
 const baseUrl = baseURL;
 axios.defaults.baseURL = baseUrl;
-console.log("baseUrl", baseUrl);
 axios.defaults.headers.post["Content-Type"] = "application/json";
 axios.defaults.responseType = "json";
 

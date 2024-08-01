@@ -91,7 +91,6 @@ const CustomDeckDetails = ({}: CustomDeckDetailsProps) => {
     onSubmitEditDeck,
     allCustomDecksLoading,
   } = useCustomDeckDetails();
-  console.log("specificDecks", specificDecks);
   const navigate = useNavigate();
   const { localeText } = useLocale();
   const { isDropdownOpen, toggleDropdown, dropdownRef } = useDropdown();
@@ -102,19 +101,16 @@ const CustomDeckDetails = ({}: CustomDeckDetailsProps) => {
   );
 
   const navigateToViewFlashcard = (deck: any) => {
-    console.log("navigateToViewFlashcard", deck);
     navigate(`/student/flashcard/deck/flashcard/custom`, {
       state: { ...deck, mode },
     });
   };
 
   const navigateToCreateFlashcard = (deck: any) => {
-    // console.log("navigateToCreateFlashcard", deck);
     navigate("/student/classes/custom/flashcard", { state: deck });
   };
 
   const navigateToViewFlashcardCustom = (deck: any) => {
-    console.log("navigateToViewFlashcard", deck);
     navigate(`/student/flashcard/deck/flashcard/combine`, {
       state: { ids: deck, mode },
     });

@@ -81,7 +81,6 @@ const CustomTable: React.FC<CustomTableProps> = ({
     )
   );
 
-  // console.log("filteredData", filteredData);
 
   const totalPages = Math.ceil(data?.length / rowsPerPage);
 

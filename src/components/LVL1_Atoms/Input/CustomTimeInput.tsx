@@ -22,7 +22,6 @@ const CustomTimeInput: React.FC<CustomInputProps> = ({
       defaultValue={min}
       render={({ field: { onChange, value }, formState: { errors } }) => (
         <>
-          {console.log("currentTime", value)}
           <div className={styles.inputContainer}>
             <label className={styles.label}>{label}</label>
             {readOnly ? (

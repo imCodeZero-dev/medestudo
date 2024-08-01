@@ -76,7 +76,6 @@ export const useInstituteManagement = () => {
     refetchAllInstitute,
   } = useAllInstituteQuery("admin");
   // console.log("cookies", cookies);
-  console.log("allInstitute", allInstitute);
 
   const onDeleteConfirm = async () => {
     try {
@@ -98,7 +97,6 @@ export const useInstituteManagement = () => {
     }
   };
   const onSubmitCreate = async (data: any) => {
-    console.log("params", data);
     try {
       setCreateLoading(true);
       let response;

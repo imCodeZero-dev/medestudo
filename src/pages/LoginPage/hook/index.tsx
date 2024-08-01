@@ -86,7 +86,6 @@ export const useLoginPage = () => {
   };
 
   const onSubmitForgotEmail = async (data: any) => {
-    console.log("onSubmitForgotEmail", data);
     const params = {
       email: data?.forgotEmail,
     };
@@ -128,8 +127,6 @@ export const useLoginPage = () => {
   };
 
   const onSubmitOTP = async (data: any) => {
-    console.log("onSubmitOTP", data);
-    // console.log("onSubmitOTP json", JSON.parse(localStorage.getItem("email")));
     const params = {
       otp: data?.otp?.join(""),
       email: data?.forgotEmail,

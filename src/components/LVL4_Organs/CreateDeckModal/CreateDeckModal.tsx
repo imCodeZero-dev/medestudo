@@ -38,15 +38,11 @@ const CreateDeckModal = ({
     localePlaceholders,
     localeButtons,
   } = useLocale();
-  console.log("filteredDecks", filteredDecks);
   const subDeck = watch("subDeck");
   const nestedsubDeck = watch("nestedSubDeck");
   const deepNestedsubDeck = watch("deepNestedsubDeck");
-  // console.log("selectedChapter", nestedsubDeck);
 
-  // const handleChapterChange = (selectedOption) => {
-  //   setValue("chapter", selectedOption); // Update the value of the 'chapter' field
-  // };
+
 
   return (
     <div className={styles["CreateDeckModal"]}>

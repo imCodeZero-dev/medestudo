@@ -97,7 +97,6 @@ export const useQuestionsManagement = () => {
       password: data?.password,
       phone: data?.phone,
     };
-    console.log("params", params);
     try {
       setProfessorLoading(true);
       let response;
@@ -119,15 +118,12 @@ export const useQuestionsManagement = () => {
     //   password: data?.password,
     //   phone: data?.phone,
     // };
-    // console.log("params", params);
     // try {
     //   setProfessorLoading(true);
     //   let response;
     //   response = await createProfessorApi(params, cookies?.admin?.token);
-    //   console.log("response", response);
     //   showSuccessToast(localeSuccess?.SUCCESS_PROFESSOR_CREATED);
     // } catch (error: any) {
-    //   console.log("error", error);
     //   showErrorToast(error?.response?.data?.message);
     // } finally {
     //   setProfessorLoading(false);

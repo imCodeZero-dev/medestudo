@@ -158,7 +158,6 @@ export const useStudentResult = () => {
     const filteredData = allResult?.filter((item: examCardData) => {
       const getMonth = dayjs(item?.createdAt).format("MMMM");
       const getYear = dayjs(item?.createdAt).format("YYYY");
-      // console.log("getYear", getYear);
       if (!year && !month && !title) {
         return true;
       }
@@ -183,7 +182,6 @@ export const useStudentResult = () => {
     }
 
     setFilteredArray(filterType);
-    console.log("allResult", allResult);
   }, [allResult, year, month, title, type]);
 
   return {

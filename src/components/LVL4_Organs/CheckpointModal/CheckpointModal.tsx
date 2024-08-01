@@ -21,7 +21,7 @@ const CheckpointModal = ({
   control,
   loading,
   timeSpent,
-  navigateToDashboard,
+  navigateToDashboard,masteryLevel
 }: CheckpointModalProps) => {
   const {
     localeTitles,
@@ -42,7 +42,7 @@ const CheckpointModal = ({
           </Text>
           <div className={styles["chartDiv"]}>
             <CircularProgressChart
-              percentage={95}
+              percentage={masteryLevel}
               size={177}
               strokeWidth={16}
             />

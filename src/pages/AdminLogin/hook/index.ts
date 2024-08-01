@@ -39,7 +39,6 @@ export const useAdminLogin = () => {
   });
 
   const onSubmit = async (data: any) => {
-    console.log("loginForm", data);
     const params = {
       email: data?.email,
       password: data?.password,

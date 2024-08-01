@@ -68,7 +68,6 @@ export const useProfessorClasses = () => {
   };
 
   const openDeleteModal = (id: string) => {
-    console.log("openDeleteModal", id);
     setSelecteClassId(id);
     setDeleteModal(true);
   };
@@ -80,7 +79,6 @@ export const useProfessorClasses = () => {
 
   const { allDecks, allDecksLoading, errorAllDecks, refetchAllDecks } =
     useAllDecksQuery(cookies?.professor?.token);
-  // console.log("allClasses", allClasses);
 
   const onSubmitCreate = async (data: any) => {
     const params = {
@@ -94,7 +92,6 @@ export const useProfessorClasses = () => {
       showErrorToast("This class already exists.");
       return;
     } else {
-      console.log("onSubmitCreate", data);
       try {
         setCreateLoading(true);
         let response;
@@ -140,7 +137,6 @@ export const useProfessorClasses = () => {
     navigate(`/professor/exams/exam?${data}`, { state: data });
   };
 
-  // console.log("filteredDecks", filteredDecks);
   return {
     control,
     handleSubmit,

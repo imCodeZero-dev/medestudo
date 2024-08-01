@@ -55,7 +55,6 @@ export const useProfessorExams = () => {
     },
   });
 
-  // console.log("watchInst", watchInst);
 
   const { allDecks, allDecksLoading, errorAllDecks, refetchAllDecks } =
     useAllDecksQuery(cookies?.professor?.token);
@@ -67,7 +66,6 @@ export const useProfessorExams = () => {
     refetchAllInstitute,
   } = useAllInstituteQuery();
 
-  // console.log("allInstitute", allInstitute);
 
   const { allExams, allExamsLoading, errorAllExams, refetchAllExams } =
     useAllExamsQuery(cookies?.professor);
@@ -105,7 +103,6 @@ export const useProfessorExams = () => {
   };
 
   const onSubmitEdit = async (data: any) => {
-    console.log("onSubmitEdit", data);
     const params = {
       title: data?.title,
       institute: data?.institute?.label,
@@ -133,7 +130,6 @@ export const useProfessorExams = () => {
   };
 
   const onSubmitCreate = async (data: any) => {
-    console.log("onSubmitCreate", data);
     const params = {
       title: data?.title,
       institute: data?.institute?.label,
@@ -178,7 +174,6 @@ export const useProfessorExams = () => {
   };
 
   const getDetails = (data: string) => {
-    console.log("getDetails", data);
     navigate(`/professor/exams/exam?${data}`, { state: data });
   };
 
@@ -204,7 +199,6 @@ export const useProfessorExams = () => {
   const title = watch("filter_title");
   const watchSearch = watch("name");
   useEffect(() => {
-    console.log("year", year, "institute", institute, "title", title);
     const filteredData = allExams?.filter((item: examCardData) => {
       if (!year && !institute && !title && !watchSearch) {
         return true;
@@ -220,7 +214,6 @@ export const useProfessorExams = () => {
 
     setFilteredArray(filteredData);
   }, [allExams, year, institute, title, watchSearch]);
-  console.log("filteredArray", filteredArray);
   return {
     control,
     errors,

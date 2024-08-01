@@ -32,7 +32,6 @@ const StudentManagement = ({}: StudentManagementProps) => {
     handleDeleteClose,
     statusLoading,
   } = useStudentManagement();
-  // console.log("allStudents", allStudents);
 
   const cards = [
     {

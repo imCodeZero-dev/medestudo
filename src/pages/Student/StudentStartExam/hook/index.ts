@@ -28,7 +28,6 @@ export const useStudentStartExam = () => {
   const [cookies] = useCookies(["student"]);
   const dispatch = useDispatch();
   const { examId } = useParams();
-  // console.log("AllQuestion Exams", examId);
   const {
     handleSubmit,
     control,
@@ -76,12 +75,10 @@ export const useStudentStartExam = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
   const [countdown, setCountdown] = useState<number>(5); // Initialize with the desired time in seconds
 
-  console.log("AllQuestion Exams", location);
-  // console.log("pathName", pathName);
+
 
   const practice = pathName?.includes("practice");
-  // console.log("practice", practice);
-  // console.log("AllQuestion Exams", examDetails);
+
   const questionTime = location?.time;
   // const questionTime = location?.totalQuestions * 5;
   const params = {
@@ -102,16 +99,7 @@ export const useStudentStartExam = () => {
     setCountdown(questionTime);
   }, [questionTime]);
 
-  // console.log("allQuestions params", params);
-  // console.log("allQuestions", allQuestions);
 
-  // const openEditModal = (data: examCardData) => {
-  //   // setSelectedExamId(data?._id);
-  //   setEditModal(true);
-  //   setValue("title", data?.title);
-  //   setValue("institute", data?.institute);
-  //   setValue("year", data?.year);
-  // };
 
   const toggleReveal = () => [setRevealedAnswer(!revealedAnswer)];
 

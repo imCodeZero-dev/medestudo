@@ -50,17 +50,6 @@ const LoginPage = (props: any) => {
     registerGoogle,
   } = useLoginPage();
 
-  // console.log("pathName", pathName);
-
-  // const [viewPassword, setViewPassword] = useState<boolean>(false);
-
-  // const handleView = () => {
-  //   setViewPassword(!viewPassword);
-  // };
-  // const navigate = useNavigate();
-  // const [viewPassword, setViewPassword] = useState<boolean>(false);
-
-  // const { control, handleSubmit, facebookLogin } = useLoginPage();
 
   return (
     <div className={styles["login"]}>

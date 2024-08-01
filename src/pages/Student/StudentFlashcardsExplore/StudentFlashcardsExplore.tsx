@@ -54,12 +54,13 @@ const StudentFlashcardsExplore = ({}: StudentFlashcardsExploreProps) => {
     handleCheckboxDecks,
     selectedDecks,
     customClasses,
+    classId,
   } = useStudentFlashcardsExplore();
 
   const navigate = useNavigate();
   const navigateToStudy = (ids: any) => {
     navigate(`/student/flashcard/deck/flashcard/combine`, {
-      state: { ids: ids, mode: modeType },
+      state: { ids: ids, classIds: classId, mode: modeType },
     });
   };
 

@@ -99,7 +99,6 @@ export const provideRateToCardApi = async (data: any, token: string) => {
 };
 
 export const createCustomClassApi = async (data: any, token: string) => {
-  console.log("createCustomClassApi", data, "token", token);
   const response = await apiRequest({
     method: "Post",
     url: `/user/createClass`,
@@ -122,7 +121,6 @@ export const getCustomClassDecksApi = async (
   classId: string,
   token: string
 ) => {
-  console.log("getCustomClassDecksApi", classId, "token", token);
   const response = await apiRequest({
     method: "get",
     url: `/user/getDeckByClassId/${classId}`,
@@ -162,7 +160,6 @@ export const editCustomDecksApi = async (
 };
 
 export const deleteCustomDecksApi = async (deckId: string, token: string) => {
-  console.log("deleteCustomDecksApi", deckId, "token", token);
   const response = await apiRequest({
     method: "Delete",
     url: `/user/deleteDeck/${deckId}`,
@@ -172,9 +169,9 @@ export const deleteCustomDecksApi = async (deckId: string, token: string) => {
 };
 
 export const startStudyingApi = async (data: any, token: string) => {
-  console.log("startStudyingApi", data, token);
+  console.log("startStudyingApi", data);
+
   const fullUrl = constructUrlWithParams("/user/startStudyingDecks", data);
-  console.log("startStudyingApi, fullUrl", fullUrl);
   const response = await apiRequest({
     method: "Get",
     url: fullUrl,
@@ -297,7 +294,6 @@ export const deleteCustomClassApi = async (classId: string, token: string) => {
 };
 
 export const getReviewDecksApi = async (studentId: string, token: string) => {
-  console.log("getReviewDecksApi", "studentId", studentId);
   const response = await apiRequest({
     method: "Get",
     url: `/user/reviewDecks/${studentId}`,
@@ -308,7 +304,6 @@ export const getReviewDecksApi = async (studentId: string, token: string) => {
 };
 
 export const getAllQuesitonsApi = async (data: any, token: string) => {
-  console.log("getAllQuesitonsApi", data);
   const response = await apiRequest({
     method: "Post",
     url: `/user/getAllQuestions`,
@@ -329,7 +324,6 @@ export const getAllResultApi = async (token: string) => {
 };
 
 export const createResultApi = async (data: any, token: string) => {
-  console.log("getAllResultApi", data);
   const response = await apiRequest({
     method: "Post",
     url: `/user/createResult`,
@@ -392,11 +386,12 @@ export const resetStudentPasswordApi = async (
 };
 
 export const ratingOccuranceApi = async (data: any, token: string) => {
+  console.log("ratingOccuranceApi", data);
   const fullUrl = constructUrlWithParamsOccurance(
     `/user/occurance?studentId=${data?.studentId}`,
-    data?.flashcards
+    data?.classId
   );
-  console.log("ratingOccuranceApi", fullUrl);
+  console.log("ratingOccuranceApi >>", fullUrl);
   const response = await apiRequest({
     method: "get",
     url: fullUrl,

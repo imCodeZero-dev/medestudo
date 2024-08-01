@@ -67,7 +67,6 @@ export const useAdminProfile = () => {
   const AdminImage = watch("image");
   const oldImg = watch("oldImg");
   const onSubmitUpdateAdmin = async (data: any) => {
-    console.log("onSubmitUpdateAdmin", data);
     try {
       setProfileLoading(true);
 
@@ -157,7 +156,6 @@ export const useAdminProfile = () => {
   }, [AdminImage, oldImg]);
 
   const onSubmitResetPasswordAdmin = async (data: any) => {
-    // console.log("onSubmitResetPasswordAdmin", data);
     try {
       setResetLoading(true);
 

@@ -32,16 +32,13 @@ const ViewQuestions: React.FC<ViewQuestionsProps> = ({
   editLoading,
   watch,
 }) => {
-  // console.log("allQuestion", allQuestion[currentIndex]?.question);
-  // console.log("allQuestion watch", watch("questionImage"));
+
   const { localeTitles, localePlaceholders, localeButtons, localeText } =
     useLocale();
-  // console.log("allTags", allTags);
   const navigate = useNavigate();
   const [key, setKey] = useState(0);
 
   const navigateToEditQuestion = (exam: any) => {
-    // console.log("navigateToEditQuestion", exam);
     navigate(`/professor/exams/exam/question`, {
       state: { ...exam, status: "edit" },
     });
@@ -55,7 +52,6 @@ const ViewQuestions: React.FC<ViewQuestionsProps> = ({
   const handleCloseSeeSolution = () => {
     setViewSeeSolution(false);
   };
-  // console.log("filteredTags", filteredTags);
   return (
     <div className={styles["ViewQuestions"]}>
       {loading ? (

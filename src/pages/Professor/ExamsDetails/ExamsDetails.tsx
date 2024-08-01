@@ -57,11 +57,9 @@ const ExamsDetails = ({}: ExamsDetailsProps) => {
     examQuestions,
     updatedInstitutes,
   } = useExamsDetails();
-  // console.log("allDecks", allDecks);
   const navigate = useNavigate();
   const { localeText } = useLocale();
 
-  console.log("examQuestions", examQuestions);
   const watchSearch = watch("name");
   const filteredExams = watchSearch
     ? examQuestions?.filter((data: any) =>
@@ -71,16 +69,13 @@ const ExamsDetails = ({}: ExamsDetailsProps) => {
 
   // const examId = location?.state;
 
-  console.log("examQuestions?.length", examQuestions);
   const navigateToCreateQuestion = (exam: any) => {
-    // console.log("navigateToCreateFlashcard", exam);
     navigate("/professor/exams/exam/question", {
       state: { ...exam, status: "create" },
     });
     // navigate("/professor/classes/deck/flashcard", { state: deck });
   };
   const navigateToEditQuestion = (exam: any) => {
-    // console.log("navigateToEditQuestion", exam);
     navigate(`/professor/exams/exam/question`, {
       state: { ...exam, status: "edit" },
     });

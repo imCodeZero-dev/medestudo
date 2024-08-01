@@ -50,7 +50,6 @@ const CreateExamQuestion = ({}: CreateExamQuestionProps) => {
     { isCorrect: false, text: "", reason: "", image: null },
   ]);
 
-  // console.log("modifiedSubjects", modifiedSubjects);
   const handleIsCorrectChange = (index: number) => {
     answers.forEach((answer, i) => {
       if (i !== index) {
