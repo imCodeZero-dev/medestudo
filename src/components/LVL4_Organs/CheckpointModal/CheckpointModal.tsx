@@ -42,7 +42,7 @@ const CheckpointModal = ({
           </Text>
           <div className={styles["chartDiv"]}>
             <CircularProgressChart
-              percentage={masteryLevel}
+              percentage={Number(masteryLevel)}
               size={177}
               strokeWidth={16}
             />
