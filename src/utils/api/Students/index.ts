@@ -19,7 +19,7 @@ export const googleLoginApi = async () => {
   // console.log("studentRegistrationApi", data);
   const response = await apiRequest({
     method: "get",
-    url: `https://medestudo.onrender.com/api/v1/auth/google`,
+    url: `https://api.medestudo.com/api/v1/auth/google`,
   });
   return response;
 };

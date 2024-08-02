@@ -3,13 +3,14 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 // import fontF from "../assets/Fonts/static/Inter-Regular.ttf";
 import fontF from "../assets/Fonts/static/Inter-Regular.ttf";
-import Home from "../pages/Home/Home";
 import AuthVerification from "../pages/AuthVerification";
 // import "../index.css";
 
 const LoadingScreen = React.lazy(
   () => import("../pages/LoadingScreen/LoadingScreen")
 );
+
+const Home = React.lazy(() => import("../pages/Home/Home"));
 const NotFound = React.lazy(() => import("../pages/NotFound"));
 const AdminLogin = React.lazy(() => import("../pages/AdminLogin/AdminLogin"));
 const AdminDashboardServices = React.lazy(
