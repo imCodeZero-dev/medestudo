@@ -272,13 +272,13 @@ export const useLoginPage = () => {
   };
   const registerGoogle = async () => {
     window.location.href =
-      "http://medestudo.onrender.com/api/v1/register/google";
+      "https://api.medestudo.com/api/v1/register/google";
   };
   const loginGoogle = async () => {
     // const newWindow = window.open(
     //   "https://medestudo.onrender.com/api/v1/auth/google"
     // );
-    window.location.href = "https://medestudo.onrender.com/api/v1/auth/google";
+    window.location.href = "https://api.medestudo.com/api/v1/auth/google";
   };
 
   return {
