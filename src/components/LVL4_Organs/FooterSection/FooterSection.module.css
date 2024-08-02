@@ -15,13 +15,16 @@
   width: 100%;
   /* max-width: 90%; */
   padding: 0 24px;
+  flex-wrap: wrap;
 }
 
 .column {
   flex: 1;
   margin: 0 20px;
 }
-
+.column > ul {
+  text-align: justify;
+}
 .columnTitle {
   font-weight: bold;
   margin-bottom: 20px;
@@ -115,7 +118,7 @@
     flex-direction: row;
     align-items: center;
     padding: 12px;
-    flex-wrap: wrap;
+
     column-gap: 32px;
   }
 

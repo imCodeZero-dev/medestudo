@@ -6,6 +6,7 @@ import { FaFacebookF, FaInstagram, FaLinkedinIn } from "react-icons/fa";
 import logo from "../../../assets/Images/Landing/MEDESTUDO.png";
 import useLocale from "../../../locales";
 import { AiOutlineYoutube } from "react-icons/ai";
+import { BiMessage, BiPhone } from "react-icons/bi";
 
 const FooterSection = () => {
   const { localeTitles } = useLocale();
@@ -41,8 +42,19 @@ const FooterSection = () => {
         <div className={styles.column}>
           <h4 className={styles.columnTitle}> {localeTitles.TITLE_CONTACT}</h4>
           <ul className={styles.list}>
-            <li>E: info@medestudo.com</li>
-            <li>P: +12341241445</li>
+            <li className="inline-flex space-x-1">
+              {" "}
+              <div className={styles.iconDiv}>
+                <BiMessage className="" />
+              </div>
+              <span>info@medestudo.com</span>
+            </li>
+            <li className="inline-flex space-x-1">
+              <div className={styles.iconDiv}>
+                <BiPhone />
+              </div>
+              <span>+12341241445</span>
+            </li>
           </ul>
         </div>
         <div className={styles.column}>
